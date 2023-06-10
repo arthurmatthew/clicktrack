@@ -1,9 +1,9 @@
 const Index = () => {
   return (
     <>
-      <section className="flex flex-col items-center justify-center">
+      <section className="flex flex-col items-center justify-center px-2">
         <div className="mx-auto flex max-w-5xl flex-col justify-center pt-20">
-          <h1 className="text-center text-7xl font-black text-purple-200">
+          <h1 className="text-center text-5xl font-black text-purple-200 sm:text-7xl">
             The only metronome you'll ever need.
           </h1>
           <p className="lora mx-2 mt-10 text-center text-lg text-purple-200">
@@ -14,7 +14,7 @@ const Index = () => {
             friendly interface allows you to build your own clicktrack and
             optimize your practice session.
           </p>
-          <div className="mt-10 flex justify-center gap-2">
+          <div className="mt-10 flex flex-wrap justify-center gap-2">
             <button className="drop rounded-md bg-purple-700 px-12 py-3 text-xl text-white shadow-2xl shadow-purple-500">
               Get started
             </button>
