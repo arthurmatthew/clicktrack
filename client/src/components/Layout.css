@@ -1,0 +1,9 @@
+#background {
+  background-size: 40px 40px;
+  background-image: linear-gradient(
+      to right,
+      rgb(15 23 42) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgb(15 23 42) 1px, transparent 1px);
+}
