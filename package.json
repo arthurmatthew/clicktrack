@@ -1,0 +1,23 @@
+{
+  "name": "clicktrack",
+  "version": "1.0.0",
+  "description": "A dynamic metronome.",
+  "scripts": {
+    "format": "npx prettier --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arthurmatthew/clicktrack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arthurmatthew/clicktrack/issues"
+  },
+  "homepage": "https://github.com/arthurmatthew/clicktrack#readme",
+  "devDependencies": {
+    "prettier": "^2.8.8",
+    "prettier-plugin-tailwindcss": "^0.3.0"
+  }
+}
