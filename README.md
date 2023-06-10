@@ -17,6 +17,7 @@
   </a>-->
 
 <h1 align="center">clicktrack</h1>
+<h3 align="center">This project is unfinished 🛑</h3>
 
   <p align="center">
     clicktrack is a cutting-edge dynamic metronome. It's very common for pieces to have tempo changes, whether its an abrupt change or <i>accelerando</i>. Unlike your average metronome, clicktrack can handle this. clicktrack allows you to build an arrangement of metronomes so you're on time for the whole piece.
