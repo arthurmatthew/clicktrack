@@ -4,13 +4,15 @@ import './index.css';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import Layout from './components/Layout';
+import Layout from './components/Layout/Layout';
 import Index from './pages';
+import NotFound from './components/Error';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Index />,
+    errorElement: <NotFound />,
   },
 ]);
 
