@@ -9,12 +9,12 @@
   <img src="https://img.shields.io/github/license/arthurmatthew/clicktrack">
 </div>
 
-<!-- PROJECT LOGO
+
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>-->
+<a href="https://github.com/github_username/repo_name">
+  <img src="client/public/mstile-150x150.png" alt="Logo" width="80" height="80">
+</a>
 
 <h1 align="center">clicktrack</h1>
 <h3 align="center">This project is unfinished 🛑</h3>
