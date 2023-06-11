@@ -7,13 +7,13 @@ const Index = () => {
   return (
     <>
       <section className="flex flex-col items-center justify-center px-2">
-        <div className="mx-auto flex max-w-5xl flex-col justify-center py-20">
+        <div className="mx-auto my-20 flex max-w-5xl flex-col justify-center">
           <motion.h1
             initial={{ opacity: 0, x: -200 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: 'easeInOut' }}
             id="title"
-            className="bg-gradient-to-r from-purple-400 via-violet-400 to-purple-700 bg-clip-text text-center text-5xl font-black text-transparent sm:text-7xl"
+            className="bg-gradient-to-r from-purple-400 via-violet-400 to-purple-700 bg-clip-text text-center text-6xl font-black text-transparent sm:text-7xl"
           >
             The only metronome you'll ever need.
           </motion.h1>
@@ -30,7 +30,7 @@ const Index = () => {
             friendly interface allows you to build your own clicktrack and
             optimize your practice session.
           </motion.p>
-          <div className="mt-10 flex flex-wrap justify-center gap-2">
+          <div className="mx-2 mt-10 flex flex-wrap justify-center gap-2">
             <motion.a
               initial={{ opacity: 0, x: -200 }}
               animate={{ opacity: 1, x: 0 }}
@@ -64,7 +64,7 @@ const Index = () => {
           </div>
         </div>
       </section>
-      <section className="my-20 flex flex-col px-2">
+      <section className="my-10 flex flex-col px-2 sm:my-20">
         <div className="mx-auto flex w-full max-w-6xl flex-col">
           <div className="aspect-video w-full overflow-hidden rounded-lg rounded-b-none bg-black">
             <img src={placeholder} className="object-cover" />
