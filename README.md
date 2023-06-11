@@ -13,7 +13,7 @@
 <br />
 <div align="center">
 <a href="https://github.com/arthurmatthew/clicktrack">
-  <img src="client/public/mstile-150x150.png" alt="Logo" width="80" height="80">
+  <img src="client/public/android-chrome-512x512" alt="Logo" width="80" height="80">
 </a>
 
 <h1 align="center">clicktrack</h1>
