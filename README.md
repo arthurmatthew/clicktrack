@@ -12,7 +12,7 @@
 
 <br />
 <div align="center">
-<a href="https://github.com/github_username/repo_name">
+<a href="https://github.com/arthurmatthew/clicktrack">
   <img src="client/public/mstile-150x150.png" alt="Logo" width="80" height="80">
 </a>
 
@@ -22,9 +22,9 @@
   <p align="center">
     clicktrack is a cutting-edge dynamic metronome. It's very common for pieces to have tempo changes, whether its an abrupt change or <i>accelerando</i>. Unlike your average metronome, clicktrack can handle this. clicktrack allows you to build an arrangement of metronomes so you're on time for the whole piece.
     <br />
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
+    <a href="https://github.com/arthurmatthew/clicktrack/issues">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/arthurmatthew/clicktrack/issues">Request Feature</a>
   </p>
 </div>
 
