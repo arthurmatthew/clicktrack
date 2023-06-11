@@ -19,8 +19,5 @@
   "devDependencies": {
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0"
-  },
-  "dependencies": {
-    "framer-motion": "^10.12.16"
   }
 }
