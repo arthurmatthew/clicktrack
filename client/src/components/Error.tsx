@@ -1,6 +1,6 @@
 const NotFound = () => {
   return (
-    <section className="mt-20 flex h-screen flex-col items-center gap-5 px-2">
+    <section className="flex h-full flex-col items-center justify-center gap-5 px-2">
       <h1 className="text-center text-5xl font-black text-purple-200 sm:text-7xl">
         Oops... this page doesn't exist.
       </h1>
