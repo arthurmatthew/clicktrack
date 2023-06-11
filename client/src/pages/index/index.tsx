@@ -9,8 +9,8 @@ const Index = () => {
       <section className="flex flex-col items-center justify-center px-2">
         <div className="mx-auto my-20 flex max-w-5xl flex-col justify-center">
           <motion.h1
-            initial={{ opacity: 0, x: -200 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.8, ease: 'easeInOut' }}
             id="title"
             className="bg-gradient-to-r from-purple-400 via-violet-400 to-purple-700 bg-clip-text text-center text-6xl font-black text-transparent sm:text-7xl"
@@ -18,8 +18,8 @@ const Index = () => {
             The only metronome you'll ever need.
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, x: -200 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.1 }}
             className="lora mx-2 mt-10 text-center text-base text-purple-200 sm:text-lg"
           >
@@ -32,9 +32,9 @@ const Index = () => {
           </motion.p>
           <div className="mx-2 mt-10 flex flex-wrap justify-center gap-2">
             <motion.a
-              initial={{ opacity: 0, x: -200 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.3 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.2 }}
               href="/app"
               target="_blank"
             >
@@ -48,9 +48,9 @@ const Index = () => {
               </motion.button>
             </motion.a>
             <motion.a
-              initial={{ opacity: 0, x: -200 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.2 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.3 }}
             >
               <motion.button
                 whileTap={{ scale: 0.9 }}
