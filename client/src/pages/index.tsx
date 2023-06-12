@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import './index.css';
 
-import placeholder from '../../assets/placeholder.jpg';
+import placeholder from '../assets/placeholder.jpg';
 
 const Index = () => {
   return (
