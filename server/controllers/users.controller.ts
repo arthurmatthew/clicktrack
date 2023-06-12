@@ -51,12 +51,12 @@ export async function register(req: Request, res: Response) {
   if (usernameTaken) {
     return res
       .status(409)
-      .json({ message: 'This username has already been registered.' });
+      .json({ message: 'This user has already registered.' });
   }
   if (emailTaken) {
     return res
       .status(409)
-      .json({ message: 'This email has already been registered.' });
+      .json({ message: 'This user has already registered.' });
   }
   const hashedPassword = await bcrypt.hash(password, 10);
   const databaseUser = new User({
