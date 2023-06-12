@@ -8,6 +8,8 @@ import Layout from './components/Layout/Layout';
 import Index from './pages/index';
 import NotFound from './components/Error';
 import App from './pages/app';
+import Login from './pages/users.login';
+import Register from './pages/users.register';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,14 @@ const router = createBrowserRouter([
   {
     path: '/app',
     element: <App />,
+  },
+  {
+    path: '/users/login',
+    element: <Login />,
+  },
+  {
+    path: '/users/register',
+    element: <Register />,
   },
 ]);
 
