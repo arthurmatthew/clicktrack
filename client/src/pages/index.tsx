@@ -35,8 +35,7 @@ const Index = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.2 }}
-              href="/app"
-              target="_blank"
+              href="/users/register"
             >
               <motion.button
                 whileTap={{ scale: 0.9 }}
