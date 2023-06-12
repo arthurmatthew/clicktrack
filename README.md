@@ -28,4 +28,21 @@
   </p>
 </div>
 
+<h2>Technology Used</h2>
+<h3>Frontend</h3>
+<ul>
+  <li>Typescript React</li>
+  <li>React Router</li>
+  <li>Tailwind</li>
+  <li>Vite</li>
+</ul>
+<h3>Backend</h3>
+<ul>
+  <li>Typescript</li>
+  <li>Express</li>
+  <li>MongoDB</li>
+  <li>JWT</li>
+</ul>
+
+
 <h3 align="center">clicktrack is in early development. Star this repo to follow along.</h3>
