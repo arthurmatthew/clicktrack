@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import './index.css';
 
 import placeholder from '../assets/placeholder.jpg';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
   return (
@@ -31,35 +32,38 @@ const Index = () => {
             optimize your practice session.
           </motion.p>
           <div className="mx-2 mt-10 flex flex-wrap justify-center gap-2">
-            <motion.a
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.2 }}
-              href="/users/register"
-            >
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-                className="rounded-md bg-purple-700 px-12 py-3 text-xl text-white shadow-2xl shadow-purple-500"
+            <Link to="/users/register">
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.2 }}
               >
-                Get started
-              </motion.button>
-            </motion.a>
-            <motion.a
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.3 }}
-            >
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-                className="text-purple-950 rounded-md bg-purple-200 px-12 py-3 text-xl"
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                  className="rounded-md bg-purple-700 px-12 py-3 text-xl text-white shadow-2xl shadow-purple-500"
+                >
+                  Get started
+                </motion.button>
+              </motion.span>
+            </Link>
+            <Link to={'#'}>
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.3 }}
               >
-                Learn More
-              </motion.button>
-            </motion.a>
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                  className="text-purple-950 rounded-md bg-purple-200 px-12 py-3 text-xl"
+                >
+                  Learn More
+                </motion.button>
+              </motion.span>
+            </Link>
           </div>
         </div>
       </section>

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import logo from '../assets/clicktrack.png';
 
 const Register = () => {
@@ -72,12 +73,12 @@ const Register = () => {
 
         <p className="mt-10 text-center text-sm text-white">
           Already registered?{' '}
-          <a
-            href="/users/login"
+          <Link
+            to="/users/login"
             className="font-semibold leading-6 text-purple-400 hover:text-purple-500"
           >
             Login now
-          </a>
+          </Link>
         </p>
       </div>
     </div>

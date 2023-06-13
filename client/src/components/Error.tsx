@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const NotFound = () => {
   return (
     <section className="flex h-full flex-col items-center justify-center gap-5 px-2">
@@ -5,9 +7,9 @@ const NotFound = () => {
         Oops... this page doesn't exist.
       </h1>
       <p className="text-center text-4xl text-purple-100">
-        <a href="/" className="text-purple-300">
+        <Link to="/" className="text-purple-300">
           Go home
-        </a>{' '}
+        </Link>{' '}
         and get back on time.
       </p>
       <i className="bi-bug py-20 text-9xl text-purple-300"></i>
