@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import logo from '../assets/clicktrack.png';
+import logo from '../assets/clicktrack.webp';
 
 const Register = () => {
   return (
