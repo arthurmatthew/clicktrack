@@ -74,7 +74,7 @@ const Register = () => {
         <p className="mt-10 text-center text-sm text-white">
           Already registered?{' '}
           <Link
-            to="/users/login"
+            to="/login"
             className="font-semibold leading-6 text-purple-400 hover:text-purple-500"
           >
             Login now

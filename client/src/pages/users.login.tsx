@@ -73,7 +73,7 @@ const Login = () => {
         <p className="mt-10 text-center text-sm text-white">
           Not a member?{' '}
           <Link
-            to="/users/register"
+            to="/register"
             className="font-semibold leading-6 text-purple-400 hover:text-purple-500"
           >
             Register now
