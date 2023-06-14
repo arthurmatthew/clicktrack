@@ -2,7 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './main.css';
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from 'react-router-dom';
 
 import Layout from './components/Layout/Layout';
 import Index from './pages/index';
@@ -11,30 +16,27 @@ import App from './pages/app';
 import Login from './pages/users.login';
 import Register from './pages/users.register';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Index />,
-    errorElement: <NotFound />,
-  },
-  {
-    path: '/app',
-    element: <App />,
-  },
-  {
-    path: '/users/login',
-    element: <Login />,
-  },
-  {
-    path: '/users/register',
-    element: <Register />,
-  },
-]);
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route
+      path="/"
+      element={<Layout />}
+      errorElement={
+        <Layout>
+          <NotFound />
+        </Layout>
+      }
+    >
+      <Route path="/" element={<Index />} />
+      <Route path="/app" element={<App />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+    </Route>
+  )
+);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <Layout>
-      <RouterProvider router={router} />
-    </Layout>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
