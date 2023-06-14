@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/clicktrack.webp';
 import server from '../configs/server.config';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 const Register = () => {
   const [data, setData] = useState<{ [key: string]: any }>(new Object());
