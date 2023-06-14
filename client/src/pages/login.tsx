@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/clicktrack.webp';
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent } from 'react';
 import server from '../configs/server.config';
 
 const Login = () => {
