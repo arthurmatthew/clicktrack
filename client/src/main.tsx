@@ -13,8 +13,8 @@ import Layout from './layouts/Layout';
 import Index from './pages/index';
 import NotFound from './components/Error';
 import App from './pages/app';
-import Login from './pages/users.login';
-import Register from './pages/users.register';
+import Login from './pages/login';
+import Register from './pages/register';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
