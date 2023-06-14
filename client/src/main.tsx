@@ -9,7 +9,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
-import Layout from './components/Layout/Layout';
+import Layout from './layouts/Layout';
 import Index from './pages/index';
 import NotFound from './components/Error';
 import App from './pages/app';
