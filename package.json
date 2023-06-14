@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "A dynamic metronome.",
   "scripts": {
-    "format": "npx prettier --write"
+    "format": "npx prettier --write",
+    "devf": "npm --prefix ./client/ run dev",
+    "devb": "npm --prefix ./server/ run dev",
+    "dev": "concurrently \"npm:devf\" \"npm:devb\""
   },
   "repository": {
     "type": "git",
@@ -17,6 +20,7 @@
   },
   "homepage": "https://github.com/arthurmatthew/clicktrack#readme",
   "devDependencies": {
+    "concurrently": "^8.2.0",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0"
   }
