@@ -32,7 +32,7 @@ const Index = () => {
             optimize your practice session.
           </motion.p>
           <div className="mx-2 mt-10 flex flex-wrap justify-center gap-2">
-            <Link to="/users/register">
+            <Link to="/register">
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
