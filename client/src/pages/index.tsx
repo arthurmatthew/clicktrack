@@ -80,13 +80,6 @@ const Index = () => {
           </p>
         </div>
       </section>
-      <section className="flex flex-col items-center p-10 text-purple-200">
-        <p className="text-center">
-          Thank you for choosing clicktrack. This project was made by Matthew
-          Arthur under the GPL-3.0 license.
-        </p>
-        <i className="bi-heart-fill text-red-400"></i>
-      </section>
     </>
   );
 };
