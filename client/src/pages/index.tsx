@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import './index.css';
 
-import placeholder from '../assets/placeholder.jpg';
 import { Link } from 'react-router-dom';
 
 const Index = () => {
@@ -69,9 +68,7 @@ const Index = () => {
       </section>
       <section className="my-10 flex flex-col px-2 sm:my-20">
         <div className="mx-auto flex w-full max-w-6xl flex-col">
-          <div className="aspect-video w-full overflow-hidden rounded-lg rounded-b-none bg-black">
-            <img src={placeholder} className="object-cover" />
-          </div>
+          <div className="aspect-video w-full overflow-hidden rounded-lg rounded-b-none bg-black"></div>
         </div>
         <div className="mx-auto flex w-full max-w-6xl flex-col">
           <p className="w-full rounded-lg rounded-t-none bg-purple-300 p-5 text-xl">
