@@ -8,7 +8,7 @@ const Header = () => {
           clicktrack
         </Link>
         <div>
-          <i className="bi-person-circle text-3xl text-slate-200 duration-75 ease-out hover:text-purple-500" />
+          <i className="bi-person-circle text-3xl text-slate-200 hover:text-purple-400" />
         </div>
       </div>
     </header>
