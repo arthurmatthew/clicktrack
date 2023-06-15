@@ -45,11 +45,14 @@ const MetronomeSection = ({ children, name, opened }: IMetronomeSection) => {
         className="flex items-center justify-between text-slate-100"
         onClick={() => setShown((prev) => !prev)}
       >
-        <h1 className="text-3xl font-semibold">{name || 'Unnamed Section'}</h1>
+        <h1 className="text-3xl font-semibold">
+          <i className="bi-list mr-3 text-slate-400"></i>
+          {name || 'Unnamed Section'}
+        </h1>
         <i
           className={`${
             shown ? 'bi-caret-down-fill' : 'bi-caret-right-fill'
-          } text-2xl`}
+          } text-2xl text-slate-400`}
         ></i>
       </div>
 
