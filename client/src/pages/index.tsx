@@ -72,11 +72,13 @@ const Index = () => {
         </div>
         <div className="mx-auto flex w-full max-w-6xl flex-col">
           <p className="w-full rounded-lg rounded-t-none bg-purple-300 p-5 text-xl">
-            This is an awesome placeholder image. Lorem ipsum dolor sit amet
-            consectetur, adipisicing elit. Cupiditate itaque officiis
-            dignissimos nam nemo perferendis voluptatibus libero omnis vitae.
-            Quo quas recusandae tenetur fuga harum, aut nobis quod temporibus
-            debitis.
+            You can also use this basic metronome, but you're{' '}
+            <b className="font-semibold">missing out on amazing features.</b>{' '}
+            <a href="/app" className="underline">
+              Open the full app
+            </a>{' '}
+            and use all of our awesome features.{' '}
+            <b className="font-semibold">No sign up required. </b>
           </p>
         </div>
       </section>
