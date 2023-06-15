@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="to-slate-950 bg-gradient-radial flex basis-44 flex-col justify-center from-slate-800 bg-[length:100%_200%] bg-[100%_100%] py-10 px-4 text-purple-100">
+    <footer className="to-slate-950 bg-gradient-radial flex flex-shrink basis-44 flex-col justify-center from-slate-800 bg-[length:100%_200%] bg-[100%_100%] py-10 px-4 text-purple-100">
       <div className="mx-auto grid w-full max-w-6xl grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-4">
         <FooterSection />
         <FooterSection />
