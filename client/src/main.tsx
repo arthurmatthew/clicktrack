@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import './main.css';
 
@@ -9,12 +9,13 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
+const NotFound = lazy(() => import('./components/NotFound'));
+const App = lazy(() => import('./pages/app'));
+const Login = lazy(() => import('./pages/login'));
+const Register = lazy(() => import('./pages/register'));
+
 import Layout from './layouts/Layout';
 import Index from './pages/index';
-import NotFound from './components/Error';
-import App from './pages/app';
-import Login from './pages/login';
-import Register from './pages/register';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
