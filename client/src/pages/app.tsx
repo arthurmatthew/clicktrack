@@ -2,8 +2,25 @@ import { useState } from 'react';
 
 const App = () => {
   return (
-    <div className="my-10 flex flex-grow flex-col">
+    <div className="my-10 mx-4 flex flex-grow flex-col">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-4">
+        <div className="w-full rounded-md border-2 border-slate-700 p-4 text-slate-200">
+          <p className="flex items-center gap-4 text-xl">
+            <i className="rounded-md bg-purple-900 py-1 px-2 text-lg not-italic text-white">
+              Tip
+            </i>{' '}
+            <span>
+              <a
+                target="_blank"
+                href="https://mycomputerworks.com/how-to-bookmark-webpages-browser/"
+                className="underline"
+              >
+                Bookmark this page
+              </a>{' '}
+              to have instant access to the metronome.
+            </span>
+          </p>
+        </div>
         <MetronomeSection
           name="Basic Metronome"
           opened={true}
