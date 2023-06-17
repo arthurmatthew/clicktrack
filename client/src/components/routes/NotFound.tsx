@@ -2,17 +2,16 @@ import { Link } from 'react-router-dom';
 
 const NotFound = () => {
   return (
-    <section className="flex h-full flex-col items-center justify-center gap-5 px-2">
-      <h1 className="text-center text-5xl font-black text-purple-200 sm:text-7xl">
+    <section className="flex flex-grow flex-col items-center justify-center gap-5 px-2">
+      <h1 className="text-center text-4xl font-black text-purple-700 dark:text-purple-200 sm:text-5xl">
         Oops... this page doesn't exist.
       </h1>
-      <p className="text-center text-4xl text-purple-100">
-        <Link to="/" className="text-purple-300">
-          Go home
-        </Link>{' '}
-        and get back on time.
-      </p>
-      <i className="bi-bug py-20 text-9xl text-purple-300"></i>
+      <Link
+        to="/"
+        className="text-center text-xl text-purple-800 dark:text-purple-100"
+      >
+        Go home
+      </Link>{' '}
     </section>
   );
 };
