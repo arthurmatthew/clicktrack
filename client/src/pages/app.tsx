@@ -6,26 +6,32 @@ import { Metronome } from '../components/app/Metronome';
 
 interface Section {
   name: string;
+  data: {
+    bpm: number;
+  };
   opened?: boolean;
 }
 
+const defaultMetronome = {
+  name: 'Basic Metronome',
+  opened: true,
+  data: {
+    bpm: 120,
+  },
+};
+
 const App = () => {
-  const [sections, setSections] = useState<Section[]>([
-    {
-      name: 'Basic Metronome',
-      opened: true,
-    },
-    {
-      name: 'Test Metronome',
-      opened: false,
-    },
-  ]);
+  const [sections, setSections] = useState<Section[]>([defaultMetronome]);
 
   const handleAdd = () => {
     setSections((prev) => [
       ...prev,
-      { name: 'New Metronome ' + (prev.length + 1) },
+      { ...defaultMetronome, name: 'New Metronome ' + (prev.length + 1) },
     ]);
+  };
+
+  const handleRemove = (name: string) => {
+    setSections((prev) => prev.filter((metronome) => metronome.name != name));
   };
 
   return (
@@ -45,7 +51,7 @@ const App = () => {
         <ul className="flex flex-col gap-4">
           {sections.map((x, i) => (
             <MetronomeSection key={i} name={x.name} opened={x.opened}>
-              <Metronome />
+              <Metronome remove={() => handleRemove(x.name)} />
             </MetronomeSection>
           ))}
         </ul>
