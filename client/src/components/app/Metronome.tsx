@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useInterval } from 'usehooks-ts';
 
-export const Metronome = () => {
+export const Metronome = ({ remove }: { remove: () => void }) => {
   const [sound, _setSound] = useState<number>(1);
   const [audio, setAudio] = useState<HTMLAudioElement>();
   const [playing, setPlaying] = useState<boolean>(false);
@@ -54,6 +54,12 @@ export const Metronome = () => {
         } px-4 py-2`}
       >
         {playing ? 'Stop' : 'Start'}
+      </button>
+      <button
+        onClick={remove}
+        className="rounded-sm bg-red-700 px-4 py-2 text-white"
+      >
+        Delete
       </button>
     </div>
   );
