@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { TipSection } from '../components/app/TipSection';
 import { CreateSection } from '../components/app/CreateSection';
 import { MetronomeSection } from '../components/app/MetronomeSection';
+import { Metronome } from '../components/app/Metronome';
 
 interface Section {
   name: string;
@@ -16,7 +17,7 @@ const App = () => {
     },
     {
       name: 'Test Metronome',
-      opened: true,
+      opened: false,
     },
   ]);
 
@@ -43,7 +44,9 @@ const App = () => {
         <CreateSection add={handleAdd} />
         <ul className="flex flex-col gap-4">
           {sections.map((x, i) => (
-            <MetronomeSection key={i} name={x.name} opened={x.opened} />
+            <MetronomeSection key={i} name={x.name} opened={x.opened}>
+              <Metronome />
+            </MetronomeSection>
           ))}
         </ul>
       </div>
