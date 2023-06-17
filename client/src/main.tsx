@@ -9,7 +9,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
-const NotFound = lazy(() => import('./components/NotFound'));
+const NotFound = lazy(() => import('./components/routes/NotFound'));
 const App = lazy(() => import('./pages/app'));
 const Login = lazy(() => import('./pages/login'));
 const Register = lazy(() => import('./pages/register'));
