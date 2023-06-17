@@ -15,7 +15,7 @@ const App = () => {
       opened: true,
     },
     {
-      name: 'Burger Metronome',
+      name: 'Test Metronome',
       opened: true,
     },
   ]);
@@ -41,7 +41,7 @@ const App = () => {
           to have instant access to the metronome.
         </TipSection>
         <CreateSection add={handleAdd} />
-        <ul>
+        <ul className="flex flex-col gap-4">
           {sections.map((x, i) => (
             <MetronomeSection key={i} name={x.name} opened={x.opened} />
           ))}
