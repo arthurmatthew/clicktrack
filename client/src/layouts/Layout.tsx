@@ -2,28 +2,16 @@ import { Outlet } from 'react-router-dom';
 import Footer from './Footer';
 import Header from './Header';
 import './Layout.css';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense } from 'react';
+import useStickyState from '../hooks/useStickyState';
+import { ScrollToTop } from '../helpers/scrollToTop';
 
 const Layout = ({ children }: { children?: React.ReactNode }) => {
-  const [dark, setDark] = useState<boolean>(() => {
-    const localDark = localStorage.getItem('dark-mode');
-    if (localDark === null) {
-      return true;
-    }
-    try {
-      return JSON.parse(localDark);
-    } catch (e) {
-      console.log('Could not find dark mode preference');
-      return true;
-    }
-  });
-
-  useEffect(() => {
-    localStorage.setItem('dark-mode', JSON.stringify(dark));
-  }, [dark]);
+  const [dark, setDark] = useStickyState<boolean>(true, 'dark-mode');
 
   return (
     <div className={dark ? 'dark' : ''}>
+      <ScrollToTop />
       <div
         className="flex min-h-screen flex-col bg-slate-100 bg-[length:40px_40px] dark:bg-slate-950"
         id={dark ? 'background' : 'background-light'}
