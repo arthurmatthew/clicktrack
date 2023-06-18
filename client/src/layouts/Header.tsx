@@ -41,7 +41,7 @@ const Header = ({
                   transition={{ duration: 0.1, ease: 'easeOut' }}
                   className="absolute right-0 min-w-max"
                 >
-                  <div className="my-2 flex flex-col gap-2 rounded-md border-2 border-slate-700 p-4 text-lg not-italic text-slate-200 backdrop-blur-sm">
+                  <div className="my-2 flex flex-col gap-2 rounded-md border-2 border-slate-300 p-4 text-lg not-italic text-slate-800 backdrop-blur-sm dark:border-slate-700 dark:text-slate-200">
                     <Link
                       to="/register"
                       className="duration-75 hover:text-purple-600 dark:hover:text-purple-400"
