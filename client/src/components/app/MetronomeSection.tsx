@@ -25,7 +25,7 @@ export const MetronomeSection = ({
         <div className="flex items-center gap-3">
           <i className="bi-list cursor-grab text-3xl text-slate-600 dark:text-slate-400"></i>
           <h1
-            className={`flex cursor-default items-center text-xl font-semibold focus:outline-0 sm:text-3xl ${
+            className={`flex cursor-default items-center text-3xl font-semibold focus:outline-0 ${
               editing && 'cursor-text underline'
             }`}
             suppressContentEditableWarning
