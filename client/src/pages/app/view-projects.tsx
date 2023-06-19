@@ -5,6 +5,7 @@ import { MetronomeSection } from '../../components/app/MetronomeSection';
 import { motion } from 'framer-motion';
 import useStickyState from '../../hooks/useStickyState';
 import sortByPos from '../../helpers/sortByPos';
+import makeUnique from '../../helpers/makeUnique';
 
 export interface Section {
   name: string;
@@ -43,38 +44,13 @@ const ViewProjects = () => {
   };
 
   const handleNameChange = (name: string, newName: string) => {
-    setSections((prev) => {
-      let uniqueName = newName;
-      let trials = 0;
-
-      while (true) {
-        console.log('Trial ' + trials);
-        console.log('Testing for: ' + uniqueName);
-        const exist = [
-          ...prev.filter((metronome) => metronome.name != name),
-          {
-            ...prev.filter((metronome) => metronome.name == name)[0],
-            name: uniqueName,
-          },
-        ].filter((metronome) => metronome.name == uniqueName).length;
-        console.log('Exist already: ' + exist);
-        if (exist <= 1) {
-          uniqueName = trials == 0 ? newName : `${newName} (#${trials})`;
-          console.log('Name availible: ' + uniqueName);
-          break;
-        }
-        trials++;
-        uniqueName = `${newName} (#${trials})`;
-      }
-
-      return [
-        ...prev.filter((metronome) => metronome.name != name),
-        {
-          ...prev.filter((metronome) => metronome.name == name)[0],
-          name: uniqueName,
-        },
-      ];
-    });
+    setSections((prev) => [
+      ...prev.filter((metronome) => metronome.name != name),
+      {
+        ...prev.filter((metronome) => metronome.name == name)[0],
+        name: makeUnique(name, newName, prev),
+      },
+    ]);
   };
 
   const [tipShowing, setTipShowing] = useStickyState<boolean>(
