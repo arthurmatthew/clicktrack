@@ -1,22 +1,19 @@
 import { Outlet } from 'react-router-dom';
-import Footer from './Layout.Footer';
-import Header from './Layout.Header';
 import './Layout.css';
 import { Suspense } from 'react';
 import useStickyState from '../hooks/useStickyState';
 import { ScrollToTop } from '../helpers/scrollToTop';
+import AppHeader from './AppLayout.Header';
+import AppFooter from './AppLayout.Footer';
 
-const Layout = ({ children }: { children?: React.ReactNode }) => {
+const AppLayout = ({ children }: { children?: React.ReactNode }) => {
   const [dark, setDark] = useStickyState<boolean>(true, 'dark-mode');
 
   return (
     <div className={dark ? 'dark' : ''}>
       <ScrollToTop />
-      <div
-        className="flex min-h-screen flex-col bg-slate-100 bg-[length:40px_40px] dark:bg-slate-950"
-        id={dark ? 'background' : 'background-light'}
-      >
-        <Header dark={dark} darkToggle={setDark} />
+      <div className="flex min-h-screen flex-col bg-slate-100 bg-[length:40px_40px] dark:bg-slate-950">
+        <AppHeader dark={dark} darkToggle={setDark} />
         <main className="relative flex flex-auto flex-col">
           <Suspense
             fallback={
@@ -28,10 +25,10 @@ const Layout = ({ children }: { children?: React.ReactNode }) => {
             {children ?? <Outlet />}
           </Suspense>
         </main>
-        <Footer />
+        <AppFooter />
       </div>
     </div>
   );
 };
 
-export default Layout;
+export default AppLayout;
