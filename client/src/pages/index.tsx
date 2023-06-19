@@ -21,7 +21,7 @@ const Index = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.1 }}
-            className="lora mx-2 mt-10 text-center text-lg text-slate-900 dark:text-slate-200 sm:text-xl"
+            className="mx-2 mt-10 text-center text-lg text-slate-900 dark:text-slate-200 sm:text-xl"
           >
             Seriously. <i className="inter not-italic">clicktrack</i> is a{' '}
             beautifully modern{' '}
@@ -57,7 +57,7 @@ const Index = () => {
                   whileTap={{ scale: 0.9 }}
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-                  className="dark:text-slate-950 rounded-md bg-slate-800 px-12 py-3 text-xl text-slate-100 dark:bg-slate-200"
+                  className="rounded-md bg-slate-800 px-12 py-3 text-xl text-slate-100 dark:bg-slate-200 dark:text-slate-950"
                 >
                   Learn More
                 </motion.button>
