@@ -21,11 +21,11 @@ export const MetronomeSection = ({
 
   return (
     <li className="w-full rounded-md border-2 border-slate-300 bg-slate-200 p-4 dark:border-slate-700 dark:bg-slate-800">
-      <div className="flex items-center justify-between text-slate-900 dark:text-slate-100">
-        <div className="flex items-center gap-3 text-3xl">
-          <i className="bi-list cursor-grab text-slate-600 dark:text-slate-400"></i>
+      <div className="flex flex-col items-start justify-between text-slate-900 dark:text-slate-100 sm:flex-row sm:items-center">
+        <div className="flex items-center gap-3">
+          <i className="bi-list cursor-grab text-3xl text-slate-600 dark:text-slate-400"></i>
           <h1
-            className={`flex cursor-default items-center font-semibold focus:outline-0 ${
+            className={`flex cursor-default items-center text-xl font-semibold focus:outline-0 sm:text-3xl ${
               editing && 'cursor-text underline'
             }`}
             suppressContentEditableWarning
@@ -54,7 +54,7 @@ export const MetronomeSection = ({
             } mx-2 cursor-pointer text-sm opacity-50`}
           />
         </div>
-
+        <div className="my-2 block h-px w-full bg-gradient-to-r from-slate-300 to-transparent dark:from-slate-700 sm:hidden" />
         <div className="flex gap-4">
           <Link
             to="/app/project"
