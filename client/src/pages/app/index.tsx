@@ -5,7 +5,7 @@ const AppIndex = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate('/app/view-projects');
+    navigate('https://ibb.co/YR2fp7M');
   }, []);
 
   return null;
