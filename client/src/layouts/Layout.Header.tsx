@@ -16,7 +16,7 @@ const Header = ({
   };
 
   return (
-    <header className="bg-gradient-radial sticky top-0 z-10 shrink grow-0 basis-auto from-slate-100 to-slate-300 bg-[length:100%_200%] bg-[100%_0] p-5 backdrop-blur-sm backdrop-saturate-50 dark:from-slate-800/90 dark:to-slate-950">
+    <header className="bg-gradient-radial sticky top-0 z-10 shrink grow-0 basis-auto from-slate-100/75 to-slate-300 bg-[length:100%_200%] bg-[100%_0] p-5 backdrop-blur-sm backdrop-saturate-50 dark:from-slate-800/90 dark:to-slate-950">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
         <Link to="/" className="text-4xl text-slate-800 dark:text-slate-200">
           clicktrack
