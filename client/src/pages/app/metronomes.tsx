@@ -5,9 +5,11 @@ import { motion } from 'framer-motion';
 import useStickyState from '../../hooks/useStickyState';
 import sortByPos from '../../helpers/sortByPos';
 import makeUnique from '../../helpers/makeUnique';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface Section {
   name: string;
+  id: string;
   position: number;
   data: {
     bpm: number;
@@ -17,6 +19,7 @@ export interface Section {
 
 const defaultMetronome: Section = {
   name: 'Basic Metronome',
+  id: 'default',
   opened: false,
   position: 1,
   data: {
@@ -36,13 +39,14 @@ const Metronomes = () => {
       {
         ...defaultMetronome,
         name: 'New Metronome ' + (prev.length + 1),
+        id: uuidv4(),
         position: prev.length + 1,
       },
     ]);
   };
 
-  const handleRemove = (name: string) => {
-    setSections((prev) => prev.filter((metronome) => metronome.name != name));
+  const handleRemove = (id: string) => {
+    setSections((prev) => prev.filter((metronome) => metronome.id != id));
   };
 
   const handleNameChange = (name: string, newName: string) => {
@@ -89,18 +93,17 @@ const Metronomes = () => {
               You don't have any metronomes right now.
             </h1>
           ) : (
-            sortByPos(sections).map((x, i) => (
+            sortByPos(sections).map((metronome) => (
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
-                key={i}
+                key={metronome.id}
               >
                 <MetronomeSection
-                  remove={() => handleRemove(x.name)}
+                  remove={() => handleRemove(metronome.id)}
                   changeName={handleNameChange}
-                  name={x.name}
-                  opened={x.opened}
+                  metronome={metronome}
                 />
               </motion.div>
             ))

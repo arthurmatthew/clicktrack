@@ -1,20 +1,19 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Section } from '../../pages/app/metronomes';
 
 export interface IMetronomeSection {
+  metronome: Section;
   remove: () => void;
   changeName: (name: string, newName: string) => void;
-  name: string;
   children?: React.ReactNode;
-  opened?: boolean;
 }
 export const MetronomeSection = ({
+  metronome,
   remove,
   changeName,
-  name,
-  opened,
 }: IMetronomeSection) => {
-  const [shown, setShown] = useState<boolean>(opened || false);
+  const [shown, setShown] = useState<boolean>(metronome.opened || false);
   const [editing, setEditing] = useState<boolean>(false);
 
   const nameRef = useRef<HTMLHeadingElement>(null);
@@ -33,7 +32,7 @@ export const MetronomeSection = ({
             spellCheck={false}
             ref={nameRef}
           >
-            {name}
+            {metronome.name}
           </h1>
           <i
             onClick={() => {
@@ -41,11 +40,12 @@ export const MetronomeSection = ({
                 const nameCheck = /(.|\s)*\S(.|\s)*/gm;
                 const newName = (nameRef.current?.innerText as string).trim();
                 if (!nameCheck.test(newName)) {
-                  (nameRef.current as HTMLHeadingElement).innerText = name;
+                  (nameRef.current as HTMLHeadingElement).innerText =
+                    metronome.name;
                   setEditing((prev) => !prev);
                   return;
                 }
-                changeName(name, newName);
+                changeName(metronome.name, newName);
               }
               setEditing((prev) => !prev);
             }}
@@ -57,7 +57,7 @@ export const MetronomeSection = ({
         <div className="my-2 block h-px w-full bg-gradient-to-r from-slate-300 to-transparent dark:from-slate-700 sm:hidden" />
         <div className="flex gap-4">
           <Link
-            to={`/app/metronomes/${encodeURIComponent(name)}`}
+            to={`/app/metronomes/${encodeURIComponent(metronome.id)}`}
             className="rounded-sm bg-slate-500 px-10 py-2 text-white"
           >
             Open
@@ -77,13 +77,14 @@ export const MetronomeSection = ({
       </div>
 
       {shown && (
-        <div className="mt-2 flex gap-2">
+        <div className="mt-2 flex items-center gap-4">
           <button
             onClick={remove}
             className="rounded-sm bg-red-700 px-4 py-2 text-white"
           >
             Delete
           </button>
+          <p className="text-sm opacity-50">id: {metronome.id}</p>
         </div>
       )}
     </li>

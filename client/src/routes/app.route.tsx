@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Project from '../pages/app/metronome';
+import Metronome from '../pages/app/metronome';
 
 const AppLayout = React.lazy(() => import('../layouts/AppLayout'));
 const AppIndex = React.lazy(() => import('../pages/app/index'));
@@ -19,7 +19,7 @@ const AppRoute = (
   >
     <Route path="/app/" element={<AppIndex />} />
     <Route path="/app/metronomes" element={<Metronomes />} />
-    <Route path="/app/metronomes/:id" element={<Project />} />
+    <Route path="/app/metronomes/:id" element={<Metronome />} />
   </Route>
 );
 

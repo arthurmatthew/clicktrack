@@ -14,11 +14,13 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.12.1",
-    "usehooks-ts": "^2.9.1"
+    "usehooks-ts": "^2.9.1",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.12",
     "@types/react-dom": "^18.2.5",
+    "@types/uuid": "^9.0.2",
     "@typescript-eslint/eslint-plugin": "^5.59.11",
     "@typescript-eslint/parser": "^5.59.11",
     "@vitejs/plugin-react": "^4.0.0",
