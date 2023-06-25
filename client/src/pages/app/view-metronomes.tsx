@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { TipSection } from '../../components/app/TipSection';
 import { CreateSection } from '../../components/app/CreateSection';
 import { MetronomeSection } from '../../components/app/MetronomeSection';
