@@ -1,17 +1,20 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Section } from '../../pages/app/metronomes';
+import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 
 export interface IMetronomeSection {
   metronome: Section;
   remove: () => void;
   changeName: (name: string, newName: string) => void;
+  dragHandle: DraggableProvidedDragHandleProps | null | undefined;
   children?: React.ReactNode;
 }
 export const MetronomeSection = ({
   metronome,
   remove,
   changeName,
+  dragHandle,
 }: IMetronomeSection) => {
   const [shown, setShown] = useState<boolean>(metronome.opened || false);
   const [editing, setEditing] = useState<boolean>(false);
@@ -19,10 +22,13 @@ export const MetronomeSection = ({
   const nameRef = useRef<HTMLHeadingElement>(null);
 
   return (
-    <li className="w-full rounded-md border-2 border-slate-300 bg-slate-200 p-4 dark:border-slate-700 dark:bg-slate-800">
+    <div className="w-full rounded-md border-2 border-slate-300 bg-slate-200 p-4 dark:border-slate-700 dark:bg-slate-800">
       <div className="flex flex-col items-start justify-between text-slate-900 dark:text-slate-100 sm:flex-row sm:items-center">
         <div className="flex items-center gap-3">
-          <i className="bi-list cursor-grab text-3xl text-slate-600 dark:text-slate-400" />
+          <i
+            className="bi-list cursor-grab text-3xl text-slate-600 dark:text-slate-400"
+            {...dragHandle}
+          />
           <h1
             className={`flex cursor-default items-center text-3xl font-semibold focus:outline-0 ${
               editing && 'cursor-text underline'
@@ -87,6 +93,6 @@ export const MetronomeSection = ({
           <p className="text-sm opacity-50">id: {metronome.id}</p>
         </div>
       )}
-    </li>
+    </div>
   );
 };

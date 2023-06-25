@@ -6,6 +6,8 @@ import useStickyState from '../../hooks/useStickyState';
 import sortByPos from '../../helpers/sortByPos';
 import makeUnique from '../../helpers/makeUnique';
 import { v4 as uuidv4 } from 'uuid';
+import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
+import { StrictModeDroppable } from '../../components/app/StrictModeDroppable';
 
 export interface Section {
   name: string;
@@ -59,6 +61,18 @@ const Metronomes = () => {
     ]);
   };
 
+  const handleOnDragEnd = (result: DropResult) => {
+    if (!result.destination) return;
+
+    const sectionsCopy = sections;
+    const [reorderedItem] = sectionsCopy.splice(result.source.index, 1);
+    sectionsCopy.splice(result.destination.index, 0, reorderedItem);
+
+    sectionsCopy.map((section, i) => (section.position = i + 1));
+
+    setSections(sectionsCopy);
+  };
+
   const [tipShowing, setTipShowing] = useStickyState<boolean>(
     true,
     'show-bookmark-tip'
@@ -80,35 +94,58 @@ const Metronomes = () => {
             Create New
           </CreateSection>
           <CreateSection icon="file-earmark-plus" add={handleAdd}>
-            Create New From Template
+            Use Template
           </CreateSection>
           <CreateSection icon="download" add={handleAdd}>
             Import
           </CreateSection>
         </div>
-
-        <ul className="flex flex-col gap-4">
-          {sections.length == 0 ? (
-            <h1 className="text-center text-slate-700 dark:text-slate-200">
-              You don't have any metronomes right now.
-            </h1>
-          ) : (
-            sortByPos(sections).map((metronome) => (
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, ease: 'easeOut' }}
-                key={metronome.id}
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <StrictModeDroppable droppableId="metronomes">
+            {(provided) => (
+              <ul
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className="flex flex-col gap-4"
               >
-                <MetronomeSection
-                  remove={() => handleRemove(metronome.id)}
-                  changeName={handleNameChange}
-                  metronome={metronome}
-                />
-              </motion.div>
-            ))
-          )}
-        </ul>
+                {sections.length == 0 ? (
+                  <h1 className="text-center text-slate-700 dark:text-slate-200">
+                    You don't have any metronomes right now.
+                  </h1>
+                ) : (
+                  sortByPos(sections).map((metronome, i) => (
+                    <Draggable
+                      key={metronome.id}
+                      draggableId={metronome.id}
+                      index={i}
+                    >
+                      {(provided) => (
+                        <li
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                        >
+                          <motion.div
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.3, ease: 'easeOut' }}
+                          >
+                            <MetronomeSection
+                              remove={() => handleRemove(metronome.id)}
+                              changeName={handleNameChange}
+                              metronome={metronome}
+                              dragHandle={provided.dragHandleProps}
+                            />
+                          </motion.div>
+                        </li>
+                      )}
+                    </Draggable>
+                  ))
+                )}
+                {provided.placeholder}
+              </ul>
+            )}
+          </StrictModeDroppable>
+        </DragDropContext>
       </div>
     </div>
   );
