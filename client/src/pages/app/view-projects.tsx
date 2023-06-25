@@ -26,7 +26,10 @@ const defaultMetronome: Section = {
 } as Section;
 
 const ViewProjects = () => {
-  const [sections, setSections] = useState<Section[]>([defaultMetronome]);
+  const [sections, setSections] = useStickyState<Section[]>(
+    [defaultMetronome],
+    'metronomes'
+  );
 
   const handleAdd = () => {
     setSections((prev) => [
@@ -69,12 +72,18 @@ const ViewProjects = () => {
             Bookmark this page to have instant access!
           </TipSection>
         )}
-        <CreateSection icon="plus-square" add={handleAdd}>
-          Create New
-        </CreateSection>
-        <CreateSection icon="download" add={handleAdd}>
-          Import
-        </CreateSection>
+        <div className="flex flex-col gap-2">
+          <CreateSection icon="plus-square" add={handleAdd}>
+            Create New
+          </CreateSection>
+          <CreateSection icon="file-earmark-plus" add={handleAdd}>
+            Create New From Template
+          </CreateSection>
+          <CreateSection icon="download" add={handleAdd}>
+            Import
+          </CreateSection>
+        </div>
+
         <ul className="flex flex-col gap-4">
           {sections.length == 0 ? (
             <h1 className="text-center text-slate-700 dark:text-slate-200">
