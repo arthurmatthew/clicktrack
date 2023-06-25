@@ -69,12 +69,16 @@ const ViewProjects = () => {
             Bookmark this page to have instant access!
           </TipSection>
         )}
-        <CreateSection add={handleAdd} />
+        <CreateSection icon="plus-square" add={handleAdd}>
+          Create New
+        </CreateSection>
+        <CreateSection icon="download" add={handleAdd}>
+          Import
+        </CreateSection>
         <ul className="flex flex-col gap-4">
           {sections.length == 0 ? (
             <h1 className="text-center text-slate-700 dark:text-slate-200">
-              You don't have any metronomes right now. Make a new one by
-              clicking the button above.
+              You don't have any metronomes right now.
             </h1>
           ) : (
             sortByPos(sections).map((x, i) => (

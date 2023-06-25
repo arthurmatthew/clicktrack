@@ -1,5 +1,5 @@
 const AppFooter = () => {
-  return <footer></footer>;
+  return <footer />;
 };
 
 export default AppFooter;
