@@ -18,9 +18,8 @@ const AppRoute = (
     }
   >
     <Route path="/app/" element={<AppIndex />} />
-    <Route path="/app/metronome" element={<AppIndex />} />
-    <Route path="/app/metronome/:id" element={<Project />} />
-    <Route path="/app/view-metronomes" element={<ViewProjects />} />
+    <Route path="/app/metronomes" element={<ViewProjects />} />
+    <Route path="/app/metronomes/:id" element={<Project />} />
   </Route>
 );
 
