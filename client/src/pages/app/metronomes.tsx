@@ -66,8 +66,8 @@ const Metronomes = () => {
 
     const sectionsCopy = sections;
     const [reorderedItem] = sectionsCopy.splice(result.source.index, 1);
-    sectionsCopy.splice(result.destination.index, 0, reorderedItem);
 
+    sectionsCopy.splice(result.destination.index, 0, reorderedItem);
     sectionsCopy.map((section, i) => (section.position = i + 1));
 
     setSections(sectionsCopy);
