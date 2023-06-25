@@ -1,4 +1,4 @@
-import { Section } from '../pages/app/view-metronomes';
+import { Section } from '../pages/app/metronomes';
 
 export default function makeUnique(
   name: string,

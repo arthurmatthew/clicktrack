@@ -5,7 +5,7 @@ const AppIndex = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate('/app/view-metronomes');
+    navigate('/app/metronomes');
   }, []);
 
   return null;

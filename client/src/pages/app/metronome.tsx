@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { Section } from './view-metronomes';
+import { Section } from './metronomes';
 
 const Project = () => {
   const { id } = useParams();

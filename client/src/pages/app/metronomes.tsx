@@ -24,7 +24,7 @@ const defaultMetronome: Section = {
   },
 } as Section;
 
-const ViewProjects = () => {
+const Metronomes = () => {
   const [sections, setSections] = useStickyState<Section[]>(
     [defaultMetronome],
     'metronomes'
@@ -111,4 +111,4 @@ const ViewProjects = () => {
   );
 };
 
-export default ViewProjects;
+export default Metronomes;
