@@ -23,7 +23,7 @@ export const MetronomeSection = ({
     <li className="w-full rounded-md border-2 border-slate-300 bg-slate-200 p-4 dark:border-slate-700 dark:bg-slate-800">
       <div className="flex flex-col items-start justify-between text-slate-900 dark:text-slate-100 sm:flex-row sm:items-center">
         <div className="flex items-center gap-3">
-          <i className="bi-list cursor-grab text-3xl text-slate-600 dark:text-slate-400"></i>
+          <i className="bi-list cursor-grab text-3xl text-slate-600 dark:text-slate-400" />
           <h1
             className={`flex cursor-default items-center text-3xl font-semibold focus:outline-0 ${
               editing && 'cursor-text underline'
@@ -71,7 +71,7 @@ export const MetronomeSection = ({
               className={`${
                 shown ? 'bi-caret-down-fill' : 'bi-caret-right-fill'
               } text-sm`}
-            ></i>
+            />
           </p>
         </div>
       </div>
