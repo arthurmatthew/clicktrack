@@ -51,3 +51,9 @@
     background-position: 0% 50%;
   }
 }
+
+.bg-gradient-blurry {
+  background-image: url('../assets/waves.svg');
+  background-size: cover;
+  background-position: bottom;
+}

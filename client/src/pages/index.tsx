@@ -67,22 +67,82 @@ const Index = () => {
         </div>
       </section>
       <section className="my-10 flex flex-col px-2 sm:my-20">
-        <div className="mx-auto flex w-full max-w-6xl flex-col">
-          <div className="aspect-video w-full overflow-hidden rounded-lg rounded-b-none bg-black"></div>
+        <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3">
+          <InfoCard icon="stack" title="Portable">
+            Clicktrack is designed to work on any modern device. It'll be
+            amazing no matter what. Not on your device?{' '}
+            <a
+              href="https://github.com/arthurmatthew/clicktrack/issues/new"
+              className="underline"
+              target="_blank"
+            >
+              Request it
+            </a>
+          </InfoCard>
+          <InfoCard icon="emoji-smile-fill" title="Easy">
+            It's easy when you want it to be. We make it easy to ignore all the
+            advanced features. You don't need to be a music nerd.
+          </InfoCard>
+          <InfoCard icon="cloud-download-fill" title="Saveable">
+            You can save your metronomes to the cloud or your local storage.
+          </InfoCard>
+          <InfoCard icon="hammer" title="Designable">
+            Quickly build a metronome around an entire piece of music.
+          </InfoCard>
+          <InfoCard icon="recycle" title="Dynamic">
+            Our metronome will adapt to whatever tempo changes your music has.
+          </InfoCard>
+          <InfoCard icon="emoji-sunglasses-fill" title="Feature-packed">
+            We have everything a metronome should have. And then some.{' '}
+            <a className="underline">Learn more</a>
+          </InfoCard>
         </div>
-        <div className="mx-auto flex w-full max-w-6xl flex-col">
-          <p className="w-full rounded-lg rounded-t-none bg-purple-300 p-5 text-xl">
-            You can also use this basic metronome, but you're{' '}
-            <b className="font-semibold">missing out on amazing features.</b>{' '}
-            <a href="/app" className="underline">
-              Open the full app
-            </a>{' '}
-            and use all of our awesome features.{' '}
-            <b className="font-semibold">No sign up required. </b>
-          </p>
+      </section>
+      <section className="bg-gradient-blurry my-10 flex flex-col px-2 sm:my-20">
+        <div className="mx-auto w-full max-w-6xl">
+          <div className="m-4 rounded-md p-4 backdrop-blur-lg backdrop-brightness-90">
+            <div className="flex flex-col gap-4 rounded-md bg-slate-200 p-4 text-slate-900 dark:bg-slate-800 dark:text-slate-200">
+              <h1 className="text-6xl font-semibold">Check out our blog</h1>
+              <p className="text-2xl">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo
+                perspiciatis sequi, labore nisi fugiat officia error modi
+                accusamus rerum a, unde quas dolore eius et velit quae, mollitia
+                culpa. Eveniet! Lorem ipsum, dolor sit amet consectetur
+                adipisicing elit. Nam sapiente ea quos. Nihil, perferendis
+                tempora quidem itaque qui aspernatur, soluta, blanditiis placeat
+                perspiciatis voluptate tenetur error autem iure illo earum.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
     </>
+  );
+};
+
+const InfoCard = ({
+  children,
+  title,
+  icon,
+  emoji,
+}: {
+  title: string;
+  icon: string;
+  children?: React.ReactNode;
+  emoji?: string;
+}) => {
+  return (
+    <div className="flex w-full flex-col gap-2 rounded-md bg-slate-200 p-4 dark:bg-slate-800">
+      <div className="flex items-center gap-3">
+        <h1 className="rounded-full bg-slate-300 p-2 text-2xl leading-none text-purple-600 dark:bg-slate-700 dark:text-purple-400">
+          {emoji ? emoji : <i className={`bi-${icon}`} />}
+        </h1>
+        <h1 className="text-2xl font-black text-slate-900 dark:text-slate-200">
+          {title}
+        </h1>
+      </div>
+      <p className="text-slate-900 dark:text-slate-200">{children}</p>
+    </div>
   );
 };
 
