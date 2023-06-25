@@ -106,7 +106,7 @@ const Metronomes = () => {
               <ul
                 {...provided.droppableProps}
                 ref={provided.innerRef}
-                className="flex flex-col gap-4"
+                className="flex flex-col"
               >
                 {sections.length == 0 ? (
                   <h1 className="text-center text-slate-700 dark:text-slate-200">
@@ -123,6 +123,7 @@ const Metronomes = () => {
                         <li
                           ref={provided.innerRef}
                           {...provided.draggableProps}
+                          className="mb-4"
                         >
                           <motion.div
                             initial={{ opacity: 0, x: -50 }}
