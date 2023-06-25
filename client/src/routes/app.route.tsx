@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import Project from '../pages/app/project';
 
 const AppLayout = React.lazy(() => import('../layouts/AppLayout'));
 const AppIndex = React.lazy(() => import('../pages/app/index'));
@@ -17,7 +18,8 @@ const AppRoute = (
     }
   >
     <Route path="/app/" element={<AppIndex />} />
-    <Route path="/app/project" element={<></>} />
+    <Route path="/app/project" element={<AppIndex />} />
+    <Route path="/app/project/:id" element={<Project />} />
     <Route path="/app/view-projects" element={<ViewProjects />} />
   </Route>
 );
