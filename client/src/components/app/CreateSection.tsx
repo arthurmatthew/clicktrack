@@ -1,4 +1,12 @@
-export const CreateSection = ({ add }: { add: () => void }) => {
+export const CreateSection = ({
+  children,
+  icon,
+  add,
+}: {
+  children: React.ReactNode;
+  icon: string;
+  add: () => void;
+}) => {
   return (
     <div
       onClick={add}
@@ -6,10 +14,10 @@ export const CreateSection = ({ add }: { add: () => void }) => {
     >
       <div className="flex items-center justify-between text-slate-900 dark:text-slate-100">
         <h1 className="text-3xl font-semibold">
-          <i className="bi-plus-square mr-3 text-slate-600 dark:text-slate-400"></i>
-          Create New
+          <i className={`bi-${icon} mr-3 text-slate-600 dark:text-slate-400`} />
+          {children}
         </h1>
-        <i className="text-2xl text-slate-600 dark:text-slate-400"></i>
+        <i className="text-2xl text-slate-600 dark:text-slate-400" />
       </div>
     </div>
   );
