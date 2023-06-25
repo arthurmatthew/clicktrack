@@ -57,7 +57,7 @@ export const MetronomeSection = ({
         <div className="my-2 block h-px w-full bg-gradient-to-r from-slate-300 to-transparent dark:from-slate-700 sm:hidden" />
         <div className="flex gap-4">
           <Link
-            to={`/app/project/${encodeURIComponent(name)}`}
+            to={`/app/metronome/${encodeURIComponent(name)}`}
             className="rounded-sm bg-slate-500 px-10 py-2 text-white"
           >
             Open

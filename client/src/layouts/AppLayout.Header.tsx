@@ -25,7 +25,7 @@ const AppHeader = ({
           ct.
         </Link>
         <Link
-          to="/app/view-projects"
+          to="/app/view-metronomes"
           className="flex items-center gap-1 rounded-md border-2 border-slate-300 px-4 py-1 text-slate-900 dark:text-slate-200"
         >
           Metronomes
