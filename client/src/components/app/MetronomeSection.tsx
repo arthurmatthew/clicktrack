@@ -86,11 +86,14 @@ export const MetronomeSection = ({
         <div className="mt-2 flex items-center gap-4">
           <button
             onClick={remove}
-            className="rounded-sm bg-red-700 px-4 py-2 text-white"
+            className="rounded-sm bg-red-700 px-4 py-2 text-white disabled:bg-gray-500"
+            disabled={metronome.permanant}
           >
-            Delete
+            {metronome.permanant ? "Can't Delete" : 'Delete'}
           </button>
-          <p className="text-sm opacity-50">id: {metronome.id}</p>
+          <p className="text-sm text-slate-900 opacity-50 dark:text-slate-200">
+            id: {metronome.id}
+          </p>
         </div>
       )}
     </div>

@@ -8,11 +8,13 @@ import makeUnique from '../../helpers/makeUnique';
 import { v4 as uuidv4 } from 'uuid';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import { StrictModeDroppable } from '../../components/app/StrictModeDroppable';
+import storage from '../../configs/storage.config';
 
 export interface Section {
   name: string;
   id: string;
   position: number;
+  permanant: boolean;
   data: {
     bpm: number;
   };
@@ -23,6 +25,7 @@ const defaultMetronome: Section = {
   name: 'Basic Metronome',
   id: 'default',
   opened: false,
+  permanant: true,
   position: 1,
   data: {
     bpm: 120,
@@ -32,7 +35,7 @@ const defaultMetronome: Section = {
 const Metronomes = () => {
   const [sections, setSections] = useStickyState<Section[]>(
     [defaultMetronome],
-    'metronomes'
+    storage.key
   );
 
   const handleAdd = () => {
@@ -40,6 +43,7 @@ const Metronomes = () => {
       ...prev,
       {
         ...defaultMetronome,
+        permanant: false,
         name: 'New Metronome ' + (prev.length + 1),
         id: uuidv4(),
         position: prev.length + 1,
@@ -47,8 +51,17 @@ const Metronomes = () => {
     ]);
   };
 
+  const handleClear = () => {
+    localStorage.removeItem(storage.key);
+    location.reload();
+  };
+
   const handleRemove = (id: string) => {
-    setSections((prev) => prev.filter((metronome) => metronome.id != id));
+    setSections((prev) => {
+      if (!prev.find((metronome) => metronome.id == id)?.permanant)
+        return prev.filter((metronome) => metronome.id != id);
+      return prev;
+    });
   };
 
   const handleNameChange = (name: string, newName: string) => {
@@ -123,7 +136,7 @@ const Metronomes = () => {
                         <li
                           ref={provided.innerRef}
                           {...provided.draggableProps}
-                          className="mb-4"
+                          className={sections.length - i == 1 ? '' : 'mb-4'}
                         >
                           <motion.div
                             initial={{ opacity: 0, x: -50 }}
@@ -147,6 +160,9 @@ const Metronomes = () => {
             )}
           </StrictModeDroppable>
         </DragDropContext>
+        <CreateSection icon="trash" add={handleClear}>
+          Clear Storage
+        </CreateSection>
       </div>
     </div>
   );
