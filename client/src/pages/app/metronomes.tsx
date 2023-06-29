@@ -22,7 +22,7 @@ export interface Section {
 }
 
 const defaultMetronome: Section = {
-  name: 'Basic Metronome',
+  name: 'Default Metronome',
   id: 'default',
   opened: false,
   permanant: true,

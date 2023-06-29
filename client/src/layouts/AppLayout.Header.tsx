@@ -72,7 +72,7 @@ const AppHeader = ({
         </div>
         <div className="relative flex items-center justify-center sm:hidden">
           <i
-            className="bi-list cursor-pointer text-2xl"
+            className="bi-list cursor-pointer text-2xl text-slate-900 dark:text-slate-200"
             onClick={() => setMenuShowing((prev) => !prev)}
           />
           {menuShowing && (
