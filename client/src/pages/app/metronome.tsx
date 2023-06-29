@@ -54,7 +54,12 @@ const MetronomeApp = ({ data }: { data: Section }) => {
         <h1 className="text-5xl text-slate-900 dark:text-slate-200">
           {data.name}
         </h1>
-        <button onClick={play}>Play</button>
+        <button
+          className="m-4 rounded-md bg-slate-300 p-8 px-10 text-xl font-semibold dark:bg-slate-600"
+          onClick={play}
+        >
+          Play
+        </button>
       </div>
     </div>
   );
