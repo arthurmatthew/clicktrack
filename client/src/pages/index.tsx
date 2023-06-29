@@ -86,11 +86,12 @@ const Index = () => {
           <InfoCard icon="cloud-download-fill" title="Saveable">
             You can save your metronomes to the cloud or your local storage.
           </InfoCard>
-          <InfoCard icon="hammer" title="Designable">
-            Quickly build a metronome around an entire piece of music.
-          </InfoCard>
           <InfoCard icon="recycle" title="Dynamic">
             Our metronome will adapt to whatever tempo changes your music has.
+          </InfoCard>
+          <InfoCard icon="pin-angle-fill" title="Precise">
+            We use the best possible solution for audio precision within
+            milliseconds.
           </InfoCard>
           <InfoCard icon="emoji-sunglasses-fill" title="Feature-packed">
             We have everything a metronome should have. And then some.{' '}
@@ -150,7 +151,7 @@ const InfoCard = ({
   emoji?: string;
 }) => {
   return (
-    <div className="flex w-full flex-col gap-2 rounded-md bg-slate-200 p-4 dark:bg-slate-800">
+    <div className="flex w-full cursor-pointer flex-col gap-2 rounded-md bg-slate-200 p-4 saturate-150 filter-none duration-75 hover:filter dark:bg-slate-800 ">
       <div className="flex items-center gap-3">
         <h1 className="rounded-full bg-slate-300 p-2 text-2xl leading-none text-purple-600 dark:bg-slate-700 dark:text-purple-400">
           {emoji ? emoji : <i className={`bi-${icon}`} />}
