@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { Section } from '../../pages/app/metronomes';
+import Section from '../../pages/app/metronomes';
 
 const MetronomeApp = ({ data }: { data: Section }) => {
   const audioCtx = useRef<AudioContext | null>(null);

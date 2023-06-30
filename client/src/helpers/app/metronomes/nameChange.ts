@@ -1,4 +1,4 @@
-import { Section } from '../../../types/app/metronomes/Section';
+import Section from '../../../types/app/metronomes/Section';
 import makeUnique from '../../makeUnique';
 
 const nameChange = (name: string, newName: string, sections: Section[]) => {

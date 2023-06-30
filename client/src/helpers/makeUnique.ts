@@ -1,4 +1,4 @@
-import { Section } from '../types/app/metronomes/Section';
+import Section from '../types/app/metronomes/Section';
 
 /**
  *

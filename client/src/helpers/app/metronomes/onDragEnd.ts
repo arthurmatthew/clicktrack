@@ -1,5 +1,5 @@
 import { DropResult } from 'react-beautiful-dnd';
-import { Section } from '../../../types/app/metronomes/Section';
+import Section from '../../../types/app/metronomes/Section';
 
 const onDragEnd = (result: DropResult, sections: Section[]) => {
   if (!result.destination) return sections;

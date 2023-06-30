@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 
-import { TipSection } from '../../../components/app/metronomes/index/TipSection';
 import { CreateSection } from '../../../components/app/metronomes/index/CreateSection';
 import { MetronomeSection } from '../../../components/app/metronomes/index/MetronomeSection';
 import { StrictModeDroppable } from '../../../components/app/metronomes/index/StrictModeDroppable';
+import { TipSection } from '../../../components/app/metronomes/index/TipSection';
 
 import useStickyState from '../../../hooks/useStickyState';
 
@@ -12,11 +12,11 @@ import storage from '../../../configs/storage.config';
 
 import Section from '../../../types/app/metronomes/Section';
 
-import sortByPos from '../../../helpers/sortByPos';
 import add from '../../../helpers/app/metronomes/add';
-import remove from '../../../helpers/app/metronomes/remove';
 import nameChange from '../../../helpers/app/metronomes/nameChange';
 import onDragEnd from '../../../helpers/app/metronomes/onDragEnd';
+import remove from '../../../helpers/app/metronomes/remove';
+import sortByPos from '../../../helpers/sortByPos';
 
 import template from '../../../metronome/template';
 

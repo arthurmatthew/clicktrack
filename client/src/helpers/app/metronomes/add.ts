@@ -1,4 +1,4 @@
-import { Section } from '../../../types/app/metronomes/Section';
+import Section from '../../../types/app/metronomes/Section';
 import { v4 as uuidv4 } from 'uuid';
 
 /**
