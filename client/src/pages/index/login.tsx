@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/clicktrack.webp';
 import { useState, ChangeEvent } from 'react';
-import server from '../configs/server.config';
+import server from '../../configs/server.config';
 
 const Login = () => {
   const [data, setData] = useState<{ [key: string]: any }>(new Object());

@@ -1,54 +1,33 @@
-import { TipSection } from '../../components/app/TipSection';
-import { CreateSection } from '../../components/app/CreateSection';
-import { MetronomeSection } from '../../components/app/MetronomeSection';
 import { motion } from 'framer-motion';
-import useStickyState from '../../hooks/useStickyState';
-import sortByPos from '../../helpers/sortByPos';
-import makeUnique from '../../helpers/makeUnique';
-import { v4 as uuidv4 } from 'uuid';
 import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
-import { StrictModeDroppable } from '../../components/app/StrictModeDroppable';
-import storage from '../../configs/storage.config';
 
-export interface Section {
-  name: string;
-  id: string;
-  position: number;
-  permanant: boolean;
-  data: {
-    bpm: number;
-  };
-  opened?: boolean;
-}
+import { TipSection } from '../../../components/app/metronomes/index/TipSection';
+import { CreateSection } from '../../../components/app/metronomes/index/CreateSection';
+import { MetronomeSection } from '../../../components/app/metronomes/index/MetronomeSection';
+import { StrictModeDroppable } from '../../../components/app/metronomes/index/StrictModeDroppable';
 
-const defaultMetronome: Section = {
-  name: 'Default Metronome',
-  id: 'default',
-  opened: false,
-  permanant: true,
-  position: 1,
-  data: {
-    bpm: 120,
-  },
-} as Section;
+import useStickyState from '../../../hooks/useStickyState';
 
-const Metronomes = () => {
+import storage from '../../../configs/storage.config';
+
+import Section from '../../../types/app/metronomes/Section';
+
+import sortByPos from '../../../helpers/sortByPos';
+import add from '../../../helpers/app/metronomes/add';
+import remove from '../../../helpers/app/metronomes/remove';
+import nameChange from '../../../helpers/app/metronomes/nameChange';
+import onDragEnd from '../../../helpers/app/metronomes/onDragEnd';
+
+import template from '../../../metronome/template';
+
+const MetronomesIndex = () => {
   const [sections, setSections] = useStickyState<Section[]>(
-    [defaultMetronome],
+    [template],
     storage.key
   );
 
   const handleAdd = () => {
-    setSections((prev) => [
-      ...prev,
-      {
-        ...defaultMetronome,
-        permanant: false,
-        name: 'New Metronome ' + (prev.length + 1),
-        id: uuidv4(),
-        position: prev.length + 1,
-      },
-    ]);
+    setSections((prev) => [...prev, add(template, prev)]);
   };
 
   const handleClear = () => {
@@ -57,33 +36,15 @@ const Metronomes = () => {
   };
 
   const handleRemove = (id: string) => {
-    setSections((prev) => {
-      if (!prev.find((metronome) => metronome.id == id)?.permanant)
-        return prev.filter((metronome) => metronome.id != id);
-      return prev;
-    });
+    setSections((prev) => remove(id, prev));
   };
 
   const handleNameChange = (name: string, newName: string) => {
-    setSections((prev) => [
-      ...prev.filter((metronome) => metronome.name != name),
-      {
-        ...prev.filter((metronome) => metronome.name == name)[0],
-        name: makeUnique(name, newName, prev),
-      },
-    ]);
+    setSections((prev) => nameChange(name, newName, prev));
   };
 
   const handleOnDragEnd = (result: DropResult) => {
-    if (!result.destination) return;
-
-    const sectionsCopy = sections;
-    const [reorderedItem] = sectionsCopy.splice(result.source.index, 1);
-
-    sectionsCopy.splice(result.destination.index, 0, reorderedItem);
-    sectionsCopy.map((section, i) => (section.position = i + 1));
-
-    setSections(sectionsCopy);
+    setSections((prev) => onDragEnd(result, prev));
   };
 
   const [tipShowing, setTipShowing] = useStickyState<boolean>(
@@ -168,4 +129,4 @@ const Metronomes = () => {
   );
 };
 
-export default Metronomes;
+export default MetronomesIndex;

@@ -1,12 +1,12 @@
 import { Route } from 'react-router-dom';
 import React from 'react';
 
-const Register = React.lazy(() => import('../pages/register'));
-const Login = React.lazy(() => import('../pages/login'));
-const Layout = React.lazy(() => import('../layouts/Layout'));
-const NotFound = React.lazy(() => import('../components/routes/NotFound'));
+const Register = React.lazy(() => import('../pages/index/register'));
+const Login = React.lazy(() => import('../pages/index/login'));
+const Layout = React.lazy(() => import('../components/layouts/index/Layout'));
+const NotFound = React.lazy(() => import('../pages/NotFound'));
 
-import Index from '../pages';
+import Index from '../pages/index/index';
 
 const IndexRoute = (
   <Route

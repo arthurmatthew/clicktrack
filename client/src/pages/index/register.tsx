@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/clicktrack.webp';
-import server from '../configs/server.config';
+import server from '../../configs/server.config';
 import { ChangeEvent, useState } from 'react';
 
 const Register = () => {
