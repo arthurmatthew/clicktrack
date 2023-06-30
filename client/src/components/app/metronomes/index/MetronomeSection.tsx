@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Section } from '../../pages/app/metronomes';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
+import Section from '../../../../types/app/metronomes/Section';
 
 export interface IMetronomeSection {
   metronome: Section;

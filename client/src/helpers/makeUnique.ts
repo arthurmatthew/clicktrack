@@ -1,5 +1,12 @@
-import { Section } from '../pages/app/metronomes';
+import Section from '../types/app/metronomes/Section';
 
+/**
+ *
+ * @param name Original name
+ * @param newName Proposed new name
+ * @param prev Array of `Sections` to check uniqueness
+ * @returns Unique name that works in given array `prev`
+ */
 export default function makeUnique(
   name: string,
   newName: string,
