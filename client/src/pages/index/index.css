@@ -53,7 +53,7 @@
 }
 
 .bg-gradient-blurry {
-  background-image: url('../assets/waves.svg');
+  background-image: url('../../assets/waves.svg');
   background-size: cover;
   background-position: bottom;
 }
