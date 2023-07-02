@@ -1,4 +1,4 @@
-import Section from '../types/app/metronomes/Section';
+import Metronome from '../metronome/metronome';
 
 /**
  *
@@ -10,7 +10,7 @@ import Section from '../types/app/metronomes/Section';
 export default function makeUnique(
   name: string,
   newName: string,
-  prev: Section[]
+  prev: Metronome[]
 ) {
   let trials = 0;
   let uniqueName = newName;

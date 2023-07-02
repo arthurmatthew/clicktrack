@@ -10,7 +10,7 @@ import useStickyState from '../../../hooks/useStickyState';
 
 import storage from '../../../configs/storage.config';
 
-import Section from '../../../types/app/metronomes/Section';
+import Metronome from '../../../metronome/metronome';
 
 import add from '../../../helpers/app/metronomes/add';
 import nameChange from '../../../helpers/app/metronomes/nameChange';
@@ -21,7 +21,7 @@ import sortByPos from '../../../helpers/sortByPos';
 import template from '../../../metronome/template';
 
 const MetronomesIndex = () => {
-  const [sections, setSections] = useStickyState<Section[]>(
+  const [sections, setSections] = useStickyState<Metronome[]>(
     [template],
     storage.key
   );

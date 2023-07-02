@@ -1,5 +1,5 @@
-import Section from '../../../types/app/metronomes/Section';
 import { v4 as uuidv4 } from 'uuid';
+import Metronome from '../../../metronome/metronome';
 
 /**
  * Handle creation of a new `Section` object.
@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
  * @param previous Previous array of `Section`s
  * @returns New `Section`
  */
-const add = (template: Section, previous: Section[]) => {
+const add = (template: Metronome, previous: Metronome[]) => {
   return {
     ...template,
     permanant: false,

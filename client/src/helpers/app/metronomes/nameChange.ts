@@ -1,7 +1,7 @@
-import Section from '../../../types/app/metronomes/Section';
+import Metronome from '../../../metronome/metronome';
 import makeUnique from '../../makeUnique';
 
-const nameChange = (name: string, newName: string, sections: Section[]) => {
+const nameChange = (name: string, newName: string, sections: Metronome[]) => {
   return [
     ...sections.filter((metronome) => metronome.name != name),
     {

@@ -1,14 +1,14 @@
 import { useParams } from 'react-router-dom';
 import MetronomeApp from '../../../metronome/components/MetronomeApp';
-import Section from '../../../types/app/metronomes/Section';
+import Metronome from '../../../metronome/metronome';
 
-const Metronome = () => {
+const MetronomePage = () => {
   const params = useParams();
 
   const getMetronome = (id: string) => {
     const metronomes = JSON.parse(
       localStorage.getItem('metronomes') as string
-    ) as Section[];
+    ) as Metronome[];
     return metronomes.find((metronome) => metronome.id == id);
   };
 
@@ -34,4 +34,4 @@ const NotFound = () => {
   );
 };
 
-export default Metronome;
+export default MetronomePage;

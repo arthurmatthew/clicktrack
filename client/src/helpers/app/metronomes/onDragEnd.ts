@@ -1,7 +1,7 @@
 import { DropResult } from 'react-beautiful-dnd';
-import Section from '../../../types/app/metronomes/Section';
+import Metronome from '../../../metronome/metronome';
 
-const onDragEnd = (result: DropResult, sections: Section[]) => {
+const onDragEnd = (result: DropResult, sections: Metronome[]) => {
   if (!result.destination) return sections;
 
   const sectionsCopy = sections;

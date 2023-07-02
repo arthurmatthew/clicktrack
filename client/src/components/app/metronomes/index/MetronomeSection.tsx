@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
-import Section from '../../../../types/app/metronomes/Section';
+import Metronome from '../../../../metronome/metronome';
 
-export interface IMetronomeSection {
-  metronome: Section;
+export interface MetronomeSection {
+  metronome: Metronome;
   remove: () => void;
   changeName: (name: string, newName: string) => void;
   dragHandle: DraggableProvidedDragHandleProps | null | undefined;
@@ -15,7 +15,7 @@ export const MetronomeSection = ({
   remove,
   changeName,
   dragHandle,
-}: IMetronomeSection) => {
+}: MetronomeSection) => {
   const [shown, setShown] = useState<boolean>(metronome.opened || false);
   const [editing, setEditing] = useState<boolean>(false);
 
