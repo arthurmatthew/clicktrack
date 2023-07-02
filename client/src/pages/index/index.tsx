@@ -90,8 +90,9 @@ const Index = () => {
             Our metronome will adapt to whatever tempo changes your music has.
           </InfoCard>
           <InfoCard icon="pin-angle-fill" title="Precise">
-            We use the best possible solution for audio precision within
-            milliseconds.
+            You can trust our metronome to be within milliseconds of precision.
+            Your ear may not hear the difference, but it matters in the long
+            run.
           </InfoCard>
           <InfoCard icon="emoji-sunglasses-fill" title="Feature-packed">
             We have everything a metronome should have. And then some.{' '}
@@ -99,12 +100,12 @@ const Index = () => {
           </InfoCard>
         </div>
       </section>
-      <section className="bg-gradient-blurry my-10 flex flex-col px-2 sm:my-20">
+      <section className="my-10 flex flex-col px-2 sm:my-20">
         <div className="mx-auto w-full max-w-6xl">
-          <div className="m-2 rounded-md p-2 backdrop-blur-lg backdrop-brightness-90 sm:m-4 sm:p-4">
+          <div className="rounded-md backdrop-brightness-90">
             <div className="flex flex-col gap-2 rounded-md bg-slate-200 p-6 text-slate-900 dark:bg-slate-800 dark:text-slate-200 sm:p-12">
               <h1 className="text-3xl font-semibold">Check out our blog</h1>
-              <p className="dark:opacity-75">
+              <p className="text-lg dark:opacity-75">
                 Read awesome posts relevant to our product. Learn about
                 musicianship, proper practicing, and how to maximize the
                 potential of clicktrack.
