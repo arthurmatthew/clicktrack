@@ -97,7 +97,7 @@ const MetronomesIndex = () => {
                         <li
                           ref={provided.innerRef}
                           {...provided.draggableProps}
-                          className={sections.length - i == 1 ? '' : 'mb-4'}
+                          className="my-2"
                         >
                           <motion.div
                             initial={{ opacity: 0, x: -50 }}
