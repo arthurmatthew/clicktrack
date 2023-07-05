@@ -18,16 +18,17 @@ import onDragEnd from '../../../helpers/app/metronomes/onDragEnd';
 import remove from '../../../helpers/app/metronomes/remove';
 import sortByPos from '../../../helpers/sortByPos';
 
-import template from '../../../metronome/template';
-
 const MetronomesIndex = () => {
   const [sections, setSections] = useStickyState<Metronome[]>(
-    [template],
+    [new Metronome({ permanant: true })],
     storage.key
   );
 
   const handleAdd = () => {
-    setSections((prev) => [...prev, add(template, prev)]);
+    setSections((prev) => [
+      ...prev,
+      add(new Metronome({ permanant: true }), prev),
+    ]);
   };
 
   const handleClear = () => {
