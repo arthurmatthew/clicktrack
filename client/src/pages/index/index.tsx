@@ -100,43 +100,7 @@ const Index = () => {
           </InfoCard>
         </div>
       </section>
-      <section className="my-10 flex flex-col px-2 sm:my-20">
-        <div className="mx-auto w-full max-w-6xl">
-          <div className="rounded-md backdrop-brightness-90">
-            <div className="flex flex-col gap-2 rounded-md bg-slate-200 p-6 text-slate-900 dark:bg-slate-800 dark:text-slate-200 sm:p-12">
-              <h1 className="text-3xl font-semibold">Check out our blog</h1>
-              <p className="text-lg dark:opacity-75">
-                Read awesome posts relevant to our product. Learn about
-                musicianship, proper practicing, and how to maximize the
-                potential of clicktrack.
-              </p>
-              <div className="flex flex-col gap-1">
-                <BlogPost />
-                <BlogPost />
-                <BlogPost />
-                <BlogPost>View our older posts</BlogPost>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </>
-  );
-};
-
-const BlogPost = ({ children }: { children?: React.ReactNode }) => {
-  return (
-    <div className="flex cursor-pointer items-center justify-between rounded-sm border-2 border-slate-300 p-3 dark:border-slate-700">
-      {children ? (
-        <h2 className="text-xl">{children}</h2>
-      ) : (
-        <div className="flex items-center gap-3">
-          <h2 className="text-xl">Example Post</h2>
-          <h3 className="opacity-50">April 7th, 2023</h3>
-        </div>
-      )}
-      <i className="bi-arrow-right" />
-    </div>
   );
 };
 
