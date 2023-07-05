@@ -16,13 +16,19 @@ export default class Metronome {
 }
 
 export class Data {
+  // Time Related
   bpm: number;
 
+  // Frequency Related
   note: [note: string, octave: number];
+
+  // Playback Related
+  volume: number; // %
   noteDuration: number;
   constructor(options?: Partial<Data>) {
     this.bpm = options?.bpm || 120;
     this.note = options?.note || ['C', 5];
+    this.volume = options?.volume || 100;
     this.noteDuration = options?.noteDuration || 1;
   }
 }

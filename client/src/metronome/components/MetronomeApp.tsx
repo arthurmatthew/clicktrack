@@ -40,7 +40,10 @@ const MetronomeApp = ({ data }: { data: Metronome }) => {
       oscillator.frequency.value = getFrequency(metronome.data.note);
       oscillator.connect(amp);
 
-      amp.gain.setValueAtTime(1, audioCtx.current.currentTime);
+      amp.gain.setValueAtTime(
+        metronome.data.volume == 0 ? 0.0001 : 1 * (metronome.data.volume / 100),
+        audioCtx.current.currentTime
+      );
       amp.connect(audioCtx.current.destination);
 
       const stopTime =
@@ -62,6 +65,16 @@ const MetronomeApp = ({ data }: { data: Metronome }) => {
     );
   };
 
+  const setVolume = (percent: number) => {
+    setMetronome(
+      (prev) =>
+        new Metronome({
+          ...prev,
+          data: { ...prev.data, volume: percent },
+        })
+    );
+  };
+
   return (
     <div className="flex min-h-screen min-w-full flex-col text-slate-900 dark:text-slate-200">
       <div className="mx-auto my-7 flex max-w-5xl flex-col items-center gap-2">
@@ -75,7 +88,12 @@ const MetronomeApp = ({ data }: { data: Metronome }) => {
         <span className=""></span>
         <PanelRow>
           <Time metronome={metronome} />
-          <Playback incrementBpm={incrementBpm} play={play} />
+          <Playback
+            metronome={metronome}
+            setVolume={setVolume}
+            incrementBpm={incrementBpm}
+            play={play}
+          />
           <Options />
         </PanelRow>
       </div>
