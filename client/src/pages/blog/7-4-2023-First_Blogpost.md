@@ -1,4 +1,4 @@
-#META{"title": "First Blogpost","author": "Matthew Arthur","date": "07042023"}
+<!-- {"title": "First Blogpost","author": "Matthew Arthur","date": "07042023"} -->
 
 # Hello, Clicktrack!
 
