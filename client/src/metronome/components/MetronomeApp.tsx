@@ -77,7 +77,13 @@ const MetronomeApp = ({ data }: { data: Metronome }) => {
             <h2 className="text-2xl">{getTempoName(metronome.data.bpm)}</h2>
           </div>
         </Panel>
-        <Panel title="Playback" colspan="2">
+        <Panel
+          title="Playback"
+          coords={[
+            [2, 1],
+            [4, 2],
+          ]}
+        >
           <div className="flex h-full items-center justify-center gap-5">
             <button onClick={() => incrementBpm(-5)}>
               <i className="bi-rewind-fill text-5xl text-purple-700" />
@@ -107,20 +113,27 @@ const MetronomeApp = ({ data }: { data: Metronome }) => {
 
 const Panel = ({
   title,
-  colspan,
-  rowspan,
+  coords,
   children,
 }: {
   title: string;
-  colspan?: string;
-  rowspan?: string;
+  coords?: [[startX: number, startY: number], [endX: number, endY: number]];
   children?: React.ReactNode;
 }) => {
+  const sx = coords && coords[0][0];
+  const sy = coords && coords[0][1];
+  const ex = coords && coords[1][0];
+  const ey = coords && coords[1][1];
+
   return (
     <div
-      className={`col-span-${colspan || '1'} row-span${
-        rowspan || '1'
-      } flex flex-col rounded-md border-2 border-slate-300 shadow-2xl shadow-slate-300`}
+      style={{
+        gridColumnStart: sx,
+        gridColumnEnd: ex,
+        gridRowStart: sy,
+        gridRowEnd: ey,
+      }}
+      className={`flex flex-col rounded-md border-2 border-slate-300 shadow-2xl shadow-slate-300`}
     >
       <h1 className="w-full bg-slate-300 px-2 py-1 text-sm text-slate-800">
         {title}
