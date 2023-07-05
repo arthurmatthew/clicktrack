@@ -1,8 +1,4 @@
-META\{
-title: 'First Blogpost'
-author: 'Matthew Arthur'
-date: '07042023'
-}\
+#META{"title": "First Blogpost","author": "Matthew Arthur","date": "07042023"}
 
 # Hello, Clicktrack!
 
