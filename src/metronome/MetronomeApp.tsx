@@ -1,7 +1,5 @@
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Metronome from './metronome';
-import { sounds } from './sounds';
-import getFrequency from '../helpers/app/metronomes/getFrequency';
 import storage from '../configs/storage.config';
 import Window from './components/Window';
 import { Routes, Route, Outlet } from 'react-router-dom';
@@ -10,7 +8,7 @@ import DataViewItem from './components/DataViewItem';
 
 const MetronomeApp = ({ data }: { data: Metronome }) => {
   const audioCtx = useRef<AudioContext | null>(null);
-  const [metronome, setMetronome] = useState<Metronome>(data);
+  const [metronome, _setMetronome] = useState<Metronome>(data);
 
   useEffect(() => {
     audioCtx.current = new AudioContext();
@@ -31,49 +29,29 @@ const MetronomeApp = ({ data }: { data: Metronome }) => {
     localStorage.setItem(storage.key, updated);
   }, [metronome]);
 
-  const play = () => {
-    if (audioCtx.current) {
-      const oscillator = audioCtx.current.createOscillator();
-      const amp = audioCtx.current.createGain();
+  // const play = () => {
+  //   if (audioCtx.current) {
+  //     const oscillator = audioCtx.current.createOscillator();
+  //     const amp = audioCtx.current.createGain();
 
-      sounds[2](oscillator);
-      oscillator.frequency.value = getFrequency(metronome.data.note);
-      oscillator.connect(amp);
+  //     sounds[2](oscillator);
+  //     oscillator.frequency.value = getFrequency(metronome.data.note);
+  //     oscillator.connect(amp);
 
-      amp.gain.setValueAtTime(
-        metronome.data.volume == 0 ? 0.0001 : 1 * (metronome.data.volume / 100),
-        audioCtx.current.currentTime
-      );
-      amp.connect(audioCtx.current.destination);
+  //     amp.gain.setValueAtTime(
+  //       metronome.data.volume == 0 ? 0.0001 : 1 * (metronome.data.volume / 100),
+  //       audioCtx.current.currentTime
+  //     );
+  //     amp.connect(audioCtx.current.destination);
 
-      const stopTime =
-        audioCtx.current.currentTime + metronome.data.noteDuration;
+  //     const stopTime =
+  //       audioCtx.current.currentTime + metronome.data.noteDuration;
 
-      oscillator.start(audioCtx.current.currentTime);
-      amp.gain.exponentialRampToValueAtTime(0.0001, stopTime - 0.01);
-      oscillator.stop(stopTime);
-    }
-  };
-
-  const incrementBpm = (amount: number) => {
-    setMetronome(
-      (prev) =>
-        new Metronome({
-          ...prev,
-          data: { ...prev.data, bpm: prev.data.bpm + amount },
-        })
-    );
-  };
-
-  const setVolume = (percent: number) => {
-    setMetronome(
-      (prev) =>
-        new Metronome({
-          ...prev,
-          data: { ...prev.data, volume: percent },
-        })
-    );
-  };
+  //     oscillator.start(audioCtx.current.currentTime);
+  //     amp.gain.exponentialRampToValueAtTime(0.0001, stopTime - 0.01);
+  //     oscillator.stop(stopTime);
+  //   }
+  // };
 
   return (
     <div className="flex min-h-screen min-w-full flex-col text-slate-900 dark:text-slate-200">
