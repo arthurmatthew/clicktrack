@@ -13,7 +13,7 @@
 <br />
 <div align="center">
 <a href="https://github.com/arthurmatthew/clicktrack">
-  <img src="client/public/android-chrome-512x512.png" alt="Logo" width="80" height="80">
+  <img src="/public/android-chrome-512x512.png" alt="Logo" width="80" height="80">
 </a>
 
 <h1 align="center">clicktrack</h1>
@@ -26,22 +26,5 @@
     <a href="https://github.com/arthurmatthew/clicktrack/issues">Request Feature</a>
   </p>
 </div>
-
-<h2>Technology Used</h2>
-<h3>Frontend</h3>
-<ul>
-  <li>Typescript React</li>
-  <li>React Router</li>
-  <li>Tailwind</li>
-  <li>Vite</li>
-</ul>
-<h3>Backend</h3>
-<ul>
-  <li>Typescript</li>
-  <li>Express</li>
-  <li>MongoDB</li>
-  <li>JWT</li>
-</ul>
-
 
 <h3 align="center">clicktrack is in early development. Star this repo to follow along.</h3>
