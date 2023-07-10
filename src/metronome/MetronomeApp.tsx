@@ -3,7 +3,6 @@ import Metronome from './metronome';
 import storage from '../configs/storage.config';
 import Window from './components/Window';
 import { Routes, Route, Outlet } from 'react-router-dom';
-import Redirect from '../components/routing/Redirect';
 import DataViewItem from './components/DataViewItem';
 
 const MetronomeApp = ({ data }: { data: Metronome }) => {
@@ -74,7 +73,6 @@ const MetronomeApp = ({ data }: { data: Metronome }) => {
         >
           <Routes>
             <Route path="/" element={<Outlet />}>
-              <Route element={<Redirect to="playback" />} path={'/*'} />
               <Route element={<h1>Settings</h1>} path="/settings" />
               <Route element={<h1>Playback</h1>} path="/playback" />
               <Route element={<h1>Sequencer</h1>} path="/sequencer" />

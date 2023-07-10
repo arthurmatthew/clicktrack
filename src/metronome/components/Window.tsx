@@ -18,7 +18,9 @@ const Window = ({
         {tabs ? (
           tabs.map((x) => {
             return (
-              <HighlightedLink to={x.to}>{x.title || x.to}</HighlightedLink>
+              <HighlightedLink key={x.title} to={x.to}>
+                {x.title || x.to}
+              </HighlightedLink>
             );
           })
         ) : (

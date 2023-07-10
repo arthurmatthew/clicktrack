@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Index = () => {
   return (
-    <div className="text-slate-800 dark:text-slate-200">
+    <div className="text-slate-950 dark:text-slate-200">
       <section className="flex flex-col items-center justify-center px-2">
         <div className="mx-auto my-20 flex max-w-5xl flex-col justify-center">
           <motion.h1
@@ -102,7 +102,10 @@ const Index = () => {
       <section className="flex flex-col items-center justify-center px-2">
         <div className="mx-auto my-20 flex max-w-5xl items-center gap-5">
           <h1 className="text-3xl">Well, what do you say?</h1>
-          <Link className="rounded-md bg-slate-600 p-2 px-4 text-xl" to="/app">
+          <Link
+            className="rounded-md bg-slate-300 p-2 px-4 text-xl dark:bg-slate-600"
+            to="/app"
+          >
             Let's go!
           </Link>
         </div>
