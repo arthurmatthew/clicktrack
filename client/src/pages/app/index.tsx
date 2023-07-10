@@ -1,14 +1,7 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import Redirect from '../../components/routes/Redirect';
 
 const AppIndex = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    navigate('/app/metronomes');
-  }, []);
-
-  return null;
+  return <Redirect to="/app/metronomes" />;
 };
 
 export default AppIndex;

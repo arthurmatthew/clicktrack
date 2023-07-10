@@ -21,7 +21,7 @@ const AppRoute = (
   >
     <Route path="/app/" element={<AppIndex />} />
     <Route path="/app/metronomes" element={<MetronomesIndex />} />
-    <Route path="/app/metronomes/:id" element={<MetronomePage />} />
+    <Route path="/app/metronomes/:id/*" element={<MetronomePage />} />
   </Route>
 );
 

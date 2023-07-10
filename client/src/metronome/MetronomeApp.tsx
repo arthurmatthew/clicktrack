@@ -1,12 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
-import Metronome from '../metronome';
-import { sounds } from '../sounds';
-import getFrequency from '../../helpers/app/metronomes/getFrequency';
-import storage from '../../configs/storage.config';
-import Playback from './panels/Playback';
-import Time from './panels/Time';
-import Options from './panels/Options';
-import PanelRow from './panels/PanelRow';
+import Metronome from './metronome';
+import { sounds } from './sounds';
+import getFrequency from '../helpers/app/metronomes/getFrequency';
+import storage from '../configs/storage.config';
+import Window from './components/Window';
+import { Routes, Route, Outlet } from 'react-router-dom';
+import Redirect from '../components/routes/Redirect';
+import DataViewItem from './components/DataViewItem';
 
 const MetronomeApp = ({ data }: { data: Metronome }) => {
   const audioCtx = useRef<AudioContext | null>(null);
@@ -83,38 +83,28 @@ const MetronomeApp = ({ data }: { data: Metronome }) => {
           <DataViewItem title={'ID'}>{metronome.id}</DataViewItem>
         </ul>
       </div>
-
-      <div className="flex flex-grow flex-col gap-2 border-t-2 border-slate-300 p-2 dark:border-slate-700">
-        <span className=""></span>
-        <PanelRow>
-          <Time metronome={metronome} />
-          <Playback
-            metronome={metronome}
-            setVolume={setVolume}
-            incrementBpm={incrementBpm}
-            play={play}
-          />
-          <Options />
-        </PanelRow>
+      <div className="grid grid-cols-2 gap-2 px-2 pb-2">
+        <Window>
+          <h1>Selected Metronome</h1>
+        </Window>
+        <Window
+          tabs={[
+            { title: 'Playback', to: 'playback' },
+            { title: 'Sequencer', to: 'sequencer' },
+            { title: 'Settings', to: 'settings' },
+          ]}
+        >
+          <Routes>
+            <Route path="/" element={<Outlet />}>
+              <Route element={<Redirect to="playback" />} path={'/*'} />
+              <Route element={<h1>Settings</h1>} path="/settings" />
+              <Route element={<h1>Playback</h1>} path="/playback" />
+              <Route element={<h1>Sequencer</h1>} path="/sequencer" />
+            </Route>
+          </Routes>
+        </Window>
       </div>
     </div>
-  );
-};
-
-const DataViewItem = ({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) => {
-  return (
-    <li className="px-2">
-      {title}{' '}
-      <span className="rounded-md bg-slate-300 px-1 dark:bg-slate-700">
-        {children}
-      </span>
-    </li>
   );
 };
 

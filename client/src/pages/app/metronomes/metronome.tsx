@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import MetronomeApp from '../../../metronome/components/MetronomeApp';
+import MetronomeApp from '../../../metronome/MetronomeApp';
 import Metronome from '../../../metronome/metronome';
 
 const MetronomePage = () => {
