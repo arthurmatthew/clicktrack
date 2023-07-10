@@ -1,4 +1,4 @@
-import Redirect from '../../components/routes/Redirect';
+import Redirect from '../../components/routing/Redirect';
 
 const AppIndex = () => {
   return <Redirect to="/app/metronomes" />;
