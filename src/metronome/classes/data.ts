@@ -1,7 +1,8 @@
-import Metronome from './metronome';
+import { Repeat } from 'framer-motion';
+import { Metronome } from './metronome';
 
 export default class Data {
-  children: Metronome[];
+  children: (Metronome | Repeat)[];
 
   // Frequency Related
   note: [note: string, octave: number];

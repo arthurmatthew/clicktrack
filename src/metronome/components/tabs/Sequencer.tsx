@@ -1,5 +1,5 @@
 import Clicktrack from '../../classes/clicktrack';
-import Metronome from '../../classes/metronome';
+import { Metronome } from '../../classes/metronome';
 
 const Sequencer = ({
   add,
