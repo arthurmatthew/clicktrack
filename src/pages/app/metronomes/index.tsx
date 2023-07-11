@@ -10,7 +10,7 @@ import useStickyState from '../../../hooks/useStickyState';
 
 import storage from '../../../configs/storage.config';
 
-import Metronome from '../../../metronome/metronome';
+import Clicktrack from '../../../metronome/classes/clicktrack';
 
 import add from '../../../helpers/app/metronomes/add';
 import nameChange from '../../../helpers/app/metronomes/nameChange';
@@ -19,15 +19,15 @@ import remove from '../../../helpers/app/metronomes/remove';
 import sortByPos from '../../../helpers/sortByPos';
 
 const MetronomesIndex = () => {
-  const [sections, setSections] = useStickyState<Metronome[]>(
-    [new Metronome({ permanant: true })],
+  const [sections, setSections] = useStickyState<Clicktrack[]>(
+    [new Clicktrack({ permanant: true })],
     storage.key
   );
 
   const handleAdd = () => {
     setSections((prev) => [
       ...prev,
-      add(new Metronome({ permanant: true }), prev),
+      add(new Clicktrack({ permanant: true }), prev),
     ]);
   };
 

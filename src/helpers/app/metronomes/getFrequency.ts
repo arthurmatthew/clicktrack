@@ -1,4 +1,4 @@
-import Metronome from '../../../metronome/metronome';
+import Metronome from '../../../metronome/classes/clicktrack';
 
 const getFrequency = (notes: Metronome['data']['note']) => {
   const calcOct = (zeroFreq: number, octave: number) => {

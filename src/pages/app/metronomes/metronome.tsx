@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import MetronomeApp from '../../../metronome/MetronomeApp';
-import Metronome from '../../../metronome/metronome';
+import Clicktrack from '../../../metronome/classes/clicktrack';
 
 const MetronomePage = () => {
   const params = useParams();
@@ -8,7 +8,7 @@ const MetronomePage = () => {
   const getMetronome = (id: string) => {
     const metronomes = JSON.parse(
       localStorage.getItem('metronomes') as string
-    ) as Metronome[];
+    ) as Clicktrack[];
     return metronomes.find((metronome) => metronome.id == id);
   };
 

@@ -1,4 +1,4 @@
-import Metronome from '../../../metronome/metronome';
+import Metronome from '../../../metronome/classes/clicktrack';
 
 const remove = (id: string, sections: Metronome[]) => {
   if (!sections.find((metronome) => metronome.id == id)?.permanant)

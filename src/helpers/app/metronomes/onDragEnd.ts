@@ -1,5 +1,5 @@
 import { DropResult } from 'react-beautiful-dnd';
-import Metronome from '../../../metronome/metronome';
+import Metronome from '../../../metronome/classes/clicktrack';
 
 const onDragEnd = (result: DropResult, sections: Metronome[]) => {
   if (!result.destination) return sections;

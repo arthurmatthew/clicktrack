@@ -1,7 +1,7 @@
 import HighlightedLink from './HighlightedLink';
 
 interface Tab {
-  to: string;
+  to?: string;
   title?: string;
 }
 
@@ -14,7 +14,7 @@ const Window = ({
 }) => {
   return (
     <div className="flex flex-col">
-      <nav className="flex w-fit gap-1">
+      <nav className="space-evenly flex w-full gap-1">
         {tabs ? (
           tabs.map((x) => {
             return (
@@ -25,11 +25,11 @@ const Window = ({
           })
         ) : (
           <div className="invisible">
-            <HighlightedLink to="">lmao</HighlightedLink>
+            <HighlightedLink to="">.</HighlightedLink>
           </div>
         )}
       </nav>
-      <div className="border-t-4 border-slate-300 bg-slate-200 p-4 dark:border-slate-800 dark:bg-slate-700">
+      <div className="border-t-4 border-slate-300 bg-slate-200 p-4 dark:border-slate-800 dark:bg-slate-700 lg:rounded-bl-md lg:rounded-br-md">
         {children}
       </div>
     </div>

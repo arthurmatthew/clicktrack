@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
-import Metronome from '../../../../metronome/metronome';
+import Clicktrack from '../../../../metronome/classes/clicktrack';
 
 export interface MetronomeSection {
-  metronome: Metronome;
+  metronome: Clicktrack;
   remove: () => void;
   changeName: (name: string, newName: string) => void;
   dragHandle: DraggableProvidedDragHandleProps | null | undefined;

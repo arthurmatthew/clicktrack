@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import Metronome from '../../../metronome/metronome';
+import Metronome from '../../../metronome/classes/clicktrack';
 
 /**
  * Handle creation of a new `Section` object.

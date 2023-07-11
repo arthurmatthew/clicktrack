@@ -1,4 +1,4 @@
-import Metronome from '../../../metronome/metronome';
+import Metronome from '../../../metronome/classes/clicktrack';
 import makeUnique from '../../makeUnique';
 
 const nameChange = (name: string, newName: string, sections: Metronome[]) => {

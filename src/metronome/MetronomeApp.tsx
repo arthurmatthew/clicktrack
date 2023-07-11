@@ -1,13 +1,19 @@
 import { useRef, useEffect, useState } from 'react';
-import Metronome from './metronome';
+import Clicktrack from './classes/clicktrack';
 import storage from '../configs/storage.config';
 import Window from './components/Window';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import DataViewItem from './components/DataViewItem';
+import Sequencer from './components/tabs/Sequencer';
+import Selected from './components/tabs/Selected';
 
-const MetronomeApp = ({ data }: { data: Metronome }) => {
+const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   const audioCtx = useRef<AudioContext | null>(null);
-  const [metronome, _setMetronome] = useState<Metronome>(data);
+  const [clicktrack, setClicktrack] = useState<Clicktrack>(data);
+
+  const [selectedId, setSelectedId] = useState<string>(
+    clicktrack.data.children[0].id
+  );
 
   useEffect(() => {
     audioCtx.current = new AudioContext();
@@ -20,13 +26,23 @@ const MetronomeApp = ({ data }: { data: Metronome }) => {
   useEffect(() => {
     const prev = JSON.parse(
       localStorage.getItem(storage.key) as string
-    ) as Metronome[];
+    ) as Clicktrack[];
     const updated = JSON.stringify([
-      ...prev.filter((x) => x.id != metronome.id),
-      metronome,
+      ...prev.filter((x) => x.id != clicktrack.id),
+      clicktrack,
     ]);
     localStorage.setItem(storage.key, updated);
-  }, [metronome]);
+  }, [clicktrack]);
+
+  const addSequenceChild = (child: Clicktrack['data']['children'][number]) => {
+    setClicktrack(
+      (prev) =>
+        new Clicktrack({
+          ...prev,
+          data: { ...prev.data, children: [...prev.data.children, child] },
+        })
+    );
+  };
 
   // const play = () => {
   //   if (audioCtx.current) {
@@ -55,14 +71,16 @@ const MetronomeApp = ({ data }: { data: Metronome }) => {
   return (
     <div className="flex min-h-screen min-w-full flex-col text-slate-900 dark:text-slate-200">
       <div className="mx-auto my-7 flex max-w-5xl flex-col items-center gap-2">
-        <h1 className="text-3xl">{metronome.name}</h1>
+        <h1 className="text-3xl">{clicktrack.name}</h1>
         <ul className="flex text-sm">
-          <DataViewItem title={'ID'}>{metronome.id}</DataViewItem>
+          <DataViewItem title={'ID'}>{clicktrack.id}</DataViewItem>
         </ul>
       </div>
-      <div className="grid grid-cols-2 gap-2 px-2 pb-2">
-        <Window>
-          <h1>Selected Metronome</h1>
+      <div className="grid gap-2 px-2 pb-2 lg:grid-cols-2">
+        <Window tabs={[{ title: 'Edit Section' }]}>
+          <Selected
+            selected={clicktrack.data.children.find((x) => x.id == selectedId)}
+          />
         </Window>
         <Window
           tabs={[
@@ -75,7 +93,17 @@ const MetronomeApp = ({ data }: { data: Metronome }) => {
             <Route path="/" element={<Outlet />}>
               <Route element={<h1>Settings</h1>} path="/settings" />
               <Route element={<h1>Playback</h1>} path="/playback" />
-              <Route element={<h1>Sequencer</h1>} path="/sequencer" />
+              <Route
+                element={
+                  <Sequencer
+                    selectedId={selectedId}
+                    setSelectedId={setSelectedId}
+                    add={addSequenceChild}
+                    sequence={clicktrack.data.children}
+                  />
+                }
+                path="/sequencer"
+              />
             </Route>
           </Routes>
         </Window>

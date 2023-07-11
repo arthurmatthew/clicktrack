@@ -1,4 +1,4 @@
-import Metronome from '../metronome/metronome';
+import Clicktrack from '../metronome/classes/clicktrack';
 
 /**
  *
@@ -10,7 +10,7 @@ import Metronome from '../metronome/metronome';
 export default function makeUnique(
   name: string,
   newName: string,
-  prev: Metronome[]
+  prev: Clicktrack[]
 ) {
   let trials = 0;
   let uniqueName = newName;
