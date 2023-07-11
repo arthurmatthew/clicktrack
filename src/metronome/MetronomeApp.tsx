@@ -12,7 +12,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   const [clicktrack, setClicktrack] = useState<Clicktrack>(data);
 
   const [selectedId, setSelectedId] = useState<string>(
-    clicktrack.data.children[0].
+    clicktrack.data.children[0].id
   );
 
   useEffect(() => {
