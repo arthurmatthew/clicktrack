@@ -12,6 +12,11 @@ const Selected = ({
 const ViewSection = ({ selected }: { selected: Metronome }) => {
   return selected ? (
     <div>
+      <div className="mb-2">
+        <button className="rounded-sm bg-red-500 p-2 px-4 text-slate-200">
+          Delete
+        </button>
+      </div>
       <h1>{selected.id}</h1>
       <h1>{selected.bpm} BPM</h1>
     </div>
