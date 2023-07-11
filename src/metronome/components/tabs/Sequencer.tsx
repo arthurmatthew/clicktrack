@@ -20,13 +20,15 @@ const Sequencer = ({
           return (
             <li
               key={x.id}
-              className="group mx-2 flex cursor-pointer items-center gap-2 text-slate-200"
+              className="group mx-2 flex cursor-pointer items-center gap-2 text-slate-950 dark:text-slate-200"
               onClick={() => setSelectedId(x.id)}
             >
               <span className="group-hover:hidden">
                 <p
                   className={`roboto h-fit leading-none ${
-                    selected ? 'text-purple-400' : 'group-hover:text-purple-400'
+                    selected
+                      ? 'text-purple-600 dark:text-purple-400'
+                      : 'group-hover:text-purple-400'
                   } `}
                 >
                   {i + 1}
@@ -39,7 +41,7 @@ const Sequencer = ({
                 className={`rounded-lg ${
                   selected
                     ? 'bg-purple-400 text-slate-950'
-                    : 'bg-slate-700 group-hover:bg-purple-400 group-hover:text-slate-950'
+                    : 'bg-slate-300 group-hover:bg-purple-400 group-hover:text-slate-950 dark:bg-slate-700'
                 } px-2`}
               >
                 {x.bpm} BPM for {x.lengthInBars} bars
