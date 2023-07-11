@@ -1,13 +1,12 @@
 import Clicktrack from '../../classes/clicktrack';
-import { Metronome, Repeat } from '../../classes/metronome';
+import { Metronome } from '../../classes/metronome';
 
 const Selected = ({
   selected,
 }: {
   selected: Clicktrack['data']['children'][number] | undefined;
 }) => {
-  if ((selected as Metronome).timeSignature != undefined) {
-  }
+  if (selected) return <ViewSection selected={selected} />;
 };
 
 const ViewSection = ({ selected }: { selected: Metronome }) => {

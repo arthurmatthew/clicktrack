@@ -19,11 +19,3 @@ export class Metronome extends Section {
     this.lengthInBars = options?.lengthInBars || 2;
   }
 }
-
-export class Repeat extends Section {
-  times: number;
-  constructor(options?: Partial<Repeat>) {
-    super();
-    this.times = options?.times || 1;
-  }
-}

@@ -14,27 +14,32 @@ const Sequencer = ({
 }) => {
   return (
     <div className="flex select-none flex-col gap-2">
-      <ul className="flex flex-wrap items-center gap-2 rounded-sm bg-slate-800 p-2 text-xl">
+      <ul className="rounded-2 flex flex-wrap items-center gap-2 border-l-2 border-purple-400 p-2 text-xl">
         {sequence.map((x, i) => {
           const selected = x.id == selectedId;
           return (
             <li
               key={x.id}
-              className="mx-2 flex items-center gap-2 text-slate-200"
+              className="group mx-2 flex cursor-pointer items-center gap-2 text-slate-200"
               onClick={() => setSelectedId(x.id)}
             >
-              <div
-                className={`roboto h-fit leading-none ${
-                  selected ? 'text-purple-400' : ''
-                } `}
-              >
-                {i + 1}
-              </div>
+              <span className="group-hover:hidden">
+                <p
+                  className={`roboto h-fit leading-none ${
+                    selected ? 'text-purple-400' : 'group-hover:text-purple-400'
+                  } `}
+                >
+                  {i + 1}
+                </p>
+              </span>
+              <span className="hidden group-hover:block ">
+                <p>{'>'}</p>
+              </span>
               <div
                 className={`rounded-lg ${
                   selected
-                    ? 'bg-gradient-to-tr from-purple-400 to-purple-300 text-slate-950'
-                    : 'bg-slate-700'
+                    ? 'bg-purple-400 text-slate-950'
+                    : 'bg-slate-700 group-hover:bg-purple-400 group-hover:text-slate-950'
                 } px-2`}
               >
                 {x.bpm} BPM for {x.lengthInBars} bars
@@ -46,7 +51,7 @@ const Sequencer = ({
       <ul className="flex gap-3">
         <li
           onClick={() => add(new Metronome())}
-          className="rounded-md border-2 border-dashed border-purple-400 p-2 px-4 text-lg"
+          className="cursor-pointer rounded-md border-2 border-dashed border-purple-400 p-2 px-4 text-lg"
         >
           <i className="bi-plus text-xl" />
           Section
