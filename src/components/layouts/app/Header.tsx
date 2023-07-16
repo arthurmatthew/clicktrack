@@ -1,5 +1,3 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const AppHeader = ({
@@ -9,13 +7,6 @@ const AppHeader = ({
   darkToggle: React.Dispatch<React.SetStateAction<boolean>>;
   dark: boolean;
 }) => {
-  const [hovering, setHovering] = useState(false);
-  const [menuShowing, setMenuShowing] = useState(false);
-
-  const toggleHovering = () => {
-    setHovering((hovering) => !hovering);
-  };
-
   return (
     <header className="sticky top-0 z-10 shrink grow-0 basis-auto border-b-2 border-slate-300 bg-inherit px-3 py-2 dark:border-slate-700">
       <div className="mx-auto flex w-full items-center justify-between">
