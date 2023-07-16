@@ -48,12 +48,12 @@ export const MetronomeSection = ({
                 if (!nameCheck.test(newName)) {
                   (nameRef.current as HTMLHeadingElement).innerText =
                     metronome.name;
-                  setEditing((prev) => !prev);
+                  setEditing((previouslyEditing) => !previouslyEditing);
                   return;
                 }
                 changeName(metronome.name, newName);
               }
-              setEditing((prev) => !prev);
+              setEditing((previouslyEditing) => !previouslyEditing);
             }}
             className={`bi-${
               editing ? 'check-lg' : 'pencil-fill'
@@ -69,7 +69,7 @@ export const MetronomeSection = ({
             Open
           </Link>
           <p
-            onClick={() => setShown((prev) => !prev)}
+            onClick={() => setShown((previouslyShown) => !previouslyShown)}
             className="flex cursor-pointer items-center gap-1 text-slate-600 dark:text-slate-400"
           >
             More{' '}

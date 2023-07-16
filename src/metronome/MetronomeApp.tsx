@@ -7,20 +7,11 @@ import DataViewItem from './components/DataViewItem';
 import Sequencer from './components/tabs/Sequencer';
 import Selected from './components/tabs/Selected';
 
+type Metronome = Clicktrack['data']['children'][number];
+
 const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   const audioCtx = useRef<AudioContext | null>(null);
   const [clicktrack, setClicktrack] = useState<Clicktrack>(data);
-
-  const [selectedId, setSelectedId] = useState<string>(
-    clicktrack.data.children[0].id
-  );
-
-  useEffect(() => {
-    audioCtx.current = new AudioContext();
-    return () => {
-      audioCtx.current = null;
-    };
-  }, []);
 
   // Handle metronome local storage update
   useEffect(() => {
@@ -28,21 +19,24 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
       localStorage.getItem(storage.key) as string
     ) as Clicktrack[];
     const updated = JSON.stringify([
-      ...prev.filter((x) => x.id != clicktrack.id),
+      ...prev.filter((metronome) => metronome.id != clicktrack.id),
       clicktrack,
     ]);
     localStorage.setItem(storage.key, updated);
   }, [clicktrack]);
 
-  const addSequenceChild = (child: Clicktrack['data']['children'][number]) => {
-    setClicktrack(
-      (prev) =>
-        new Clicktrack({
-          ...prev,
-          data: { ...prev.data, children: [...prev.data.children, child] },
-        })
-    );
-  };
+  // Handle selecting different sequences
+  const [selectedId, setSelectedId] = useState<string>(
+    clicktrack.data.children[0].id
+  );
+
+  // Initialize Audio
+  useEffect(() => {
+    audioCtx.current = new AudioContext();
+    return () => {
+      audioCtx.current = null;
+    };
+  }, []);
 
   // const play = () => {
   //   if (audioCtx.current) {
@@ -68,66 +62,60 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   //   }
   // };
 
-  const updateBpm = (
-    metronome: Clicktrack['data']['children'][number],
-    amount: number,
-    set?: number
-  ) => {
-    setClicktrack((prev) => {
-      if (metronome.bpm + amount < 10 || (set && set < 10)) {
-        return prev;
-      }
-      if (metronome.bpm + amount > 500 || (set && set > 500)) {
-        return prev;
-      }
-      const id = metronome.id;
-      const updated: Clicktrack['data']['children'][number] = {
-        ...metronome,
-        bpm: set ? set : metronome.bpm + amount,
-      };
-      return {
-        ...prev,
-        data: {
-          ...prev.data,
-          children: [...prev.data.children.filter((x) => x.id != id), updated],
-        },
-      };
-    });
+  const addMetronome = (newMetronome: Metronome) => {
+    setClicktrack(
+      (previousClicktrack) =>
+        new Clicktrack({
+          ...previousClicktrack,
+          data: {
+            ...previousClicktrack.data,
+            children: [...previousClicktrack.data.children, newMetronome],
+          },
+        })
+    );
   };
 
-  const updateTimeSignature = (
-    metronome: Clicktrack['data']['children'][number],
-    time: [beats: number, value: number]
+  const updateMetronome = (
+    metronome: Metronome,
+    update: Partial<Omit<Metronome, 'id'>>
   ) => {
-    setClicktrack((prev) => {
-      const updated: Clicktrack['data']['children'][number] = {
-        ...metronome,
-        timeSignature: time,
-      };
+    setClicktrack((previousClicktrack) => {
+      const indexBefore = previousClicktrack.data.children.findIndex(
+        (thisMetronome) => thisMetronome.id == metronome.id
+      );
+      let updatedMetronomes = previousClicktrack.data.children.filter(
+        (thisMetronome) => thisMetronome.id != metronome.id
+      );
+      updatedMetronomes.splice(indexBefore, 0, { ...metronome, ...update });
+
       return {
-        ...prev,
+        ...previousClicktrack,
         data: {
-          ...prev.data,
-          children: [
-            ...prev.data.children.filter((x) => x.id != metronome.id),
-            updated,
-          ],
+          ...previousClicktrack.data,
+          children: updatedMetronomes,
         },
       };
     });
   };
 
   const deleteMetronome = (id: string) => {
-    setClicktrack((prev) => {
-      if (prev.data.children.length == 1) return prev;
+    setClicktrack((previousClicktrack) => {
+      if (previousClicktrack.data.children.length == 1)
+        return previousClicktrack;
       const updated = {
-        ...prev,
+        ...previousClicktrack,
         data: {
-          ...prev.data,
-          children: [...prev.data.children.filter((x) => x.id != id)],
+          ...previousClicktrack.data,
+          children: [
+            ...previousClicktrack.data.children.filter(
+              (metronome) => metronome.id != id
+            ),
+          ],
         },
       };
-      const indexOfId = prev.data.children.findIndex((x) => x.id == id);
+      const indexOfId = previousClicktrack.data.children.findIndex(
+        (metronome) => metronome.id == id
+      );
       setSelectedId(
         updated.data.children[indexOfId]
           ? updated.data.children[indexOfId].id
@@ -149,9 +137,10 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
         <Window tabs={[{ title: 'Edit Section' }]}>
           <Selected
             deleteMetronome={deleteMetronome}
-            updateBpm={updateBpm}
-            updateTime={updateTimeSignature}
-            selected={clicktrack.data.children.find((x) => x.id == selectedId)}
+            updateMetronome={updateMetronome}
+            selected={clicktrack.data.children.find(
+              (metronome) => metronome.id == selectedId
+            )}
           />
         </Window>
         <Window
@@ -170,7 +159,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
                   <Sequencer
                     selectedId={selectedId}
                     setSelectedId={setSelectedId}
-                    add={addSequenceChild}
+                    add={addMetronome}
                     sequence={clicktrack.data.children}
                   />
                 }

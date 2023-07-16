@@ -25,9 +25,9 @@ const MetronomesIndex = () => {
   );
 
   const handleAdd = () => {
-    setSections((prev) => [
-      ...prev,
-      add(new Clicktrack({ permanant: true }), prev),
+    setSections((previousSections) => [
+      ...previousSections,
+      add(new Clicktrack({ permanant: true }), previousSections),
     ]);
   };
 
@@ -37,15 +37,17 @@ const MetronomesIndex = () => {
   };
 
   const handleRemove = (id: string) => {
-    setSections((prev) => remove(id, prev));
+    setSections((previousSections) => remove(id, previousSections));
   };
 
   const handleNameChange = (name: string, newName: string) => {
-    setSections((prev) => nameChange(name, newName, prev));
+    setSections((previousSections) =>
+      nameChange(name, newName, previousSections)
+    );
   };
 
   const handleOnDragEnd = (result: DropResult) => {
-    setSections((prev) => onDragEnd(result, prev));
+    setSections((previousSections) => onDragEnd(result, previousSections));
   };
 
   const [tipShowing, setTipShowing] = useStickyState<boolean>(

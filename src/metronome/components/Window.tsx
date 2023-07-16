@@ -16,10 +16,10 @@ const Window = ({
     <div className="flex flex-col">
       <nav className="space-evenly flex w-full gap-1">
         {tabs ? (
-          tabs.map((x) => {
+          tabs.map((tab) => {
             return (
-              <HighlightedLink key={x.title} to={x.to}>
-                {x.title || x.to}
+              <HighlightedLink key={tab.title} to={tab.to}>
+                {tab.title || tab.to}
               </HighlightedLink>
             );
           })
@@ -29,7 +29,7 @@ const Window = ({
           </div>
         )}
       </nav>
-      <div className="border-t-4 border-slate-300 bg-slate-200 p-4 dark:border-slate-800 dark:bg-slate-700 lg:rounded-bl-md lg:rounded-br-md">
+      <div className="border-t-4 border-slate-700 bg-slate-200 p-4 dark:border-slate-800 dark:bg-slate-700 lg:rounded-bl-md lg:rounded-br-md">
         {children}
       </div>
     </div>

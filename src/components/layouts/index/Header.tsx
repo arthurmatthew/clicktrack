@@ -18,7 +18,7 @@ const Header = ({
             className={`${
               dark ? 'bi-moon' : 'bi-sun'
             } text-3xl text-slate-800  hover:text-purple-600 dark:text-slate-200 dark:hover:text-purple-400`}
-            onClick={() => darkToggle((prev) => !prev)}
+            onClick={() => darkToggle((previouslyDark) => !previouslyDark)}
           />
         </div>
       </div>

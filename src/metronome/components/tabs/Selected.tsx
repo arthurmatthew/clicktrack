@@ -1,23 +1,16 @@
 import getTempoName from '../../../helpers/getTempoName';
 import Clicktrack from '../../classes/clicktrack';
 
+type Metronome = Clicktrack['data']['children'][number];
+
 const Selected = ({
-  updateBpm,
-  updateTime,
+  updateMetronome,
   deleteMetronome,
   selected,
 }: {
-  updateBpm: (
-    metronome: Clicktrack['data']['children'][number],
-    amount: number,
-    set?: number
-  ) => void;
-  updateTime: (
-    metronome: Clicktrack['data']['children'][number],
-    time: [beats: number, value: number]
-  ) => void;
+  updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;
   deleteMetronome: (id: string) => void;
-  selected: Clicktrack['data']['children'][number] | undefined;
+  selected: Metronome | undefined;
 }) => {
   const timeSignatures: [beats: number, value: number][] = [
     [4, 4],
@@ -31,44 +24,68 @@ const Selected = ({
   if (selected)
     return (
       <div className="flex flex-col gap-4">
-        <div className="grid grid-cols-2">
+        <div className="hidden grid-cols-2 sm:grid">
           <h1>Tempo</h1>
           <h1>Time Signature</h1>
         </div>
-        <div className="grid grid-cols-2 items-center gap-4">
+        <div className="grid items-center gap-4 sm:grid-cols-2">
           <div>
-            <div className="flex items-center justify-center gap-3 text-slate-700">
-              <i
-                onClick={() => updateBpm(selected, -5)}
-                className="bi-caret-left-fill cursor-pointer text-3xl tracking-tighter"
-              />
-              <div className="aspect-square w-fit select-none rounded-full border-4 border-slate-700">
-                <div className="mx-6 flex h-full flex-col items-center justify-center">
-                  <h1 className="roboto w-16 bg-transparent text-center text-4xl font-bold focus:underline focus:outline-none">
+            <div className="flex items-center justify-between gap-1 text-slate-700">
+              <div className="flex w-full overflow-hidden rounded-md">
+                <TempoIncrementButton
+                  selected={selected}
+                  updateMetronome={updateMetronome}
+                  amount={-5}
+                  icon="rewind-fill border-r-2  border-slate-300"
+                />
+                <TempoIncrementButton
+                  selected={selected}
+                  updateMetronome={updateMetronome}
+                  amount={-1}
+                  icon="caret-left-fill"
+                />
+              </div>
+
+              <div className="aspect-square w-fit select-none">
+                <div className="flex h-full flex-col items-center justify-center px-2">
+                  <h2>BPM:</h2>
+                  <h1 className="roboto bg-transparent text-center text-4xl font-bold focus:underline focus:outline-none">
                     {selected.bpm}
                   </h1>
-                  <h2 className="lora w-24 text-center italic">
+                  <h2 className="lora text-center italic">
                     {getTempoName(selected.bpm)}
                   </h2>
                 </div>
               </div>
-              <i
-                onClick={() => updateBpm(selected, 5)}
-                className="bi-caret-right-fill cursor-pointer text-3xl tracking-tighter"
-              />
+              <div className="flex w-full overflow-hidden rounded-md">
+                <TempoIncrementButton
+                  selected={selected}
+                  updateMetronome={updateMetronome}
+                  amount={1}
+                  icon="caret-right-fill"
+                />
+                <TempoIncrementButton
+                  selected={selected}
+                  updateMetronome={updateMetronome}
+                  amount={5}
+                  icon="fast-forward-fill border-l-2 border-slate-300"
+                />
+              </div>
             </div>
           </div>
           <div>
             <div className="lora grid grid-cols-3 gap-1 text-2xl font-semibold text-slate-700">
-              {timeSignatures.map((time) => (
+              {timeSignatures.map((timeSignature) => (
                 <TimeSignatureButton
-                  key={JSON.stringify(time)}
-                  onClick={() => updateTime(selected, time)}
+                  key={JSON.stringify(timeSignature)}
+                  onClick={() =>
+                    updateMetronome(selected, { timeSignature: timeSignature })
+                  }
                   selected={
                     JSON.stringify(selected.timeSignature) ==
-                    JSON.stringify(time)
+                    JSON.stringify(timeSignature)
                   }
-                  time={time}
+                  time={timeSignature}
                 />
               ))}
             </div>
@@ -86,6 +103,37 @@ const Selected = ({
         </div>
       </div>
     );
+};
+
+const TempoIncrementButton = ({
+  updateMetronome,
+  selected,
+  amount,
+  icon,
+}: {
+  updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;
+  selected: Metronome;
+  amount: number;
+  icon: string;
+}) => {
+  return (
+    <i
+      onClick={() => {
+        if (selected.bpm + amount < 20) {
+          updateMetronome(selected, { bpm: 20 });
+          return;
+        }
+        if (selected.bpm + amount > 500) {
+          updateMetronome(selected, { bpm: 500 });
+          return;
+        }
+        updateMetronome(selected, {
+          bpm: selected.bpm + amount,
+        });
+      }}
+      className={`bi-${icon} flex flex-grow cursor-pointer items-center justify-center bg-slate-700 py-2 text-2xl tracking-tighter text-slate-200`}
+    />
+  );
 };
 
 const TimeSignatureButton = ({

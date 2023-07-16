@@ -16,22 +16,22 @@ const Sequencer = ({
     <div className="flex select-none flex-col gap-2">
       <div className="rounded-2 flex flex-col gap-2 py-2 text-xl">
         <h1>Start</h1>
-        {sequence.map((x) => {
-          const selected = x.id == selectedId;
+        {sequence.map((metronome) => {
+          const selected = metronome.id == selectedId;
           return (
             <div
-              key={x.id}
+              key={metronome.id}
               className="group flex cursor-pointer items-center gap-2 text-slate-950 dark:text-slate-200"
-              onClick={() => setSelectedId(x.id)}
+              onClick={() => setSelectedId(metronome.id)}
             >
               <div
                 className={`rounded-lg ${
                   selected
-                    ? 'bg-purple-400 text-slate-950'
-                    : 'bg-slate-300 duration-75 hover:bg-purple-400 hover:text-slate-950 dark:bg-slate-700'
+                    ? 'bg-slate-700 text-slate-200'
+                    : 'bg-slate-300 duration-75 hover:bg-slate-700 hover:text-slate-200 dark:bg-slate-700'
                 } w-full p-4 py-3`}
               >
-                {x.bpm} BPM for {x.lengthInBars} bars
+                {metronome.bpm} BPM for {metronome.lengthInBars} bars
               </div>
             </div>
           );
