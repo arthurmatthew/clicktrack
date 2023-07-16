@@ -23,6 +23,8 @@ const getTempoName = (bpm: number) => {
     return 'Lento';
   } else if (bpm > 20) {
     return 'Grave';
+  } else {
+    return 'Grave';
   }
 };
 

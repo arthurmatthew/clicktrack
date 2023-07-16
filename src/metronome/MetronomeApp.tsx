@@ -68,6 +68,75 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   //   }
   // };
 
+  const updateBpm = (
+    metronome: Clicktrack['data']['children'][number],
+    amount: number,
+    set?: number
+  ) => {
+    setClicktrack((prev) => {
+      if (metronome.bpm + amount < 10 || (set && set < 10)) {
+        return prev;
+      }
+      if (metronome.bpm + amount > 500 || (set && set > 500)) {
+        return prev;
+      }
+      const id = metronome.id;
+      const updated: Clicktrack['data']['children'][number] = {
+        ...metronome,
+        bpm: set ? set : metronome.bpm + amount,
+      };
+      return {
+        ...prev,
+        data: {
+          ...prev.data,
+          children: [...prev.data.children.filter((x) => x.id != id), updated],
+        },
+      };
+    });
+  };
+
+  const updateTimeSignature = (
+    metronome: Clicktrack['data']['children'][number],
+    time: [beats: number, value: number]
+  ) => {
+    setClicktrack((prev) => {
+      const updated: Clicktrack['data']['children'][number] = {
+        ...metronome,
+        timeSignature: time,
+      };
+      return {
+        ...prev,
+        data: {
+          ...prev.data,
+          children: [
+            ...prev.data.children.filter((x) => x.id != metronome.id),
+            updated,
+          ],
+        },
+      };
+    });
+  };
+
+  const deleteMetronome = (id: string) => {
+    setClicktrack((prev) => {
+      if (prev.data.children.length == 1) return prev;
+      const updated = {
+        ...prev,
+        data: {
+          ...prev.data,
+          children: [...prev.data.children.filter((x) => x.id != id)],
+        },
+      };
+      const indexOfId = prev.data.children.findIndex((x) => x.id == id);
+      setSelectedId(
+        updated.data.children[indexOfId]
+          ? updated.data.children[indexOfId].id
+          : updated.data.children[indexOfId - 1].id
+      );
+      return updated;
+    });
+  };
+
   return (
     <div className="flex min-h-screen min-w-full flex-col text-slate-900 dark:text-slate-200">
       <div className="mx-auto my-7 flex max-w-5xl flex-col items-center gap-2">
@@ -79,6 +148,9 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
       <div className="grid gap-2 px-2 pb-2 lg:grid-cols-2">
         <Window tabs={[{ title: 'Edit Section' }]}>
           <Selected
+            deleteMetronome={deleteMetronome}
+            updateBpm={updateBpm}
+            updateTime={updateTimeSignature}
             selected={clicktrack.data.children.find((x) => x.id == selectedId)}
           />
         </Window>

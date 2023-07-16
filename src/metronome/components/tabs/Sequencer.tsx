@@ -14,51 +14,37 @@ const Sequencer = ({
 }) => {
   return (
     <div className="flex select-none flex-col gap-2">
-      <ul className="rounded-2 flex flex-wrap items-center gap-2 border-l-2 border-purple-400 p-2 text-xl">
-        {sequence.map((x, i) => {
+      <div className="rounded-2 flex flex-col gap-2 py-2 text-xl">
+        <h1>Start</h1>
+        {sequence.map((x) => {
           const selected = x.id == selectedId;
           return (
-            <li
+            <div
               key={x.id}
-              className="group mx-2 flex cursor-pointer items-center gap-2 text-slate-950 dark:text-slate-200"
+              className="group flex cursor-pointer items-center gap-2 text-slate-950 dark:text-slate-200"
               onClick={() => setSelectedId(x.id)}
             >
-              <span className="group-hover:hidden">
-                <p
-                  className={`roboto h-fit leading-none ${
-                    selected
-                      ? 'text-purple-600 dark:text-purple-400'
-                      : 'group-hover:text-purple-400'
-                  } `}
-                >
-                  {i + 1}
-                </p>
-              </span>
-              <span className="hidden group-hover:block ">
-                <p>{'>'}</p>
-              </span>
               <div
                 className={`rounded-lg ${
                   selected
                     ? 'bg-purple-400 text-slate-950'
-                    : 'bg-slate-300 group-hover:bg-purple-400 group-hover:text-slate-950 dark:bg-slate-700'
-                } px-2`}
+                    : 'bg-slate-300 duration-75 hover:bg-purple-400 hover:text-slate-950 dark:bg-slate-700'
+                } w-full p-4 py-3`}
               >
                 {x.bpm} BPM for {x.lengthInBars} bars
               </div>
-            </li>
+            </div>
           );
         })}
-      </ul>
-      <ul className="flex gap-3">
-        <li
+        <div
           onClick={() => add(new Metronome())}
-          className="cursor-pointer rounded-md border-2 border-dashed border-purple-400 p-2 px-4 text-lg"
+          className="col-span-2 flex cursor-pointer items-center gap-2 text-slate-950 dark:text-slate-200"
         >
-          <i className="bi-plus text-xl" />
-          Section
-        </li>
-      </ul>
+          <div className="w-full rounded-lg border-2 border-dashed border-slate-300 p-4 py-3 dark:border-slate-700">
+            Add a Section
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
