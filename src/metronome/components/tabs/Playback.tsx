@@ -1,5 +1,5 @@
-const Playback = ({ play }: { play: any }) => {
-  return <button onClick={play}>Play</button>;
+const Playback = () => {
+  return;
 };
 
 export default Playback;

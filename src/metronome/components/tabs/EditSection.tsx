@@ -143,7 +143,7 @@ const TimeSignatureButton = ({
 }: {
   time: [beats: number, value: number];
   selected?: boolean;
-  onClick: () => any;
+  onClick: () => void;
 }) => {
   return (
     <button

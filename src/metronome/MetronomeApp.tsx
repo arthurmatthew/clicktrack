@@ -6,17 +6,11 @@ import { Routes, Route, Outlet } from 'react-router-dom';
 import DataViewItem from './components/DataViewItem';
 import Sequencer from './components/tabs/Sequencer';
 import EditSection from './components/tabs/EditSection';
-import Playback from './components/tabs/Playback';
-import { sounds } from './sounds';
-import getFrequency from '../helpers/app/metronomes/getFrequency';
 
 type Metronome = Clicktrack['data']['children'][number];
 
 const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   const [clicktrack, setClicktrack] = useState<Clicktrack>(data);
-
-  // Settings
-  const [selectedSoundNumber, _setSelectedSoundNumber] = useState(0);
 
   // Handle metronome local storage update
   useEffect(() => {
@@ -64,7 +58,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
       const indexBefore = previousClicktrack.data.children.findIndex(
         (thisMetronome) => thisMetronome.id == metronome.id
       );
-      let updatedMetronomes = previousClicktrack.data.children.filter(
+      const updatedMetronomes = previousClicktrack.data.children.filter(
         (thisMetronome) => thisMetronome.id != metronome.id
       );
       updatedMetronomes.splice(indexBefore, 0, { ...metronome, ...update });
@@ -84,32 +78,6 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
 
   let intervalWorker: Worker;
 
-  const play = () => {
-    if (audioCtx.current) {
-      const oscillator = audioCtx.current.createOscillator();
-      const amp = audioCtx.current.createGain();
-
-      (sounds[selectedSoundNumber] || sounds[0])(oscillator);
-      oscillator.frequency.value = getFrequency(clicktrack.data.note);
-      oscillator.connect(amp);
-
-      amp.gain.setValueAtTime(
-        clicktrack.data.volume == 0
-          ? 0.0001
-          : 1 * (clicktrack.data.volume / 100),
-        audioCtx.current.currentTime
-      );
-      amp.connect(audioCtx.current.destination);
-
-      const stopTime =
-        audioCtx.current.currentTime + clicktrack.data.noteDuration;
-
-      oscillator.start(audioCtx.current.currentTime);
-      amp.gain.exponentialRampToValueAtTime(0.0001, stopTime - 0.01);
-      oscillator.stop(stopTime);
-    }
-  };
-
   const initializeMetronome = () => {
     intervalWorker = new Worker('./metronomeWorker.ts');
     intervalWorker.onmessage = (e: MessageEvent) => {
@@ -119,10 +87,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
         console.log(e.data);
       }
     };
-    scheduler();
   };
-
-  const scheduler = () => {};
 
   initializeMetronome();
 
@@ -183,7 +148,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
           <Routes>
             <Route path="/" element={<Outlet />}>
               <Route element={<h1>Settings</h1>} path="/settings" />
-              <Route element={<Playback play={play} />} path="/playback" />
+              <Route element={<h1>Playback</h1>} path="/playback" />
               <Route
                 element={
                   <Sequencer

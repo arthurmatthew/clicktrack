@@ -15,13 +15,7 @@ export default function makeUnique(
   let trials = 0;
   let uniqueName = newName;
 
-  // console.log(' ---- BEGINNING TEST ---- ');
-  // console.log('Always Add Suffix: ', settings?.alwaysAddSuffix);
-  // console.log('.....');
-  // console.log('Testing for name: ', uniqueName);
-  // console.log('---- TRIALS ----');
-  while (true) {
-    // console.log('Trial ', trials);
+  while (trials < 1000) {
     const exist = [
       ...prev.filter((metronome) => metronome.name != name),
       {
@@ -29,10 +23,8 @@ export default function makeUnique(
         name: uniqueName,
       },
     ].filter((metronome) => metronome.name == uniqueName).length;
-    // console.log(exist, ' ', uniqueName, ' exist already.');
     if (exist <= 1) {
       uniqueName = trials == 0 ? newName : `${newName} (#${trials})`;
-      // console.log(uniqueName, ' is available.');
       break;
     }
     trials++;
