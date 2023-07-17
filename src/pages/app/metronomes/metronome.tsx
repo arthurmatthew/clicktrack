@@ -2,6 +2,9 @@ import { useParams } from 'react-router-dom';
 import MetronomeApp from '../../../metronome/MetronomeApp';
 import Clicktrack from '../../../metronome/classes/clicktrack';
 
+/**
+ * Webpage which loads the metronome from storage and passes it off to the actual application.
+ */
 const MetronomePage = () => {
   const params = useParams();
 

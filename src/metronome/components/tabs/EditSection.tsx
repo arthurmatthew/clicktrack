@@ -3,7 +3,7 @@ import Clicktrack from '../../classes/clicktrack';
 
 type Metronome = Clicktrack['data']['children'][number];
 
-const Selected = ({
+const EditSection = ({
   updateMetronome,
   deleteMetronome,
   selected,
@@ -164,4 +164,4 @@ const TimeSignatureButton = ({
   );
 };
 
-export default Selected;
+export default EditSection;

@@ -5,13 +5,18 @@ import Window from './components/Window';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import DataViewItem from './components/DataViewItem';
 import Sequencer from './components/tabs/Sequencer';
-import Selected from './components/tabs/Selected';
+import EditSection from './components/tabs/EditSection';
+import Playback from './components/tabs/Playback';
+import { sounds } from './sounds';
+import getFrequency from '../helpers/app/metronomes/getFrequency';
 
 type Metronome = Clicktrack['data']['children'][number];
 
 const MetronomeApp = ({ data }: { data: Clicktrack }) => {
-  const audioCtx = useRef<AudioContext | null>(null);
   const [clicktrack, setClicktrack] = useState<Clicktrack>(data);
+
+  // Settings
+  const [selectedSoundNumber, _setSelectedSoundNumber] = useState(0);
 
   // Handle metronome local storage update
   useEffect(() => {
@@ -38,31 +43,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
     };
   }, []);
 
-  // const play = () => {
-  //   if (audioCtx.current) {
-  //     const oscillator = audioCtx.current.createOscillator();
-  //     const amp = audioCtx.current.createGain();
-
-  //     sounds[2](oscillator);
-  //     oscillator.frequency.value = getFrequency(metronome.data.note);
-  //     oscillator.connect(amp);
-
-  //     amp.gain.setValueAtTime(
-  //       metronome.data.volume == 0 ? 0.0001 : 1 * (metronome.data.volume / 100),
-  //       audioCtx.current.currentTime
-  //     );
-  //     amp.connect(audioCtx.current.destination);
-
-  //     const stopTime =
-  //       audioCtx.current.currentTime + metronome.data.noteDuration;
-
-  //     oscillator.start(audioCtx.current.currentTime);
-  //     amp.gain.exponentialRampToValueAtTime(0.0001, stopTime - 0.01);
-  //     oscillator.stop(stopTime);
-  //   }
-  // };
-
-  const addMetronome = (newMetronome: Metronome) => {
+  const addListedMetronome = (newMetronome: Metronome) => {
     setClicktrack(
       (previousClicktrack) =>
         new Clicktrack({
@@ -75,7 +56,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
     );
   };
 
-  const updateMetronome = (
+  const updateListedMetronome = (
     metronome: Metronome,
     update: Partial<Omit<Metronome, 'id'>>
   ) => {
@@ -98,7 +79,56 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
     });
   };
 
-  const deleteMetronome = (id: string) => {
+  // Metronome Begins Here ----------------
+  const audioCtx = useRef<AudioContext | null>(null);
+
+  let intervalWorker: Worker;
+
+  const play = () => {
+    if (audioCtx.current) {
+      const oscillator = audioCtx.current.createOscillator();
+      const amp = audioCtx.current.createGain();
+
+      (sounds[selectedSoundNumber] || sounds[0])(oscillator);
+      oscillator.frequency.value = getFrequency(clicktrack.data.note);
+      oscillator.connect(amp);
+
+      amp.gain.setValueAtTime(
+        clicktrack.data.volume == 0
+          ? 0.0001
+          : 1 * (clicktrack.data.volume / 100),
+        audioCtx.current.currentTime
+      );
+      amp.connect(audioCtx.current.destination);
+
+      const stopTime =
+        audioCtx.current.currentTime + clicktrack.data.noteDuration;
+
+      oscillator.start(audioCtx.current.currentTime);
+      amp.gain.exponentialRampToValueAtTime(0.0001, stopTime - 0.01);
+      oscillator.stop(stopTime);
+    }
+  };
+
+  const initializeMetronome = () => {
+    intervalWorker = new Worker('./metronomeWorker.ts');
+    intervalWorker.onmessage = (e: MessageEvent) => {
+      if (e.data == 't') {
+        console.log('Tick');
+      } else {
+        console.log(e.data);
+      }
+    };
+    scheduler();
+  };
+
+  const scheduler = () => {};
+
+  initializeMetronome();
+
+  // Metronome Ends Here
+
+  const deleteListedMetronome = (id: string) => {
     setClicktrack((previousClicktrack) => {
       if (previousClicktrack.data.children.length == 1)
         return previousClicktrack;
@@ -135,9 +165,9 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
       </div>
       <div className="grid gap-2 px-2 pb-2 lg:grid-cols-2">
         <Window tabs={[{ title: 'Edit Section' }]}>
-          <Selected
-            deleteMetronome={deleteMetronome}
-            updateMetronome={updateMetronome}
+          <EditSection
+            deleteMetronome={deleteListedMetronome}
+            updateMetronome={updateListedMetronome}
             selected={clicktrack.data.children.find(
               (metronome) => metronome.id == selectedId
             )}
@@ -153,13 +183,13 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
           <Routes>
             <Route path="/" element={<Outlet />}>
               <Route element={<h1>Settings</h1>} path="/settings" />
-              <Route element={<h1>Playback</h1>} path="/playback" />
+              <Route element={<Playback play={play} />} path="/playback" />
               <Route
                 element={
                   <Sequencer
                     selectedId={selectedId}
                     setSelectedId={setSelectedId}
-                    add={addMetronome}
+                    add={addListedMetronome}
                     sequence={clicktrack.data.children}
                   />
                 }

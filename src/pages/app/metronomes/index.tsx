@@ -18,6 +18,9 @@ import onDragEnd from '../../../helpers/app/metronomes/onDragEnd';
 import remove from '../../../helpers/app/metronomes/remove';
 import sortByPos from '../../../helpers/sortByPos';
 
+/**
+ * Webpage that lists metronomes from storage.
+ */
 const MetronomesIndex = () => {
   const [sections, setSections] = useStickyState<Clicktrack[]>(
     [new Clicktrack({ permanant: true })],
