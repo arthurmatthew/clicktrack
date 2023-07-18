@@ -5,7 +5,7 @@ import Window from './components/Window';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import DataViewItem from './components/DataViewItem';
 import Sequencer from './components/tabs/Sequencer';
-import EditSection from './components/tabs/EditSection';
+import EditSection from './components/tabs/EditSection/EditSection';
 
 type Metronome = Clicktrack['data']['children'][number];
 
@@ -129,18 +129,8 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
         </ul>
       </div>
       <div className="grid gap-2 px-2 pb-2 lg:grid-cols-2">
-        <Window tabs={[{ title: 'Edit Section' }]}>
-          <EditSection
-            deleteMetronome={deleteListedMetronome}
-            updateMetronome={updateListedMetronome}
-            selected={clicktrack.data.children.find(
-              (metronome) => metronome.id == selectedId
-            )}
-          />
-        </Window>
         <Window
           tabs={[
-            { title: 'Playback', to: 'playback' },
             { title: 'Sequencer', to: 'sequencer' },
             { title: 'Settings', to: 'settings' },
           ]}
@@ -148,7 +138,6 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
           <Routes>
             <Route path="/" element={<Outlet />}>
               <Route element={<h1>Settings</h1>} path="/settings" />
-              <Route element={<h1>Playback</h1>} path="/playback" />
               <Route
                 element={
                   <Sequencer
@@ -163,6 +152,16 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
             </Route>
           </Routes>
         </Window>
+        <Window tabs={[{ title: 'Edit Section' }]}>
+          <EditSection
+            deleteMetronome={deleteListedMetronome}
+            updateMetronome={updateListedMetronome}
+            selected={clicktrack.data.children.find(
+              (metronome) => metronome.id == selectedId
+            )}
+          />
+        </Window>
+        d
       </div>
     </div>
   );

@@ -1,5 +1,7 @@
-import getTempoName from '../../../helpers/getTempoName';
-import Clicktrack from '../../classes/clicktrack';
+import getTempoName from '../../../../helpers/getTempoName';
+import Clicktrack from '../../../classes/clicktrack';
+import TempoIncrementButton from './TempoIncrementButton';
+import TimeSignatureButton from './TimeSignatureButton';
 
 type Metronome = Clicktrack['data']['children'][number];
 
@@ -24,11 +26,7 @@ const EditSection = ({
   if (selected)
     return (
       <div className="flex flex-col gap-4">
-        <div className="hidden grid-cols-2 sm:grid">
-          <h1>Tempo</h1>
-          <h1>Time Signature</h1>
-        </div>
-        <div className="grid items-center gap-4 sm:grid-cols-2">
+        <div className="grid items-center gap-4">
           <div>
             <div className="flex items-center justify-between gap-1 text-slate-700">
               <div className="flex w-full overflow-hidden rounded-md">
@@ -52,7 +50,7 @@ const EditSection = ({
                   <h1 className="roboto bg-transparent text-center text-4xl font-bold focus:underline focus:outline-none">
                     {selected.bpm}
                   </h1>
-                  <h2 className="lora text-center italic">
+                  <h2 className="lora w-28 text-center italic">
                     {getTempoName(selected.bpm)}
                   </h2>
                 </div>
@@ -103,65 +101,6 @@ const EditSection = ({
         </div>
       </div>
     );
-};
-
-const TempoIncrementButton = ({
-  updateMetronome,
-  selected,
-  amount,
-  icon,
-}: {
-  updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;
-  selected: Metronome;
-  amount: number;
-  icon: string;
-}) => {
-  return (
-    <i
-      onClick={() => {
-        if (selected.bpm + amount < 20) {
-          updateMetronome(selected, { bpm: 20 });
-          return;
-        }
-        if (selected.bpm + amount > 500) {
-          updateMetronome(selected, { bpm: 500 });
-          return;
-        }
-        updateMetronome(selected, {
-          bpm: selected.bpm + amount,
-        });
-      }}
-      className={`bi-${icon} flex flex-grow cursor-pointer items-center justify-center bg-slate-700 py-2 text-2xl tracking-tighter text-slate-200`}
-    />
-  );
-};
-
-const TimeSignatureButton = ({
-  time,
-  selected,
-  onClick,
-}: {
-  time: [beats: number, value: number];
-  selected?: boolean;
-  onClick: () => void;
-}) => {
-  return (
-    <button
-      onClick={onClick}
-      className="flex flex-col items-center justify-center"
-    >
-      <div
-        className={`flex h-full w-full flex-col items-center justify-center rounded-md border-2 p-2 leading-none duration-75 hover:border-slate-700 ${
-          selected
-            ? 'border-slate-700 bg-slate-700 text-slate-100'
-            : 'border-slate-300'
-        }`}
-      >
-        <h1>{time[0]}</h1>
-        <h1>{time[1]}</h1>
-      </div>
-    </button>
-  );
 };
 
 export default EditSection;
