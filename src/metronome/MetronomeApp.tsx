@@ -79,7 +79,10 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   let intervalWorker: Worker;
 
   const initializeMetronome = () => {
-    intervalWorker = new Worker('./metronomeWorker.ts');
+    intervalWorker = new Worker(
+      new URL('./metronomeWorker.ts', import.meta.url),
+      { type: 'module' }
+    );
     intervalWorker.onmessage = (e: MessageEvent) => {
       if (e.data == 't') {
         console.log('Tick');
@@ -122,11 +125,25 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
 
   return (
     <div className="flex min-h-screen min-w-full flex-col text-slate-900 dark:text-slate-200">
-      <div className="mx-auto my-7 flex max-w-5xl flex-col items-center gap-2">
-        <h1 className="text-3xl">{clicktrack.name}</h1>
-        <ul className="flex text-sm">
-          <DataViewItem title={'ID'}>{clicktrack.id}</DataViewItem>
-        </ul>
+      <div className="mx-auto my-7 flex max-w-5xl items-center justify-center">
+        <div className="flex flex-col items-center gap-2">
+          <h1 className="text-3xl">{clicktrack.name}</h1>
+          <ul className="flex text-sm">
+            <DataViewItem title={'ID'}>{clicktrack.id}</DataViewItem>
+          </ul>
+        </div>
+        <div className="mx-6 h-10 w-px bg-gradient-to-b from-transparent via-slate-600/50 to-transparent" />
+        <div className="flex items-center gap-2">
+          <button className="rounded-sm bg-purple-700 px-4 py-2 text-white">
+            <i className="bi-play-fill" />
+          </button>
+          <button className="rounded-sm bg-slate-700 px-4 py-2 text-white">
+            <i className="bi-share-fill" />
+          </button>
+          <button className="rounded-sm bg-slate-700 px-4 py-2 text-white">
+            <i className="bi-gear-fill" />
+          </button>
+        </div>
       </div>
       <div className="grid gap-2 px-2 pb-2 lg:grid-cols-2">
         <Window
@@ -152,7 +169,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
             </Route>
           </Routes>
         </Window>
-        <Window tabs={[{ title: 'Edit Section' }]}>
+        <Window tabs={[{ title: 'Edit' }]}>
           <EditSection
             deleteMetronome={deleteListedMetronome}
             updateMetronome={updateListedMetronome}
@@ -161,7 +178,6 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
             )}
           />
         </Window>
-        d
       </div>
     </div>
   );
