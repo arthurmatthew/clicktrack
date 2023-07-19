@@ -37,7 +37,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
     };
   }, []);
 
-  const addListedMetronome = (newMetronome: Metronome) => {
+  const addListedMetronome = (newMetronome: Metronome): void => {
     setClicktrack(
       (previousClicktrack) =>
         new Clicktrack({
@@ -53,7 +53,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   const updateListedMetronome = (
     metronome: Metronome,
     update: Partial<Omit<Metronome, 'id'>>
-  ) => {
+  ): void => {
     setClicktrack((previousClicktrack) => {
       const indexBefore = previousClicktrack.data.children.findIndex(
         (thisMetronome) => thisMetronome.id == metronome.id
@@ -78,7 +78,48 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
 
   let intervalWorker: Worker;
 
-  const initializeMetronome = () => {
+  let nextNoteTime: number;
+  let noteType: number; // 0 = 16th; 1 = 8th; 2 == Quarter Note
+  let noteLength: number;
+
+  let noteQueue: [{ note: number; time: number }];
+
+  let last16thNote: number;
+
+  const schedule = (beat: number, time: number) => {
+    if (audioCtx.current) {
+      noteQueue.push({ note: beat, time: time });
+
+      if (noteType == 1 && beat % 2) return;
+      if (noteType == 2 && beat % 4) return;
+
+      const oscillator = audioCtx.current.createOscillator();
+      oscillator.connect(audioCtx.current.destination);
+      if (beat % 16 === 0) {
+        // beat 0
+        oscillator.frequency.value = 880.0;
+      } else if (beat % 4 === 0) {
+        // quarter
+        oscillator.frequency.value = 440.0;
+      } else {
+        // 16th notes
+        oscillator.frequency.value = 220.0;
+      }
+
+      oscillator.start(time);
+      oscillator.stop(time + noteLength);
+    }
+  };
+
+  const scheduler = (): void => {
+    if (audioCtx.current) {
+      while (nextNoteTime < audioCtx.current.currentTime) {
+        schedule(last16thNote, nextNoteTime);
+      }
+    }
+  };
+
+  const initializeMetronome = (): void => {
     intervalWorker = new Worker(
       new URL('./metronomeWorker.ts', import.meta.url),
       { type: 'module' }
@@ -92,11 +133,20 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
     };
   };
 
-  initializeMetronome();
+  const cleanUpMetronome = (): void => {
+    intervalWorker.terminate();
+  };
+
+  useEffect(() => {
+    initializeMetronome();
+    return () => {
+      cleanUpMetronome();
+    };
+  }, []);
 
   // Metronome Ends Here
 
-  const deleteListedMetronome = (id: string) => {
+  const deleteListedMetronome = (id: string): void => {
     setClicktrack((previousClicktrack) => {
       if (previousClicktrack.data.children.length == 1)
         return previousClicktrack;

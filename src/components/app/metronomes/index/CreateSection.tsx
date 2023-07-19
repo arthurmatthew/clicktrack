@@ -6,7 +6,7 @@ export const CreateSection = ({
   children: React.ReactNode;
   icon: string;
   add: () => void;
-}) => {
+}): JSX.Element => {
   return (
     <div
       onClick={add}

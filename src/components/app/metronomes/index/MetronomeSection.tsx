@@ -15,7 +15,7 @@ export const MetronomeSection = ({
   remove,
   changeName,
   dragHandle,
-}: MetronomeSection) => {
+}: MetronomeSection): JSX.Element => {
   const [shown, setShown] = useState<boolean>(metronome.opened || false);
   const [editing, setEditing] = useState<boolean>(false);
 
