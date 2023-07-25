@@ -29,7 +29,7 @@ const Window = ({
           </div>
         )}
       </nav>
-      <div className="border-t-4 border-slate-700 bg-slate-200 p-4 dark:border-slate-800 dark:bg-slate-700 lg:rounded-bl-md lg:rounded-br-md">
+      <div className="border-t-4 border-slate-700 bg-slate-200 p-4 dark:border-slate-300 dark:bg-slate-700 lg:rounded-bl-md lg:rounded-br-md">
         {children}
       </div>
     </div>

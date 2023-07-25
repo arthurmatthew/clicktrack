@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import './index.css';
 
 import { Link } from 'react-router-dom';
-
 const Index = () => {
   return (
     <div className="text-slate-950 dark:text-slate-200">
@@ -30,7 +29,7 @@ const Index = () => {
             friendly interface allows you to build your own clicktrack and
             optimize your practice session.
           </motion.p>
-          <div className="mx-2 mt-10 flex flex-wrap justify-center gap-2">
+          <div className="mx-2 mt-10 flex flex-col flex-wrap items-center justify-center gap-2">
             <Link to="/app">
               <motion.span
                 initial={{ opacity: 0 }}
@@ -41,7 +40,7 @@ const Index = () => {
                   whileTap={{ scale: 0.9 }}
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-                  className="rounded-md bg-purple-700 px-12 py-3 text-xl text-white shadow-2xl shadow-purple-500"
+                  className="rounded-md bg-purple-700 px-12 py-3 text-xl text-white "
                 >
                   Get started
                 </motion.button>

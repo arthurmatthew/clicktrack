@@ -12,7 +12,7 @@ const MetronomePage = () => {
     const metronomes = JSON.parse(
       localStorage.getItem('metronomes') as string
     ) as Clicktrack[];
-    return metronomes.find((metronome) => metronome.id == id);
+    return metronomes.find((metronome) => metronome.id === id);
   };
 
   const metronome = getMetronome(decodeURIComponent(params.id as string));

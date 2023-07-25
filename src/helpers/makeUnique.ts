@@ -19,12 +19,12 @@ export default function makeUnique(
     const exist = [
       ...prev.filter((metronome) => metronome.name != name),
       {
-        ...prev.filter((metronome) => metronome.name == name)[0],
+        ...prev.filter((metronome) => metronome.name === name)[0],
         name: uniqueName,
       },
-    ].filter((metronome) => metronome.name == uniqueName).length;
+    ].filter((metronome) => metronome.name === uniqueName).length;
     if (exist <= 1) {
-      uniqueName = trials == 0 ? newName : `${newName} (#${trials})`;
+      uniqueName = trials === 0 ? newName : `${newName} (#${trials})`;
       break;
     }
     trials++;

@@ -24,7 +24,7 @@ import sortByPos from '../../../helpers/sortByPos';
 const MetronomesIndex = () => {
   const [sections, setSections] = useStickyState<Clicktrack[]>(
     [new Clicktrack({ permanant: true })],
-    storage.key
+    storage.keys.metronome
   );
 
   const handleAdd = () => {
@@ -35,7 +35,7 @@ const MetronomesIndex = () => {
   };
 
   const handleClear = () => {
-    localStorage.removeItem(storage.key);
+    localStorage.removeItem(storage.keys.metronome);
     location.reload();
   };
 
@@ -88,7 +88,7 @@ const MetronomesIndex = () => {
                 ref={provided.innerRef}
                 className="flex flex-col"
               >
-                {sections.length == 0 ? (
+                {sections.length === 0 ? (
                   <h1 className="text-center text-slate-700 dark:text-slate-200">
                     You don't have any metronomes right now.
                   </h1>

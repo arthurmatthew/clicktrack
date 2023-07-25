@@ -6,6 +6,8 @@ import { Routes, Route, Outlet } from 'react-router-dom';
 import DataViewItem from './components/DataViewItem';
 import Sequencer from './components/tabs/Sequencer';
 import EditSection from './components/tabs/EditSection/EditSection';
+import Settings from './components/windows/Settings';
+import { AnimatePresence } from 'framer-motion';
 
 type Metronome = Clicktrack['data']['children'][number];
 
@@ -15,7 +17,6 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   // Metronome Begins Here
 
   const audioCtx = useRef<AudioContext | null>(null);
-  const [currentTempo, _setTempo] = useState<number>(120);
 
   const interval = useRef<number | null>();
 
@@ -24,7 +25,8 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
 
   let nextNoteDueIn: number;
   let current16thBeat: number; // Relative to the bar
-  let noteType: number = 8; // 16 = 16th note, 4 = 4 (quarter) note, etc
+  let totalSectionsPlayed = 0;
+  let totalBarsPlayed = 0;
   const schedulingFrequency = 25; // In milliseconds
   const metronomeSoundLength = 0.3; // In seconds
   const scheduleAheadTime = 0.1; // In seconds
@@ -38,35 +40,44 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   }, []);
 
   const schedule = (beat: number, time: number) => {
-    if (audioCtx.current) {
-      console.log(beat);
-      if (noteType == 8 && beat % 2) return; // Not divisible by 2 means the current beat is not an 8th note
-      if (noteType == 4 && beat % 4) return; // Note divisible by 4 means the current beat is not a 16th note
+    if (!audioCtx.current) return;
+    if (
+      totalSectionsPlayed == clicktrack.data.children.length &&
+      !clicktrack.data.playExtraBeat
+    )
+      return;
 
-      const oscillator = audioCtx.current.createOscillator();
-      const gain = audioCtx.current.createGain();
+    const noteType =
+      clicktrack.data.children[totalSectionsPlayed]?.timeSignature[1];
 
-      gain.connect(audioCtx.current.destination);
-      oscillator.connect(gain);
+    if (noteType === 8 && beat % 2) return; // Not divisible by 2 means the current beat is not an 8th note
+    if (noteType === 4 && beat % 4) return; // Note divisible by 4 means the current beat is not a 16th note
+    if (noteType === 2 && beat % 8) return;
 
-      if (beat === 0) {
-        oscillator.frequency.value = 880.0;
-      } else if (beat % 4 === 0) {
-        // When divisible by 4 it is a quarter note
-        oscillator.frequency.value = 440.0;
-      } else {
-        oscillator.frequency.value = 220.0;
-      }
+    const oscillator = audioCtx.current.createOscillator();
+    const gain = audioCtx.current.createGain();
 
-      // Give it a nicer sound by fading out.
-      gain.gain.exponentialRampToValueAtTime(
-        0.00001,
-        time + metronomeSoundLength
-      );
+    gain.connect(audioCtx.current.destination);
+    oscillator.connect(gain);
 
-      oscillator.start(time);
-      oscillator.stop(time + metronomeSoundLength);
+    oscillator.frequency.value = 880.0;
+    if (beat === 0) {
+      oscillator.frequency.value = 880.0;
+    } else if (beat % 4 === 0) {
+      // When divisible by 4 it is a quarter note
+      oscillator.frequency.value = 440.0;
+    } else {
+      oscillator.frequency.value = 220.0;
     }
+
+    // Give it a nicer sound by fading out.
+    gain.gain.exponentialRampToValueAtTime(
+      0.00001,
+      time + metronomeSoundLength
+    );
+
+    oscillator.start(time);
+    oscillator.stop(time + metronomeSoundLength);
   };
 
   /**
@@ -87,16 +98,33 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
    * the next 16th note is due.
    */
   const next = () => {
-    const secondsPerBeat: number = 60.0 / currentTempo;
+    const currentMetronome = clicktrack.data.children[totalSectionsPlayed];
+    const secondsPerBeat: number = 60.0 / currentMetronome?.bpm;
     const secondsPer16thNote = 0.25 * secondsPerBeat; // A quarter of a beat is a 16th note.
+    const barsInCurrentSection = currentMetronome?.lengthInBars;
+    const quarterNotesPerBar =
+      currentMetronome?.timeSignature[0] /
+      (currentMetronome?.timeSignature[1] / 4);
 
     nextNoteDueIn += secondsPer16thNote; // Add the length of another 16th note.
     current16thBeat++; // Increment the beat number
 
-    // If the incremented beat number is 16, make it zero.
-    // There is only room for 4 beats in a bar. There are 4 16th notes per beat.
-    if (current16thBeat == 16) {
+    if (current16thBeat === quarterNotesPerBar * 4) {
       current16thBeat = 0;
+      totalBarsPlayed++;
+    }
+
+    if (totalBarsPlayed === barsInCurrentSection) {
+      totalBarsPlayed = 0;
+      totalSectionsPlayed++;
+    }
+
+    console.log(current16thBeat);
+    if (!barsInCurrentSection) {
+      interval.current && clearInterval(interval.current);
+      interval.current = null;
+
+      setPlayingDisplay(false);
     }
   };
 
@@ -119,7 +147,6 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
     }
 
     setPlayingDisplay((previouslyPlayingDisplay) => !previouslyPlayingDisplay);
-    console.log(interval.current);
 
     if (!interval.current) {
       current16thBeat = 0;
@@ -145,13 +172,13 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   // Handle metronome local storage update
   useEffect(() => {
     const prev = JSON.parse(
-      localStorage.getItem(storage.key) as string
+      localStorage.getItem(storage.keys.metronome) as string
     ) as Clicktrack[];
     const updated = JSON.stringify([
       ...prev.filter((metronome) => metronome.id != clicktrack.id),
       clicktrack,
     ]);
-    localStorage.setItem(storage.key, updated);
+    localStorage.setItem(storage.keys.metronome, updated);
   }, [clicktrack]);
 
   // Handle selecting different sequences
@@ -172,13 +199,25 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
     );
   };
 
+  const updateClicktrackData = (update: Partial<Clicktrack['data']>): void => {
+    setClicktrack((previousClicktrack) => {
+      return {
+        ...previousClicktrack,
+        data: {
+          ...previousClicktrack.data,
+          ...update,
+        },
+      };
+    });
+  };
+
   const updateListedMetronome = (
     metronome: Metronome,
     update: Partial<Omit<Metronome, 'id'>>
   ): void => {
     setClicktrack((previousClicktrack) => {
       const indexBefore = previousClicktrack.data.children.findIndex(
-        (thisMetronome) => thisMetronome.id == metronome.id
+        (thisMetronome) => thisMetronome.id === metronome.id
       );
       const updatedMetronomes = previousClicktrack.data.children.filter(
         (thisMetronome) => thisMetronome.id != metronome.id
@@ -197,7 +236,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
 
   const deleteListedMetronome = (id: string): void => {
     setClicktrack((previousClicktrack) => {
-      if (previousClicktrack.data.children.length == 1)
+      if (previousClicktrack.data.children.length === 1)
         return previousClicktrack;
       const updated = {
         ...previousClicktrack,
@@ -211,7 +250,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
         },
       };
       const indexOfId = previousClicktrack.data.children.findIndex(
-        (metronome) => metronome.id == id
+        (metronome) => metronome.id === id
       );
       setSelectedId(
         updated.data.children[indexOfId]
@@ -221,6 +260,8 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
       return updated;
     });
   };
+
+  const [settingsShown, setSettingsShown] = useState(false);
 
   return (
     <div className="flex min-h-screen min-w-full flex-col text-slate-900 dark:text-slate-200">
@@ -242,9 +283,23 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
           <button className="rounded-sm bg-slate-700 px-4 py-2 text-white">
             <i className="bi-share-fill" />
           </button>
-          <button className="rounded-sm bg-slate-700 px-4 py-2 text-white">
+          <div
+            onClick={() =>
+              setSettingsShown((previouslyShown) => !previouslyShown)
+            }
+            className="rounded-sm bg-slate-700 px-4 py-2 text-white"
+          >
             <i className="bi-gear-fill" />
-          </button>
+            <AnimatePresence>
+              {settingsShown && (
+                <Settings
+                  settings={clicktrack.data}
+                  updateSettings={updateClicktrackData}
+                  hideSettings={() => setSettingsShown(false)}
+                />
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
       <div className="grid gap-2 px-2 pb-2 lg:grid-cols-2">
@@ -276,7 +331,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
             deleteMetronome={deleteListedMetronome}
             updateMetronome={updateListedMetronome}
             selected={clicktrack.data.children.find(
-              (metronome) => metronome.id == selectedId
+              (metronome) => metronome.id === selectedId
             )}
           />
         </Window>
