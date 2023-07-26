@@ -26,7 +26,7 @@ const TempoIncrementButton = ({
           bpm: selected.bpm + amount,
         });
       }}
-      className={`bi-${icon} flex flex-grow cursor-pointer items-center justify-center bg-slate-700 py-2 text-2xl tracking-tighter text-slate-200 dark:bg-slate-300 dark:text-slate-800`}
+      className={`bi-${icon} flex flex-grow cursor-pointer items-center justify-center bg-neutral-700 py-2 text-2xl tracking-tighter text-white dark:bg-neutral-300 dark:text-black`}
     />
   );
 };

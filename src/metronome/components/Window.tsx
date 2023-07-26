@@ -13,8 +13,8 @@ const Window = ({
   children?: React.ReactNode;
 }) => {
   return (
-    <div className="flex flex-col">
-      <nav className="space-evenly flex w-full gap-1">
+    <div className="flex flex-col rounded-md border-2 border-neutral-200 dark:border-neutral-900">
+      <nav className="space-evenly flex w-full gap-5 bg-neutral-200 px-3 dark:bg-neutral-900">
         {tabs ? (
           tabs.map((tab) => {
             return (
@@ -29,9 +29,7 @@ const Window = ({
           </div>
         )}
       </nav>
-      <div className="border-t-4 border-slate-700 bg-slate-200 p-4 dark:border-slate-300 dark:bg-slate-700 lg:rounded-bl-md lg:rounded-br-md">
-        {children}
-      </div>
+      <div>{children}</div>
     </div>
   );
 };

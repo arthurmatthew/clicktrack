@@ -11,7 +11,7 @@ const AppLayout = ({ children }: { children?: React.ReactNode }) => {
   return (
     <div className={dark ? 'dark' : ''}>
       <ScrollToTop />
-      <div className="flex min-h-screen flex-col bg-slate-100 bg-[length:40px_40px] dark:bg-slate-950">
+      <div className="flex min-h-screen flex-col bg-white bg-[length:40px_40px] dark:bg-black">
         <AppHeader dark={dark} darkToggle={setDark} />
         <main className="relative flex flex-auto flex-col">
           <Suspense

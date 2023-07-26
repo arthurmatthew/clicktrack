@@ -22,11 +22,11 @@ export const MetronomeSection = ({
   const nameRef = useRef<HTMLHeadingElement>(null);
 
   return (
-    <div className="w-full rounded-md border-2 border-slate-300 bg-slate-200 p-4 dark:border-slate-700 dark:bg-slate-800">
-      <div className="flex flex-col items-start justify-between text-slate-900 dark:text-slate-100 sm:flex-row sm:items-center">
+    <div className="w-full rounded-md border-2 border-neutral-200 p-4 dark:border-neutral-900">
+      <div className="flex flex-col items-start justify-between text-black dark:text-white sm:flex-row sm:items-center">
         <div className="flex items-center gap-3">
           <i
-            className="bi-list cursor-grab text-3xl text-slate-600 dark:text-slate-400"
+            className="bi-list cursor-grab text-3xl text-neutral-600 dark:text-neutral-400"
             {...dragHandle}
           />
           <h1
@@ -60,17 +60,17 @@ export const MetronomeSection = ({
             } mx-2 cursor-pointer text-sm opacity-50`}
           />
         </div>
-        <div className="my-2 block h-px w-full bg-gradient-to-r from-slate-300 to-transparent dark:from-slate-700 sm:hidden" />
+        <div className="my-2 block h-px w-full bg-gradient-to-r from-neutral-300 to-transparent dark:from-neutral-700 sm:hidden" />
         <div className="flex gap-4">
           <Link
             to={`/app/metronomes/${encodeURIComponent(metronome.id)}/sequencer`}
-            className="rounded-sm bg-slate-500 px-10 py-2 text-white"
+            className="rounded-sm bg-neutral-500 px-10 py-2 text-white"
           >
             Open
           </Link>
           <p
             onClick={() => setShown((previouslyShown) => !previouslyShown)}
-            className="flex cursor-pointer items-center gap-1 text-slate-600 dark:text-slate-400"
+            className="flex cursor-pointer items-center gap-1 text-neutral-600 dark:text-neutral-400"
           >
             More{' '}
             <i
@@ -86,12 +86,12 @@ export const MetronomeSection = ({
         <div className="mt-2 flex items-center gap-4">
           <button
             onClick={remove}
-            className="rounded-sm bg-red-700 px-4 py-2 text-white disabled:bg-gray-500"
+            className="rounded-sm bg-red-700 px-4 py-2 text-white disabled:bg-neutral-500"
             disabled={metronome.permanant}
           >
             {metronome.permanant ? "Can't Delete" : 'Delete'}
           </button>
-          <p className="text-sm text-slate-900 opacity-50 dark:text-slate-200">
+          <p className="text-sm text-black opacity-50 dark:text-white">
             id: {metronome.id}
           </p>
         </div>

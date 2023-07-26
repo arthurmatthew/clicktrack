@@ -264,45 +264,49 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   const [settingsShown, setSettingsShown] = useState(false);
 
   return (
-    <div className="flex min-h-screen min-w-full flex-col text-slate-900 dark:text-slate-200">
-      <div className="mx-auto my-7 flex max-w-5xl flex-col items-center justify-center sm:flex-row">
-        <div className="flex flex-col items-center gap-2">
-          <h1 className="text-3xl">{clicktrack.name}</h1>
-          <ul className="flex text-sm">
-            <DataViewItem title={'ID'}>{clicktrack.id}</DataViewItem>
-          </ul>
-        </div>
-        <div className="my-3 h-px w-full bg-gradient-to-r from-transparent via-slate-600/50 to-transparent sm:mx-6 sm:h-10 sm:w-px sm:bg-gradient-to-b" />
-        <div className="flex items-center gap-2">
-          <button
-            onClick={play}
-            className="rounded-sm bg-purple-700 px-4 py-2 text-white"
-          >
-            <i className={playingDisplay ? 'bi-pause-fill' : 'bi-play-fill'} />
-          </button>
-          <button className="rounded-sm bg-slate-700 px-4 py-2 text-white">
-            <i className="bi-share-fill" />
-          </button>
-          <div
-            onClick={() =>
-              setSettingsShown((previouslyShown) => !previouslyShown)
-            }
-            className="rounded-sm bg-slate-700 px-4 py-2 text-white"
-          >
-            <i className="bi-gear-fill" />
-            <AnimatePresence>
-              {settingsShown && (
-                <Settings
-                  settings={clicktrack.data}
-                  updateSettings={updateClicktrackData}
-                  hideSettings={() => setSettingsShown(false)}
-                />
-              )}
-            </AnimatePresence>
+    <div className="flex min-h-screen min-w-full flex-col text-black dark:text-white">
+      <div className="flex w-full items-center justify-center py-8">
+        <div className="flex max-w-5xl flex-col items-center justify-center sm:flex-row">
+          <div className="flex flex-col items-center gap-2">
+            <h1 className="text-3xl">{clicktrack.name}</h1>
+            <ul className="flex text-sm">
+              <DataViewItem title={'ID'}>{clicktrack.id}</DataViewItem>
+            </ul>
+          </div>
+          <div className="my-3 h-px w-full bg-gradient-to-r from-transparent via-neutral-600/50 to-transparent sm:mx-6 sm:h-10 sm:w-px sm:bg-gradient-to-b" />
+          <div className="flex items-center gap-2">
+            <button
+              onClick={play}
+              className="rounded-sm bg-purple-700 px-4 py-2 text-white"
+            >
+              <i
+                className={playingDisplay ? 'bi-pause-fill' : 'bi-play-fill'}
+              />
+            </button>
+            <button className="rounded-sm bg-neutral-700 px-4 py-2 text-white">
+              <i className="bi-share-fill" />
+            </button>
+            <div
+              onClick={() =>
+                setSettingsShown((previouslyShown) => !previouslyShown)
+              }
+              className="rounded-sm bg-neutral-700 px-4 py-2 text-white"
+            >
+              <i className="bi-gear-fill" />
+              <AnimatePresence>
+                {settingsShown && (
+                  <Settings
+                    settings={clicktrack.data}
+                    updateSettings={updateClicktrackData}
+                    hideSettings={() => setSettingsShown(false)}
+                  />
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>
-      <div className="grid gap-2 px-2 pb-2 lg:grid-cols-2">
+      <div className="grid gap-2 px-2 lg:grid-cols-2">
         <Window
           tabs={[
             { title: 'Sequencer', to: 'sequencer' },

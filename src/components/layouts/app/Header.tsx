@@ -8,7 +8,7 @@ const AppHeader = ({
   dark: boolean;
 }) => {
   return (
-    <header className="sticky top-0 z-10 shrink grow-0 basis-auto border-b-2 border-slate-300 bg-inherit px-3 py-2 dark:border-slate-700">
+    <header className="sticky top-0 z-10 shrink grow-0 basis-auto border-b-2 border-neutral-200 bg-inherit px-3 py-2 dark:border-neutral-900">
       <div className="mx-auto flex w-full items-center justify-between">
         <Link
           to="/"
@@ -18,7 +18,7 @@ const AppHeader = ({
         </Link>
         <Link
           to="/app/metronomes"
-          className="flex items-center gap-1 rounded-md border-2 border-slate-300 px-4 py-1 text-slate-900 dark:border-slate-700 dark:text-slate-200"
+          className="flex items-center gap-1 rounded-md border-2 border-neutral-200 px-4 py-1 text-black dark:border-neutral-900 dark:text-white"
         >
           Metronomes
         </Link>
@@ -26,7 +26,7 @@ const AppHeader = ({
           <i
             className={`${
               dark ? 'bi-moon' : 'bi-sun'
-            } text-xl text-slate-800  hover:text-purple-600 dark:text-slate-200 dark:hover:text-purple-400`}
+            } text-xl text-black  hover:text-neutral-600 dark:text-white dark:hover:text-neutral-400`}
             onClick={() => darkToggle((previouslyDark) => !previouslyDark)}
           />
         </div>
