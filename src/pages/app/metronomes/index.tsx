@@ -60,11 +60,8 @@ const MetronomesIndex = () => {
           <CreateSection icon="plus-square" add={handleAdd}>
             Create New
           </CreateSection>
-          <CreateSection icon="file-earmark-plus" add={handleAdd}>
-            Use Template
-          </CreateSection>
           <CreateSection icon="download" add={handleAdd}>
-            Import
+            Import Shared
           </CreateSection>
         </div>
         <DragDropContext onDragEnd={handleOnDragEnd}>
