@@ -13,7 +13,7 @@ const Window = ({
   children?: React.ReactNode;
 }) => {
   return (
-    <div className="flex flex-col rounded-md border-2 border-neutral-200 dark:border-neutral-900">
+    <div className="flex flex-col rounded-md border-2 border-neutral-200 bg-white  dark:border-neutral-900 dark:bg-black">
       <nav className="space-evenly flex w-full gap-5 bg-neutral-200 px-3 dark:bg-neutral-900">
         {tabs ? (
           tabs.map((tab) => {

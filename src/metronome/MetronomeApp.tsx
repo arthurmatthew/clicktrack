@@ -7,7 +7,7 @@ import DataViewItem from './components/DataViewItem';
 import Sequencer from './components/tabs/Sequencer';
 import EditSection from './components/tabs/EditSection/EditSection';
 import Settings from './components/popups/Settings';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion, useAnimationControls } from 'framer-motion';
 import Share from './components/popups/Share';
 import { Metronome } from './classes/metronome';
 
@@ -65,9 +65,10 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
     oscillator.frequency.value = 880.0;
     if (beat === 0) {
       oscillator.frequency.value = 880.0;
+      pulseDisplay();
     } else if (beat % 4 === 0) {
-      // When divisible by 4 it is a quarter note
       oscillator.frequency.value = 440.0;
+      pulseDisplay();
     } else {
       oscillator.frequency.value = 220.0;
     }
@@ -294,26 +295,37 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   const [settingsShown, setSettingsShown] = useState(false);
   const [shareShown, setShareShown] = useState(false);
 
+  const pulseControl = useAnimationControls();
+  const pulseDisplay = () => {
+    pulseControl.start({
+      filter: ['hue-rotate(45deg)', 'hue-rotate(0)'],
+      transition: { duration: 1, ease: 'easeOut' },
+    });
+  };
+
   return (
-    <div className="flex min-h-screen min-w-full flex-col  ">
+    <motion.div className="flex min-h-screen min-w-full flex-col">
       <div className="flex w-full items-center justify-center py-8">
         <div className="flex max-w-5xl flex-col items-center justify-center sm:flex-row">
           <div className="flex flex-col items-center gap-2">
-            <h1 className="text-3xl">{clicktrack.name}</h1>
+            <h1 className="text-3xl" onClick={pulseDisplay}>
+              {clicktrack.name}
+            </h1>
             <ul className="flex text-sm">
               <DataViewItem title={'ID'}>{clicktrack.id}</DataViewItem>
             </ul>
           </div>
           <div className="my-3 h-px w-full bg-gradient-to-r from-transparent via-neutral-600/50 to-transparent sm:mx-6 sm:h-10 sm:w-px sm:bg-gradient-to-b" />
           <div className="flex items-center gap-2">
-            <button
+            <motion.button
               onClick={play}
+              animate={pulseControl}
               className="rounded-sm bg-purple-700 px-4 py-2 text-white"
             >
               <i
                 className={playingDisplay ? 'bi-pause-fill' : 'bi-play-fill'}
               />
-            </button>
+            </motion.button>
             <div
               onClick={() =>
                 setShareShown((previouslyShown) => !previouslyShown)
@@ -385,7 +397,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
           />
         </Window>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
