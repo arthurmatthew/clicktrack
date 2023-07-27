@@ -45,7 +45,7 @@ const EditSection = ({
 
               <div className="select-none">
                 <div className="flex h-full flex-col items-center justify-center px-2">
-                  <h1 className="roboto w-max bg-transparent text-center text-4xl font-bold">
+                  <h1 className="roboto w-20 bg-transparent text-center text-4xl font-bold">
                     {selected.bpm}
                   </h1>
                 </div>
@@ -83,52 +83,56 @@ const EditSection = ({
               ))}
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-lg">Length:</h1>
-            <input
-              type="number"
-              value={selected.lengthInBars}
-              onChange={(e) =>
-                updateMetronome(selected, {
-                  lengthInBars:
-                    parseInt(e.currentTarget.value) || selected.lengthInBars,
-                })
-              }
-              className="w-16 rounded-md bg-neutral-100 px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-neutral-900"
-            />
-            <h1 className="text-lg">bars</h1>
-          </div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-lg">Custom Time Signature:</h1>
-            <input
-              type="number"
-              value={selected.timeSignature[0]}
-              onChange={(e) =>
-                updateMetronome(selected, {
-                  timeSignature:
-                    [
-                      parseInt(e.currentTarget.value),
-                      selected.timeSignature[1],
-                    ] || selected.timeSignature[0],
-                })
-              }
-              className="w-10 rounded-md bg-neutral-100 px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-neutral-900"
-            />
-            <h1 className="text-lg">/</h1>
-            <input
-              type="number"
-              value={selected.timeSignature[1]}
-              onChange={(e) =>
-                updateMetronome(selected, {
-                  timeSignature:
-                    [
-                      selected.timeSignature[0],
-                      parseInt(e.currentTarget.value),
-                    ] || selected.timeSignature[1],
-                })
-              }
-              className="w-10 rounded-md bg-neutral-100 px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-neutral-900"
-            />
+          <div className="flex gap-5">
+            <div className="flex items-center gap-3 rounded-md bg-neutral-200 px-2 py-1 dark:bg-neutral-900">
+              <h1 className="text-lg">Length:</h1>
+              <input
+                type="number"
+                value={selected.lengthInBars}
+                onChange={(e) =>
+                  updateMetronome(selected, {
+                    lengthInBars:
+                      parseInt(e.currentTarget.value) || selected.lengthInBars,
+                  })
+                }
+                className="w-16 rounded-md bg-white px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-black"
+              />
+              <h1 className="text-lg">bars</h1>
+            </div>
+            <div className="flex items-center gap-3 rounded-md bg-neutral-200 px-2 py-1 dark:bg-neutral-900">
+              <h1 className="text-lg">Custom Time Signature:</h1>
+              <div className="flex items-center gap-1">
+                <input
+                  type="number"
+                  value={selected.timeSignature[0]}
+                  onChange={(e) =>
+                    updateMetronome(selected, {
+                      timeSignature:
+                        [
+                          parseInt(e.currentTarget.value),
+                          selected.timeSignature[1],
+                        ] || selected.timeSignature[0],
+                    })
+                  }
+                  className="w-10 rounded-md bg-white px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-black"
+                />
+                <h1 className="text-lg">/</h1>
+                <input
+                  type="number"
+                  value={selected.timeSignature[1]}
+                  onChange={(e) =>
+                    updateMetronome(selected, {
+                      timeSignature:
+                        [
+                          selected.timeSignature[0],
+                          parseInt(e.currentTarget.value),
+                        ] || selected.timeSignature[1],
+                    })
+                  }
+                  className="w-10 rounded-md bg-white px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-black"
+                />
+              </div>
+            </div>
           </div>
         </div>
 

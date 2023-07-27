@@ -8,6 +8,7 @@ import Sequencer from './components/tabs/Sequencer';
 import EditSection from './components/tabs/EditSection/EditSection';
 import Settings from './components/windows/Settings';
 import { AnimatePresence } from 'framer-motion';
+import Share from './components/windows/Share';
 
 type Metronome = Clicktrack['data']['children'][number];
 
@@ -273,6 +274,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   };
 
   const [settingsShown, setSettingsShown] = useState(false);
+  const [shareShown, setShareShown] = useState(false);
 
   return (
     <div className="flex min-h-screen min-w-full flex-col  ">
@@ -294,14 +296,27 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
                 className={playingDisplay ? 'bi-pause-fill' : 'bi-play-fill'}
               />
             </button>
-            <button className="rounded-sm bg-neutral-700 px-4 py-2 text-white">
+            <div
+              onClick={() =>
+                setShareShown((previouslyShown) => !previouslyShown)
+              }
+              className="rounded-sm bg-black px-4 py-2 text-white dark:bg-white dark:text-black"
+            >
               <i className="bi-share-fill" />
-            </button>
+              <AnimatePresence>
+                {shareShown && (
+                  <Share
+                    clicktrack={clicktrack}
+                    hideShare={() => setShareShown(false)}
+                  />
+                )}
+              </AnimatePresence>
+            </div>
             <div
               onClick={() =>
                 setSettingsShown((previouslyShown) => !previouslyShown)
               }
-              className="rounded-sm bg-neutral-700 px-4 py-2 text-white"
+              className="rounded-sm bg-black px-4 py-2 text-white dark:bg-white dark:text-black"
             >
               <i className="bi-gear-fill" />
               <AnimatePresence>

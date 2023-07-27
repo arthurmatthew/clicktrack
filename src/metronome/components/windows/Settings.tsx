@@ -11,7 +11,7 @@ const Settings = ({
   updateSettings: (update: Partial<Clicktrack['data']>) => void;
 }) => {
   return (
-    <div className="fixed left-0 top-0 flex h-screen w-screen items-center justify-center text-black">
+    <div className="fixed left-0 top-0 flex h-screen w-screen items-center justify-center text-black dark:text-white">
       <motion.div
         initial={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
@@ -19,7 +19,7 @@ const Settings = ({
         exit={{ opacity: 0 }}
       >
         <motion.div
-          className="relative z-50 aspect-square max-w-5xl rounded-2xl bg-white p-8"
+          className="relative z-50 max-w-5xl rounded-2xl border-[1px] border-neutral-300 bg-white/5 p-8 shadow-2xl backdrop-blur-md dark:border-neutral-800 dark:bg-black/50"
           onClick={hideSettings}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -31,7 +31,7 @@ const Settings = ({
           }}
         >
           <h1 className="mb-6 text-left text-3xl font-semibold">Settings</h1>
-          <div className="flex flex-col gap-2 text-black">
+          <div className="flex flex-col gap-2">
             <p className="flex items-center gap-4 text-xl">
               <button className="w-20 rounded-md bg-neutral-700 py-2 text-white">
                 On
@@ -51,7 +51,6 @@ const Settings = ({
             </p>
           </div>
         </motion.div>
-        <div className="absolute left-0 top-0 h-full w-full bg-black/30"></div>
       </motion.div>
     </div>
   );
