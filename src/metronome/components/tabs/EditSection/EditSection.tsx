@@ -47,7 +47,7 @@ const EditSection = ({
 
               <div className="select-none">
                 <div className="flex h-full flex-col items-center justify-center px-2">
-                  <h1 className="roboto w-20 bg-transparent text-center text-4xl font-bold">
+                  <h1 className="roboto w-20 bg-transparent text-center text-4xl">
                     {selected.bpm}
                   </h1>
                 </div>
