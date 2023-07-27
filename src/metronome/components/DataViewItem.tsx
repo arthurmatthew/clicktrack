@@ -8,7 +8,7 @@ const DataViewItem = ({
   return (
     <li className="px-2">
       {title}{' '}
-      <span className="rounded-md bg-slate-300 px-1 dark:bg-slate-700">
+      <span className="rounded-md bg-neutral-300 px-1 dark:bg-neutral-700">
         {children}
       </span>
     </li>

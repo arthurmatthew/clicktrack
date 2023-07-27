@@ -14,9 +14,8 @@ const Sequencer = ({
   sequence: Clicktrack['data']['children'];
 }) => {
   return (
-    <div className="flex select-none flex-col gap-2 text-slate-950 dark:text-slate-200">
-      <div className="rounded-2 flex flex-col gap-2 py-2 text-xl">
-        <h1>Start</h1>
+    <div className="flex select-none flex-col gap-2  ">
+      <div className="rounded-2 flex flex-col text-xl">
         {sequence.map((metronome) => {
           const selected = metronome.id === selectedId;
           return (
@@ -26,22 +25,29 @@ const Sequencer = ({
               onClick={() => setSelectedId(metronome.id)}
             >
               <div
-                className={`rounded-lg ${
-                  selected
-                    ? 'bg-slate-700 text-slate-200 dark:bg-slate-300 dark:text-slate-950'
-                    : 'bg-slate-300 duration-75 hover:bg-slate-700 hover:text-slate-200 dark:bg-slate-600 dark:hover:bg-slate-300 dark:hover:text-slate-950'
-                } w-full p-4 py-3`}
+                className={`relative w-full p-4 py-3 duration-75 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${
+                  selected && 'pl-6'
+                }`}
               >
-                {getTempoName(metronome.bpm)} for {metronome.lengthInBars} bars
+                {' '}
+                <p className="relative z-10">
+                  {getTempoName(metronome.bpm)} for {metronome.lengthInBars}{' '}
+                  bars
+                </p>
+                <div
+                  className={`absolute left-0 top-0 h-full w-full bg-neutral-100 duration-75 dark:bg-neutral-800 ${
+                    !selected && 'hidden'
+                  }`}
+                />
               </div>
             </div>
           );
         })}
         <div
           onClick={() => add(new Metronome())}
-          className="col-span-2 flex cursor-pointer items-center gap-2 text-slate-950 dark:text-slate-200"
+          className="col-span-2 m-3 flex cursor-pointer items-center gap-2  "
         >
-          <div className="w-full rounded-lg border-2 border-dashed border-slate-300 p-4 py-3 dark:border-slate-600">
+          <div className="w-full rounded-lg border-2 border-neutral-300 p-4 py-3 dark:border-neutral-900">
             Add a Section
           </div>
         </div>

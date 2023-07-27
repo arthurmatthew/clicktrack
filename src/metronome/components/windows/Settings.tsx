@@ -11,7 +11,7 @@ const Settings = ({
   updateSettings: (update: Partial<Clicktrack['data']>) => void;
 }) => {
   return (
-    <div className="fixed left-0 top-0 flex h-screen w-screen items-center justify-center text-slate-950">
+    <div className="fixed left-0 top-0 flex h-screen w-screen items-center justify-center text-black">
       <motion.div
         initial={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
@@ -19,7 +19,7 @@ const Settings = ({
         exit={{ opacity: 0 }}
       >
         <motion.div
-          className="relative z-50 aspect-square max-w-5xl rounded-2xl bg-slate-200 p-8"
+          className="relative z-50 aspect-square max-w-5xl rounded-2xl bg-white p-8"
           onClick={hideSettings}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -31,9 +31,9 @@ const Settings = ({
           }}
         >
           <h1 className="mb-6 text-left text-3xl font-semibold">Settings</h1>
-          <div className="flex flex-col gap-2 text-slate-950">
+          <div className="flex flex-col gap-2 text-black">
             <p className="flex items-center gap-4 text-xl">
-              <button className="w-20 rounded-md bg-slate-700 py-2 text-slate-200">
+              <button className="w-20 rounded-md bg-neutral-700 py-2 text-white">
                 On
               </button>{' '}
               Volume
@@ -43,7 +43,7 @@ const Settings = ({
                 onClick={() =>
                   updateSettings({ playExtraBeat: !settings.playExtraBeat })
                 }
-                className="w-20 rounded-md bg-slate-700 py-2 text-slate-200"
+                className="w-20 rounded-md bg-neutral-700 py-2 text-white"
               >
                 {settings.playExtraBeat ? 'On' : 'Off'}
               </button>{' '}

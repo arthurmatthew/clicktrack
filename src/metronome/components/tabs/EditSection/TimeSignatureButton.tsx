@@ -13,10 +13,10 @@ const TimeSignatureButton = ({
       className="flex flex-col items-center justify-center"
     >
       <div
-        className={`flex h-full w-full flex-col items-center justify-center rounded-md border-2 p-2 leading-none duration-75 hover:border-slate-700 dark:hover:border-slate-300 ${
+        className={`flex h-full w-full flex-col items-center justify-center p-2 leading-none duration-75 hover:bg-neutral-200 dark:hover:bg-neutral-900 ${
           selected
-            ? 'border-slate-700 bg-slate-700 text-slate-100 dark:border-slate-300 dark:bg-slate-300 dark:text-slate-950'
-            : 'border-slate-300 dark:border-slate-600 dark:text-slate-100'
+            ? 'border-neutral-200 bg-neutral-200 dark:border-neutral-300 dark:bg-neutral-900'
+            : 'border-neutral-200 bg-white dark:border-neutral-900 dark:bg-black'
         }`}
       >
         <h1>{time[0]}</h1>

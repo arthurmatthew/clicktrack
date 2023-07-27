@@ -4,7 +4,6 @@ import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import { CreateSection } from '../../../components/app/metronomes/index/CreateSection';
 import { MetronomeSection } from '../../../components/app/metronomes/index/MetronomeSection';
 import { StrictModeDroppable } from '../../../components/app/metronomes/index/StrictModeDroppable';
-import { TipSection } from '../../../components/app/metronomes/index/TipSection';
 
 import useStickyState from '../../../hooks/useStickyState';
 
@@ -53,22 +52,10 @@ const MetronomesIndex = () => {
     setSections((previousSections) => onDragEnd(result, previousSections));
   };
 
-  const [tipShowing, setTipShowing] = useStickyState<boolean>(
-    true,
-    'show-bookmark-tip'
-  );
-
   return (
     <div className="mx-4 my-10 flex flex-grow flex-col">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-4">
-        <h1 className="text-3xl text-slate-900 dark:text-slate-200">
-          Your Metronomes
-        </h1>
-        {tipShowing && (
-          <TipSection remove={() => setTipShowing(false)}>
-            Bookmark this page to have instant access!
-          </TipSection>
-        )}
+        <h1 className="text-3xl  ">Your Metronomes</h1>
         <div className="flex flex-col gap-2">
           <CreateSection icon="plus-square" add={handleAdd}>
             Create New
@@ -89,7 +76,7 @@ const MetronomesIndex = () => {
                 className="flex flex-col"
               >
                 {sections.length === 0 ? (
-                  <h1 className="text-center text-slate-700 dark:text-slate-200">
+                  <h1 className="text-center  ">
                     You don't have any metronomes right now.
                   </h1>
                 ) : (
