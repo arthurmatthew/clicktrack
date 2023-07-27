@@ -6,9 +6,9 @@ import { Routes, Route, Outlet } from 'react-router-dom';
 import DataViewItem from './components/DataViewItem';
 import Sequencer from './components/tabs/Sequencer';
 import EditSection from './components/tabs/EditSection/EditSection';
-import Settings from './components/windows/Settings';
+import Settings from './components/popups/Settings';
 import { AnimatePresence } from 'framer-motion';
-import Share from './components/windows/Share';
+import Share from './components/popups/Share';
 import { Metronome } from './classes/metronome';
 
 const MetronomeApp = ({ data }: { data: Clicktrack }) => {
