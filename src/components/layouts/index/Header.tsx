@@ -10,7 +10,7 @@ const Header = ({
   return (
     <header className="sticky top-0 z-10 shrink grow-0 basis-auto bg-gradient-radial from-white/75 to-neutral-300 bg-[length:100%_200%] bg-[100%_0] p-5 backdrop-blur-sm backdrop-saturate-50 dark:from-neutral-800/90 dark:to-black">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
-        <Link to="/" className="text-4xl text-black dark:text-white">
+        <Link to="/" className="text-4xl  ">
           clicktrack
         </Link>
         <div className="flex gap-4">

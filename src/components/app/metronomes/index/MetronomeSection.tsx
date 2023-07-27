@@ -23,7 +23,7 @@ export const MetronomeSection = ({
 
   return (
     <div className="w-full rounded-md border-2 border-neutral-200 p-4 dark:border-neutral-900">
-      <div className="flex flex-col items-start justify-between text-black dark:text-white sm:flex-row sm:items-center">
+      <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
         <div className="flex items-center gap-3">
           <i
             className="bi-list cursor-grab text-3xl text-neutral-600 dark:text-neutral-400"
@@ -91,9 +91,7 @@ export const MetronomeSection = ({
           >
             {metronome.permanant ? "Can't Delete" : 'Delete'}
           </button>
-          <p className="text-sm text-black opacity-50 dark:text-white">
-            id: {metronome.id}
-          </p>
+          <p className="text-sm opacity-50 ">id: {metronome.id}</p>
         </div>
       )}
     </div>

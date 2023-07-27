@@ -121,7 +121,6 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
       totalSectionsPlayed++;
     }
 
-    console.log(current16thBeat);
     if (!barsInCurrentSection) {
       interval.current && clearInterval(interval.current);
       interval.current = null;
@@ -272,7 +271,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   const [settingsShown, setSettingsShown] = useState(false);
 
   return (
-    <div className="flex min-h-screen min-w-full flex-col text-black dark:text-white">
+    <div className="flex min-h-screen min-w-full flex-col  ">
       <div className="flex w-full items-center justify-center py-8">
         <div className="flex max-w-5xl flex-col items-center justify-center sm:flex-row">
           <div className="flex flex-col items-center gap-2">

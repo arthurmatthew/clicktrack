@@ -4,7 +4,7 @@ import './index.css';
 import { Link } from 'react-router-dom';
 const Index = () => {
   return (
-    <div className="text-black dark:text-white">
+    <div className=" ">
       <section className="flex flex-col items-center justify-center px-2">
         <div className="mx-auto my-20 flex max-w-5xl flex-col justify-center">
           <motion.h1
@@ -81,21 +81,6 @@ const Index = () => {
             We have everything a metronome should have. And then some.{' '}
             <a className="underline">Learn more</a>
           </InfoCard>
-        </div>
-      </section>
-      <section className="flex flex-col items-center justify-center px-2">
-        <div className="mx-auto my-20 flex max-w-5xl flex-col items-center gap-5">
-          <h1 className="text-6xl font-semibold">Privacy is key.</h1>
-          <i className="bi-shield-lock-fill p-7 text-7xl text-purple-500" />
-          <p className="text-center text-3xl">
-            It's a metronome app- there's no need for any sharing of data.{' '}
-            <b className="font-semibold">Nothing ever leaves your browser.</b>{' '}
-            All data is stored in your browser's local storage or manually
-            managed by the user.
-          </p>
-          <p className="text-3xl font-semibold text-purple-800 dark:text-purple-300">
-            There's absolutely no accounts, emails, or tracking.
-          </p>
         </div>
       </section>
     </div>

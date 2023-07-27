@@ -55,7 +55,7 @@ const MetronomesIndex = () => {
   return (
     <div className="mx-4 my-10 flex flex-grow flex-col">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-4">
-        <h1 className="text-3xl text-black dark:text-white">Your Metronomes</h1>
+        <h1 className="text-3xl  ">Your Metronomes</h1>
         <div className="flex flex-col gap-2">
           <CreateSection icon="plus-square" add={handleAdd}>
             Create New
@@ -76,7 +76,7 @@ const MetronomesIndex = () => {
                 className="flex flex-col"
               >
                 {sections.length === 0 ? (
-                  <h1 className="text-center text-black dark:text-white">
+                  <h1 className="text-center  ">
                     You don't have any metronomes right now.
                   </h1>
                 ) : (

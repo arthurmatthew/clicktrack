@@ -13,7 +13,7 @@ const Layout = ({ children }: { children?: React.ReactNode }) => {
     <div className={dark ? 'dark' : ''}>
       <ScrollToTop />
       <div
-        className="flex min-h-screen flex-col bg-white bg-[length:40px_40px] dark:bg-black"
+        className="flex min-h-screen flex-col bg-white bg-[length:40px_40px] text-black dark:bg-black dark:text-white"
         id={dark ? 'background' : 'background-light'}
       >
         <Header dark={dark} darkToggle={setDark} />
@@ -21,7 +21,7 @@ const Layout = ({ children }: { children?: React.ReactNode }) => {
           <Suspense
             fallback={
               <div className="flex flex-grow items-center justify-center">
-                <i className="bi-arrow-clockwise animate-spin text-5xl text-black dark:text-white" />
+                <i className="bi-arrow-clockwise animate-spin text-5xl" />
               </div>
             }
           >
