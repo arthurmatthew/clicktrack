@@ -30,7 +30,7 @@ const EditSection = ({
         <div className="grid items-center gap-4">
           <div>
             <div className="flex items-center justify-between gap-1">
-              <div className="flex w-full overflow-hidden rounded-md">
+              <div className="flex w-full overflow-hidden rounded-sm">
                 <TempoIncrementButton
                   selected={selected}
                   updateMetronome={updateMetronome}
@@ -52,7 +52,7 @@ const EditSection = ({
                   </h1>
                 </div>
               </div>
-              <div className="flex w-full overflow-hidden rounded-md">
+              <div className="flex w-full overflow-hidden rounded-sm">
                 <TempoIncrementButton
                   selected={selected}
                   updateMetronome={updateMetronome}
@@ -69,7 +69,7 @@ const EditSection = ({
             </div>
           </div>
           <div>
-            <div className="lora grid grid-cols-3 gap-[2px] overflow-hidden rounded-md border-2 border-neutral-200 bg-neutral-200 text-2xl font-semibold dark:border-neutral-900 dark:bg-neutral-900">
+            <div className="lora grid grid-cols-3 gap-[2px] overflow-hidden rounded-sm border-2 border-neutral-200 bg-neutral-200 text-2xl font-semibold dark:border-neutral-900 dark:bg-neutral-900">
               {timeSignatures.map((timeSignature) => (
                 <TimeSignatureButton
                   key={JSON.stringify(timeSignature)}
@@ -86,7 +86,7 @@ const EditSection = ({
             </div>
           </div>
           <div className="flex gap-5">
-            <div className="flex items-center gap-3 rounded-md bg-neutral-200 px-2 py-1 dark:bg-neutral-900">
+            <div className="flex items-center gap-3 rounded-sm bg-neutral-200 px-2 py-1 dark:bg-neutral-900">
               <h1 className="text-lg">Length:</h1>
               <input
                 type="number"
@@ -97,11 +97,11 @@ const EditSection = ({
                       parseInt(e.currentTarget.value) || selected.lengthInBars,
                   })
                 }
-                className="w-16 rounded-md bg-white px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-black"
+                className="w-16 rounded-sm bg-white px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-black"
               />
               <h1 className="text-lg">bars</h1>
             </div>
-            <div className="flex items-center gap-3 rounded-md bg-neutral-200 px-2 py-1 dark:bg-neutral-900">
+            <div className="flex items-center gap-3 rounded-sm bg-neutral-200 px-2 py-1 dark:bg-neutral-900">
               <h1 className="text-lg">Custom Time Signature:</h1>
               <div className="flex items-center gap-1">
                 <input
@@ -116,7 +116,7 @@ const EditSection = ({
                         ] || selected.timeSignature[0],
                     })
                   }
-                  className="w-10 rounded-md bg-white px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-black"
+                  className="w-10 rounded-sm bg-white px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-black"
                 />
                 <h1 className="text-lg">/</h1>
                 <input
@@ -131,7 +131,7 @@ const EditSection = ({
                         ] || selected.timeSignature[1],
                     })
                   }
-                  className="w-10 rounded-md bg-white px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-black"
+                  className="w-10 rounded-sm bg-white px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-black"
                 />
               </div>
             </div>
