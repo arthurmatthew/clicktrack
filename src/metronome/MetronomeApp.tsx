@@ -31,6 +31,8 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   const metronomeSoundLength = 0.3; // In seconds
   const scheduleAheadTime = 0.1; // In seconds
 
+  let selectedIdBeforePlaying: string;
+
   // Initialize Audio
   useEffect(() => {
     audioCtx.current = new AudioContext();
@@ -124,8 +126,13 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
       interval.current && clearInterval(interval.current);
       interval.current = null;
 
+      setSelectedId(selectedIdBeforePlaying);
       setPlayingDisplay(false);
+
+      return;
     }
+
+    setSelectedId(currentMetronome?.id);
   };
 
   /**
@@ -149,6 +156,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
     setPlayingDisplay((previouslyPlayingDisplay) => !previouslyPlayingDisplay);
 
     if (!interval.current) {
+      selectedIdBeforePlaying = selectedId;
       current16thBeat = 0;
       nextNoteDueIn = audioCtx.current.currentTime;
       interval.current = setInterval(() => {
