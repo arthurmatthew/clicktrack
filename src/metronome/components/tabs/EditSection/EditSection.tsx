@@ -7,10 +7,12 @@ type Metronome = Clicktrack['data']['children'][number];
 const EditSection = ({
   updateMetronome,
   deleteMetronome,
+  copyMetronome,
   selected,
 }: {
   updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;
   deleteMetronome: (id: string) => void;
+  copyMetronome: (id: string) => void;
   selected: Metronome | undefined;
 }) => {
   const timeSignatures: [beats: number, value: number][] = [
@@ -137,6 +139,12 @@ const EditSection = ({
         </div>
 
         <div className="flex flex-col gap-2">
+          <button
+            onClick={() => copyMetronome(selected.id)}
+            className="w-full rounded-sm bg-neutral-200 p-2 px-4 duration-75 dark:bg-neutral-900"
+          >
+            Duplicate
+          </button>
           <button
             onClick={() => deleteMetronome(selected.id)}
             className="w-full rounded-sm bg-neutral-200 p-2 px-4 duration-75 hover:bg-red-400 dark:bg-neutral-900 dark:hover:bg-red-900"

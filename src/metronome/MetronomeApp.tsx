@@ -9,8 +9,7 @@ import EditSection from './components/tabs/EditSection/EditSection';
 import Settings from './components/windows/Settings';
 import { AnimatePresence } from 'framer-motion';
 import Share from './components/windows/Share';
-
-type Metronome = Clicktrack['data']['children'][number];
+import { Metronome } from './classes/metronome';
 
 const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   const [clicktrack, setClicktrack] = useState<Clicktrack>(data);
@@ -273,6 +272,25 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
     });
   };
 
+  const copyListedMetronome = (id: string) => {
+    setClicktrack((previousClicktrack) => {
+      const metronomeToCopy = previousClicktrack.data.children.find(
+        (metronome) => metronome.id === id
+      );
+      const metronomeCopy = new Metronome({
+        ...metronomeToCopy,
+        id: undefined,
+      });
+      return {
+        ...previousClicktrack,
+        data: {
+          ...previousClicktrack.data,
+          children: [...previousClicktrack.data.children, metronomeCopy],
+        },
+      };
+    });
+  };
+
   const [settingsShown, setSettingsShown] = useState(false);
   const [shareShown, setShareShown] = useState(false);
 
@@ -359,6 +377,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
         <Window tabs={[{ title: 'Edit' }]}>
           <EditSection
             deleteMetronome={deleteListedMetronome}
+            copyMetronome={copyListedMetronome}
             updateMetronome={updateListedMetronome}
             selected={clicktrack.data.children.find(
               (metronome) => metronome.id === selectedId

@@ -25,8 +25,8 @@ const Sequencer = ({
               onClick={() => setSelectedId(metronome.id)}
             >
               <div
-                className={`relative w-full p-4 py-3 duration-75 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${
-                  selected && 'pl-6'
+                className={`relative w-full p-4 py-3 duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${
+                  selected && 'py-6'
                 }`}
               >
                 {' '}
