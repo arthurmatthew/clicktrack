@@ -38,7 +38,11 @@ const Settings = ({
                   {settings.muted || settings.volume === 0 ? (
                     <i className="bi-volume-mute-fill" />
                   ) : (
-                    <i className="bi-volume-up-fill" />
+                    <i
+                      className={`bi-volume-${
+                        settings.volume > 80 ? 'up' : 'down'
+                      }-fill`}
+                    />
                   )}
                 </button>{' '}
                 <div
