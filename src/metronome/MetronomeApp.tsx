@@ -333,16 +333,19 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
               className="rounded-sm bg-black px-4 py-2 text-white dark:bg-white dark:text-black"
             >
               <i className="bi-gear-fill" />
-              <AnimatePresence>
-                {settingsShown && (
-                  <Settings
-                    clicktrack={clicktrack}
-                    updateSettings={updateClicktrackData}
-                    hideSettings={() => setSettingsShown(false)}
-                  />
-                )}
-              </AnimatePresence>
             </div>
+            <AnimatePresence>
+              {settingsShown && (
+                <Settings
+                  clicktrack={clicktrack}
+                  updateSettings={updateClicktrackData}
+                  hideSettings={() => {
+                    console.log('Called');
+                    setSettingsShown(false);
+                  }}
+                />
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
