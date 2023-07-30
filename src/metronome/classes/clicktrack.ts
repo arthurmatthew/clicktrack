@@ -1,4 +1,5 @@
 import Data from './data';
+import { v4 as uuidv4 } from 'uuid';
 
 export default class Clicktrack {
   name: string;
@@ -9,7 +10,7 @@ export default class Clicktrack {
   opened: boolean;
   constructor(options?: Partial<Clicktrack>) {
     this.name = options?.name || 'Default Metronome';
-    this.id = options?.id || 'default';
+    this.id = options?.id || uuidv4();
     this.position = options?.position || -1;
     this.permanant = options?.permanant || false;
     this.data = options?.data || new Data({});
