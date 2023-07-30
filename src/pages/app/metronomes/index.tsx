@@ -40,9 +40,8 @@ const MetronomesIndex = () => {
   const importRef = useRef<HTMLInputElement | null>(null);
   const handleImport = () => {
     try {
-      const importedClicktrack = JSON.parse(
-        atob(importRef.current?.value as string)
-      ) as Clicktrack;
+      const clicktrackCode = importRef.current?.value as string;
+      const importedClicktrack = JSON.parse(atob(clicktrackCode)) as Clicktrack;
 
       setSections((previousSections) => [
         ...previousSections,
