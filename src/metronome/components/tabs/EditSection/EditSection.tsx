@@ -85,7 +85,7 @@ const EditSection = ({
               ))}
             </div>
           </div>
-          <div className="flex flex-col gap-2 sm:flex-row sm:gap-5">
+          <div className="flex flex-col gap-2 sm:flex-row sm:gap-4">
             <div className="flex items-center gap-3 rounded-sm bg-neutral-200 px-2 py-1 dark:bg-neutral-900">
               <h1 className="text-lg">Length:</h1>
               <input
