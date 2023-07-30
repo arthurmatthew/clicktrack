@@ -97,7 +97,7 @@ const MetronomesIndex = () => {
                 <div className="my-2 rounded-sm border-[1px] border-neutral-200 p-4 dark:border-neutral-900">
                   <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
                     <div className="flex w-full grid-cols-3 items-center gap-3">
-                      <i className="bi-clipboard2 cursor-grab text-3xl text-neutral-600 dark:text-neutral-400" />
+                      <i className="bi-clipboard2 text-3xl text-neutral-600 dark:text-neutral-400" />
                       <input
                         className="w-full bg-transparent text-2xl text-white placeholder:text-white/50 focus:outline-none"
                         placeholder="Have a code? Paste it here."
