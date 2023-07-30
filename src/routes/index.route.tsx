@@ -4,7 +4,7 @@ import React from 'react';
 const Layout = React.lazy(() => import('../components/layouts/index/Layout'));
 const NotFound = React.lazy(() => import('../pages/NotFound'));
 
-import Index from '../pages/index/index';
+import Index from '../pages/index';
 
 const IndexRoute = (
   <Route
