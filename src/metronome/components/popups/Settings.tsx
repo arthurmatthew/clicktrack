@@ -1,23 +1,31 @@
 import { motion } from 'framer-motion';
 import Clicktrack from '../../classes/clicktrack';
+import { useRef } from 'react';
 
 const Settings = ({
-  settings,
+  clicktrack,
   hideSettings,
   updateSettings,
 }: {
-  settings: Clicktrack['data'];
+  clicktrack: Clicktrack;
   hideSettings: () => void;
   updateSettings: (update: Partial<Clicktrack['data']>) => void;
 }) => {
+  const settings = clicktrack.data;
+
+  const copyToClipboardRef = useRef<HTMLParagraphElement | null>(null);
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(copyToClipboardRef.current?.innerText || '');
+  };
+
   return (
     <div className="fixed left-0 top-0 z-50 flex h-full max-h-screen w-screen items-center justify-center px-2 pb-2 pt-14 text-black dark:text-white">
       <motion.div
         className="relative z-50 h-full w-full max-w-5xl rounded-sm border-[1px] border-neutral-200 bg-white/5 p-8 shadow-2xl backdrop-blur-md dark:border-neutral-900 dark:bg-black/50"
         onClick={hideSettings}
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.8, opacity: 0 }}
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 20, opacity: 0 }}
         transition={{
           type: 'spring',
           stiffness: 500,
@@ -26,6 +34,24 @@ const Settings = ({
       >
         <h1 className="mb-6 text-left text-3xl font-semibold">Settings</h1>
         <div className="flex flex-col gap-4">
+          <SettingsSection name="share">
+            <p>
+              Below is a copyable code which you can share with other users.
+              They can use the code in the import section of the metronome list.
+            </p>
+            <p
+              ref={copyToClipboardRef}
+              className="w mt-3 max-h-20 overflow-y-scroll break-all rounded-sm rounded-b-none bg-neutral-200 p-2 text-sm text-black/50 dark:bg-neutral-900 dark:text-white/20"
+            >
+              {btoa(JSON.stringify(clicktrack))}
+            </p>
+            <button
+              onClick={copyToClipboard}
+              className="w-full rounded-b-sm bg-black py-4 text-lg text-black dark:bg-neutral-900 dark:text-white"
+            >
+              Click to Copy
+            </button>
+          </SettingsSection>
           <SettingsSection name="Playback">
             <p className="flex items-center gap-4 text-xl">
               <div className="flex gap-1">

@@ -8,7 +8,6 @@ import Sequencer from './components/tabs/Sequencer';
 import EditSection from './components/tabs/EditSection/EditSection';
 import Settings from './components/popups/Settings';
 import { AnimatePresence, motion, useAnimationControls } from 'framer-motion';
-import Share from './components/popups/Share';
 import { Metronome } from './classes/metronome';
 
 const MetronomeApp = ({ data }: { data: Clicktrack }) => {
@@ -295,7 +294,6 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   };
 
   const [settingsShown, setSettingsShown] = useState(false);
-  const [shareShown, setShareShown] = useState(false);
 
   const pulseControl = useAnimationControls();
   const pulseDisplay = () => {
@@ -330,22 +328,6 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
             </motion.button>
             <div
               onClick={() =>
-                setShareShown((previouslyShown) => !previouslyShown)
-              }
-              className="rounded-sm bg-black px-4 py-2 text-white dark:bg-white dark:text-black"
-            >
-              <i className="bi-share-fill" />
-              <AnimatePresence>
-                {shareShown && (
-                  <Share
-                    clicktrack={clicktrack}
-                    hideShare={() => setShareShown(false)}
-                  />
-                )}
-              </AnimatePresence>
-            </div>
-            <div
-              onClick={() =>
                 setSettingsShown((previouslyShown) => !previouslyShown)
               }
               className="rounded-sm bg-black px-4 py-2 text-white dark:bg-white dark:text-black"
@@ -354,7 +336,7 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
               <AnimatePresence>
                 {settingsShown && (
                   <Settings
-                    settings={clicktrack.data}
+                    clicktrack={clicktrack}
                     updateSettings={updateClicktrackData}
                     hideSettings={() => setSettingsShown(false)}
                   />
