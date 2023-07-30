@@ -22,7 +22,7 @@ export const MetronomeSection = ({
   const nameRef = useRef<HTMLHeadingElement>(null);
 
   return (
-    <div className="w-full rounded-md border-2 border-neutral-200 p-4 dark:border-neutral-900">
+    <div className="w-full rounded-sm border-[1px] border-neutral-200 p-4 dark:border-neutral-900">
       <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
         <div className="flex items-center gap-3">
           <i

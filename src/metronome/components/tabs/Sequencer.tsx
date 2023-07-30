@@ -47,7 +47,7 @@ const Sequencer = ({
           onClick={() => add(new Metronome())}
           className="col-span-2 m-3 flex cursor-pointer items-center gap-2  "
         >
-          <div className="w-full rounded-sm border-2 border-neutral-300 p-4 py-3 dark:border-neutral-900">
+          <div className="w-full rounded-sm border-[1px] border-neutral-300 p-4 py-3 dark:border-neutral-900">
             Add a Section
           </div>
         </div>

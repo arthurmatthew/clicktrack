@@ -26,10 +26,10 @@ const EditSection = ({
 
   if (selected)
     return (
-      <div className="flex flex-col gap-4 p-4  ">
-        <div className="grid items-center gap-4">
+      <div className="flex flex-col gap-2 p-4">
+        <div className="grid items-center gap-2">
           <div>
-            <div className="flex items-center justify-between gap-1">
+            <div className="flex items-center justify-between">
               <div className="flex w-full overflow-hidden rounded-sm">
                 <TempoIncrementButton
                   selected={selected}
@@ -69,7 +69,7 @@ const EditSection = ({
             </div>
           </div>
           <div>
-            <div className="lora grid grid-cols-3 gap-[2px] overflow-hidden rounded-sm border-2 border-neutral-200 bg-neutral-200 text-2xl font-semibold dark:border-neutral-900 dark:bg-neutral-900">
+            <div className="lora grid grid-cols-3 gap-px overflow-hidden rounded-sm border-[1px] border-neutral-200 bg-neutral-200 text-2xl font-semibold dark:border-neutral-900 dark:bg-neutral-900">
               {timeSignatures.map((timeSignature) => (
                 <TimeSignatureButton
                   key={JSON.stringify(timeSignature)}
@@ -85,8 +85,8 @@ const EditSection = ({
               ))}
             </div>
           </div>
-          <div className="flex flex-col gap-2 sm:flex-row sm:gap-4">
-            <div className="flex items-center gap-3 rounded-sm bg-neutral-200 px-2 py-1 dark:bg-neutral-900">
+          <div className="flex flex-col gap-px overflow-hidden rounded-sm sm:flex-row sm:gap-2 sm:overflow-visible sm:rounded-none">
+            <div className="flex items-center gap-3 bg-neutral-200 px-2 py-1 dark:bg-neutral-900 sm:rounded-sm">
               <h1 className="text-lg">Length:</h1>
               <input
                 type="number"
@@ -97,7 +97,7 @@ const EditSection = ({
                       parseInt(e.currentTarget.value) || selected.lengthInBars,
                   })
                 }
-                className="w-16 rounded-sm bg-white px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-black"
+                className="w-16 bg-white px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-black sm:rounded-sm"
               />
               <h1 className="text-lg">bars</h1>
             </div>
@@ -138,20 +138,19 @@ const EditSection = ({
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-px overflow-hidden rounded-sm">
           <button
             onClick={() => copyMetronome(selected.id)}
-            className="w-full rounded-sm bg-neutral-200 p-2 px-4 duration-75 dark:bg-neutral-900"
+            className="w-full bg-neutral-200 p-2 px-4 duration-75 dark:bg-neutral-900"
           >
             Duplicate
           </button>
           <button
             onClick={() => deleteMetronome(selected.id)}
-            className="w-full rounded-sm bg-neutral-200 p-2 px-4 duration-75 hover:bg-red-400 dark:bg-neutral-900 dark:hover:bg-red-900"
+            className="w-full bg-neutral-200 p-2 px-4 duration-75 hover:bg-red-400 dark:bg-neutral-900 dark:hover:bg-red-900"
           >
             Delete this Section
           </button>
-          <p className="text-center text-xs opacity-50">{selected.id}</p>
         </div>
       </div>
     );
