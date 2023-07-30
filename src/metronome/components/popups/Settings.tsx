@@ -25,26 +25,79 @@ const Settings = ({
         }}
       >
         <h1 className="mb-6 text-left text-3xl font-semibold">Settings</h1>
-        <div className="flex flex-col gap-2">
-          <p className="flex items-center gap-4 text-xl">
-            <button className="w-20 rounded-md bg-neutral-700 py-2 text-white">
-              On
-            </button>{' '}
-            Volume
-          </p>
-          <p className="flex items-center gap-4 text-xl">
-            <button
-              onClick={() =>
-                updateSettings({ playExtraBeat: !settings.playExtraBeat })
-              }
-              className="w-20 rounded-md bg-neutral-700 py-2 text-white"
-            >
-              {settings.playExtraBeat ? 'On' : 'Off'}
-            </button>{' '}
-            Play Extra Beat
-          </p>
+        <div className="flex flex-col gap-4">
+          <SettingsSection name="Playback">
+            <p className="flex items-center gap-4 text-xl">
+              <div className="flex gap-1">
+                <button
+                  onClick={() => {
+                    updateSettings({ muted: !settings.muted });
+                  }}
+                  className="w-20 rounded-md bg-neutral-700 py-2 text-white"
+                >
+                  {settings.muted || settings.volume === 0 ? (
+                    <i className="bi-volume-mute-fill" />
+                  ) : (
+                    <i className="bi-volume-up-fill" />
+                  )}
+                </button>{' '}
+                <div
+                  className={`flex gap-3 rounded-md bg-neutral-700 p-2 px-4 ${
+                    settings.muted && 'opacity-50'
+                  }`}
+                >
+                  <p className="roboto w-12 text-center">
+                    {settings.volume}
+                    <span className="inter">%</span>
+                  </p>
+                  <input
+                    className="accent-purple-500"
+                    disabled={settings.muted}
+                    type="range"
+                    value={settings.volume}
+                    onChange={(e) =>
+                      updateSettings({
+                        volume: parseInt(e.currentTarget.value),
+                      })
+                    }
+                    min={0}
+                    max={150}
+                  />
+                </div>
+              </div>
+              Volume
+            </p>
+          </SettingsSection>
+          <SettingsSection name="General">
+            <p className="flex items-center gap-4 text-xl">
+              <button
+                onClick={() =>
+                  updateSettings({ playExtraBeat: !settings.playExtraBeat })
+                }
+                className="w-20 rounded-md bg-neutral-700 py-2 text-white"
+              >
+                {settings.playExtraBeat ? 'On' : 'Off'}
+              </button>{' '}
+              Play Extra Beat
+            </p>
+          </SettingsSection>
         </div>
       </motion.div>
+    </div>
+  );
+};
+
+const SettingsSection = ({
+  name,
+  children,
+}: {
+  name: string;
+  children: React.ReactNode;
+}) => {
+  return (
+    <div className="flex flex-col gap-1">
+      <h1 className="font-semibold uppercase text-white/50">{name}</h1>
+      {children}
     </div>
   );
 };

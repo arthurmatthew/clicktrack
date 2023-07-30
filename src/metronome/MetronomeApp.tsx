@@ -59,6 +59,8 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
     const oscillator = audioCtx.current.createOscillator();
     const gain = audioCtx.current.createGain();
 
+    gain.gain.value = clicktrack.data.muted ? 0 : clicktrack.data.volume / 100;
+
     gain.connect(audioCtx.current.destination);
     oscillator.connect(gain);
 
