@@ -39,27 +39,23 @@ const Settings = ({
               Below is a copyable code which you can share with other users.
               They can use the code in the import section of the metronome list.
             </p>
-            <p
-              ref={copyToClipboardRef}
-              className="w mt-3 max-h-20 overflow-y-scroll break-all rounded-sm rounded-b-none bg-neutral-200 p-2 text-sm text-black/50 dark:bg-neutral-900 dark:text-white/20"
-            >
-              {btoa(JSON.stringify(clicktrack))}
-            </p>
-            <button
-              onClick={copyToClipboard}
-              className="w-full rounded-b-sm bg-black py-4 text-lg text-black dark:bg-neutral-900 dark:text-white"
-            >
-              Click to Copy
-            </button>
+            <div className="flex items-center gap-2">
+              <SettingsButton onClick={copyToClipboard}>Copy</SettingsButton>
+              <p
+                ref={copyToClipboardRef}
+                className="h-full max-w-sm overflow-hidden text-ellipsis rounded-sm rounded-b-none p-2 text-sm text-black/50 dark:text-white/20"
+              >
+                {btoa(JSON.stringify(clicktrack))}
+              </p>
+            </div>
           </SettingsSection>
           <SettingsSection name="Playback">
             <p className="flex items-center gap-4 text-xl">
               <div className="flex gap-1">
-                <button
+                <SettingsButton
                   onClick={() => {
                     updateSettings({ muted: !settings.muted });
                   }}
-                  className="w-20 rounded-md bg-neutral-700 py-2 text-white"
                 >
                   {settings.muted || settings.volume === 0 ? (
                     <i className="bi-volume-mute-fill" />
@@ -70,9 +66,9 @@ const Settings = ({
                       }-fill`}
                     />
                   )}
-                </button>{' '}
+                </SettingsButton>{' '}
                 <div
-                  className={`flex gap-3 rounded-md bg-neutral-700 p-2 px-4 ${
+                  className={`flex gap-3 rounded-md bg-neutral-200 p-2 px-4 dark:bg-neutral-900 ${
                     settings.muted && 'opacity-50'
                   }`}
                 >
@@ -100,20 +96,36 @@ const Settings = ({
           </SettingsSection>
           <SettingsSection name="General">
             <p className="flex items-center gap-4 text-xl">
-              <button
+              <SettingsButton
                 onClick={() =>
                   updateSettings({ playExtraBeat: !settings.playExtraBeat })
                 }
-                className="w-20 rounded-md bg-neutral-700 py-2 text-white"
               >
                 {settings.playExtraBeat ? 'On' : 'Off'}
-              </button>{' '}
+              </SettingsButton>{' '}
               Play Extra Beat
             </p>
           </SettingsSection>
         </div>
       </motion.div>
     </div>
+  );
+};
+
+const SettingsButton = ({
+  onClick,
+  children,
+}: {
+  onClick: React.MouseEventHandler;
+  children: React.ReactNode;
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      className="min-w-[5rem] rounded-md border-[1px] border-neutral-300 bg-neutral-200 py-2 dark:border-neutral-700 dark:bg-neutral-900"
+    >
+      {children}
+    </button>
   );
 };
 
@@ -126,7 +138,9 @@ const SettingsSection = ({
 }) => {
   return (
     <div className="flex flex-col gap-1">
-      <h1 className="font-semibold uppercase text-white/50">{name}</h1>
+      <h1 className="font-semibold uppercase text-black/50 dark:text-white/50">
+        {name}
+      </h1>
       {children}
     </div>
   );
