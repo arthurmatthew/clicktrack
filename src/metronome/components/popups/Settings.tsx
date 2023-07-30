@@ -11,9 +11,9 @@ const Settings = ({
   updateSettings: (update: Partial<Clicktrack['data']>) => void;
 }) => {
   return (
-    <div className="fixed left-0 top-0 z-50 flex h-screen w-screen items-center justify-center text-black dark:text-white">
+    <div className="fixed left-0 top-0 z-50 flex h-full max-h-screen w-screen items-center justify-center px-2 pb-2 pt-14 text-black dark:text-white">
       <motion.div
-        className="relative z-50 max-w-5xl rounded-2xl border-[1px] border-neutral-300 bg-white/5 p-8 shadow-2xl backdrop-blur-md dark:border-neutral-800 dark:bg-black/50"
+        className="relative z-50 h-full w-full max-w-5xl rounded-sm border-[1px] border-neutral-200 bg-white/5 p-8 shadow-2xl backdrop-blur-md dark:border-neutral-900 dark:bg-black/50"
         onClick={hideSettings}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
