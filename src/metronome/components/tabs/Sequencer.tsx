@@ -1,6 +1,6 @@
 import getTempoName from '../../../helpers/getTempoName';
 import Clicktrack from '../../classes/clicktrack';
-import { Metronome } from '../../classes/metronome';
+import { Metronome } from '../../classes/section';
 
 const Sequencer = ({
   add,

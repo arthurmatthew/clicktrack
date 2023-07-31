@@ -8,7 +8,7 @@ import Sequencer from './components/tabs/Sequencer';
 import EditSection from './components/tabs/EditSection/EditSection';
 import Settings from './components/popups/Settings';
 import { AnimatePresence, motion, useAnimationControls } from 'framer-motion';
-import { Metronome } from './classes/metronome';
+import { Metronome } from './classes/section';
 
 const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   const [clicktrack, setClicktrack] = useState<Clicktrack>(data);

@@ -1,4 +1,4 @@
-import { Metronome } from './metronome';
+import { Metronome } from './section';
 
 export default class Data {
   children: Metronome[];

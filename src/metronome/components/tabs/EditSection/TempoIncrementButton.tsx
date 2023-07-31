@@ -1,4 +1,4 @@
-import { Metronome } from '../../../classes/metronome';
+import { Metronome } from '../../../classes/section';
 
 const TempoIncrementButton = ({
   updateMetronome,

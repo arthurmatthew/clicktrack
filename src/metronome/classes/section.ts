@@ -2,8 +2,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 class Section {
   id: string;
+  type: 'metronome' | 'repeat';
   constructor(options?: Partial<Section>) {
     this.id = options?.id || uuidv4();
+    this.type = options?.type || 'metronome';
   }
 }
 
