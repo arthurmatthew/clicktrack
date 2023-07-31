@@ -3,6 +3,6 @@
  */
 export const storage = {
   keys: {
-    metronome: 'metronomes',
+    clicktracks: 'clicktracks',
   },
 };

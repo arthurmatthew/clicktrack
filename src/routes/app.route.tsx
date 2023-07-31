@@ -3,9 +3,9 @@ import { Route } from 'react-router-dom';
 
 const AppLayout = React.lazy(() => import('../components/layouts/app/Layout'));
 const AppIndex = React.lazy(() => import('../pages/app/index'));
-const MetronomesIndex = React.lazy(() => import('../pages/app/metronomes'));
-const MetronomePage = React.lazy(
-  () => import('../pages/app/metronomes/metronome')
+const ClicktracksIndex = React.lazy(() => import('../pages/app/clicktracks'));
+const ClicktrackPage = React.lazy(
+  () => import('../pages/app/clicktracks/clicktrack')
 );
 const NotFound = React.lazy(() => import('../pages/NotFound'));
 
@@ -20,7 +20,7 @@ export const AppRoute = (
     }
   >
     <Route path="/app/" element={<AppIndex />} />
-    <Route path="/app/metronomes" element={<MetronomesIndex />} />
-    <Route path="/app/metronomes/:id/*" element={<MetronomePage />} />
+    <Route path="/app/clicktracks" element={<ClicktracksIndex />} />
+    <Route path="/app/clicktracks/:id/*" element={<ClicktrackPage />} />
   </Route>
 );

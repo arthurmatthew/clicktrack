@@ -1,7 +1,7 @@
-import { Metronome } from './section';
+import { Metronome, Repeat } from './section';
 
 export class Data {
-  children: Metronome[];
+  children: (Metronome | Repeat)[];
 
   // Frequency Related
   note: [note: string, octave: number];
@@ -17,8 +17,8 @@ export class Data {
     this.children = options?.children || [new Metronome()];
     this.note = options?.note || ['C', 5];
     this.volume = options?.volume || 100;
-    this.muted = options?.muted || false;
+    this.muted = options?.muted ?? false;
     this.noteDuration = options?.noteDuration || 1;
-    this.playExtraBeat = options?.playExtraBeat || true;
+    this.playExtraBeat = options?.playExtraBeat ?? true;
   }
 }

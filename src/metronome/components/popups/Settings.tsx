@@ -1,15 +1,16 @@
 import { motion } from 'framer-motion';
 import { Clicktrack } from '../../classes/clicktrack';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 export const Settings = ({
   clicktrack,
   hideSettings,
-  updateSettings,
+  updateClicktrackData,
 }: {
   clicktrack: Clicktrack;
   hideSettings: () => void;
-  updateSettings: (update: Partial<Clicktrack['data']>) => void;
+  updateClicktrackData: (update: Partial<Clicktrack['data']>) => void;
 }) => {
   const settings = clicktrack.data;
 
@@ -42,8 +43,13 @@ export const Settings = ({
         <div className="flex flex-col gap-4">
           <SettingsSection name="share">
             <p>
-              Below is a copyable code which you can share with other users.
-              They can use the code in the import section of the metronome list.
+              You can paste the given code into the <b>Import</b> box in the{' '}
+              <span className="underline">
+                <Link target="blank" to="/app/clicktracks">
+                  Clicktrack list
+                </Link>
+              </span>
+              . Copy your code below. It's specific to each of your Clicktracks.
             </p>
             <div className="flex items-center gap-2">
               <SettingsButton onClick={copyToClipboard}>Copy</SettingsButton>
@@ -61,7 +67,7 @@ export const Settings = ({
                 <div className="flex items-center gap-4">
                   <SettingsButton
                     onClick={() => {
-                      updateSettings({ muted: !settings.muted });
+                      updateClicktrackData({ muted: !settings.muted });
                     }}
                   >
                     {settings.muted || settings.volume === 0 ? (
@@ -92,7 +98,7 @@ export const Settings = ({
                     type="range"
                     value={settings.volume}
                     onChange={(e) =>
-                      updateSettings({
+                      updateClicktrackData({
                         volume: parseInt(e.currentTarget.value),
                       })
                     }
@@ -108,7 +114,9 @@ export const Settings = ({
             <p className="flex items-center gap-4 text-xl">
               <SettingsButton
                 onClick={() =>
-                  updateSettings({ playExtraBeat: !settings.playExtraBeat })
+                  updateClicktrackData({
+                    playExtraBeat: !settings.playExtraBeat,
+                  })
                 }
               >
                 {settings.playExtraBeat ? 'On' : 'Off'}

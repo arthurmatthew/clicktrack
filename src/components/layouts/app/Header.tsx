@@ -17,10 +17,10 @@ export const AppHeader = ({
           ct.
         </Link>
         <Link
-          to="/app/metronomes"
+          to="/app/clicktracks"
           className="flex items-center gap-1 rounded-md border-[1px] border-neutral-200 px-4 py-1 text-black dark:border-neutral-900 dark:text-white"
         >
-          Metronomes
+          My Clicktracks
         </Link>
         <div className="flex gap-4">
           <i

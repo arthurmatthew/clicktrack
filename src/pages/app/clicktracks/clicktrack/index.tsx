@@ -1,24 +1,25 @@
 import { useParams } from 'react-router-dom';
 import { MetronomeApp } from '../../../../metronome/MetronomeApp';
 import { Clicktrack } from '../../../../metronome/classes/clicktrack';
+import { storage } from '../../../../configs/storage.config';
 
 /**
  * Webpage which loads the metronome from storage and passes it off to the actual application.
  */
-const MetronomePage = () => {
+const ClicktrackPage = () => {
   const params = useParams();
 
-  const getMetronome = (id: string) => {
-    const metronomes = JSON.parse(
-      localStorage.getItem('metronomes') as string
+  const getClicktrack = (id: string) => {
+    const clicktracks = JSON.parse(
+      localStorage.getItem(storage.keys.clicktracks) as string
     ) as Clicktrack[];
-    return metronomes.find((metronome) => metronome.id === id);
+    return clicktracks.find((clicktrack) => clicktrack.id === id);
   };
 
-  const metronome = getMetronome(decodeURIComponent(params.id as string));
+  const clicktrack = getClicktrack(decodeURIComponent(params.id as string));
 
-  if (metronome != undefined) {
-    return <MetronomeApp data={metronome} />;
+  if (clicktrack != undefined) {
+    return <MetronomeApp loadedClicktrack={clicktrack} />;
   }
 
   return <NotFound />;
@@ -37,4 +38,4 @@ const NotFound = () => {
   );
 };
 
-export default MetronomePage;
+export default ClicktrackPage;

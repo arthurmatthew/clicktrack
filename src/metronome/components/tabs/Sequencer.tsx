@@ -1,6 +1,6 @@
 import { getTempoName } from '../../../helpers/getTempoName';
 import { Clicktrack } from '../../classes/clicktrack';
-import { Metronome } from '../../classes/section';
+import { Metronome, Repeat } from '../../classes/section';
 
 export const Sequencer = ({
   add,
@@ -16,41 +16,109 @@ export const Sequencer = ({
   return (
     <div className="flex select-none flex-col gap-2  ">
       <div className="rounded-2 flex flex-col text-xl">
-        {sequence.map((metronome) => {
-          const selected = metronome.id === selectedId;
-          return (
-            <div
-              key={metronome.id}
-              className="group flex cursor-pointer items-center gap-2"
-              onClick={() => setSelectedId(metronome.id)}
-            >
-              <div
-                className={`relative w-full p-4 py-3 duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${
-                  selected && 'py-6'
-                }`}
-              >
-                {' '}
-                <p className="relative z-10">
-                  {getTempoName(metronome.bpm)} for {metronome.lengthInBars}{' '}
-                  bars
-                </p>
-                <div
-                  className={`absolute left-0 top-0 h-full w-full bg-neutral-100 duration-75 dark:bg-neutral-800 ${
-                    !selected && 'hidden'
-                  }`}
-                />
-              </div>
-            </div>
-          );
+        {sequence.map((section) => {
+          const selected = section.id === selectedId;
+          if (section instanceof Metronome)
+            return (
+              <ListMetronome
+                key={section.id}
+                selected={selected}
+                setSelectedId={setSelectedId}
+                metronome={section as Metronome}
+              />
+            );
+          if (section instanceof Repeat)
+            return (
+              <ListRepeat
+                key={section.id}
+                selected={selected}
+                setSelectedId={setSelectedId}
+                repeat={section as Repeat}
+              />
+            );
         })}
-        <div
-          onClick={() => add(new Metronome())}
-          className="col-span-2 m-3 flex cursor-pointer items-center gap-2  "
-        >
-          <div className="w-full rounded-sm border-[1px] border-neutral-300 p-4 py-3 dark:border-neutral-900">
+        <div className="m-3 grid grid-cols-2 items-center gap-3">
+          <div
+            onClick={() => add(new Metronome())}
+            className="w-full cursor-pointer rounded-sm border-[1px] border-neutral-300 p-4 py-3 dark:border-neutral-900"
+          >
             Add a Section
           </div>
+          <div
+            onClick={() => add(new Repeat())}
+            className="w-full cursor-pointer rounded-sm border-[1px] border-neutral-300 p-4 py-3 dark:border-neutral-900"
+          >
+            Add a Repeat
+          </div>
         </div>
+      </div>
+    </div>
+  );
+};
+
+const ListMetronome = ({
+  metronome,
+  setSelectedId,
+  selected,
+}: {
+  metronome: Metronome;
+  selected: boolean;
+  setSelectedId: (id: string) => void;
+}) => {
+  return (
+    <div
+      className="group flex cursor-pointer items-center gap-2"
+      onClick={() => setSelectedId(metronome.id)}
+    >
+      <div
+        className={`relative w-full p-4 py-3 duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${
+          selected && 'py-6'
+        }`}
+      >
+        {' '}
+        <p className="relative z-10">
+          {getTempoName(metronome.bpm)} for {metronome.lengthInBars} bars
+        </p>
+        <div
+          className={`absolute left-0 top-0 h-full w-full bg-neutral-100 duration-75 dark:bg-neutral-800 ${
+            !selected && 'hidden'
+          }`}
+        />
+      </div>
+    </div>
+  );
+};
+
+const ListRepeat = ({
+  repeat,
+  setSelectedId,
+  selected,
+}: {
+  repeat: Repeat;
+  selected: boolean;
+  setSelectedId: (id: string) => void;
+}) => {
+  return (
+    <div
+      className="group flex cursor-pointer items-center gap-2"
+      onClick={() => setSelectedId(repeat.id)}
+    >
+      <div
+        className={`relative w-full p-4 py-3 duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${
+          selected && 'py-6'
+        }`}
+      >
+        <p className="relative z-10">
+          Repeat{' '}
+          {repeat.infinite
+            ? 'forever'
+            : `${repeat.times} time${repeat.times > 1 ? 's' : ''}`}
+        </p>
+        <div
+          className={`absolute left-0 top-0 h-full w-full bg-neutral-100 duration-75 dark:bg-neutral-800 ${
+            !selected && 'hidden'
+          }`}
+        />
       </div>
     </div>
   );

@@ -63,7 +63,9 @@ export const MetronomeSection = ({
         <div className="my-2 block h-px w-full bg-gradient-to-r from-neutral-300 to-transparent dark:from-neutral-700 sm:hidden" />
         <div className="flex gap-4">
           <Link
-            to={`/app/metronomes/${encodeURIComponent(metronome.id)}/sequencer`}
+            to={`/app/clicktracks/${encodeURIComponent(
+              metronome.id
+            )}/sequencer`}
             className="rounded-sm bg-neutral-500 px-10 py-2 text-white"
           >
             Open

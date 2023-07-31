@@ -17,14 +17,23 @@ import { remove } from '../../../helpers/app/metronomes/remove';
 import { sortByPos } from '../../../helpers/sortByPos';
 import { useRef } from 'react';
 import { makeUnique } from '../../../helpers/makeUnique';
+import { Metronome } from '../../../metronome/classes/section';
+import { Data } from '../../../metronome/classes/data';
 
 /**
  * Webpage that lists metronomes from storage.
  */
-const MetronomesIndex = () => {
+const ClicktracksIndex = () => {
   const [sections, setSections] = useStickyState<Clicktrack[]>(
-    [new Clicktrack({ permanant: true, id: 'default', position: -1 })],
-    storage.keys.metronome
+    [
+      new Clicktrack({
+        permanant: true,
+        id: 'default',
+        position: -1,
+        data: new Data({ children: [new Metronome()] }),
+      }),
+    ],
+    storage.keys.clicktracks
   );
 
   const handleAdd = () => {
@@ -58,7 +67,7 @@ const MetronomesIndex = () => {
   };
 
   const handleClear = () => {
-    localStorage.removeItem(storage.keys.metronome);
+    localStorage.removeItem(storage.keys.clicktracks);
     location.reload();
   };
 
@@ -79,7 +88,7 @@ const MetronomesIndex = () => {
   return (
     <div className="mx-4 my-10 flex flex-grow flex-col">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-4">
-        <h1 className="text-3xl  ">Your Metronomes</h1>
+        <h1 className="text-3xl  ">Your Clicktracks</h1>
         <div className="flex flex-col gap-2">
           <CreateSection icon="plus-square" add={handleAdd}>
             Create New
@@ -159,4 +168,4 @@ const MetronomesIndex = () => {
   );
 };
 
-export default MetronomesIndex;
+export default ClicktracksIndex;
