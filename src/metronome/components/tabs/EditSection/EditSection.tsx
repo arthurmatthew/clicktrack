@@ -1,7 +1,6 @@
 import Clicktrack from '../../../classes/clicktrack';
 import TempoIncrementButton from './TempoIncrementButton';
 import TimeSignatureButton from './TimeSignatureButton';
-
 type Metronome = Clicktrack['data']['children'][number];
 
 const EditSection = ({
@@ -24,12 +23,45 @@ const EditSection = ({
     [12, 8],
   ];
 
+  const tempoTapTimes: number[] = [];
+  let tempoTapTimer: number;
+  const tapTempo = () => {
+    if (!selected) return;
+
+    tempoTapTimes.push(Date.now());
+
+    const tapDifferences =
+      tempoTapTimes.length > 1 &&
+      (tempoTapTimes
+        .map((timeAtTap, index) => {
+          if (tempoTapTimes[index + 1])
+            return tempoTapTimes[index + 1] - timeAtTap;
+        })
+        .filter((timeAtTap) => timeAtTap) as number[]);
+
+    if (tapDifferences) {
+      const averageTapDifference =
+        tapDifferences.slice(-4).reduce((a, b) => a + b) /
+        tapDifferences.slice(-4).length;
+      const averageBpm = Math.ceil(60 / (averageTapDifference / 1000));
+
+      if (averageBpm > 500) updateMetronome(selected, { bpm: 500 });
+      else if (averageBpm < 20) updateMetronome(selected, { bpm: 20 });
+      else updateMetronome(selected, { bpm: averageBpm });
+    }
+
+    if (tempoTapTimer) clearTimeout(tempoTapTimer);
+    tempoTapTimer = setTimeout(() => {
+      tempoTapTimes.length = 0;
+    }, 2000);
+  };
+
   if (selected)
     return (
       <div className="flex flex-col gap-2 p-4">
         <div className="grid items-center gap-2">
-          <div>
-            <div className="flex items-center justify-between">
+          <div className="flex gap-2">
+            <div className="flex flex-grow items-center justify-between">
               <div className="flex w-full overflow-hidden rounded-sm">
                 <TempoIncrementButton
                   selected={selected}
@@ -67,6 +99,9 @@ const EditSection = ({
                 />
               </div>
             </div>
+            <button onClick={tapTempo} className="dark:bg-neutral-900">
+              <i className="bi-hand-index-thumb px-3 text-xl" />
+            </button>
           </div>
           <div>
             <div className="lora grid grid-cols-3 gap-px overflow-hidden rounded-sm border-[1px] border-neutral-200 bg-neutral-200 text-2xl font-semibold dark:border-neutral-900 dark:bg-neutral-900">
