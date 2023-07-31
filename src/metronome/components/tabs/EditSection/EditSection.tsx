@@ -99,8 +99,11 @@ const EditSection = ({
                 />
               </div>
             </div>
-            <button onClick={tapTempo} className="dark:bg-neutral-900">
-              <i className="bi-hand-index-thumb px-3 text-xl" />
+            <button
+              onClick={tapTempo}
+              className="rounded-sm bg-neutral-200 dark:bg-neutral-900"
+            >
+              <i className="bi-hand-index-thumb-fill px-3 text-xl" />
             </button>
           </div>
           <div>
