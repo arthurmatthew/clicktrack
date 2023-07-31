@@ -71,11 +71,11 @@ const ListMetronome = ({
       onClick={() => setSelectedId(metronome.id)}
     >
       <div
-        className={`relative w-full p-4 py-3 duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${
+        className={`relative flex w-full gap-3 p-4 py-3 duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${
           selected && 'py-6'
         }`}
       >
-        {' '}
+        <i className="bi-music-note-list z-10" />{' '}
         <p className="relative z-10">
           {getTempoName(metronome.bpm)} for {metronome.lengthInBars} bars
         </p>
@@ -104,10 +104,11 @@ const ListRepeat = ({
       onClick={() => setSelectedId(repeat.id)}
     >
       <div
-        className={`relative w-full p-4 py-3 duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${
+        className={`relative flex w-full gap-3 p-4 py-3 duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${
           selected && 'py-6'
         }`}
       >
+        <i className="bi-repeat z-10" />
         <p className="relative z-10">
           Repeat{' '}
           {repeat.infinite

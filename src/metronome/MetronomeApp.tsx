@@ -61,6 +61,10 @@ export const MetronomeApp = ({
   }, []);
 
   const schedule = (beat: number, time: number) => {
+    const currentSection = clicktrack.data.children[
+      totalSectionsPlayed
+    ] as Metronome;
+
     if (!audioCtx.current) return;
     if (
       totalSectionsPlayed === clicktrack.data.children.length &&
@@ -68,22 +72,15 @@ export const MetronomeApp = ({
     )
       return;
 
-    const currentSection = clicktrack.data.children[totalSectionsPlayed];
-
-    const noteType =
-      currentSection instanceof Metronome && currentSection?.timeSignature[1];
+    const noteType = currentSection?.timeSignature[1];
+    const oscillator = audioCtx.current.createOscillator();
+    const gain = audioCtx.current.createGain();
 
     if (noteType === 8 && beat % 2) return; // Not divisible by 2 means the current beat is not an 8th note
     if (noteType === 4 && beat % 4) return; // Note divisible by 4 means the current beat is not a 16th note
     if (noteType === 2 && beat % 8) return;
 
-    const oscillator = audioCtx.current.createOscillator();
-    const gain = audioCtx.current.createGain();
-
     gain.gain.value = clicktrack.data.muted ? 0 : clicktrack.data.volume / 100;
-
-    gain.connect(audioCtx.current.destination);
-    oscillator.connect(gain);
 
     oscillator.frequency.value = 880.0;
     if (beat === 0) {
@@ -95,6 +92,9 @@ export const MetronomeApp = ({
     } else {
       oscillator.frequency.value = 220.0;
     }
+
+    gain.connect(audioCtx.current.destination);
+    oscillator.connect(gain);
 
     // Give it a nicer sound by fading out.
     gain.gain.exponentialRampToValueAtTime(
@@ -125,7 +125,9 @@ export const MetronomeApp = ({
    */
   const next = () => {
     const currentSection = clicktrack.data.children[totalSectionsPlayed];
+
     if (currentSection instanceof Repeat) return;
+
     const secondsPerBeat: number = 60.0 / currentSection?.bpm;
     const secondsPer16thNote = 0.25 * secondsPerBeat; // A quarter of a beat is a 16th note.
     const barsInCurrentSection = currentSection?.lengthInBars;
