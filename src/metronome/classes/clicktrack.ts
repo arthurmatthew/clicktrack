@@ -1,7 +1,7 @@
-import Data from './data';
+import { Data } from './data';
 import { v4 as uuidv4 } from 'uuid';
 
-export default class Clicktrack {
+export class Clicktrack {
   name: string;
   id: string;
   position: number;

@@ -1,4 +1,4 @@
-const TimeSignatureButton = ({
+export const TimeSignatureButton = ({
   time,
   selected,
   onClick,
@@ -25,5 +25,3 @@ const TimeSignatureButton = ({
     </button>
   );
 };
-
-export default TimeSignatureButton;

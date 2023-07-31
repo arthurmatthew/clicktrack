@@ -1,4 +1,4 @@
-const getTempoName = (bpm: number) => {
+export const getTempoName = (bpm: number) => {
   if (bpm > 178) {
     return 'Prestissimo';
   } else if (bpm > 168) {
@@ -27,5 +27,3 @@ const getTempoName = (bpm: number) => {
     return 'Grave';
   }
 };
-
-export default getTempoName;

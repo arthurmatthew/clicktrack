@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
-import Clicktrack from '../../../../metronome/classes/clicktrack';
+import { Clicktrack } from '../../../../metronome/classes/clicktrack';
 
 export interface MetronomeSection {
   metronome: Clicktrack;

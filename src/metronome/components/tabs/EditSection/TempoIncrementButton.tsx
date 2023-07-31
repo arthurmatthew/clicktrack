@@ -1,6 +1,6 @@
 import { Metronome } from '../../../classes/section';
 
-const TempoIncrementButton = ({
+export const TempoIncrementButton = ({
   updateMetronome,
   selected,
   amount,
@@ -30,5 +30,3 @@ const TempoIncrementButton = ({
     />
   );
 };
-
-export default TempoIncrementButton;

@@ -1,7 +1,11 @@
-import Metronome from '../../../metronome/classes/clicktrack';
-import makeUnique from '../../makeUnique';
+import { Clicktrack } from '../../../metronome/classes/clicktrack';
+import { makeUnique } from '../../makeUnique';
 
-const nameChange = (name: string, newName: string, sections: Metronome[]) => {
+export const nameChange = (
+  name: string,
+  newName: string,
+  sections: Clicktrack[]
+) => {
   return [
     ...sections.filter((metronome) => metronome.name != name),
     {
@@ -10,5 +14,3 @@ const nameChange = (name: string, newName: string, sections: Metronome[]) => {
     },
   ];
 };
-
-export default nameChange;

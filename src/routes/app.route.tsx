@@ -9,7 +9,7 @@ const MetronomePage = React.lazy(
 );
 const NotFound = React.lazy(() => import('../pages/NotFound'));
 
-const AppRoute = (
+export const AppRoute = (
   <Route
     path="/app"
     element={<AppLayout />}
@@ -24,5 +24,3 @@ const AppRoute = (
     <Route path="/app/metronomes/:id/*" element={<MetronomePage />} />
   </Route>
 );
-
-export default AppRoute;

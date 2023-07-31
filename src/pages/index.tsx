@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import './index.css';
 
 import { Link } from 'react-router-dom';
-const Index = () => {
+export const Index = () => {
   return (
     <div className=" ">
       <section className="flex flex-col items-center justify-center px-2">
@@ -110,5 +110,3 @@ const InfoCard = ({
     </div>
   );
 };
-
-export default Index;

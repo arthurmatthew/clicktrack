@@ -1,16 +1,16 @@
 import { useRef, useEffect, useState } from 'react';
-import Clicktrack from './classes/clicktrack';
-import storage from '../configs/storage.config';
-import Window from './components/Window';
+import { Clicktrack } from './classes/clicktrack';
+import { storage } from '../configs/storage.config';
+import { Window } from './components/Window';
 import { Routes, Route, Outlet } from 'react-router-dom';
-import DataViewItem from './components/DataViewItem';
-import Sequencer from './components/tabs/Sequencer';
-import EditSection from './components/tabs/EditSection/EditSection';
-import Settings from './components/popups/Settings';
+import { DataViewItem } from './components/DataViewItem';
+import { Sequencer } from './components/tabs/Sequencer';
+import { EditSection } from './components/tabs/EditSection/EditSection';
+import { Settings } from './components/popups/Settings';
 import { AnimatePresence, motion, useAnimationControls } from 'framer-motion';
 import { Metronome } from './classes/section';
 
-const MetronomeApp = ({ data }: { data: Clicktrack }) => {
+export const MetronomeApp = ({ data }: { data: Clicktrack }) => {
   const [clicktrack, setClicktrack] = useState<Clicktrack>(data);
 
   // Metronome Begins Here
@@ -387,5 +387,3 @@ const MetronomeApp = ({ data }: { data: Clicktrack }) => {
     </motion.div>
   );
 };
-
-export default MetronomeApp;

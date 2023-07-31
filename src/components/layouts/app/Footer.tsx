@@ -1,5 +1,3 @@
-const AppFooter = () => {
+export const AppFooter = () => {
   return <footer />;
 };
-
-export default AppFooter;

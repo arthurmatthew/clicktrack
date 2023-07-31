@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const Header = ({
+export const Header = ({
   darkToggle,
   dark,
 }: {
@@ -25,5 +25,3 @@ const Header = ({
     </header>
   );
 };
-
-export default Header;

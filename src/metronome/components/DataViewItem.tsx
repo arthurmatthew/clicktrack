@@ -1,4 +1,4 @@
-const DataViewItem = ({
+export const DataViewItem = ({
   title,
   children,
 }: {
@@ -14,5 +14,3 @@ const DataViewItem = ({
     </li>
   );
 };
-
-export default DataViewItem;

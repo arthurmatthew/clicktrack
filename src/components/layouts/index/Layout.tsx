@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom';
-import Footer from './Footer';
-import Header from './Header';
+import { Footer } from './Footer';
+import { Header } from './Header';
 import './Layout.css';
 import { Suspense } from 'react';
 import { ScrollToTop } from '../../../helpers/scrollToTop';
-import useStickyState from '../../../hooks/useStickyState';
+import { useStickyState } from '../../../hooks/useStickyState';
 
 const Layout = ({ children }: { children?: React.ReactNode }) => {
   const [dark, setDark] = useStickyState<boolean>(true, 'dark-mode');

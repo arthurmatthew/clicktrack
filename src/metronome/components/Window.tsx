@@ -1,11 +1,11 @@
-import HighlightedLink from './HighlightedLink';
+import { HighlightedLink } from './HighlightedLink';
 
 interface Tab {
   to?: string;
   title?: string;
 }
 
-const Window = ({
+export const Window = ({
   tabs,
   children,
 }: {
@@ -33,5 +33,3 @@ const Window = ({
     </div>
   );
 };
-
-export default Window;

@@ -4,9 +4,9 @@ import React from 'react';
 const Layout = React.lazy(() => import('../components/layouts/index/Layout'));
 const NotFound = React.lazy(() => import('../pages/NotFound'));
 
-import Index from '../pages/index';
+import { Index } from '../pages/index';
 
-const IndexRoute = (
+export const IndexRoute = (
   <Route
     path="/"
     element={<Layout />}
@@ -19,5 +19,3 @@ const IndexRoute = (
     <Route path="/" element={<Index />} />
   </Route>
 );
-
-export default IndexRoute;

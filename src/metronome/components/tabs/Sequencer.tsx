@@ -1,8 +1,8 @@
-import getTempoName from '../../../helpers/getTempoName';
-import Clicktrack from '../../classes/clicktrack';
+import { getTempoName } from '../../../helpers/getTempoName';
+import { Clicktrack } from '../../classes/clicktrack';
 import { Metronome } from '../../classes/section';
 
-const Sequencer = ({
+export const Sequencer = ({
   add,
   selectedId,
   setSelectedId,
@@ -55,5 +55,3 @@ const Sequencer = ({
     </div>
   );
 };
-
-export default Sequencer;

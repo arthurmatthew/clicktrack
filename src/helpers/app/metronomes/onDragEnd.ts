@@ -1,7 +1,7 @@
 import { DropResult } from 'react-beautiful-dnd';
-import Metronome from '../../../metronome/classes/clicktrack';
+import { Clicktrack } from '../../../metronome/classes/clicktrack';
 
-const onDragEnd = (result: DropResult, sections: Metronome[]) => {
+export const onDragEnd = (result: DropResult, sections: Clicktrack[]) => {
   if (!result.destination) return sections;
 
   const sectionsCopy = sections;
@@ -12,5 +12,3 @@ const onDragEnd = (result: DropResult, sections: Metronome[]) => {
 
   return sectionsCopy;
 };
-
-export default onDragEnd;

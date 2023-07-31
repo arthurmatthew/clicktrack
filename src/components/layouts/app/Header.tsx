@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const AppHeader = ({
+export const AppHeader = ({
   darkToggle,
   dark,
 }: {
@@ -34,5 +34,3 @@ const AppHeader = ({
     </header>
   );
 };
-
-export default AppHeader;

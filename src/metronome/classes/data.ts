@@ -1,6 +1,6 @@
 import { Metronome } from './section';
 
-export default class Data {
+export class Data {
   children: Metronome[];
 
   // Frequency Related

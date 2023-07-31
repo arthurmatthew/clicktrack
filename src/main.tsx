@@ -8,8 +8,8 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
-import AppRoute from './routes/app.route';
-import IndexRoute from './routes/index.route';
+import { AppRoute } from './routes/app.route';
+import { IndexRoute } from './routes/index.route';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

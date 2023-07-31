@@ -1,4 +1,4 @@
-import Clicktrack from '../metronome/classes/clicktrack';
+import { Clicktrack } from '../metronome/classes/clicktrack';
 
 /**
  *
@@ -7,11 +7,7 @@ import Clicktrack from '../metronome/classes/clicktrack';
  * @param prev Array of `Sections` to check uniqueness
  * @returns Unique name that works in given array `prev`
  */
-export default function makeUnique(
-  name: string,
-  newName: string,
-  prev: Clicktrack[]
-) {
+export function makeUnique(name: string, newName: string, prev: Clicktrack[]) {
   let trials = 0;
   let uniqueName = newName;
 

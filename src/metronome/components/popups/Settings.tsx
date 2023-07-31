@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import Clicktrack from '../../classes/clicktrack';
+import { Clicktrack } from '../../classes/clicktrack';
 import { useRef } from 'react';
 
-const Settings = ({
+export const Settings = ({
   clicktrack,
   hideSettings,
   updateSettings,
@@ -155,5 +155,3 @@ const SettingsSection = ({
     </div>
   );
 };
-
-export default Settings;

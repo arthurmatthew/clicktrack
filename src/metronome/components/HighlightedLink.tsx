@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 
-const HighlightedLink = ({
+export const HighlightedLink = ({
   to,
   children,
 }: {
@@ -27,5 +27,3 @@ const HighlightedLink = ({
     </h1>
   );
 };
-
-export default HighlightedLink;

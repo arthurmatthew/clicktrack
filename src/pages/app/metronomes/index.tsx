@@ -5,18 +5,18 @@ import { CreateSection } from '../../../components/app/metronomes/index/CreateSe
 import { MetronomeSection } from '../../../components/app/metronomes/index/MetronomeSection';
 import { StrictModeDroppable } from '../../../components/app/metronomes/index/StrictModeDroppable';
 
-import useStickyState from '../../../hooks/useStickyState';
+import { useStickyState } from '../../../hooks/useStickyState';
 
-import storage from '../../../configs/storage.config';
+import { storage } from '../../../configs/storage.config';
 
-import Clicktrack from '../../../metronome/classes/clicktrack';
+import { Clicktrack } from '../../../metronome/classes/clicktrack';
 
-import nameChange from '../../../helpers/app/metronomes/nameChange';
-import onDragEnd from '../../../helpers/app/metronomes/onDragEnd';
-import remove from '../../../helpers/app/metronomes/remove';
-import sortByPos from '../../../helpers/sortByPos';
+import { nameChange } from '../../../helpers/app/metronomes/nameChange';
+import { onDragEnd } from '../../../helpers/app/metronomes/onDragEnd';
+import { remove } from '../../../helpers/app/metronomes/remove';
+import { sortByPos } from '../../../helpers/sortByPos';
 import { useRef } from 'react';
-import makeUnique from '../../../helpers/makeUnique';
+import { makeUnique } from '../../../helpers/makeUnique';
 
 /**
  * Webpage that lists metronomes from storage.

@@ -1,9 +1,7 @@
-import Metronome from '../../../metronome/classes/clicktrack';
+import { Clicktrack } from '../../../metronome/classes/clicktrack';
 
-const remove = (id: string, sections: Metronome[]) => {
+export const remove = (id: string, sections: Clicktrack[]) => {
   if (!sections.find((metronome) => metronome.id === id)?.permanant)
     return sections.filter((metronome) => metronome.id != id);
   return sections;
 };
-
-export default remove;

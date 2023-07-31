@@ -1,9 +1,9 @@
-import Clicktrack from '../../../classes/clicktrack';
-import TempoIncrementButton from './TempoIncrementButton';
-import TimeSignatureButton from './TimeSignatureButton';
+import { Clicktrack } from '../../../classes/clicktrack';
+import { TempoIncrementButton } from './TempoIncrementButton';
+import { TimeSignatureButton } from './TimeSignatureButton';
 type Metronome = Clicktrack['data']['children'][number];
 
-const EditSection = ({
+export const EditSection = ({
   updateMetronome,
   deleteMetronome,
   copyMetronome,
@@ -193,5 +193,3 @@ const EditSection = ({
       </div>
     );
 };
-
-export default EditSection;

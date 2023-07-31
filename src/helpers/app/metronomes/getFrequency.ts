@@ -1,6 +1,6 @@
-import Metronome from '../../../metronome/classes/clicktrack';
+import { Clicktrack } from '../../../metronome/classes/clicktrack';
 
-const getFrequency = (notes: Metronome['data']['note']) => {
+export const getFrequency = (notes: Clicktrack['data']['note']) => {
   const calcOct = (zeroFreq: number, octave: number) => {
     if (octave === 0) return zeroFreq;
     return zeroFreq * Math.pow(2, octave);
@@ -27,5 +27,3 @@ const getFrequency = (notes: Metronome['data']['note']) => {
       return 440;
   }
 };
-
-export default getFrequency;

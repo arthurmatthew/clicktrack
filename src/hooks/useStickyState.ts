@@ -8,7 +8,7 @@ type SaveableData = string | number | object | boolean | undefined | null;
  * @param key The key where the state will be stored
  * @returns Normal React `setState` return
  */
-export default function useStickyState<T extends SaveableData>(
+export function useStickyState<T extends SaveableData>(
   defaultValue: T,
   key: string
 ): [value: T, setValue: Dispatch<SetStateAction<T>>] {
