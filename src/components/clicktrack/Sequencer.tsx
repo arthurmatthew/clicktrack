@@ -1,6 +1,5 @@
-import { getTempoName } from '../../../helpers/getTempoName';
-import { Clicktrack } from '../../classes/clicktrack';
-import { Metronome, Repeat } from '../../classes/section';
+import { Clicktrack } from '../../clicktrack';
+import { Metronome, Repeat } from '../../clicktrack';
 
 export const Sequencer = ({
   add,
@@ -77,7 +76,8 @@ const ListMetronome = ({
       >
         <i className="bi-music-note-list z-10" />{' '}
         <p className="relative z-10">
-          {getTempoName(metronome.bpm)} for {metronome.lengthInBars} bars
+          {Metronome.convertTempoToTempoIndicator(metronome.bpm)} for{' '}
+          {metronome.lengthInBars} bars
         </p>
         <div
           className={`absolute left-0 top-0 h-full w-full bg-neutral-100 duration-75 dark:bg-neutral-800 ${

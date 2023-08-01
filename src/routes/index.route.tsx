@@ -2,7 +2,7 @@ import { Route } from 'react-router-dom';
 import React from 'react';
 
 const Layout = React.lazy(() => import('../components/layouts/index/Layout'));
-const NotFound = React.lazy(() => import('../pages/NotFound'));
+const NotFound = React.lazy(() => import('../pages/not-found'));
 
 import { Index } from '../pages/index';
 

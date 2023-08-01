@@ -1,17 +1,20 @@
 import { useRef, useEffect, useState } from 'react';
-import { Clicktrack } from './classes/clicktrack';
-import { storage } from '../configs/storage.config';
-import { Window } from './components/Window';
+import {
+  Clicktrack,
+  ClicktrackData,
+  Metronome,
+  Repeat,
+} from '../../../../clicktrack';
+import { Window } from '../../../../components/clicktrack/Window';
 import { Routes, Route, Outlet } from 'react-router-dom';
-import { DataViewItem } from './components/DataViewItem';
-import { Sequencer } from './components/tabs/Sequencer';
-import { Settings } from './components/popups/Settings';
+import { DataViewItem } from '../../../../components/clicktrack/DataViewItem';
+import { Sequencer } from '../../../../components/clicktrack/Sequencer';
+import { SettingsWindow } from '../../../../components/clicktrack/SettingsWindow';
 import { AnimatePresence, motion, useAnimationControls } from 'framer-motion';
-import { Metronome, Repeat } from './classes/section';
-import { EditSection } from './components/tabs/EditSection/EditSection';
-import { Data } from './classes/data';
+import { EditSection } from '../../../../components/clicktrack/EditSection';
+import { STORAGE_KEYS_CLICKTRACK } from '../../../../config';
 
-export const MetronomeApp = ({
+export const ClicktrackApp = ({
   loadedClicktrack,
 }: {
   loadedClicktrack: Clicktrack;
@@ -19,7 +22,7 @@ export const MetronomeApp = ({
   const [clicktrack, setClicktrack] = useState<Clicktrack>(
     new Clicktrack({
       ...loadedClicktrack,
-      data: new Data({
+      data: new ClicktrackData({
         ...loadedClicktrack.data,
         children: loadedClicktrack.data.children.map((section) => {
           switch (section.type) {
@@ -209,7 +212,7 @@ export const MetronomeApp = ({
   // Handle metronome local storage update
   useEffect(() => {
     const storedClicktracks = JSON.parse(
-      localStorage.getItem(storage.keys.clicktracks) as string
+      localStorage.getItem(STORAGE_KEYS_CLICKTRACK) as string
     ) as Clicktrack[];
     const updatedClicktracks = JSON.stringify([
       ...storedClicktracks.filter(
@@ -217,7 +220,7 @@ export const MetronomeApp = ({
       ),
       clicktrack,
     ]);
-    localStorage.setItem(storage.keys.clicktracks, updatedClicktracks);
+    localStorage.setItem(STORAGE_KEYS_CLICKTRACK, updatedClicktracks);
   }, [clicktrack]);
 
   // Handle selecting different sequences
@@ -240,7 +243,7 @@ export const MetronomeApp = ({
 
   const updateClicktrackData = (update: Partial<Clicktrack['data']>): void => {
     setClicktrack((previousClicktrack) => {
-      const updatedData = new Data({
+      const updatedData = new ClicktrackData({
         ...previousClicktrack.data,
         ...update,
       });
@@ -279,7 +282,7 @@ export const MetronomeApp = ({
 
       return new Clicktrack({
         ...previousClicktrack,
-        data: new Data({
+        data: new ClicktrackData({
           ...previousClicktrack.data,
           children: updatedSections,
         }),
@@ -293,7 +296,7 @@ export const MetronomeApp = ({
         return previousClicktrack;
       const updated = new Clicktrack({
         ...previousClicktrack,
-        data: new Data({
+        data: new ClicktrackData({
           ...previousClicktrack.data,
           children: [
             ...previousClicktrack.data.children.filter(
@@ -383,7 +386,7 @@ export const MetronomeApp = ({
             </div>
             <AnimatePresence>
               {settingsShown && (
-                <Settings
+                <SettingsWindow
                   clicktrack={clicktrack}
                   updateClicktrackData={updateClicktrackData}
                   hideSettings={() => {

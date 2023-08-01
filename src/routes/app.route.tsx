@@ -7,7 +7,7 @@ const ClicktracksIndex = React.lazy(() => import('../pages/app/clicktracks'));
 const ClicktrackPage = React.lazy(
   () => import('../pages/app/clicktracks/clicktrack')
 );
-const NotFound = React.lazy(() => import('../pages/NotFound'));
+const NotFound = React.lazy(() => import('../pages/not-found'));
 
 export const AppRoute = (
   <Route

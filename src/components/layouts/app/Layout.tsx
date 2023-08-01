@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { AppHeader } from './Header';
 import { AppFooter } from './Footer';
 import { useStickyState } from '../../../hooks/useStickyState';
-import { ScrollToTop } from '../../../helpers/scrollToTop';
+import { ScrollToTop } from '../../ScrollToTop';
 
 const AppLayout = ({ children }: { children?: React.ReactNode }) => {
   const [dark, setDark] = useStickyState<boolean>(true, 'dark-mode');

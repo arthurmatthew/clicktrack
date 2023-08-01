@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
-import { Clicktrack } from '../../classes/clicktrack';
+import { Clicktrack } from '../../clicktrack';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-export const Settings = ({
+export const SettingsWindow = ({
   clicktrack,
   hideSettings,
   updateClicktrackData,

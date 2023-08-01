@@ -1,15 +1,15 @@
-export const CreateSection = ({
+export const InteractableListItem = ({
   children,
   icon,
-  add,
+  interaction,
 }: {
   children: React.ReactNode;
   icon: string;
-  add: () => void;
+  interaction: () => void;
 }): JSX.Element => {
   return (
     <div
-      onClick={add}
+      onClick={interaction}
       className="w-full rounded-md border-2 border-dashed border-neutral-200 bg-white/50 px-3 py-2 hover:bg-white dark:border-neutral-800 dark:bg-neutral-900/50 dark:hover:bg-neutral-900"
     >
       <h1 className="flex items-center text-xl font-semibold">

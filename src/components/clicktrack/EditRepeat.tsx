@@ -1,4 +1,4 @@
-import { Repeat } from '../../../classes/section';
+import { Repeat } from '../../clicktrack';
 
 export const EditRepeat = ({
   updateRepeat,

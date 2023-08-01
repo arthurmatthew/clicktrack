@@ -1,4 +1,4 @@
-import { Metronome } from '../../../classes/section';
+import { Metronome } from '../../clicktrack';
 import { TempoIncrementButton } from './TempoIncrementButton';
 import { TimeSignatureButton } from './TimeSignatureButton';
 

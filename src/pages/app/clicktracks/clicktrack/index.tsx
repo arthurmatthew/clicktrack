@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
-import { MetronomeApp } from '../../../../metronome/MetronomeApp';
-import { Clicktrack } from '../../../../metronome/classes/clicktrack';
-import { storage } from '../../../../configs/storage.config';
+import { ClicktrackApp } from './ClicktrackApp';
+import { Clicktrack } from '../../../../clicktrack';
+import { STORAGE_KEYS_CLICKTRACK } from '../../../../config';
 
 /**
  * Webpage which loads the metronome from storage and passes it off to the actual application.
@@ -11,7 +11,7 @@ const ClicktrackPage = () => {
 
   const getClicktrack = (id: string) => {
     const clicktracks = JSON.parse(
-      localStorage.getItem(storage.keys.clicktracks) as string
+      localStorage.getItem(STORAGE_KEYS_CLICKTRACK) as string
     ) as Clicktrack[];
     return clicktracks.find((clicktrack) => clicktrack.id === id);
   };
@@ -19,7 +19,7 @@ const ClicktrackPage = () => {
   const clicktrack = getClicktrack(decodeURIComponent(params.id as string));
 
   if (clicktrack != undefined) {
-    return <MetronomeApp loadedClicktrack={clicktrack} />;
+    return <ClicktrackApp loadedClicktrack={clicktrack} />;
   }
 
   return <NotFound />;

@@ -1,4 +1,4 @@
-import { Metronome, Repeat, Section } from '../../../classes/section';
+import { Metronome, Repeat, Section } from '../../clicktrack';
 import { EditMetronome } from './EditMetronome';
 import { EditRepeat } from './EditRepeat';
 

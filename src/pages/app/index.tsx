@@ -1,4 +1,4 @@
-import { Redirect } from '../../components/routing/Redirect';
+import { Redirect } from '../../components/Redirect';
 
 /**
  * Webpage which simply redirects you to the metronome list

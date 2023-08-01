@@ -3,7 +3,7 @@ import { Footer } from './Footer';
 import { Header } from './Header';
 import './Layout.css';
 import { Suspense } from 'react';
-import { ScrollToTop } from '../../../helpers/scrollToTop';
+import { ScrollToTop } from '../../ScrollToTop';
 import { useStickyState } from '../../../hooks/useStickyState';
 
 const Layout = ({ children }: { children?: React.ReactNode }) => {

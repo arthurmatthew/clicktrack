@@ -1,4 +1,4 @@
-import { Metronome } from '../../../classes/section';
+import { Metronome } from '../../clicktrack';
 
 export const TempoIncrementButton = ({
   updateMetronome,
