@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import { Clicktrack } from '../../clicktrack';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { SettingsSection } from './SettingsSection';
+import { SettingsButton } from './SettingsButton';
 
 export const SettingsWindow = ({
   clicktrack,
@@ -126,40 +128,6 @@ export const SettingsWindow = ({
           </SettingsSection>
         </div>
       </motion.div>
-    </div>
-  );
-};
-
-const SettingsButton = ({
-  onClick,
-  children,
-}: {
-  onClick: React.MouseEventHandler;
-  children: React.ReactNode;
-}) => {
-  return (
-    <button
-      onClick={onClick}
-      className="min-w-[5rem] flex-grow rounded-md border-[1px] border-neutral-300 bg-neutral-200 py-2 dark:border-neutral-700 dark:bg-neutral-900 sm:flex-grow-0"
-    >
-      {children}
-    </button>
-  );
-};
-
-const SettingsSection = ({
-  name,
-  children,
-}: {
-  name: string;
-  children: React.ReactNode;
-}) => {
-  return (
-    <div className="flex flex-col gap-1">
-      <h1 className="font-semibold uppercase text-black/50 dark:text-white/50">
-        {name}
-      </h1>
-      {children}
     </div>
   );
 };
