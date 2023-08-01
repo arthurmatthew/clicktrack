@@ -129,6 +129,7 @@ export const ClicktrackApp = ({
   const next = () => {
     const currentSection = clicktrack.data.children[totalSectionsPlayed];
 
+    if (!currentSection) return;
     if (currentSection instanceof Repeat) return;
 
     const secondsPerBeat: number = 60.0 / currentSection?.bpm;
@@ -225,7 +226,7 @@ export const ClicktrackApp = ({
 
   // Handle selecting different sequences
   const [selectedId, setSelectedId] = useState<string>(
-    clicktrack.data.children[0].id
+    clicktrack.data.children[0]?.id ?? ''
   );
 
   const addSection = (newSection: Metronome | Repeat): void => {
@@ -315,11 +316,12 @@ export const ClicktrackApp = ({
       const indexOfId = previousClicktrack.data.children.findIndex(
         (section) => section.id === id
       );
-      setSelectedId(
-        updated.data.children[indexOfId]
-          ? updated.data.children[indexOfId].id
-          : updated.data.children[indexOfId - 1].id
-      );
+      setSelectedId(() => {
+        const closestSection =
+          updated.data.children[indexOfId] ||
+          updated.data.children[indexOfId - 1];
+        return closestSection?.id ?? '';
+      });
       return updated;
     });
   };

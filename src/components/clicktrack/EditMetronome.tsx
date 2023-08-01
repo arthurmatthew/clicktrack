@@ -33,8 +33,8 @@ export const EditMetronome = ({
       tempoTapTimes.length > 1 &&
       (tempoTapTimes
         .map((timeAtTap, index) => {
-          if (tempoTapTimes[index + 1])
-            return tempoTapTimes[index + 1] - timeAtTap;
+          const nextTimeAtTap = tempoTapTimes[index + 1];
+          if (nextTimeAtTap) return nextTimeAtTap - timeAtTap;
         })
         .filter((timeAtTap) => timeAtTap) as number[]);
 

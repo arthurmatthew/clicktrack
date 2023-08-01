@@ -17,7 +17,7 @@ import { STORAGE_KEYS_CLICKTRACK } from '../../../config';
  * Webpage that lists metronomes from storage.
  */
 const ClicktracksIndex = () => {
-  const [sections, setSections] = useStickyState<Clicktrack[]>(
+  const [clicktracks, setClicktracks] = useStickyState<Clicktrack[]>(
     [
       new Clicktrack({
         permanant: true,
@@ -30,11 +30,11 @@ const ClicktracksIndex = () => {
   );
 
   const handleAdd = () => {
-    setSections((previousSections) => [
-      ...previousSections,
+    setClicktracks((previousClicktracks) => [
+      ...previousClicktracks,
       new Clicktrack({
-        name: `New Metronome ${previousSections.length + 1}`,
-        position: previousSections.length + 1,
+        name: `New Metronome ${previousClicktracks.length + 1}`,
+        position: previousClicktracks.length + 1,
       }),
     ]);
   };
@@ -45,16 +45,16 @@ const ClicktracksIndex = () => {
       const clicktrackCode = importRef.current?.value as string;
       const importedClicktrack = JSON.parse(atob(clicktrackCode)) as Clicktrack;
 
-      setSections((previousSections) => [
-        ...previousSections,
+      setClicktracks((previousClicktracks) => [
+        ...previousClicktracks,
         new Clicktrack({
           ...importedClicktrack,
           id: undefined,
-          position: previousSections.length + 1,
+          position: previousClicktracks.length + 1,
           name: Clicktrack.generateUniqueName(
             '',
             importedClicktrack.name,
-            previousSections
+            previousClicktracks
           ),
         }),
       ]);
@@ -69,39 +69,62 @@ const ClicktracksIndex = () => {
   };
 
   const handleRemove = (id: string) => {
-    setSections((previousSections) => {
-      if (!previousSections.find((metronome) => metronome.id === id)?.permanant)
-        return previousSections.filter((metronome) => metronome.id != id);
-      return previousSections;
+    setClicktracks((previousClicktracks) => {
+      if (
+        !previousClicktracks.find((metronome) => metronome.id === id)?.permanant
+      )
+        return previousClicktracks.filter((metronome) => metronome.id != id);
+      return previousClicktracks;
     });
   };
 
   const handleNameChange = (name: string, newName: string) => {
-    setSections((previousSections) => [
-      ...previousSections.filter((metronome) => metronome.name != name),
-      {
-        ...previousSections.filter((metronome) => metronome.name === name)[0],
-        name: Clicktrack.generateUniqueName(name, newName, previousSections),
-      },
-    ]);
+    setClicktracks((previousClicktracks) => {
+      const clicktracksWithoutToBeNamed = previousClicktracks.filter(
+        (metronome) => metronome.name != name
+      );
+      const clicktrackToBeNamed = previousClicktracks.find(
+        (metronome) => metronome.name === name
+      );
+
+      if (!clicktrackToBeNamed) return previousClicktracks;
+
+      return [
+        ...clicktracksWithoutToBeNamed,
+        {
+          ...clicktrackToBeNamed,
+          name: Clicktrack.generateUniqueName(
+            name,
+            newName,
+            previousClicktracks
+          ),
+        },
+      ];
+    });
   };
 
   const handleOnDragEnd = (result: DropResult) => {
-    setSections((previousSections) => {
-      if (!result.destination) return previousSections;
+    setClicktracks((previousClicktracks) => {
+      if (!result.destination) return previousClicktracks;
 
-      const previousSectionsCopy = previousSections;
-      const [reorderedItem] = previousSectionsCopy.splice(
+      const previousClicktracksCopy = previousClicktracks;
+      const [reorderedItem] = previousClicktracksCopy.splice(
         result.source.index,
         1
       );
 
-      previousSectionsCopy.splice(result.destination.index, 0, reorderedItem);
-      previousSectionsCopy.map(
+      if (!reorderedItem) return previousClicktracks;
+
+      previousClicktracksCopy.splice(
+        result.destination.index,
+        0,
+        reorderedItem
+      );
+      previousClicktracksCopy.map(
         (section, index) => (section.position = index + 1)
       );
 
-      return previousSectionsCopy;
+      return previousClicktracksCopy;
     });
   };
 
@@ -141,17 +164,17 @@ const ClicktracksIndex = () => {
                     </button>
                   </div>
                 </div>
-                {sections.length === 0 ? (
+                {clicktracks.length === 0 ? (
                   <h1 className="text-center  ">
                     You don't have any metronomes right now.
                   </h1>
                 ) : (
-                  sections
+                  clicktracks
                     .sort((a, b) => a.position - b.position)
-                    .map((metronome, i) => (
+                    .map((clicktrack, i) => (
                       <Draggable
-                        key={metronome.id}
-                        draggableId={metronome.id}
+                        key={clicktrack.id}
+                        draggableId={clicktrack.id}
                         index={i}
                       >
                         {(provided) => (
@@ -166,9 +189,9 @@ const ClicktracksIndex = () => {
                               transition={{ duration: 0.3, ease: 'easeOut' }}
                             >
                               <MetronomeSection
-                                remove={() => handleRemove(metronome.id)}
+                                remove={() => handleRemove(clicktrack.id)}
                                 changeName={handleNameChange}
-                                metronome={metronome}
+                                metronome={clicktrack}
                                 dragHandle={provided.dragHandleProps}
                               />
                             </motion.div>
