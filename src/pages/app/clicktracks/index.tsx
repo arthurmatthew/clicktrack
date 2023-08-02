@@ -73,7 +73,7 @@ const ClicktracksIndex = () => {
       if (
         !previousClicktracks.find((metronome) => metronome.id === id)?.permanant
       )
-        return previousClicktracks.filter((metronome) => metronome.id != id);
+        return previousClicktracks.filter((metronome) => metronome.id !== id);
       return previousClicktracks;
     });
   };
@@ -81,7 +81,7 @@ const ClicktracksIndex = () => {
   const handleNameChange = (name: string, newName: string) => {
     setClicktracks((previousClicktracks) => {
       const clicktracksWithoutToBeNamed = previousClicktracks.filter(
-        (metronome) => metronome.name != name
+        (metronome) => metronome.name !== name
       );
       const clicktrackToBeNamed = previousClicktracks.find(
         (metronome) => metronome.name === name

@@ -217,7 +217,7 @@ export const ClicktrackApp = ({
     ) as Clicktrack[];
     const updatedClicktracks = JSON.stringify([
       ...storedClicktracks.filter(
-        (storedClicktrack) => storedClicktrack.id != clicktrack.id
+        (storedClicktrack) => storedClicktrack.id !== clicktrack.id
       ),
       clicktrack,
     ]);
@@ -301,7 +301,7 @@ export const ClicktrackApp = ({
           ...previousClicktrack.data,
           children: [
             ...previousClicktrack.data.children.filter(
-              (section) => section.id != id
+              (section) => section.id !== id
             ),
           ].map((section) => {
             switch (section.type) {

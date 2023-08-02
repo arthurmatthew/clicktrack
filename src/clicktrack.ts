@@ -1,12 +1,14 @@
 import { v4 as uuidv4 } from 'uuid';
+import { CLICKTRACK_MAX_UNSUCCESSFUL_CHECKS } from './config';
 
 export class Clicktrack {
-  name: string;
-  id: string;
-  position: number;
-  permanant: boolean;
-  data: ClicktrackData;
-  opened: boolean;
+  name: string; // Display name
+  id: string; // Unique UUID
+  position: number; // Position in list
+  permanant: boolean; // Deletable
+  opened: boolean; // Opened, in its 'show more' state in the clicktrack list
+  data: ClicktrackData; // Clicktrack data, like settings and sections
+
   constructor(options?: Partial<Clicktrack>) {
     this.name = options?.name || 'Default Clicktrack';
     this.id = options?.id || uuidv4();
@@ -15,24 +17,29 @@ export class Clicktrack {
     this.data = options?.data || new ClicktrackData({});
     this.opened = options?.opened ?? false;
   }
+
   static generateUniqueName(name: string, newName: string, prev: Clicktrack[]) {
-    let trials = 0;
+    let unsuccessfulChecks = 0;
     let uniqueName = newName;
 
-    while (trials < 1000) {
-      const exist = [
-        ...prev.filter((metronome) => metronome.name != name),
+    while (unsuccessfulChecks < CLICKTRACK_MAX_UNSUCCESSFUL_CHECKS) {
+      const clicktracksWithSharedName = [
+        ...prev.filter((metronome) => metronome.name !== name),
         {
           ...prev.filter((metronome) => metronome.name === name)[0],
           name: uniqueName,
         },
-      ].filter((metronome) => metronome.name === uniqueName).length;
-      if (exist <= 1) {
-        uniqueName = trials === 0 ? newName : `${newName} (#${trials})`;
+      ].filter((metronome) => metronome.name === uniqueName);
+
+      if (clicktracksWithSharedName.length <= 1) {
+        uniqueName =
+          unsuccessfulChecks === 0
+            ? newName // Don't add a suffix to the name if it's already unique
+            : `${newName} (#${unsuccessfulChecks})`;
         break;
       }
-      trials++;
-      uniqueName = `${newName} (#${trials})`;
+      unsuccessfulChecks++;
+      uniqueName = `${newName} (#${unsuccessfulChecks})`;
     }
 
     return uniqueName;

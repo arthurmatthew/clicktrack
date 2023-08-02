@@ -4,9 +4,10 @@ import { AppHeader } from './Header';
 import { AppFooter } from './Footer';
 import { useStickyState } from '../../../hooks/useStickyState';
 import { ScrollToTop } from '../../ScrollToTop';
+import { STORAGE_KEYS_DARKMODE } from '../../../config';
 
 const AppLayout = ({ children }: { children?: React.ReactNode }) => {
-  const [dark, setDark] = useStickyState<boolean>(true, 'dark-mode');
+  const [dark, setDark] = useStickyState<boolean>(true, STORAGE_KEYS_DARKMODE);
 
   return (
     <div className={dark ? 'dark' : ''}>

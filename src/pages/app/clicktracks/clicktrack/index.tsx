@@ -18,7 +18,7 @@ const ClicktrackPage = () => {
 
   const clicktrack = getClicktrack(decodeURIComponent(params.id as string));
 
-  if (clicktrack != undefined) {
+  if (clicktrack !== undefined) {
     return <ClicktrackApp loadedClicktrack={clicktrack} />;
   }
 

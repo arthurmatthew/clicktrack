@@ -5,9 +5,10 @@ import './Layout.css';
 import { Suspense } from 'react';
 import { ScrollToTop } from '../../ScrollToTop';
 import { useStickyState } from '../../../hooks/useStickyState';
+import { STORAGE_KEYS_DARKMODE } from '../../../config';
 
 const Layout = ({ children }: { children?: React.ReactNode }) => {
-  const [dark, setDark] = useStickyState<boolean>(true, 'dark-mode');
+  const [dark, setDark] = useStickyState<boolean>(true, STORAGE_KEYS_DARKMODE);
 
   return (
     <div className={dark ? 'dark' : ''}>
