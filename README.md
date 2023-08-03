@@ -27,4 +27,20 @@
   </p>
 </div>
 
+<h3>Development</h3>
+
+Clone this repo... 
+
+1. `git clone https://github.com/arthurmatthew/clicktrack`
+2. `cd clicktrack`
+   
+...and use the following NPM commands to navigate the project:
+
+1. `npm run dev` Start the development server
+2. `npm run build` Generate a production build
+3. `npm run lint` Lint using ESLint
+4. `npm run plint` Lint code formatting using Prettier
+5. `npm run format` Format code using Prettier
+6. `npm run preview` Preview in a production-like environment
+
 <h3 align="center">clicktrack is in early development. Star this repo to follow along.</h3>
