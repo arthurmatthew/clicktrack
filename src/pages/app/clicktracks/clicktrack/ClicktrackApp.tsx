@@ -314,7 +314,7 @@ export const ClicktrackApp = ({
       );
       setSelectedId(() => {
         const closestSection =
-          updated.data.children[indexOfId] ||
+          updated.data.children[indexOfId] ??
           updated.data.children[indexOfId - 1];
         return closestSection?.id ?? '';
       });

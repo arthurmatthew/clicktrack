@@ -18,7 +18,7 @@ export const ClicktrackListItem = ({
   changeName,
   dragHandle,
 }: IClicktrackListItem) => {
-  const [shown, setShown] = useState<boolean>(metronome.opened || false);
+  const [shown, setShown] = useState<boolean>(metronome.opened ?? false);
   const [editing, setEditing] = useState<boolean>(false);
 
   const nameRef = useRef<HTMLHeadingElement>(null);

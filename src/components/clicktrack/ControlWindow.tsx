@@ -19,7 +19,7 @@ export const ControlWindow = ({ tabs, children }: IControlWindow) => {
           tabs.map((tab) => {
             return (
               <HighlightedLink key={tab.title} to={tab.to}>
-                {tab.title || tab.to}
+                {tab.title ?? tab.to}
               </HighlightedLink>
             );
           })

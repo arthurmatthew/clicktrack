@@ -43,7 +43,7 @@ export const EditRepeat = ({
                 value={repeat.times}
                 onChange={(e) =>
                   updateRepeat(repeat, {
-                    times: parseInt(e.currentTarget.value) || repeat.times,
+                    times: parseInt(e.currentTarget.value) ?? repeat.times,
                   })
                 }
                 min={'1'}

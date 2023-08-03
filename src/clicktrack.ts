@@ -13,11 +13,11 @@ export class Clicktrack {
   data: ClicktrackData; // Clicktrack data, like settings and sections
 
   constructor(options?: Partial<Clicktrack>) {
-    this.name = options?.name || 'Default Clicktrack';
-    this.id = options?.id || uuidv4();
-    this.position = options?.position || -1;
+    this.name = options?.name ?? 'Default Clicktrack';
+    this.id = options?.id ?? uuidv4();
+    this.position = options?.position ?? -1;
     this.permanant = options?.permanant ?? false;
-    this.data = options?.data || new ClicktrackData({});
+    this.data = options?.data ?? new ClicktrackData({});
     this.opened = options?.opened ?? false;
   }
 
@@ -61,11 +61,11 @@ export class ClicktrackData {
   playExtraBeat: boolean;
 
   constructor(options?: Partial<ClicktrackData>) {
-    this.children = options?.children || [new Metronome()];
-    this.note = options?.note || ['C', 5];
-    this.volume = options?.volume || CLICKTRACK_DEFAULT_MASTER_VOLUME;
+    this.children = options?.children ?? [new Metronome()];
+    this.note = options?.note ?? ['C', 5];
+    this.volume = options?.volume ?? CLICKTRACK_DEFAULT_MASTER_VOLUME;
     this.muted = options?.muted ?? false;
-    this.noteDuration = options?.noteDuration || 1;
+    this.noteDuration = options?.noteDuration ?? 1;
     this.playExtraBeat = options?.playExtraBeat ?? true;
   }
 }
@@ -74,8 +74,8 @@ export class Section {
   id: string;
   type: 'metronome' | 'repeat';
   constructor(options?: Partial<Section>) {
-    this.id = options?.id || uuidv4();
-    this.type = options?.type || 'metronome';
+    this.id = options?.id ?? uuidv4();
+    this.type = options?.type ?? 'metronome';
   }
 }
 
@@ -89,9 +89,9 @@ export class Metronome extends Section {
       id: options?.id,
       type: 'metronome',
     });
-    this.bpm = options?.bpm || 120;
-    this.timeSignature = options?.timeSignature || [4, 4];
-    this.lengthInBars = options?.lengthInBars || 2;
+    this.bpm = options?.bpm ?? 120;
+    this.timeSignature = options?.timeSignature ?? [4, 4];
+    this.lengthInBars = options?.lengthInBars ?? 2;
   }
   static convertTempoToTempoIndicator(bpm: number) {
     if (bpm > 178) {
@@ -135,6 +135,6 @@ export class Repeat extends Section {
       type: 'repeat',
     });
     this.infinite = options?.infinite ?? true;
-    this.times = options?.times || 1;
+    this.times = options?.times ?? 1;
   }
 }

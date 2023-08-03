@@ -15,14 +15,14 @@ export const HighlightedLink = ({ to, children }: IHighlightedLink) => {
         !location.pathname.endsWith(to) && 'font-normal opacity-70'
       }  py-2`}
     >
-      {children || to}
+      {children ?? to}
     </Link>
   ) : (
     <h1
       className="block flex-grow py-2 font-semibold
     lg:flex-grow-0"
     >
-      {children || to}
+      {children ?? to}
     </h1>
   );
 };

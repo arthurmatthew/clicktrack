@@ -136,7 +136,7 @@ export const EditMetronome = ({
                 onChange={(e) =>
                   updateMetronome(metronome, {
                     lengthInBars:
-                      parseInt(e.currentTarget.value) || metronome.lengthInBars,
+                      parseInt(e.currentTarget.value) ?? metronome.lengthInBars,
                   })
                 }
                 className="w-16 bg-white px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-black sm:rounded-sm"
@@ -155,7 +155,7 @@ export const EditMetronome = ({
                         [
                           parseInt(e.currentTarget.value),
                           metronome.timeSignature[1],
-                        ] || metronome.timeSignature[0],
+                        ] ?? metronome.timeSignature[0],
                     })
                   }
                   className="w-10 rounded-sm bg-white px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-black"
@@ -170,7 +170,7 @@ export const EditMetronome = ({
                         [
                           metronome.timeSignature[0],
                           parseInt(e.currentTarget.value),
-                        ] || metronome.timeSignature[1],
+                        ] ?? metronome.timeSignature[1],
                     })
                   }
                   className="w-10 rounded-sm bg-white px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-black"

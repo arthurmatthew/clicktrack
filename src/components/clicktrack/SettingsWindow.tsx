@@ -20,7 +20,7 @@ export const SettingsWindow = ({
 
   const copyToClipboardRef = useRef<HTMLParagraphElement | null>(null);
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(copyToClipboardRef.current?.innerText || '');
+    navigator.clipboard.writeText(copyToClipboardRef.current?.innerText ?? '');
   };
 
   return (
@@ -74,7 +74,7 @@ export const SettingsWindow = ({
                       updateClicktrackData({ muted: !settings.muted });
                     }}
                   >
-                    {settings.muted || settings.volume === 0 ? (
+                    {settings.muted ?? settings.volume === 0 ? (
                       <i className="bi-volume-mute-fill" />
                     ) : (
                       <i
