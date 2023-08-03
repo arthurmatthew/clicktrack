@@ -5,14 +5,10 @@ import {
   Metronome,
   Repeat,
 } from '../../../../clicktrack';
-import { Window } from '../../../../components/clicktrack/Window';
-import { Routes, Route, Outlet } from 'react-router-dom';
-import { DataViewItem } from '../../../../components/clicktrack/DataViewItem';
-import { Sequencer } from '../../../../components/clicktrack/Sequencer';
-import { SettingsWindow } from '../../../../components/clicktrack/SettingsWindow';
-import { AnimatePresence, motion, useAnimationControls } from 'framer-motion';
-import { EditSection } from '../../../../components/clicktrack/EditSection';
+import { motion, useAnimationControls } from 'framer-motion';
 import { STORAGE_KEYS_CLICKTRACK } from '../../../../config';
+import { Title } from '../../../../components/clicktrack/Title';
+import { Controls } from '../../../../components/clicktrack/Controls';
 
 export const ClicktrackApp = ({
   loadedClicktrack,
@@ -357,84 +353,29 @@ export const ClicktrackApp = ({
 
   return (
     <motion.div className="flex min-h-screen min-w-full flex-col">
-      <div className="flex w-full items-center justify-center py-8">
-        <div className="flex max-w-5xl flex-col items-center justify-center sm:flex-row">
-          <div className="flex flex-col items-center gap-2">
-            <h1 className="text-3xl" onClick={pulseDisplay}>
-              {clicktrack.name}
-            </h1>
-            <ul className="flex text-sm">
-              <DataViewItem title={'ID'}>{clicktrack.id}</DataViewItem>
-            </ul>
-          </div>
-          <div className="my-3 h-px w-full bg-gradient-to-r from-transparent via-neutral-600/50 to-transparent sm:mx-6 sm:h-10 sm:w-px sm:bg-gradient-to-b" />
-          <div className="flex items-center gap-2">
-            <motion.button
-              onClick={play}
-              animate={pulseControl}
-              className="rounded-sm bg-purple-700 px-4 py-2 text-white"
-            >
-              <i
-                className={playingDisplay ? 'bi-pause-fill' : 'bi-play-fill'}
-              />
-            </motion.button>
-            <div
-              onClick={() =>
-                setSettingsShown((previouslyShown) => !previouslyShown)
-              }
-              className="rounded-sm bg-black px-4 py-2 text-white dark:bg-white dark:text-black"
-            >
-              <i className="bi-gear-fill" />
-            </div>
-            <AnimatePresence>
-              {settingsShown && (
-                <SettingsWindow
-                  clicktrack={clicktrack}
-                  updateClicktrackData={updateClicktrackData}
-                  hideSettings={() => {
-                    setSettingsShown(false);
-                  }}
-                />
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
-      </div>
-      <div className="grid gap-2 px-2 lg:grid-cols-2">
-        <Window
-          tabs={[
-            { title: 'Sequencer', to: 'sequencer' },
-            { title: 'Settings', to: 'settings' },
-          ]}
-        >
-          <Routes>
-            <Route path="/" element={<Outlet />}>
-              <Route element={<h1>Settings</h1>} path="/settings" />
-              <Route
-                element={
-                  <Sequencer
-                    selectedId={selectedId}
-                    setSelectedId={setSelectedId}
-                    add={addSection}
-                    sequence={clicktrack.data.children}
-                  />
-                }
-                path="/sequencer"
-              />
-            </Route>
-          </Routes>
-        </Window>
-        <Window tabs={[{ title: 'Edit' }]}>
-          <EditSection
-            deleteMetronome={deleteListedMetronome}
-            copyMetronome={copyListedMetronome}
-            updateSection={updateSection}
-            selected={clicktrack.data.children.find(
-              (metronome) => metronome.id === selectedId
-            )}
-          />
-        </Window>
-      </div>
+      <Title
+        {...{
+          clicktrack,
+          play,
+          playingDisplay,
+          pulseDisplay,
+          pulseControl,
+          settingsShown,
+          setSettingsShown,
+          updateClicktrackData,
+        }}
+      />
+      <Controls
+        {...{
+          clicktrack,
+          selectedId,
+          setSelectedId,
+          addSection,
+          updateSection,
+          copyListedMetronome,
+          deleteListedMetronome,
+        }}
+      />
     </motion.div>
   );
 };
