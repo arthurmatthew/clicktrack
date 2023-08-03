@@ -1,14 +1,12 @@
 import { useRef, useEffect, useState } from 'react';
-import {
-  Clicktrack,
-  ClicktrackData,
-  Metronome,
-  Repeat,
-} from '../../../../clicktrack';
 import { motion, useAnimationControls } from 'framer-motion';
 import { STORAGE_KEYS_CLICKTRACK } from '../../../../config';
 import { Title } from '../../../../components/clicktrack/Title';
 import { Controls } from '../../../../components/clicktrack/Controls';
+import { Clicktrack } from '../../../../models/clicktrack/Clicktrack';
+import { ClicktrackData } from '../../../../models/clicktrack/ClicktrackData';
+import { Metronome } from '../../../../models/clicktrack/Metronome';
+import { Repeat } from '../../../../models/clicktrack/Repeat';
 
 export const ClicktrackApp = ({
   loadedClicktrack,

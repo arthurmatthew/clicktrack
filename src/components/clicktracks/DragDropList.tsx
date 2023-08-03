@@ -1,6 +1,6 @@
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { StrictModeDroppable } from './StrictModeDroppable';
-import { Clicktrack } from '../../clicktrack';
+import { Clicktrack } from '../../models/clicktrack/Clicktrack';
 import { IImport, Import } from './Import';
 import { DraggableItem } from './DraggableItem';
 

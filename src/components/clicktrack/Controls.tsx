@@ -2,7 +2,9 @@ import { Routes, Route, Outlet } from 'react-router-dom';
 import { ControlWindow } from './ControlWindow';
 import { EditSection } from './EditSection';
 import { Sequencer } from './Sequencer';
-import { Clicktrack, Metronome, Repeat } from '../../clicktrack';
+import { Clicktrack } from '../../models/clicktrack/Clicktrack';
+import { Repeat } from '../../models/clicktrack/Repeat';
+import { Metronome } from '../../models/clicktrack/Metronome';
 
 interface IControls {
   clicktrack: Clicktrack;

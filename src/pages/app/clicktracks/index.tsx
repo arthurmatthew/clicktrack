@@ -2,8 +2,6 @@ import { DropResult } from 'react-beautiful-dnd';
 
 import { useLocalStorage } from '../../../hooks/useLocalStorage';
 
-import { Clicktrack, ClicktrackData, Metronome } from '../../../clicktrack';
-
 import { useRef } from 'react';
 
 import { DragDropList } from '../../../components/clicktracks/DragDropList';
@@ -17,6 +15,9 @@ import { changeClicktrackName } from '../../../utils/clicktracks/changeClicktrac
 import { importClicktrack } from '../../../utils/clicktracks/importClicktrack';
 import { onDragEnd } from '../../../utils/clicktracks/onDragEnd';
 import { removeClicktrack } from '../../../utils/clicktracks/removeClicktrack';
+import { Clicktrack } from '../../../models/clicktrack/Clicktrack';
+import { ClicktrackData } from '../../../models/clicktrack/ClicktrackData';
+import { Metronome } from '../../../models/clicktrack/Metronome';
 
 /**
  * Webpage that lists metronomes from storage.

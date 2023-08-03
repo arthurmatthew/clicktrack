@@ -1,4 +1,4 @@
-import { IComponent } from '../IComponent';
+import { IComponent } from '../../models/components/IComponent';
 
 interface IInfoCard extends IComponent {
   title: string;

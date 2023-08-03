@@ -1,4 +1,4 @@
-import { IComponent } from '../IComponent';
+import { IComponent } from '../../models/components/IComponent';
 
 interface IInteractableListItem extends IComponent {
   icon: string;

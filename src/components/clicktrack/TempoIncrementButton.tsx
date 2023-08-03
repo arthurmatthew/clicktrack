@@ -1,5 +1,5 @@
-import { Metronome } from '../../clicktrack';
 import { CLICKTRACK_MAX_BPM, CLICKTRACK_MIN_BPM } from '../../config';
+import { Metronome } from '../../models/clicktrack/Metronome';
 
 interface ITempoIncrementButton {
   updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;

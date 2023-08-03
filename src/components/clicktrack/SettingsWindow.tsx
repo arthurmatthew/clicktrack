@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Clicktrack } from '../../clicktrack';
+import { Clicktrack } from '../../models/clicktrack/Clicktrack';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { SettingsSection } from './SettingsSection';

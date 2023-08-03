@@ -1,4 +1,4 @@
-import { Repeat } from '../../clicktrack';
+import { Repeat } from '../../models/clicktrack/Repeat';
 
 interface IEditRepeat {
   updateRepeat: (metronome: Repeat, update: Partial<Repeat>) => void;

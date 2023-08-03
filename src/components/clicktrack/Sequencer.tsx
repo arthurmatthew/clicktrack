@@ -1,5 +1,6 @@
-import { Clicktrack } from '../../clicktrack';
-import { Metronome, Repeat } from '../../clicktrack';
+import { Clicktrack } from '../../models/clicktrack/Clicktrack';
+import { Metronome } from '../../models/clicktrack/Metronome';
+import { Repeat } from '../../models/clicktrack/Repeat';
 
 interface ISequencer {
   add: (child: Clicktrack['data']['children'][number]) => void;

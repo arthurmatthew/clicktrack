@@ -1,5 +1,5 @@
 import { DropResult } from 'react-beautiful-dnd';
-import { Clicktrack } from '../../clicktrack';
+import { Clicktrack } from '../../models/clicktrack/Clicktrack';
 
 export const onDragEnd = (result: DropResult, clicktracks: Clicktrack[]) => {
   if (!result.destination) return clicktracks;

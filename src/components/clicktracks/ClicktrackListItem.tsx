@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
-import { Clicktrack } from '../../clicktrack';
-import { IComponent } from '../IComponent';
+import { Clicktrack } from '../../models/clicktrack/Clicktrack';
+import { IComponent } from '../../models/components/IComponent';
 import { Button } from '../core/Button';
 
 interface IClicktrackListItem extends IComponent {

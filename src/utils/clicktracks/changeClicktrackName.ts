@@ -1,4 +1,4 @@
-import { Clicktrack } from '../../clicktrack';
+import { Clicktrack } from '../../models/clicktrack/Clicktrack';
 
 export const changeClicktrackName = (
   clicktracks: Clicktrack[],

@@ -1,4 +1,4 @@
-import { Metronome } from '../../clicktrack';
+import { Metronome } from '../../models/clicktrack/Metronome';
 import { CLICKTRACK_MAX_BPM, CLICKTRACK_MIN_BPM } from '../../config';
 import { TempoIncrementButton } from './TempoIncrementButton';
 import { TimeSignatureButton } from './TimeSignatureButton';
