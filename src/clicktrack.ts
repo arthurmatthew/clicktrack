@@ -1,7 +1,20 @@
 import { v4 as uuidv4 } from 'uuid';
 import {
   CLICKTRACK_DEFAULT_MASTER_VOLUME,
+  CLICKTRACK_DEFAULT_MUTED,
+  CLICKTRACK_DEFAULT_NAME,
+  CLICKTRACK_DEFAULT_NOTE,
+  CLICKTRACK_DEFAULT_NOTE_DURATION,
+  CLICKTRACK_DEFAULT_PERMANANT,
+  CLICKTRACK_DEFAULT_PLAY_EXTRA_BEAT,
+  CLICKTRACK_DEFAULT_POSITION,
+  CLICKTRACK_DEFAULT_SECTION_TYPE,
   CLICKTRACK_MAX_UNSUCCESSFUL_CHECKS,
+  METRONOME_DEFAULT_BPM,
+  METRONOME_DEFAULT_LENGTH,
+  METRONOME_DEFAULT_TIME_SIGNATURE,
+  REPEAT_DEFAULT_INFINITE,
+  REPEAT_DEFAULT_TIMES,
 } from './config';
 
 export class Clicktrack {
@@ -13,10 +26,10 @@ export class Clicktrack {
   data: ClicktrackData; // Clicktrack data, like settings and sections
 
   constructor(options?: Partial<Clicktrack>) {
-    this.name = options?.name ?? 'Default Clicktrack';
+    this.name = options?.name ?? CLICKTRACK_DEFAULT_NAME;
     this.id = options?.id ?? uuidv4();
-    this.position = options?.position ?? -1;
-    this.permanant = options?.permanant ?? false;
+    this.position = options?.position ?? CLICKTRACK_DEFAULT_POSITION;
+    this.permanant = options?.permanant ?? CLICKTRACK_DEFAULT_PERMANANT;
     this.data = options?.data ?? new ClicktrackData({});
     this.opened = options?.opened ?? false;
   }
@@ -62,11 +75,13 @@ export class ClicktrackData {
 
   constructor(options?: Partial<ClicktrackData>) {
     this.children = options?.children ?? [new Metronome()];
-    this.note = options?.note ?? ['C', 5];
+    this.note = options?.note ?? CLICKTRACK_DEFAULT_NOTE;
     this.volume = options?.volume ?? CLICKTRACK_DEFAULT_MASTER_VOLUME;
-    this.muted = options?.muted ?? false;
-    this.noteDuration = options?.noteDuration ?? 1;
-    this.playExtraBeat = options?.playExtraBeat ?? true;
+    this.muted = options?.muted ?? CLICKTRACK_DEFAULT_MUTED;
+    this.noteDuration =
+      options?.noteDuration ?? CLICKTRACK_DEFAULT_NOTE_DURATION;
+    this.playExtraBeat =
+      options?.playExtraBeat ?? CLICKTRACK_DEFAULT_PLAY_EXTRA_BEAT;
   }
 }
 
@@ -75,7 +90,7 @@ export class Section {
   type: 'metronome' | 'repeat';
   constructor(options?: Partial<Section>) {
     this.id = options?.id ?? uuidv4();
-    this.type = options?.type ?? 'metronome';
+    this.type = options?.type ?? CLICKTRACK_DEFAULT_SECTION_TYPE;
   }
 }
 
@@ -89,9 +104,10 @@ export class Metronome extends Section {
       id: options?.id,
       type: 'metronome',
     });
-    this.bpm = options?.bpm ?? 120;
-    this.timeSignature = options?.timeSignature ?? [4, 4];
-    this.lengthInBars = options?.lengthInBars ?? 2;
+    this.bpm = options?.bpm ?? METRONOME_DEFAULT_BPM;
+    this.timeSignature =
+      options?.timeSignature ?? METRONOME_DEFAULT_TIME_SIGNATURE;
+    this.lengthInBars = options?.lengthInBars ?? METRONOME_DEFAULT_LENGTH;
   }
   static convertTempoToTempoIndicator(bpm: number) {
     if (bpm > 178) {
@@ -134,7 +150,7 @@ export class Repeat extends Section {
       id: options?.id,
       type: 'repeat',
     });
-    this.infinite = options?.infinite ?? true;
-    this.times = options?.times ?? 1;
+    this.infinite = options?.infinite ?? REPEAT_DEFAULT_INFINITE;
+    this.times = options?.times ?? REPEAT_DEFAULT_TIMES;
   }
 }
