@@ -9,13 +9,13 @@ import {
   CLICKTRACK_DEFAULT_PLAY_EXTRA_BEAT,
   CLICKTRACK_DEFAULT_POSITION,
   CLICKTRACK_DEFAULT_SECTION_TYPE,
-  CLICKTRACK_MAX_UNSUCCESSFUL_CHECKS,
   METRONOME_DEFAULT_BPM,
   METRONOME_DEFAULT_LENGTH,
   METRONOME_DEFAULT_TIME_SIGNATURE,
   REPEAT_DEFAULT_INFINITE,
   REPEAT_DEFAULT_TIMES,
 } from './config';
+import { generateUniqueName } from './utils/generateUniqueName';
 
 export class Clicktrack {
   name: string; // Display name
@@ -34,31 +34,12 @@ export class Clicktrack {
     this.opened = options?.opened ?? false;
   }
 
-  static generateUniqueName(name: string, newName: string, prev: Clicktrack[]) {
-    let unsuccessfulChecks = 0;
-    let uniqueName = newName;
-
-    while (unsuccessfulChecks < CLICKTRACK_MAX_UNSUCCESSFUL_CHECKS) {
-      const clicktracksWithSharedName = [
-        ...prev.filter((metronome) => metronome.name !== name),
-        {
-          ...prev.filter((metronome) => metronome.name === name)[0],
-          name: uniqueName,
-        },
-      ].filter((metronome) => metronome.name === uniqueName);
-
-      if (clicktracksWithSharedName.length <= 1) {
-        uniqueName =
-          unsuccessfulChecks === 0
-            ? newName // Don't add a suffix to the name if it's already unique
-            : `${newName} (#${unsuccessfulChecks})`;
-        break;
-      }
-      unsuccessfulChecks++;
-      uniqueName = `${newName} (#${unsuccessfulChecks})`;
-    }
-
-    return uniqueName;
+  static generateUniqueName(
+    name: string,
+    newName: string,
+    clicktracks: Clicktrack[]
+  ) {
+    return generateUniqueName(name, newName, clicktracks);
   }
 }
 
@@ -110,33 +91,7 @@ export class Metronome extends Section {
     this.lengthInBars = options?.lengthInBars ?? METRONOME_DEFAULT_LENGTH;
   }
   static convertTempoToTempoIndicator(bpm: number) {
-    if (bpm > 178) {
-      return 'Prestissimo';
-    } else if (bpm > 168) {
-      return 'Presto';
-    } else if (bpm > 132) {
-      return 'Vivace';
-    } else if (bpm > 109) {
-      return 'Allegro';
-    } else if (bpm > 98) {
-      return 'Allegretto';
-    } else if (bpm > 86) {
-      return 'Moderato';
-    } else if (bpm > 73) {
-      return 'Andante';
-    } else if (bpm > 65) {
-      return 'Adagietto';
-    } else if (bpm > 55) {
-      return 'Adagio';
-    } else if (bpm > 45) {
-      return 'Largo';
-    } else if (bpm > 40) {
-      return 'Lento';
-    } else if (bpm > 20) {
-      return 'Grave';
-    } else {
-      return 'Grave';
-    }
+    return convertTempoToTempoIndicator(bpm);
   }
 }
 
