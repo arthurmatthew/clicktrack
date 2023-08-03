@@ -1,4 +1,5 @@
 import { Metronome } from '../../clicktrack';
+import { CLICKTRACK_MAX_BPM, CLICKTRACK_MIN_BPM } from '../../config';
 import { TempoIncrementButton } from './TempoIncrementButton';
 import { TimeSignatureButton } from './TimeSignatureButton';
 
@@ -46,8 +47,10 @@ export const EditMetronome = ({
         tapDifferences.slice(-4).length;
       const averageBpm = Math.ceil(60 / (averageTapDifference / 1000));
 
-      if (averageBpm > 500) updateMetronome(metronome, { bpm: 500 });
-      else if (averageBpm < 20) updateMetronome(metronome, { bpm: 20 });
+      if (averageBpm > CLICKTRACK_MAX_BPM)
+        updateMetronome(metronome, { bpm: CLICKTRACK_MAX_BPM });
+      else if (averageBpm < CLICKTRACK_MIN_BPM)
+        updateMetronome(metronome, { bpm: CLICKTRACK_MIN_BPM });
       else updateMetronome(metronome, { bpm: averageBpm });
     }
 

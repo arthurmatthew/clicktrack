@@ -1,22 +1,23 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
-import { Clicktrack } from '../clicktrack';
-import { IComponent } from './IComponent';
+import { Clicktrack } from '../../clicktrack';
+import { IComponent } from '../IComponent';
+import { Button } from '../core/Button';
 
-interface IMetronomeSection extends IComponent {
+interface IClicktrackListItem extends IComponent {
   metronome: Clicktrack;
   dragHandle: DraggableProvidedDragHandleProps | null | undefined;
   remove: () => void;
   changeName: (name: string, newName: string) => void;
 }
 
-export const MetronomeSection = ({
+export const ClicktrackListItem = ({
   metronome,
   remove,
   changeName,
   dragHandle,
-}: IMetronomeSection) => {
+}: IClicktrackListItem) => {
   const [shown, setShown] = useState<boolean>(metronome.opened || false);
   const [editing, setEditing] = useState<boolean>(false);
 
@@ -67,10 +68,10 @@ export const MetronomeSection = ({
             to={`/app/clicktracks/${encodeURIComponent(
               metronome.id
             )}/sequencer`}
-            className="rounded-sm bg-neutral-500 px-10 py-2 text-white"
           >
-            Open
+            <Button className="bg-neutral-500">Open</Button>
           </Link>
+
           <p
             onClick={() => setShown((previouslyShown) => !previouslyShown)}
             className="flex cursor-pointer items-center gap-1 text-neutral-600 dark:text-neutral-400"
@@ -87,13 +88,13 @@ export const MetronomeSection = ({
 
       {shown && (
         <div className="mt-2 flex items-center gap-4">
-          <button
+          <Button
             onClick={remove}
-            className="rounded-sm bg-red-700 px-4 py-2 text-white disabled:bg-neutral-500"
+            className="bg-red-700 disabled:bg-neutral-500"
             disabled={metronome.permanant}
           >
             {metronome.permanant ? "Can't Delete" : 'Delete'}
-          </button>
+          </Button>
           <p className="text-sm opacity-50 ">id: {metronome.id}</p>
         </div>
       )}

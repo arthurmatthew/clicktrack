@@ -8,10 +8,10 @@ type SaveableData = string | number | object | boolean | undefined | null;
  * @param key The key where the state will be stored
  * @returns Normal React `setState` return
  */
-export function useStickyState<T extends SaveableData>(
+export const useLocalStorage = <T extends SaveableData>(
   defaultValue: T,
   key: string
-): [value: T, setValue: Dispatch<SetStateAction<T>>] {
+): [value: T, setValue: Dispatch<SetStateAction<T>>] => {
   const [value, setValue] = useState(() => {
     const v = localStorage.getItem(key);
     if (v === null) {
@@ -30,4 +30,4 @@ export function useStickyState<T extends SaveableData>(
   }, [key, value]);
 
   return [value, setValue];
-}
+};

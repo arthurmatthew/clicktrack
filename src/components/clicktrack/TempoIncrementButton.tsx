@@ -1,4 +1,5 @@
 import { Metronome } from '../../clicktrack';
+import { CLICKTRACK_MAX_BPM, CLICKTRACK_MIN_BPM } from '../../config';
 
 interface ITempoIncrementButton {
   updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;
@@ -16,12 +17,12 @@ export const TempoIncrementButton = ({
   return (
     <i
       onClick={() => {
-        if (selected.bpm + amount < 20) {
-          updateMetronome(selected, { bpm: 20 });
+        if (selected.bpm + amount < CLICKTRACK_MIN_BPM) {
+          updateMetronome(selected, { bpm: CLICKTRACK_MIN_BPM });
           return;
         }
-        if (selected.bpm + amount > 500) {
-          updateMetronome(selected, { bpm: 500 });
+        if (selected.bpm + amount > CLICKTRACK_MAX_BPM) {
+          updateMetronome(selected, { bpm: CLICKTRACK_MAX_BPM });
           return;
         }
         updateMetronome(selected, {

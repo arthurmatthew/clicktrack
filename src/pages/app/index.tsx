@@ -1,10 +1,10 @@
-import { Redirect } from '../../components/Redirect';
+import { Navigate } from 'react-router-dom';
 
 /**
  * Webpage which simply redirects you to the metronome list
  */
 const AppIndex = () => {
-  return <Redirect to="/app/clicktracks" />;
+  return <Navigate to="/app/clicktracks" />;
 };
 
 export default AppIndex;

@@ -1,5 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
-import { CLICKTRACK_MAX_UNSUCCESSFUL_CHECKS } from './config';
+import {
+  CLICKTRACK_DEFAULT_MASTER_VOLUME,
+  CLICKTRACK_MAX_UNSUCCESSFUL_CHECKS,
+} from './config';
 
 export class Clicktrack {
   name: string; // Display name
@@ -60,7 +63,7 @@ export class ClicktrackData {
   constructor(options?: Partial<ClicktrackData>) {
     this.children = options?.children || [new Metronome()];
     this.note = options?.note || ['C', 5];
-    this.volume = options?.volume || 100;
+    this.volume = options?.volume || CLICKTRACK_DEFAULT_MASTER_VOLUME;
     this.muted = options?.muted ?? false;
     this.noteDuration = options?.noteDuration || 1;
     this.playExtraBeat = options?.playExtraBeat ?? true;

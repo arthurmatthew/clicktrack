@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-const AppLayout = React.lazy(() => import('../components/layouts/app/Layout'));
+const AppLayout = React.lazy(() => import('../components/app/Layout'));
 const AppIndex = React.lazy(() => import('../pages/app/index'));
 const ClicktracksIndex = React.lazy(() => import('../pages/app/clicktracks'));
 const ClicktrackPage = React.lazy(

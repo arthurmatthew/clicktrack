@@ -1,3 +1,5 @@
+import { FooterSection } from './FooterSection';
+
 export const Footer = () => {
   return (
     <footer className="flex flex-shrink basis-44 flex-col justify-center bg-gradient-radial from-white to-neutral-300 bg-[length:100%_200%] bg-[100%_100%] px-4 py-10 dark:from-neutral-800 dark:to-black">
@@ -40,20 +42,5 @@ export const Footer = () => {
         </p>
       </section>
     </footer>
-  );
-};
-
-const FooterSection = ({
-  title,
-  children,
-}: {
-  title: string;
-  children?: React.ReactNode;
-}) => {
-  return (
-    <div className="flex flex-col items-center gap-2">
-      <h3 className="font-semibold">{title}</h3>
-      <ul className="text-center leading-loose underline">{children}</ul>
-    </div>
   );
 };
