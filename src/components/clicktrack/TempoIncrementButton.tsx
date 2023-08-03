@@ -1,16 +1,18 @@
 import { Metronome } from '../../clicktrack';
 
+interface ITempoIncrementButton {
+  updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;
+  selected: Metronome;
+  amount: number;
+  icon: string;
+}
+
 export const TempoIncrementButton = ({
   updateMetronome,
   selected,
   amount,
   icon,
-}: {
-  updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;
-  selected: Metronome;
-  amount: number;
-  icon: string;
-}) => {
+}: ITempoIncrementButton) => {
   return (
     <i
       onClick={() => {

@@ -5,15 +5,17 @@ import { Link } from 'react-router-dom';
 import { SettingsSection } from './SettingsSection';
 import { SettingsButton } from './SettingsButton';
 
+interface ISettingsWindow {
+  clicktrack: Clicktrack;
+  hideSettings: () => void;
+  updateClicktrackData: (update: Partial<Clicktrack['data']>) => void;
+}
+
 export const SettingsWindow = ({
   clicktrack,
   hideSettings,
   updateClicktrackData,
-}: {
-  clicktrack: Clicktrack;
-  hideSettings: () => void;
-  updateClicktrackData: (update: Partial<Clicktrack['data']>) => void;
-}) => {
+}: ISettingsWindow) => {
   const settings = clicktrack.data;
 
   const copyToClipboardRef = useRef<HTMLParagraphElement | null>(null);

@@ -2,17 +2,19 @@ import { Metronome } from '../../clicktrack';
 import { TempoIncrementButton } from './TempoIncrementButton';
 import { TimeSignatureButton } from './TimeSignatureButton';
 
+interface IEditMetronome {
+  updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;
+  deleteMetronome: (id: string) => void;
+  copyMetronome: (id: string) => void;
+  metronome: Metronome | undefined;
+}
+
 export const EditMetronome = ({
   updateMetronome,
   deleteMetronome,
   copyMetronome,
   metronome,
-}: {
-  updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;
-  deleteMetronome: (id: string) => void;
-  copyMetronome: (id: string) => void;
-  metronome: Metronome | undefined;
-}) => {
+}: IEditMetronome) => {
   const timeSignatures: [beats: number, value: number][] = [
     [4, 4],
     [3, 4],

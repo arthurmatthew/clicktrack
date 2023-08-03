@@ -1,12 +1,14 @@
+interface ITimeSignatureButton {
+  time: [beats: number, value: number];
+  selected?: boolean;
+  onClick: () => void;
+}
+
 export const TimeSignatureButton = ({
   time,
   selected,
   onClick,
-}: {
-  time: [beats: number, value: number];
-  selected?: boolean;
-  onClick: () => void;
-}) => {
+}: ITimeSignatureButton) => {
   return (
     <button
       onClick={onClick}

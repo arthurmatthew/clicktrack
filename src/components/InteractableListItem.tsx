@@ -1,12 +1,15 @@
+import { IComponent } from './IComponent';
+
+interface IInteractableListItem extends IComponent {
+  icon: string;
+  interaction: () => void;
+}
+
 export const InteractableListItem = ({
   children,
   icon,
   interaction,
-}: {
-  children: React.ReactNode;
-  icon: string;
-  interaction: () => void;
-}): JSX.Element => {
+}: IInteractableListItem) => {
   return (
     <div
       onClick={interaction}

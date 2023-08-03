@@ -1,12 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
+import { IComponent } from '../IComponent';
 
-export const HighlightedLink = ({
-  to,
-  children,
-}: {
+interface IHighlightedLink extends IComponent {
   to?: string;
-  children?: React.ReactNode;
-}) => {
+}
+
+export const HighlightedLink = ({ to, children }: IHighlightedLink) => {
   const location = useLocation();
 
   return to ? (

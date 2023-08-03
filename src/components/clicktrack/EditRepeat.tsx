@@ -1,16 +1,18 @@
 import { Repeat } from '../../clicktrack';
 
+interface IEditRepeat {
+  updateRepeat: (metronome: Repeat, update: Partial<Repeat>) => void;
+  deleteRepeat: (id: string) => void;
+  copyRepeat: (id: string) => void;
+  repeat: Repeat | undefined;
+}
+
 export const EditRepeat = ({
   updateRepeat,
   deleteRepeat,
   copyRepeat,
   repeat,
-}: {
-  updateRepeat: (metronome: Repeat, update: Partial<Repeat>) => void;
-  deleteRepeat: (id: string) => void;
-  copyRepeat: (id: string) => void;
-  repeat: Repeat | undefined;
-}) => {
+}: IEditRepeat) => {
   if (repeat)
     return (
       <div className="flex flex-col gap-2 p-4">

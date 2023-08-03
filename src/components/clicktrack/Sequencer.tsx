@@ -1,17 +1,19 @@
 import { Clicktrack } from '../../clicktrack';
 import { Metronome, Repeat } from '../../clicktrack';
 
+interface ISequencer {
+  add: (child: Clicktrack['data']['children'][number]) => void;
+  selectedId: string;
+  setSelectedId: (id: string) => void;
+  sequence: Clicktrack['data']['children'];
+}
+
 export const Sequencer = ({
   add,
   selectedId,
   setSelectedId,
   sequence,
-}: {
-  add: (child: Clicktrack['data']['children'][number]) => void;
-  selectedId: string;
-  setSelectedId: (id: string) => void;
-  sequence: Clicktrack['data']['children'];
-}) => {
+}: ISequencer) => {
   return (
     <div className="flex select-none flex-col gap-2  ">
       <div className="rounded-2 flex flex-col text-xl">

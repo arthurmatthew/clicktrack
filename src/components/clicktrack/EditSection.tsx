@@ -2,12 +2,7 @@ import { Metronome, Repeat, Section } from '../../clicktrack';
 import { EditMetronome } from './EditMetronome';
 import { EditRepeat } from './EditRepeat';
 
-export const EditSection = ({
-  updateSection,
-  deleteMetronome,
-  copyMetronome,
-  selected,
-}: {
+interface IEditSection {
   updateSection: <T extends Metronome | Repeat>(
     section: T,
     update: Partial<Omit<T, 'id' | 'type'>>
@@ -15,7 +10,14 @@ export const EditSection = ({
   deleteMetronome: (id: string) => void;
   copyMetronome: (id: string) => void;
   selected: Section | undefined;
-}) => {
+}
+
+export const EditSection = ({
+  updateSection,
+  deleteMetronome,
+  copyMetronome,
+  selected,
+}: IEditSection) => {
   if (selected instanceof Metronome)
     return (
       <EditMetronome

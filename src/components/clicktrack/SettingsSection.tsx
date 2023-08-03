@@ -1,10 +1,10 @@
-export const SettingsSection = ({
-  name,
-  children,
-}: {
+import { IComponent } from '../IComponent';
+
+interface ISettingsSection extends IComponent {
   name: string;
-  children: React.ReactNode;
-}) => {
+}
+
+export const SettingsSection = ({ name, children }: ISettingsSection) => {
   return (
     <div className="flex flex-col gap-1">
       <h1 className="font-semibold uppercase text-black/50 dark:text-white/50">

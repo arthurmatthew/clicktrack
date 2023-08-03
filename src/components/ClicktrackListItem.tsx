@@ -2,20 +2,21 @@ import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 import { Clicktrack } from '../clicktrack';
+import { IComponent } from './IComponent';
 
-export interface MetronomeSection {
+interface IMetronomeSection extends IComponent {
   metronome: Clicktrack;
+  dragHandle: DraggableProvidedDragHandleProps | null | undefined;
   remove: () => void;
   changeName: (name: string, newName: string) => void;
-  dragHandle: DraggableProvidedDragHandleProps | null | undefined;
-  children?: React.ReactNode;
 }
+
 export const MetronomeSection = ({
   metronome,
   remove,
   changeName,
   dragHandle,
-}: MetronomeSection): JSX.Element => {
+}: IMetronomeSection) => {
   const [shown, setShown] = useState<boolean>(metronome.opened || false);
   const [editing, setEditing] = useState<boolean>(false);
 

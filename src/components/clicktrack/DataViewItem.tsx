@@ -1,10 +1,10 @@
-export const DataViewItem = ({
-  title,
-  children,
-}: {
+import { IComponent } from '../IComponent';
+
+interface IDataViewItem extends IComponent {
   title: string;
-  children: React.ReactNode;
-}) => {
+}
+
+export const DataViewItem = ({ title, children }: IDataViewItem) => {
   return (
     <li className="px-2">
       {title}{' '}

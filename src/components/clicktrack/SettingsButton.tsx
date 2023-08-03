@@ -1,10 +1,10 @@
-export const SettingsButton = ({
-  onClick,
-  children,
-}: {
+import { IComponent } from '../IComponent';
+
+interface ISettingsButton extends IComponent {
   onClick: React.MouseEventHandler;
-  children: React.ReactNode;
-}) => {
+}
+
+export const SettingsButton = ({ onClick, children }: ISettingsButton) => {
   return (
     <button
       onClick={onClick}
