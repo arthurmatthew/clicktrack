@@ -1,24 +1,26 @@
 import { Clicktrack } from '../../models/clicktrack/Clicktrack';
 
 export const changeClicktrackName = (
-  clicktracks: Clicktrack[],
+  setClicktracks: (value: React.SetStateAction<Clicktrack[]>) => void,
   name: string,
   newName: string
 ) => {
-  const clicktracksWithoutToBeNamed = clicktracks.filter(
-    (metronome) => metronome.name !== name
-  );
-  const clicktrackToBeNamed = clicktracks.find(
-    (metronome) => metronome.name === name
-  );
+  setClicktracks((previousClicktracks) => {
+    const clicktracksWithoutToBeNamed = previousClicktracks.filter(
+      (metronome) => metronome.name !== name
+    );
+    const clicktrackToBeNamed = previousClicktracks.find(
+      (metronome) => metronome.name === name
+    );
 
-  if (!clicktrackToBeNamed) return clicktracks;
+    if (!clicktrackToBeNamed) return previousClicktracks;
 
-  return [
-    ...clicktracksWithoutToBeNamed,
-    {
-      ...clicktrackToBeNamed,
-      name: Clicktrack.generateUniqueName(name, newName, clicktracks),
-    },
-  ];
+    return [
+      ...clicktracksWithoutToBeNamed,
+      {
+        ...clicktrackToBeNamed,
+        name: Clicktrack.generateUniqueName(name, newName, previousClicktracks),
+      },
+    ];
+  });
 };

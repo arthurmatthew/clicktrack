@@ -1,12 +1,14 @@
 import { Clicktrack } from '../../models/clicktrack/Clicktrack';
 
 export const removeClicktrack = (
-  clicktracksToRemoveFrom: Clicktrack[],
+  setClicktracks: (value: React.SetStateAction<Clicktrack[]>) => void,
   id: string
 ) => {
-  if (
-    !clicktracksToRemoveFrom.find((metronome) => metronome.id === id)?.permanant
-  )
-    return clicktracksToRemoveFrom.filter((metronome) => metronome.id !== id);
-  return clicktracksToRemoveFrom;
+  setClicktracks((previousClicktracks) => {
+    if (
+      !previousClicktracks.find((metronome) => metronome.id === id)?.permanant
+    )
+      return previousClicktracks.filter((metronome) => metronome.id !== id);
+    return previousClicktracks;
+  });
 };

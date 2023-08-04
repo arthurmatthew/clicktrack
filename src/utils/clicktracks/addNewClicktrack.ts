@@ -1,11 +1,14 @@
 import { Clicktrack } from '../../models/clicktrack/Clicktrack';
 
-export const addNewClicktrack = (clicktracksToAddTo: Clicktrack[]) => {
-  return [
-    ...clicktracksToAddTo,
+export const addNewClicktrack = (
+  setClicktracks: (value: React.SetStateAction<Clicktrack[]>) => void
+) => {
+  setClicktracks((previousClicktracks) => [
+    ...previousClicktracks,
     new Clicktrack({
-      name: `New Metronome ${clicktracksToAddTo.length + 1}`,
-      position: clicktracksToAddTo.length + 1,
+      name: `New Metronome ${previousClicktracks.length + 1}`,
+      position: previousClicktracks.length + 1,
     }),
-  ];
+  ]);
+  return;
 };

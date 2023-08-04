@@ -25,34 +25,20 @@ export const useLocalClicktracks = (localStorageKey: string) => {
     localStorageKey
   );
 
-  const handleAdd = () => {
-    setClicktracks((previousClicktracks) =>
-      addNewClicktrack(previousClicktracks)
-    );
-  };
-  const handleImport = () => {
-    setClicktracks((previousClicktracks) =>
-      importClicktrack(importRef.current?.value as string, previousClicktracks)
-    );
-  };
+  const handleAdd = () => addNewClicktrack(setClicktracks);
+  const handleRemove = (id: string) => removeClicktrack(setClicktracks, id);
+  const handleImport = () =>
+    importClicktrack(setClicktracks, importRef.current?.value as string);
+
+  const handleNameChange = (name: string, newName: string) =>
+    changeClicktrackName(setClicktracks, name, newName);
+
+  const handleOnDragEnd = (result: DropResult) =>
+    onDragEnd(setClicktracks, result);
+
   const handleClear = () => {
     localStorage.removeItem(STORAGE_KEYS_CLICKTRACK);
     location.reload();
-  };
-  const handleRemove = (id: string) => {
-    setClicktracks((previousClicktracks) =>
-      removeClicktrack(previousClicktracks, id)
-    );
-  };
-  const handleNameChange = (name: string, newName: string) => {
-    setClicktracks((previousClicktracks) =>
-      changeClicktrackName(previousClicktracks, name, newName)
-    );
-  };
-  const handleOnDragEnd = (result: DropResult) => {
-    setClicktracks((previousClicktracks) =>
-      onDragEnd(result, previousClicktracks)
-    );
   };
 
   return {
