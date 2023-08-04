@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { DropResult } from 'react-beautiful-dnd';
 import { STORAGE_KEYS_CLICKTRACK } from '../config';
 import { Clicktrack } from '../models/clicktrack/Clicktrack';
@@ -9,7 +10,6 @@ import { importClicktrack } from '../utils/clicktracks/importClicktrack';
 import { onDragEnd } from '../utils/clicktracks/onDragEnd';
 import { removeClicktrack } from '../utils/clicktracks/removeClicktrack';
 import { useLocalStorage } from './useLocalStorage';
-import { useRef } from 'react';
 
 export const useLocalClicktracks = (localStorageKey: string) => {
   const importRef = useRef<HTMLInputElement | null>(null);
