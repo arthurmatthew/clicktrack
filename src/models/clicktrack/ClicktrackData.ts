@@ -9,15 +9,12 @@ import { Metronome } from './Metronome';
 import { Repeat } from './Repeat';
 
 export class ClicktrackData {
-  children: (Metronome | Repeat)[];
-
-  note: [note: string, octave: number];
-
-  volume: number; // % , default is 100%
-  noteDuration: number;
-
-  muted: boolean;
-  playExtraBeat: boolean;
+  public children: (Metronome | Repeat)[];
+  public note: [note: string, octave: number];
+  public volume: number; // % , default is 100%
+  public noteDuration: number;
+  public muted: boolean;
+  public playExtraBeat: boolean;
 
   constructor(options?: Partial<ClicktrackData>) {
     this.children = options?.children ?? [new Metronome()];

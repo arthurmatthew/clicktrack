@@ -8,12 +8,12 @@ import { ClicktrackData } from './ClicktrackData';
 import { v4 as uuidv4 } from 'uuid';
 
 export class Clicktrack {
-  name: string; // Display name
-  id: string; // Unique UUID
-  position: number; // Position in list
-  permanant: boolean; // Deletable
-  opened: boolean; // Opened, in its 'show more' state in the clicktrack list
-  data: ClicktrackData; // Clicktrack data, like settings and sections
+  public name: string; // Display name
+  public readonly id: string; // Unique UUID
+  public position: number; // Position in list
+  public permanant: boolean; // Deletable
+  public opened: boolean; // Opened, in its 'show more' state in the clicktrack list
+  public data: ClicktrackData; // Clicktrack data, like settings and sections
 
   constructor(options?: Partial<Clicktrack>) {
     this.name = options?.name ?? CLICKTRACK_DEFAULT_NAME;
@@ -24,7 +24,7 @@ export class Clicktrack {
     this.opened = options?.opened ?? false;
   }
 
-  static generateUniqueName(
+  public static generateUniqueName(
     name: string,
     newName: string,
     clicktracks: Clicktrack[]

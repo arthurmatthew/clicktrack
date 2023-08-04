@@ -2,8 +2,8 @@ import { REPEAT_DEFAULT_INFINITE, REPEAT_DEFAULT_TIMES } from '../../config';
 import { Section } from './Section';
 
 export class Repeat extends Section {
-  times: number;
-  infinite: boolean;
+  public times: number;
+  public infinite: boolean;
 
   constructor(options?: Partial<Repeat>) {
     super({
