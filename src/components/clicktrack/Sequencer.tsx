@@ -1,6 +1,9 @@
 import { Clicktrack } from '../../models/clicktrack/Clicktrack';
 import { Metronome } from '../../models/clicktrack/Metronome';
 import { Repeat } from '../../models/clicktrack/Repeat';
+import { SequencerControls } from './SequencerControls';
+import { SequencerListMetronome } from './SequencerListMetronome';
+import { SequencerListRepeat } from './SequencerListRepeat';
 
 interface ISequencer {
   add: (child: Clicktrack['data']['children'][number]) => void;
@@ -22,7 +25,7 @@ export const Sequencer = ({
           const selected = section.id === selectedId;
           if (section instanceof Metronome)
             return (
-              <ListMetronome
+              <SequencerListMetronome
                 key={section.id}
                 selected={selected}
                 setSelectedId={setSelectedId}
@@ -31,7 +34,7 @@ export const Sequencer = ({
             );
           if (section instanceof Repeat)
             return (
-              <ListRepeat
+              <SequencerListRepeat
                 key={section.id}
                 selected={selected}
                 setSelectedId={setSelectedId}
@@ -39,89 +42,9 @@ export const Sequencer = ({
               />
             );
         })}
-        <div className="m-3 grid grid-cols-2 items-center gap-3">
-          <div
-            onClick={() => add(new Metronome())}
-            className="w-full cursor-pointer rounded-sm border-[1px] border-neutral-300 p-4 py-3 dark:border-neutral-900"
-          >
-            Add a Section
-          </div>
-          <div
-            onClick={() => add(new Repeat())}
-            className="w-full cursor-pointer rounded-sm border-[1px] border-neutral-300 p-4 py-3 dark:border-neutral-900"
-          >
-            Add a Repeat
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const ListMetronome = ({
-  metronome,
-  setSelectedId,
-  selected,
-}: {
-  metronome: Metronome;
-  selected: boolean;
-  setSelectedId: (id: string) => void;
-}) => {
-  return (
-    <div
-      className="group flex cursor-pointer items-center gap-2"
-      onClick={() => setSelectedId(metronome.id)}
-    >
-      <div
-        className={`relative flex w-full gap-3 p-4 py-3 duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${
-          selected && 'py-6'
-        }`}
-      >
-        <i className="bi-music-note-list z-10" />{' '}
-        <p className="relative z-10">
-          {Metronome.convertTempoToTempoIndicator(metronome.bpm)} for{' '}
-          {metronome.lengthInBars} bars
-        </p>
-        <div
-          className={`absolute left-0 top-0 h-full w-full bg-neutral-100 duration-75 dark:bg-neutral-800 ${
-            !selected && 'hidden'
-          }`}
-        />
-      </div>
-    </div>
-  );
-};
-
-const ListRepeat = ({
-  repeat,
-  setSelectedId,
-  selected,
-}: {
-  repeat: Repeat;
-  selected: boolean;
-  setSelectedId: (id: string) => void;
-}) => {
-  return (
-    <div
-      className="group flex cursor-pointer items-center gap-2"
-      onClick={() => setSelectedId(repeat.id)}
-    >
-      <div
-        className={`relative flex w-full gap-3 p-4 py-3 duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${
-          selected && 'py-6'
-        }`}
-      >
-        <i className="bi-repeat z-10" />
-        <p className="relative z-10">
-          Repeat{' '}
-          {repeat.infinite
-            ? 'forever'
-            : `${repeat.times} time${repeat.times > 1 ? 's' : ''}`}
-        </p>
-        <div
-          className={`absolute left-0 top-0 h-full w-full bg-neutral-100 duration-75 dark:bg-neutral-800 ${
-            !selected && 'hidden'
-          }`}
+        <SequencerControls
+          addMetronome={() => add(new Metronome())}
+          addRepeat={() => add(new Repeat())}
         />
       </div>
     </div>
