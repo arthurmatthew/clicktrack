@@ -1,4 +1,4 @@
-import { IComponent } from '../../models/components/IComponent';
+import { IComponent } from '../IComponent';
 
 interface IButton extends IComponent {
   onClick?: React.MouseEventHandler;

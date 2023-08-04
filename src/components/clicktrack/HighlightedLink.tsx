@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { IComponent } from '../../models/components/IComponent';
+import { IComponent } from '../IComponent';
 
 interface IHighlightedLink extends IComponent {
   to?: string;

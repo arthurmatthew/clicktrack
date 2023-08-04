@@ -1,4 +1,4 @@
-import { IComponent } from '../../models/components/IComponent';
+import { IComponent } from '../IComponent';
 import { HighlightedLink } from './HighlightedLink';
 
 interface IControlWindow extends IComponent {

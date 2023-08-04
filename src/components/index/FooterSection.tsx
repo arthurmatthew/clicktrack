@@ -1,4 +1,4 @@
-import { IComponent } from '../../models/components/IComponent';
+import { IComponent } from '../IComponent';
 
 interface IFooterSection extends IComponent {
   title: string;
