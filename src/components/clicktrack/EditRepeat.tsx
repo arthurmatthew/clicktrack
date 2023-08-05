@@ -1,4 +1,5 @@
 import { Repeat } from '../../models/clicktrack/Repeat';
+import { NumberInput } from '../core/NumberInput';
 
 interface IEditRepeat {
   updateRepeat: (metronome: Repeat, update: Partial<Repeat>) => void;
@@ -22,26 +23,13 @@ export const EditRepeat = ({ updateRepeat, repeat }: IEditRepeat) => {
             {repeat.infinite ? 'On' : 'Off'}
           </button>
         </div>
-        <div
-          className={`flex items-center gap-3 bg-neutral-200 px-2 py-1 dark:bg-neutral-900 sm:rounded-sm ${
-            repeat.infinite && 'opacity-50'
-          }`}
-        >
-          <h1 className="text-lg">Repeat</h1>
-          <input
-            disabled={repeat.infinite}
-            type="number"
-            value={repeat.times}
-            onChange={(e) =>
-              updateRepeat(repeat, {
-                times: parseInt(e.currentTarget.value) ?? repeat.times,
-              })
-            }
-            min={'1'}
-            className="w-16 bg-white px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-black sm:rounded-sm"
-          />
-          <h1>times</h1>
-        </div>
+        <NumberInput
+          disabled={repeat.infinite}
+          label="Repeats"
+          value={repeat.times}
+          increase={() => updateRepeat(repeat, { times: repeat.times + 1 })}
+          decrease={() => updateRepeat(repeat, { times: repeat.times - 1 })}
+        />
       </div>
     );
 };
