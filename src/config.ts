@@ -27,3 +27,6 @@ export const METRONOME_DEFAULT_LENGTH = 2;
 
 export const REPEAT_DEFAULT_TIMES = 1;
 export const REPEAT_DEFAULT_INFINITE = true;
+
+export const TEMPO_TAPPER_MAX_SAMPLE_SIZE = 2;
+export const TEMPO_TAPPER_COOLDOWN_TIME = 2; // seconds

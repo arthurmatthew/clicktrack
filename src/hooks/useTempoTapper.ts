@@ -1,4 +1,9 @@
-import { CLICKTRACK_MAX_BPM, CLICKTRACK_MIN_BPM } from '../config';
+import {
+  CLICKTRACK_MAX_BPM,
+  CLICKTRACK_MIN_BPM,
+  TEMPO_TAPPER_COOLDOWN_TIME,
+  TEMPO_TAPPER_MAX_SAMPLE_SIZE,
+} from '../config';
 import { Metronome } from '../models/clicktrack/Metronome';
 
 export const useTempoTapper = (
@@ -7,25 +12,34 @@ export const useTempoTapper = (
 ) => {
   const tempoTapTimes: number[] = [];
   let tempoTapTimer: number;
+
   const tapTempo = () => {
     if (!metronome) return;
 
     tempoTapTimes.push(Date.now());
 
-    const tapDifferences =
-      tempoTapTimes.length > 1 &&
-      (tempoTapTimes
-        .map((timeAtTap, index) => {
-          const nextTimeAtTap = tempoTapTimes[index + 1];
-          if (nextTimeAtTap) return nextTimeAtTap - timeAtTap;
-        })
-        .filter((timeAtTap) => timeAtTap) as number[]);
+    const enoughTaps = tempoTapTimes.length > 1;
+    const tapDifferences = enoughTaps
+      ? (tempoTapTimes
+          .map((timeAtTap, index) => {
+            const nextTimeAtTap = tempoTapTimes[index + 1];
+            if (nextTimeAtTap) return nextTimeAtTap - timeAtTap;
+          })
+          .filter((timeAtTap) => timeAtTap) as number[])
+      : undefined;
 
     if (tapDifferences) {
-      const averageTapDifference =
-        tapDifferences.slice(-4).reduce((a, b) => a + b) /
-        tapDifferences.slice(-4).length;
-      const averageBpm = Math.ceil(60 / (averageTapDifference / 1000));
+      const tapTimesSample = tapDifferences.slice(
+        -TEMPO_TAPPER_MAX_SAMPLE_SIZE
+      );
+      const tapTimesSampleSum = tapTimesSample.reduce((a, b) => a + b);
+      const tapTimesSampleSize = tapDifferences.slice(
+        -TEMPO_TAPPER_MAX_SAMPLE_SIZE
+      ).length;
+      const averageTapDifference = tapTimesSampleSum / tapTimesSampleSize;
+      const averageTapDifferenceInSeconds = averageTapDifference / 1000;
+
+      const averageBpm = Math.ceil(60 / averageTapDifferenceInSeconds);
 
       if (averageBpm > CLICKTRACK_MAX_BPM)
         updateMetronome(metronome, { bpm: CLICKTRACK_MAX_BPM });
@@ -37,7 +51,7 @@ export const useTempoTapper = (
     if (tempoTapTimer) clearTimeout(tempoTapTimer);
     tempoTapTimer = setTimeout(() => {
       tempoTapTimes.length = 0;
-    }, 2000);
+    }, TEMPO_TAPPER_COOLDOWN_TIME * 1000);
   };
 
   return { tapTempo };
