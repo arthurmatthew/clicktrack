@@ -285,7 +285,7 @@ export const ClicktrackApp = ({
     });
   };
 
-  const deleteListedMetronome = (id: string): void => {
+  const deleteSection = (id: string): void => {
     setClicktrack((previousClicktrack) => {
       if (previousClicktrack.data.children.length === 1)
         return previousClicktrack;
@@ -320,20 +320,25 @@ export const ClicktrackApp = ({
     });
   };
 
-  const copyListedMetronome = (id: string) => {
+  const copySection = (id: string) => {
     setClicktrack((previousClicktrack) => {
-      const metronomeToCopy = previousClicktrack.data.children.find(
-        (metronome) => metronome.id === id
+      const sectionToCopy = previousClicktrack.data.children.find(
+        (section) => section.id === id
       );
-      const metronomeCopy = new Metronome({
-        ...metronomeToCopy,
-        id: undefined,
-      });
+      if (!sectionToCopy) return previousClicktrack;
+      const sectionCopy = () => {
+        switch (sectionToCopy?.type) {
+          case 'metronome':
+            return new Metronome({ ...sectionToCopy, id: undefined });
+          case 'repeat':
+            return new Repeat({ ...sectionToCopy, id: undefined });
+        }
+      };
       return {
         ...previousClicktrack,
         data: {
           ...previousClicktrack.data,
-          children: [...previousClicktrack.data.children, metronomeCopy],
+          children: [...previousClicktrack.data.children, sectionCopy()],
         },
       };
     });
@@ -370,8 +375,8 @@ export const ClicktrackApp = ({
           setSelectedId,
           addSection,
           updateSection,
-          copyListedMetronome,
-          deleteListedMetronome,
+          copySection,
+          deleteSection,
         }}
       />
     </motion.div>

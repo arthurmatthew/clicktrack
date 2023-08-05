@@ -3,6 +3,7 @@ import {
   METRONOME_DEFAULT_LENGTH,
   METRONOME_DEFAULT_TIME_SIGNATURE,
 } from '../../config';
+import { convertTempoToTempoIndicator } from '../../utils/convertTempoToTempoIndicator';
 import { Section } from './Section';
 
 export class Metronome extends Section {

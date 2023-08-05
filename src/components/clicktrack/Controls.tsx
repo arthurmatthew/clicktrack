@@ -15,8 +15,8 @@ interface IControls {
     section: T,
     update: Partial<Omit<T, 'id' | 'type'>>
   ) => void;
-  deleteListedMetronome: (id: string) => void;
-  copyListedMetronome: (id: string) => void;
+  deleteSection: (id: string) => void;
+  copySection: (id: string) => void;
 }
 
 export const Controls = ({
@@ -25,8 +25,8 @@ export const Controls = ({
   setSelectedId,
   addSection,
   updateSection,
-  deleteListedMetronome,
-  copyListedMetronome,
+  deleteSection,
+  copySection,
 }: IControls) => {
   return (
     <div className="grid gap-2 px-2 lg:grid-cols-2">
@@ -55,9 +55,7 @@ export const Controls = ({
       </ControlWindow>
       <ControlWindow tabs={[{ title: 'Edit' }]}>
         <EditSection
-          deleteMetronome={deleteListedMetronome}
-          copyMetronome={copyListedMetronome}
-          updateSection={updateSection}
+          {...{ updateSection, copySection, deleteSection }}
           selected={clicktrack.data.children.find(
             (metronome) => metronome.id === selectedId
           )}
