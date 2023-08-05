@@ -1,4 +1,4 @@
-const convertTempoToTempoIndicator = (bpm: number) => {
+export const convertTempoToTempoIndicator = (bpm: number) => {
   if (bpm > 178) {
     return 'Prestissimo';
   } else if (bpm > 168) {
