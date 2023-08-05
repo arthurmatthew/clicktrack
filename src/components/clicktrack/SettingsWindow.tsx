@@ -1,27 +1,21 @@
 import { motion } from 'framer-motion';
 import { Clicktrack } from '../../models/clicktrack/Clicktrack';
-import { useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { SettingsSection } from './SettingsSection';
-import { SettingsButton } from './SettingsButton';
+import { SettingsGeneral } from './SettingsGeneral';
+import { SettingsPlayback } from './SettingsPlayback';
+import { SettingsShare } from './SettingsShare';
 
 interface ISettingsWindow {
   clicktrack: Clicktrack;
   hideSettings: () => void;
-  updateClicktrackData: (update: Partial<Clicktrack['data']>) => void;
+  updateSettings: (update: Partial<Clicktrack['data']>) => void;
 }
 
 export const SettingsWindow = ({
   clicktrack,
   hideSettings,
-  updateClicktrackData,
+  updateSettings,
 }: ISettingsWindow) => {
   const settings = clicktrack.data;
-
-  const copyToClipboardRef = useRef<HTMLParagraphElement | null>(null);
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(copyToClipboardRef.current?.innerText ?? '');
-  };
 
   return (
     <div
@@ -45,89 +39,9 @@ export const SettingsWindow = ({
           Settings
         </h1>
         <div className="flex flex-col gap-4">
-          <SettingsSection name="share">
-            <p>
-              You can paste the given code into the <b>Import</b> box in the{' '}
-              <span className="underline">
-                <Link target="blank" to="/app/clicktracks">
-                  Clicktrack list
-                </Link>
-              </span>
-              . Copy your code below. It's specific to each of your Clicktracks.
-            </p>
-            <div className="flex items-center gap-2">
-              <SettingsButton onClick={copyToClipboard}>Copy</SettingsButton>
-              <p
-                ref={copyToClipboardRef}
-                className="h-full max-w-sm overflow-hidden text-ellipsis rounded-sm rounded-b-none p-2 text-sm text-black/50 dark:text-white/20"
-              >
-                {btoa(JSON.stringify(clicktrack))}
-              </p>
-            </div>
-          </SettingsSection>
-          <SettingsSection name="Playback">
-            <div className="flex items-center gap-4 text-xl">
-              <div className="flex flex-grow flex-col gap-1 sm:flex-grow-0 sm:flex-row">
-                <div className="flex items-center gap-4">
-                  <SettingsButton
-                    onClick={() => {
-                      updateClicktrackData({ muted: !settings.muted });
-                    }}
-                  >
-                    {settings.muted ?? settings.volume === 0 ? (
-                      <i className="bi-volume-mute-fill" />
-                    ) : (
-                      <i
-                        className={`bi-volume-${
-                          settings.volume > 80 ? 'up' : 'down'
-                        }-fill`}
-                      />
-                    )}
-                  </SettingsButton>
-                  <p className="sm:hidden">Volume</p>
-                </div>
-
-                <div
-                  className={`flex flex-grow gap-3 rounded-md bg-neutral-200 p-2 px-4 dark:bg-neutral-900 sm:flex-grow-0 ${
-                    settings.muted && 'opacity-50'
-                  }`}
-                >
-                  <p className="roboto w-12 text-center">
-                    {settings.volume}
-                    <span className="inter">%</span>
-                  </p>
-                  <input
-                    className="w-full accent-purple-500"
-                    disabled={settings.muted}
-                    type="range"
-                    value={settings.volume}
-                    onChange={(e) =>
-                      updateClicktrackData({
-                        volume: parseInt(e.currentTarget.value),
-                      })
-                    }
-                    min={0}
-                    max={150}
-                  />
-                </div>
-              </div>
-              <p className="hidden sm:block">Volume</p>
-            </div>
-          </SettingsSection>
-          <SettingsSection name="General">
-            <p className="flex items-center gap-4 text-xl">
-              <SettingsButton
-                onClick={() =>
-                  updateClicktrackData({
-                    playExtraBeat: !settings.playExtraBeat,
-                  })
-                }
-              >
-                {settings.playExtraBeat ? 'On' : 'Off'}
-              </SettingsButton>{' '}
-              Play Extra Beat
-            </p>
-          </SettingsSection>
+          <SettingsShare {...{ clicktrack }} />
+          <SettingsPlayback {...{ settings, updateSettings }} />
+          <SettingsGeneral {...{ settings, updateSettings }} />
         </div>
       </motion.div>
     </div>

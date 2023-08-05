@@ -56,7 +56,7 @@ export const Title = ({
             {settingsShown && (
               <SettingsWindow
                 clicktrack={clicktrack}
-                updateClicktrackData={updateClicktrackData}
+                updateSettings={updateClicktrackData}
                 hideSettings={() => {
                   setSettingsShown(false);
                 }}
