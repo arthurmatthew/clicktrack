@@ -1,9 +1,9 @@
 import { Metronome } from '../../models/clicktrack/Metronome';
 import { useTempoTapper } from '../../hooks/useTempoTapper';
-import { EditCustomTimeSignature } from './EditCustomTimeSignature';
 import { EditLength } from './EditLength';
 import { EditTempo } from './EditTempo';
 import { EditTimeSignature } from './EditTimeSignature';
+import { EditCustomTimeSignature } from './EditCustomTimeSignature';
 
 interface IEditMetronome {
   updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;

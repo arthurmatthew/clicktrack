@@ -15,7 +15,7 @@ export const NumberInput = ({
 }: INumberInput) => {
   return (
     <div className="flex w-fit flex-col gap-1">
-      <h2 className="text-sm opacity-50">{label}</h2>
+      {label && <h2 className="text-sm opacity-50">{label}</h2>}
       <div
         className={`flex bg-neutral-200 dark:bg-neutral-900 sm:rounded-sm ${
           disabled && 'cursor-not-allowed opacity-50'
