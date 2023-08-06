@@ -27,6 +27,7 @@ export const EditRepeat = ({ updateRepeat, repeat }: IEditRepeat) => {
           disabled={repeat.infinite}
           label="Repeats"
           value={repeat.times}
+          set={(value) => updateRepeat(repeat, { times: value })}
           increase={() => updateRepeat(repeat, { times: repeat.times + 1 })}
           decrease={() => updateRepeat(repeat, { times: repeat.times - 1 })}
         />

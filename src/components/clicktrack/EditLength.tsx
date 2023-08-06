@@ -14,6 +14,7 @@ export const EditLength = ({
     <NumberInput
       label="Length"
       value={metronome.lengthInBars}
+      set={(value) => updateMetronome(metronome, { lengthInBars: value })}
       {...{ increase, decrease }}
     />
   );

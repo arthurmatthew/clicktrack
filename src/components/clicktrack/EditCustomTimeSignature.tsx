@@ -40,11 +40,21 @@ export const EditCustomTimeSignature = ({
       <NumberInput
         label="Time Signature"
         value={metronome.timeSignature[0]}
+        set={(value) =>
+          updateMetronome(metronome, {
+            timeSignature: [value, metronome.timeSignature[1]],
+          })
+        }
         increase={increaseNumerator}
         decrease={decreaseNumerator}
       />
       <NumberInput
         value={metronome.timeSignature[1]}
+        set={(value) =>
+          updateMetronome(metronome, {
+            timeSignature: [metronome.timeSignature[0], value],
+          })
+        }
         increase={increaseDenominator}
         decrease={decreaseDenominator}
       />
