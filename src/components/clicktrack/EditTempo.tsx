@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { IMetronomeUpdater } from './IMetronomeUpdater';
 import { TempoIncrementButton } from './TempoIncrementButton';
 
@@ -50,12 +51,14 @@ export const EditTempo = ({
           />
         </div>
       </div>
-      <button
+      <motion.button
+        whileTap={{ scale: 0.9 }}
+        transition={{ type: 'spring', stiffness: 400, damping: 17 }}
         onClick={tapTempo}
-        className="rounded-sm bg-neutral-200 dark:bg-neutral-900"
+        className="rounded-sm bg-neutral-200 hover:text-cyan-400 dark:bg-neutral-900"
       >
         <i className="bi-hand-index-thumb-fill px-3 text-xl" />
-      </button>
+      </motion.button>
     </div>
   );
 };
