@@ -16,7 +16,7 @@ export const SettingsPlayback = ({
                 updateSettings({ muted: !settings.muted });
               }}
             >
-              {settings.muted ?? settings.volume === 0 ? (
+              {settings.muted || settings.volume === 0 ? (
                 <i className="bi-volume-mute-fill" />
               ) : (
                 <i
