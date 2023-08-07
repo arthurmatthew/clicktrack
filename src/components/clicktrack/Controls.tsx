@@ -1,4 +1,3 @@
-import { Routes, Route, Outlet } from 'react-router-dom';
 import { ControlWindow } from './ControlWindow';
 import { EditSection } from './EditSection';
 import { Sequencer } from './Sequencer';
@@ -33,10 +32,16 @@ export const Controls = ({
       <ControlWindow
         tabs={[
           { title: 'Sequencer', to: 'sequencer' },
-          { title: 'Settings', to: 'settings' },
+          // { title: 'Settings', to: 'settings' },
         ]}
       >
-        <Routes>
+        <Sequencer
+          selectedId={selectedId}
+          setSelectedId={setSelectedId}
+          add={addSection}
+          sequence={clicktrack.data.sections}
+        />
+        {/* <Routes>
           <Route path="/" element={<Outlet />}>
             <Route element={<h1>Settings</h1>} path="/settings" />
             <Route
@@ -51,7 +56,7 @@ export const Controls = ({
               path="/sequencer"
             />
           </Route>
-        </Routes>
+        </Routes> */}
       </ControlWindow>
       <ControlWindow tabs={[{ title: 'Edit' }]}>
         <EditSection
