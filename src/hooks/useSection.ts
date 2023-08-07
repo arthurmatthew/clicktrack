@@ -93,6 +93,7 @@ export const useSection = (
 
   const copySection = (id: string) => {
     setClicktrack((previousClicktrack) => {
+      console.log('copy');
       const sectionToCopy = previousClicktrack.data.sections.find(
         (section) => section.id === id
       );
@@ -105,13 +106,14 @@ export const useSection = (
             return new Repeat({ ...sectionToCopy, id: undefined });
         }
       };
-      return {
+      console.log([...previousClicktrack.data.sections, sectionCopy()]);
+      return new Clicktrack({
         ...previousClicktrack,
         data: {
           ...previousClicktrack.data,
-          children: [...previousClicktrack.data.sections, sectionCopy()],
+          sections: [...previousClicktrack.data.sections, sectionCopy()],
         },
-      };
+      });
     });
   };
 
