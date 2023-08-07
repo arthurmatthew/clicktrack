@@ -3,7 +3,7 @@ import { InfoCard } from './InfoCard';
 export const Features = () => {
   return (
     <section className="my-10 flex flex-col px-2 sm:my-20">
-      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3">
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-1 sm:grid-cols-2 md:grid-cols-3">
         <InfoCard icon="stack" title="Portable">
           Clicktrack is designed to work on any modern device. It'll be amazing
           no matter what. Not on your device?{' '}

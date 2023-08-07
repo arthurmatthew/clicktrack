@@ -22,11 +22,11 @@ export const DraggableItem = ({
         <li
           ref={provided.innerRef}
           {...provided.draggableProps}
-          className="my-2"
+          className="my-1"
         >
           <motion.div
             initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
           >
             <ClicktrackListItem

@@ -15,11 +15,15 @@ export const SequencerListRepeat = ({
       onClick={() => setSelectedId(repeat.id)}
     >
       <div
-        className={`relative flex w-full gap-3 p-4 py-3 duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${
+        className={`relative flex w-full items-center gap-3 p-4 py-3 duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${
           selected && 'py-6'
         }`}
       >
-        <i className="bi-repeat z-10" />
+        <i
+          className={`bi-repeat z-10 ${
+            selected && 'px-2 text-3xl text-purple-500'
+          } duration-150`}
+        />
         <p className="relative z-10">
           Repeat{' '}
           {repeat.infinite

@@ -8,16 +8,16 @@ export const SequencerControls = ({
   addRepeat,
 }: ISequencerControls) => {
   return (
-    <div className="m-3 grid grid-cols-2 items-center gap-3">
+    <div className="m-3 flex items-center gap-3">
       <div
         onClick={addMetronome}
-        className="w-full cursor-pointer rounded-sm border-[1px] border-neutral-300 p-4 py-3 dark:border-neutral-900"
+        className="w-1/2 cursor-pointer rounded-sm border-[1px] border-neutral-300 p-4 py-3 duration-100 ease-out hover:w-7/12 dark:border-neutral-900"
       >
         Add a Section
       </div>
       <div
         onClick={addRepeat}
-        className="w-full cursor-pointer rounded-sm border-[1px] border-neutral-300 p-4 py-3 dark:border-neutral-900"
+        className="w-1/2 cursor-pointer rounded-sm border-[1px] border-neutral-300 p-4 py-3 duration-100 ease-out hover:w-7/12 dark:border-neutral-900"
       >
         Add a Repeat
       </div>

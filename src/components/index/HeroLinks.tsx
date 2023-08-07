@@ -14,7 +14,7 @@ export const HeroLinks = () => {
             whileTap={{ scale: 0.9 }}
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-            className="rounded-md bg-purple-700 px-12 py-3 text-xl text-white "
+            className="border-gradient rounded-sm border-2 border-purple-500 bg-white px-12 py-3 text-xl dark:border-purple-700 dark:bg-black "
           >
             Get started
           </motion.button>

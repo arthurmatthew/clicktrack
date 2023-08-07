@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { Repeat } from '../../models/clicktrack/Repeat';
 import { NumberInput } from '../core/NumberInput';
 
@@ -9,7 +10,11 @@ interface IEditRepeat {
 export const EditRepeat = ({ updateRepeat, repeat }: IEditRepeat) => {
   if (repeat)
     return (
-      <div className="flex flex-col gap-px overflow-hidden rounded-sm text-lg sm:gap-2 sm:overflow-visible sm:rounded-none">
+      <motion.div
+        className="flex flex-col gap-px overflow-hidden rounded-sm text-lg sm:gap-2 sm:overflow-visible sm:rounded-none"
+        initial={{ x: -20, opacity: 0 }}
+        animate={{ x: 0, opacity: 100 }}
+      >
         <div className="flex items-center gap-3 px-2 py-1 sm:rounded-sm">
           <h1 className="text-lg">Repeat Forever: </h1>
           <button
@@ -31,6 +36,6 @@ export const EditRepeat = ({ updateRepeat, repeat }: IEditRepeat) => {
           increase={() => updateRepeat(repeat, { times: repeat.times + 1 })}
           decrease={() => updateRepeat(repeat, { times: repeat.times - 1 })}
         />
-      </div>
+      </motion.div>
     );
 };

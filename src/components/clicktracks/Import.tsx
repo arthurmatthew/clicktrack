@@ -7,7 +7,7 @@ export interface IImport {
 
 export const Import = ({ importRef, handleImport }: IImport) => {
   return (
-    <div className="my-2 rounded-sm border-[1px] border-neutral-200 p-4 dark:border-neutral-900">
+    <div className="my-1 rounded-sm border-[1px] border-neutral-200 p-4 dark:border-neutral-900">
       <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
         <div className="flex w-full grid-cols-3 items-center gap-3">
           <i className="bi-clipboard2 text-3xl text-neutral-600 dark:text-neutral-400" />
@@ -18,7 +18,10 @@ export const Import = ({ importRef, handleImport }: IImport) => {
           />
         </div>
         <div className="my-2 block h-px w-full bg-gradient-to-r from-neutral-300 to-transparent dark:from-neutral-700 sm:hidden" />
-        <Button onClick={handleImport} className="bg-neutral-500">
+        <Button
+          onClick={handleImport}
+          className="bg-neutral-200 dark:bg-neutral-900"
+        >
           Import
         </Button>
       </div>

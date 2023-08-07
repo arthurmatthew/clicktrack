@@ -4,6 +4,7 @@ import { EditLength } from './EditLength';
 import { EditTempo } from './EditTempo';
 import { EditTimeSignature } from './EditTimeSignature';
 import { EditCustomTimeSignature } from './EditCustomTimeSignature';
+import { motion } from 'framer-motion';
 
 interface IEditMetronome {
   updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;
@@ -18,13 +19,17 @@ export const EditMetronome = ({
 
   if (metronome)
     return (
-      <div className="grid items-center gap-2">
+      <motion.div
+        className="grid items-center gap-2"
+        initial={{ x: -20, opacity: 0 }}
+        animate={{ x: 0, opacity: 100 }}
+      >
         <EditTempo {...{ metronome, updateMetronome, tapTempo }} />
         <EditTimeSignature {...{ metronome, updateMetronome }} />
-        <div className="flex flex-col gap-px overflow-hidden rounded-sm sm:flex-row sm:gap-2 sm:overflow-visible sm:rounded-none">
+        <div className="flex gap-2 overflow-hidden rounded-sm sm:overflow-visible sm:rounded-none">
           <EditLength {...{ metronome, updateMetronome }} />
           <EditCustomTimeSignature {...{ metronome, updateMetronome }} />
         </div>
-      </div>
+      </motion.div>
     );
 };

@@ -8,7 +8,7 @@ export const HeroTitle = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, ease: 'easeInOut' }}
         id="title"
-        className="bg-gradient-to-r from-purple-700 via-violet-700 to-fuchsia-700 bg-clip-text text-center text-6xl font-black text-transparent dark:from-purple-400 dark:via-violet-400 dark:to-fuchsia-700 sm:text-7xl"
+        className="text-center text-6xl font-black text-purple-700 dark:text-purple-600 sm:text-7xl"
       >
         The only metronome you'll ever need.
       </motion.h1>
