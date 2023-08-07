@@ -29,7 +29,7 @@ export const ControlWindow = ({ tabs, children }: IControlWindow) => {
           </div>
         )}
       </nav>
-      <div>{children}</div>
+      <div className="flex-grow">{children}</div>
     </div>
   );
 };

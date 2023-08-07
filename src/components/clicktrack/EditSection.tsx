@@ -32,14 +32,16 @@ export const EditSection = ({
   };
 
   return (
-    <div className="flex flex-col gap-2 p-4">
+    <div className="flex h-full flex-col justify-between gap-2 p-4">
       <div className="grid items-center gap-2">{getProperSectionEditor()}</div>
-      {selected && (
-        <SectionControls
-          {...{ copySection, deleteSection }}
-          id={selected?.id}
-        />
-      )}
+      <div>
+        {selected && (
+          <SectionControls
+            {...{ copySection, deleteSection }}
+            id={selected?.id}
+          />
+        )}
+      </div>
     </div>
   );
 };

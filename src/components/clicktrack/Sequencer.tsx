@@ -19,8 +19,8 @@ export const Sequencer = ({
   sequence,
 }: ISequencer) => {
   return (
-    <div className="flex select-none flex-col gap-2  ">
-      <div className="rounded-2 flex flex-col text-xl">
+    <div className="flex h-full select-none flex-col gap-2">
+      <div className="rounded-2 flex h-full flex-col text-xl">
         {sequence.map((section) => {
           const selected = section.id === selectedId;
           if (section instanceof Metronome)
@@ -42,11 +42,11 @@ export const Sequencer = ({
               />
             );
         })}
-        <SequencerControls
-          addMetronome={() => add(new Metronome())}
-          addRepeat={() => add(new Repeat())}
-        />
       </div>
+      <SequencerControls
+        addMetronome={() => add(new Metronome())}
+        addRepeat={() => add(new Repeat())}
+      />
     </div>
   );
 };
