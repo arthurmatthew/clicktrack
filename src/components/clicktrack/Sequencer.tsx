@@ -6,10 +6,10 @@ import { SequencerListMetronome } from './SequencerListMetronome';
 import { SequencerListRepeat } from './SequencerListRepeat';
 
 interface ISequencer {
-  add: (child: Clicktrack['data']['children'][number]) => void;
+  add: (child: Clicktrack['data']['sections'][number]) => void;
   selectedId: string;
   setSelectedId: (id: string) => void;
-  sequence: Clicktrack['data']['children'];
+  sequence: Clicktrack['data']['sections'];
 }
 
 export const Sequencer = ({

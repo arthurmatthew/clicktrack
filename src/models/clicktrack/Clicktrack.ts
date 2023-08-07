@@ -31,7 +31,7 @@ export class Clicktrack {
       ...clicktrack,
       data: new ClicktrackData({
         ...clicktrack.data,
-        children: clicktrack.data.children.map((section) => {
+        sections: clicktrack.data.sections.map((section) => {
           switch (section.type) {
             case 'metronome':
               return new Metronome(section);

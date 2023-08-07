@@ -45,7 +45,7 @@ export const Controls = ({
                   selectedId={selectedId}
                   setSelectedId={setSelectedId}
                   add={addSection}
-                  sequence={clicktrack.data.children}
+                  sequence={clicktrack.data.sections}
                 />
               }
               path="/sequencer"
@@ -56,8 +56,8 @@ export const Controls = ({
       <ControlWindow tabs={[{ title: 'Edit' }]}>
         <EditSection
           {...{ updateSection, copySection, deleteSection }}
-          selected={clicktrack.data.children.find(
-            (metronome) => metronome.id === selectedId
+          selected={clicktrack.data.sections.find(
+            (section) => section.id === selectedId
           )}
         />
       </ControlWindow>

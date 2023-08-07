@@ -14,7 +14,7 @@ export const useClicktrackPlayer = (
   const [playingDisplay, setPlayingDisplay] = useState(false);
 
   const [selectedId, setSelectedId] = useState<string>(
-    clicktrack.data.children[0]?.id ?? ''
+    clicktrack.data.sections[0]?.id ?? ''
   );
 
   let nextNoteDueIn: number;
@@ -37,8 +37,8 @@ export const useClicktrackPlayer = (
   }, []);
 
   const schedule = (beat: number, time: number) => {
-    const currentSection = clicktrack.data.children[totalSectionsPlayed];
-    const previousSection = clicktrack.data.children[totalSectionsPlayed - 1];
+    const currentSection = clicktrack.data.sections[totalSectionsPlayed];
+    const previousSection = clicktrack.data.sections[totalSectionsPlayed - 1];
     const section = currentSection || previousSection;
 
     if (audioCtx.current === null) return;
@@ -98,8 +98,8 @@ export const useClicktrackPlayer = (
    * the next 16th note is due.
    */
   const next = () => {
-    const currentSection = clicktrack.data.children[totalSectionsPlayed];
-    const previousSection = clicktrack.data.children[totalSectionsPlayed - 1];
+    const currentSection = clicktrack.data.sections[totalSectionsPlayed];
+    const previousSection = clicktrack.data.sections[totalSectionsPlayed - 1];
     const section = currentSection || previousSection;
 
     if (section instanceof Repeat) {

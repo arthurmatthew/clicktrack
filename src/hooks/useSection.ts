@@ -14,7 +14,7 @@ export const useSection = (
           ...previousClicktrack,
           data: {
             ...previousClicktrack.data,
-            children: [...previousClicktrack.data.children, newSection],
+            sections: [...previousClicktrack.data.sections, newSection],
           },
         })
     );
@@ -25,10 +25,10 @@ export const useSection = (
     update: Partial<Omit<T, 'id' | 'type'>>
   ): void => {
     setClicktrack((previousClicktrack) => {
-      const indexBefore = previousClicktrack.data.children.findIndex(
+      const indexBefore = previousClicktrack.data.sections.findIndex(
         (thisSection) => thisSection.id === section.id
       );
-      const updatedSections = previousClicktrack.data.children.filter(
+      const updatedSections = previousClicktrack.data.sections.filter(
         (thisSection) => thisSection.id !== section.id
       );
 
@@ -50,7 +50,7 @@ export const useSection = (
         ...previousClicktrack,
         data: new ClicktrackData({
           ...previousClicktrack.data,
-          children: updatedSections,
+          sections: updatedSections,
         }),
       });
     });
@@ -58,14 +58,14 @@ export const useSection = (
 
   const deleteSection = (id: string): void => {
     setClicktrack((previousClicktrack) => {
-      if (previousClicktrack.data.children.length === 1)
+      if (previousClicktrack.data.sections.length === 1)
         return previousClicktrack;
       const updated = new Clicktrack({
         ...previousClicktrack,
         data: new ClicktrackData({
           ...previousClicktrack.data,
-          children: [
-            ...previousClicktrack.data.children.filter(
+          sections: [
+            ...previousClicktrack.data.sections.filter(
               (section) => section.id !== id
             ),
           ].map((section) => {
@@ -78,13 +78,13 @@ export const useSection = (
           }),
         }),
       });
-      const indexOfId = previousClicktrack.data.children.findIndex(
+      const indexOfId = previousClicktrack.data.sections.findIndex(
         (section) => section.id === id
       );
       setSelectedId(() => {
         const closestSection =
-          updated.data.children[indexOfId] ??
-          updated.data.children[indexOfId - 1];
+          updated.data.sections[indexOfId] ??
+          updated.data.sections[indexOfId - 1];
         return closestSection?.id ?? '';
       });
       return updated;
@@ -93,7 +93,7 @@ export const useSection = (
 
   const copySection = (id: string) => {
     setClicktrack((previousClicktrack) => {
-      const sectionToCopy = previousClicktrack.data.children.find(
+      const sectionToCopy = previousClicktrack.data.sections.find(
         (section) => section.id === id
       );
       if (!sectionToCopy) return previousClicktrack;
@@ -109,7 +109,7 @@ export const useSection = (
         ...previousClicktrack,
         data: {
           ...previousClicktrack.data,
-          children: [...previousClicktrack.data.children, sectionCopy()],
+          children: [...previousClicktrack.data.sections, sectionCopy()],
         },
       };
     });
