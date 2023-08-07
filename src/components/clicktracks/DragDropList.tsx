@@ -38,6 +38,7 @@ export const DragDropList = ({
                 .sort((a, b) => a.position - b.position)
                 .map((clicktrack, index) => (
                   <DraggableItem
+                    key={clicktrack.id}
                     {...{ handleNameChange, handleRemove, clicktrack, index }}
                   />
                 ))
