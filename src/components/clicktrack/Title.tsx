@@ -48,9 +48,9 @@ export const Title = ({
             onClick={() =>
               setSettingsShown((previouslyShown) => !previouslyShown)
             }
-            className="rounded-sm bg-black px-4 py-2 text-white dark:bg-white dark:text-black"
+            className="group rounded-sm bg-black px-4 py-2 text-white dark:bg-white dark:text-black"
           >
-            <i className="bi-gear-fill" />
+            <i className="bi-gear-fill block duration-150 group-hover:rotate-[40deg]" />
           </div>
           <AnimatePresence>
             {settingsShown && (
