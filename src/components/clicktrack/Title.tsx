@@ -7,8 +7,8 @@ interface ITitle {
   clicktrack: Clicktrack;
   play: () => void;
   playingDisplay: boolean;
-  pulseDisplay: () => void;
-  pulseControl: AnimationControls;
+  pulse: () => void;
+  controls: AnimationControls;
   settingsShown: boolean;
   setSettingsShown: (value: React.SetStateAction<boolean>) => void;
   updateClicktrackData: (update: Partial<Clicktrack['data']>) => void;
@@ -18,8 +18,8 @@ export const Title = ({
   play,
   clicktrack,
   playingDisplay,
-  pulseDisplay,
-  pulseControl,
+  pulse,
+  controls,
   settingsShown,
   setSettingsShown,
   updateClicktrackData,
@@ -28,7 +28,7 @@ export const Title = ({
     <div className="flex w-full items-center justify-center py-8">
       <div className="flex max-w-5xl flex-col items-center justify-center sm:flex-row">
         <div className="flex flex-col items-center gap-2">
-          <h1 className="text-3xl" onClick={pulseDisplay}>
+          <h1 className="text-3xl" onClick={pulse}>
             {clicktrack.name}
           </h1>
           <ul className="flex text-sm">
@@ -39,7 +39,7 @@ export const Title = ({
         <div className="flex items-center gap-2">
           <motion.button
             onClick={play}
-            animate={pulseControl}
+            animate={controls}
             className="rounded-sm bg-purple-700 px-4 py-2 text-white"
           >
             <i className={playingDisplay ? 'bi-pause-fill' : 'bi-play-fill'} />

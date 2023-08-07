@@ -6,6 +6,8 @@ import {
 import { generateUniqueName } from '../../utils/generateUniqueName';
 import { ClicktrackData } from './ClicktrackData';
 import { v4 as uuidv4 } from 'uuid';
+import { Metronome } from './Metronome';
+import { Repeat } from './Repeat';
 
 export class Clicktrack {
   public name: string; // Display name
@@ -24,6 +26,22 @@ export class Clicktrack {
     this.opened = options?.opened ?? false;
   }
 
+  public static parseInternals(clicktrack: Clicktrack) {
+    return new Clicktrack({
+      ...clicktrack,
+      data: new ClicktrackData({
+        ...clicktrack.data,
+        children: clicktrack.data.children.map((section) => {
+          switch (section.type) {
+            case 'metronome':
+              return new Metronome(section);
+            case 'repeat':
+              return new Repeat(section);
+          }
+        }),
+      }),
+    });
+  }
   public static generateUniqueName(
     name: string,
     newName: string,
