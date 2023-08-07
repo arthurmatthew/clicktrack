@@ -36,6 +36,7 @@ export const TempoIncrementers = ({
           <h1 className="roboto w-20 bg-transparent text-center text-4xl">
             {metronome.bpm}
           </h1>
+          <h2 className="w-20 bg-transparent text-center text-xl">BPM</h2>
         </div>
       </div>
       <div className="flex w-full flex-col gap-[2px]">

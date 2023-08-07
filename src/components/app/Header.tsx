@@ -8,7 +8,7 @@ export const AppHeader = ({
   dark: boolean;
 }) => {
   return (
-    <header className="sticky top-0 z-10 shrink grow-0 basis-auto border-b-[1px] border-neutral-200 bg-inherit px-3 py-2 dark:border-neutral-900">
+    <header className="backdrop- sticky top-0 z-[9999999] shrink grow-0 basis-auto border-b-[1px] border-neutral-200 bg-white/90 px-3 py-2 backdrop-blur-md dark:border-neutral-900 dark:bg-black/90">
       <div className="mx-auto flex w-full items-center justify-between">
         <Link
           to="/"

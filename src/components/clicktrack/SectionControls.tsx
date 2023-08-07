@@ -10,16 +10,16 @@ export const SectionControls = ({
   deleteSection,
 }: ISectionControls) => {
   return (
-    <div className="flex flex-col gap-px overflow-hidden rounded-sm">
+    <div className="flex gap-3 overflow-hidden rounded-sm">
       <button
         onClick={() => copySection(id)}
-        className="w-full bg-neutral-200 p-2 px-4 duration-75 hover:py-3 dark:bg-neutral-900"
+        className="w-full rounded-sm border-[1px] border-neutral-300 p-4 py-3 dark:border-neutral-900"
       >
-        Duplicate
+        Duplicate this Section
       </button>
       <button
         onClick={() => deleteSection(id)}
-        className="w-full bg-neutral-200 p-2 px-4 duration-75 hover:bg-red-400 hover:py-3 dark:bg-neutral-900 dark:hover:bg-red-900"
+        className="w-full rounded-sm border-[1px] border-red-300 p-4 py-3 duration-75 hover:bg-red-300 dark:border-red-700 dark:hover:bg-red-700"
       >
         Delete this Section
       </button>
