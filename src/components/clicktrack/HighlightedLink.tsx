@@ -11,7 +11,7 @@ export const HighlightedLink = ({ to, children }: IHighlightedLink) => {
   return to ? (
     <Link
       to={to}
-      className={`block font-semibold   ${
+      className={`block font-semibold lowercase   ${
         !location.pathname.endsWith(to) && 'font-normal opacity-70'
       }  py-2`}
     >
@@ -19,7 +19,7 @@ export const HighlightedLink = ({ to, children }: IHighlightedLink) => {
     </Link>
   ) : (
     <h1
-      className="block flex-grow py-2 font-semibold
+      className="block flex-grow py-2 font-semibold lowercase
     lg:flex-grow-0"
     >
       {children ?? to}
