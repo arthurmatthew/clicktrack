@@ -125,6 +125,10 @@ export const ClicktrackApp = ({
     const section = currentSection || previousSection;
 
     if (section instanceof Repeat) {
+      if (section.infinite) {
+        totalSectionsPlayed = 0;
+        return;
+      }
       if (repeatsTaken == section.times) {
         if (interval.current !== null) clearInterval(interval.current);
         interval.current = null;
