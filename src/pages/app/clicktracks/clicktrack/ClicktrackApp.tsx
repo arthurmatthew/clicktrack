@@ -58,26 +58,29 @@ export const ClicktrackApp = ({
   }, []);
 
   const schedule = (beat: number, time: number) => {
-    const currentSection = clicktrack.data.children[
-      totalSectionsPlayed
-    ] as Metronome;
+    console.log({
+      current16thBeat,
+      totalSectionsPlayed,
+      totalBarsPlayed,
+    });
 
-    if (!audioCtx.current) return;
-    if (
-      totalSectionsPlayed === clicktrack.data.children.length &&
-      !clicktrack.data.playExtraBeat
-    )
+    const currentSection = clicktrack.data.children[totalSectionsPlayed];
+    const previousSection = clicktrack.data.children[totalSectionsPlayed - 1];
+    const section = currentSection || previousSection;
+
+    if (audioCtx.current === null) return;
+    if (section === undefined) return;
+    if (currentSection === undefined && clicktrack.data.playExtraBeat === false)
       return;
+    if (section instanceof Repeat) return;
 
-    const noteType = currentSection?.timeSignature[1];
+    const noteType = section.timeSignature[1];
     const oscillator = audioCtx.current.createOscillator();
     const gain = audioCtx.current.createGain();
 
     if (noteType === 8 && beat % 2) return; // Not divisible by 2 means the current beat is not an 8th note
     if (noteType === 4 && beat % 4) return; // Note divisible by 4 means the current beat is not a 16th note
     if (noteType === 2 && beat % 8) return;
-
-    gain.gain.value = clicktrack.data.muted ? 0 : clicktrack.data.volume / 100;
 
     oscillator.frequency.value = 880.0;
     if (beat === 0) {
@@ -110,6 +113,7 @@ export const ClicktrackApp = ({
     if (audioCtx.current) {
       // Schedule the next note when it is due earlier than our current time (and how far ahead we check, if any)
       while (nextNoteDueIn < audioCtx.current.currentTime + scheduleAheadTime) {
+        if (interval.current === null) break;
         schedule(current16thBeat, nextNoteDueIn); // Schedule note
         next(); // Advance beat number and next note due time
       }
@@ -122,31 +126,12 @@ export const ClicktrackApp = ({
    */
   const next = () => {
     const currentSection = clicktrack.data.children[totalSectionsPlayed];
+    const previousSection = clicktrack.data.children[totalSectionsPlayed - 1];
+    const section = currentSection || previousSection;
 
-    if (!currentSection) return;
-    if (currentSection instanceof Repeat) return;
-
-    const secondsPerBeat: number = 60.0 / currentSection?.bpm;
-    const secondsPer16thNote = 0.25 * secondsPerBeat; // A quarter of a beat is a 16th note.
-    const barsInCurrentSection = currentSection?.lengthInBars;
-    const quarterNotesPerBar =
-      currentSection?.timeSignature[0] / (currentSection?.timeSignature[1] / 4);
-
-    nextNoteDueIn += secondsPer16thNote; // Add the length of another 16th note.
-    current16thBeat++; // Increment the beat number
-
-    if (current16thBeat === quarterNotesPerBar * 4) {
-      current16thBeat = 0;
-      totalBarsPlayed++;
-    }
-
-    if (totalBarsPlayed === barsInCurrentSection) {
-      totalBarsPlayed = 0;
-      totalSectionsPlayed++;
-    }
-
-    if (!barsInCurrentSection) {
-      interval.current && clearInterval(interval.current);
+    if (section instanceof Repeat) return;
+    if (section === undefined) {
+      if (interval.current !== null) clearInterval(interval.current);
       interval.current = null;
 
       setSelectedId(selectedIdBeforePlaying);
@@ -155,7 +140,27 @@ export const ClicktrackApp = ({
       return;
     }
 
-    setSelectedId(currentSection?.id);
+    const secondsPerBeat = 60.0 / section.bpm;
+    const secondsPer16thNote = 0.25 * secondsPerBeat;
+    const quarterNotesPerBar =
+      section.timeSignature[0] / (section.timeSignature[1] / 4);
+
+    nextNoteDueIn += secondsPer16thNote; // Add the length of another 16th note.
+    current16thBeat++; // Increment the beat number
+
+    if (current16thBeat === quarterNotesPerBar * 4) {
+      current16thBeat = 0;
+      totalBarsPlayed++;
+    }
+    if (totalBarsPlayed === section.lengthInBars) {
+      totalBarsPlayed = 0;
+      totalSectionsPlayed++;
+    }
+    if (currentSection === undefined) {
+      totalSectionsPlayed++; // increase this to make previous section undefined
+    }
+
+    setSelectedId(section.id);
   };
 
   /**
