@@ -10,6 +10,7 @@ import { importClicktrack } from '../utils/clicktracks/importClicktrack';
 import { onDragEnd } from '../utils/clicktracks/onDragEnd';
 import { removeClicktrack } from '../utils/clicktracks/removeClicktrack';
 import { useLocalStorage } from './useLocalStorage';
+import { Repeat } from '../models/clicktrack/Repeat';
 
 export const useLocalClicktracks = (localStorageKey: string) => {
   const importRef = useRef<HTMLInputElement | null>(null);
@@ -19,7 +20,7 @@ export const useLocalClicktracks = (localStorageKey: string) => {
         permanant: true,
         id: 'default',
         position: -1,
-        data: new ClicktrackData({ children: [new Metronome()] }),
+        data: new ClicktrackData({ children: [new Metronome(), new Repeat()] }),
       }),
     ],
     localStorageKey
