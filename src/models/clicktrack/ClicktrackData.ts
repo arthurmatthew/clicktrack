@@ -17,7 +17,7 @@ export class ClicktrackData {
   public playExtraBeat: boolean;
 
   constructor(options?: Partial<ClicktrackData>) {
-    this.children = options?.children ?? [new Metronome()];
+    this.children = options?.children ?? [new Metronome(), new Repeat()];
     this.note = options?.note ?? CLICKTRACK_DEFAULT_NOTE;
     this.volume = options?.volume ?? CLICKTRACK_DEFAULT_MASTER_VOLUME;
     this.muted = options?.muted ?? CLICKTRACK_DEFAULT_MUTED;
