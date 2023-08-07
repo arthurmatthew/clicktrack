@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Repeat } from '../models/clicktrack/Repeat';
 import { Clicktrack } from '../models/clicktrack/Clicktrack';
+import { validatePlay } from '../utils/validators/validatePlay';
 
 export const useClicktrackPlayer = (
   clicktrack: Clicktrack,
@@ -175,6 +176,8 @@ export const useClicktrackPlayer = (
       node.start(0);
       unlocked = true;
     }
+
+    if (!validatePlay(clicktrack.data.sections)) return;
 
     setPlayingDisplay((previouslyPlayingDisplay) => !previouslyPlayingDisplay);
 

@@ -1,6 +1,7 @@
 import { Clicktrack } from '../../models/clicktrack/Clicktrack';
 import { Metronome } from '../../models/clicktrack/Metronome';
 import { Repeat } from '../../models/clicktrack/Repeat';
+import { validateAddRepeat } from '../../utils/validators/validateAddRepeat';
 import { SequencerControls } from './SequencerControls';
 import { SequencerListMetronome } from './SequencerListMetronome';
 import { SequencerListRepeat } from './SequencerListRepeat';
@@ -45,7 +46,9 @@ export const Sequencer = ({
       </div>
       <SequencerControls
         addMetronome={() => add(new Metronome())}
-        addRepeat={() => add(new Repeat())}
+        addRepeat={() => {
+          if (validateAddRepeat(sequence)) add(new Repeat());
+        }}
       />
     </div>
   );
