@@ -43,6 +43,7 @@ export const ClicktrackApp = ({
   let current16thBeat: number; // Relative to the bar
   let totalSectionsPlayed = 0;
   let totalBarsPlayed = 0;
+  let repeatsTaken: number = 0;
   const schedulingFrequency = 25; // In milliseconds
   const metronomeSoundLength = 0.3; // In seconds
   const scheduleAheadTime = 0.1; // In seconds
@@ -58,12 +59,6 @@ export const ClicktrackApp = ({
   }, []);
 
   const schedule = (beat: number, time: number) => {
-    console.log({
-      current16thBeat,
-      totalSectionsPlayed,
-      totalBarsPlayed,
-    });
-
     const currentSection = clicktrack.data.children[totalSectionsPlayed];
     const previousSection = clicktrack.data.children[totalSectionsPlayed - 1];
     const section = currentSection || previousSection;
@@ -129,7 +124,21 @@ export const ClicktrackApp = ({
     const previousSection = clicktrack.data.children[totalSectionsPlayed - 1];
     const section = currentSection || previousSection;
 
-    if (section instanceof Repeat) return;
+    if (section instanceof Repeat) {
+      if (repeatsTaken == section.times) {
+        if (interval.current !== null) clearInterval(interval.current);
+        interval.current = null;
+
+        setSelectedId(selectedIdBeforePlaying);
+        setPlayingDisplay(false);
+
+        return;
+      }
+      if (repeatsTaken != section.times) totalSectionsPlayed = 0;
+      repeatsTaken++;
+      return;
+    }
+
     if (section === undefined) {
       if (interval.current !== null) clearInterval(interval.current);
       interval.current = null;
