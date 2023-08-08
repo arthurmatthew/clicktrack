@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export const HeroLinks = () => {
   return (
     <div className="mx-2 mt-10 flex flex-col flex-wrap items-center justify-center gap-2 sm:flex-row">
-      <div>
+      <Link to="/app">
         <motion.span
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -19,7 +19,7 @@ export const HeroLinks = () => {
             Get started
           </motion.button>
         </motion.span>
-      </div>
+      </Link>
       <Link to="/app">
         <motion.span
           initial={{ opacity: 0 }}
