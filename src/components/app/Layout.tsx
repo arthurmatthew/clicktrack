@@ -1,13 +1,18 @@
 import { Outlet } from 'react-router-dom';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { AppHeader } from './Header';
 import { AppFooter } from './Footer';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { ScrollToTop } from '../core/ScrollToTop';
 import { STORAGE_KEYS_DARKMODE } from '../../config';
+import { inject } from '@vercel/analytics';
 
 const AppLayout = ({ children }: { children?: React.ReactNode }) => {
   const [dark, setDark] = useLocalStorage<boolean>(true, STORAGE_KEYS_DARKMODE);
+
+  useEffect(() => {
+    inject();
+  }, []);
 
   return (
     <div className={dark ? 'dark' : ''}>
