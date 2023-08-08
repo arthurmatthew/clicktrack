@@ -13,7 +13,7 @@ export const SequencerControls = ({
         onClick={addMetronome}
         className="w-1/2 rounded-sm border-[1px] border-neutral-300 p-4 py-3 duration-100 ease-out hover:w-7/12 dark:border-neutral-900"
       >
-        Add a Section
+        Add a Metronome
       </button>
       <button
         onClick={addRepeat}
