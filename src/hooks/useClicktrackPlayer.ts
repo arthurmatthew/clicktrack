@@ -62,6 +62,7 @@ export const useClicktrackPlayer = (
     const noteType = section.timeSignature[1];
     const oscillator = audioCtx.current.createOscillator();
     const gain = audioCtx.current.createGain();
+    const volume = 1 * (clicktrack.current.data.volume / 100);
 
     if (noteType === 8 && beat % 2) return; // Not divisible by 2 means the current beat is not an 8th note
     if (noteType === 4 && beat % 4) return; // Note divisible by 4 means the current beat is not a 16th note
@@ -81,8 +82,10 @@ export const useClicktrackPlayer = (
     gain.connect(audioCtx.current.destination);
     oscillator.connect(gain);
 
+    console.log(volume);
+
     // Give it a nicer sound by fading out.
-    gain.gain.setValueAtTime(gain.gain.value, time);
+    gain.gain.setValueAtTime(volume, time);
     gain.gain.exponentialRampToValueAtTime(
       0.00001,
       time + metronomeSoundLength
