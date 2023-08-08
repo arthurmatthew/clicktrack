@@ -4,7 +4,7 @@ import { Clicktrack } from '../models/Clicktrack';
 import { validatePlay } from '../utils/validators/validatePlay';
 
 export const useClicktrackPlayer = (
-  clicktrack: Clicktrack,
+  _clicktrack: Clicktrack,
   callback: () => void
 ) => {
   const audioCtx = useRef<AudioContext | null>(null);
@@ -14,8 +14,10 @@ export const useClicktrackPlayer = (
   let unlocked = false;
   const [playingDisplay, setPlayingDisplay] = useState(false);
 
+  const clicktrack = useRef<Clicktrack>(_clicktrack);
+
   const [selectedId, setSelectedId] = useState<string>(
-    clicktrack.data.sections[0]?.id ?? ''
+    clicktrack.current.data.sections[0]?.id ?? ''
   );
 
   let nextNoteDueIn: number;
@@ -37,14 +39,23 @@ export const useClicktrackPlayer = (
     };
   }, []);
 
+  useEffect(() => {
+    clicktrack.current = _clicktrack;
+  }, [_clicktrack]);
+
   const schedule = (beat: number, time: number) => {
-    const currentSection = clicktrack.data.sections[totalSectionsPlayed];
-    const previousSection = clicktrack.data.sections[totalSectionsPlayed - 1];
+    const currentSection =
+      clicktrack.current.data.sections[totalSectionsPlayed];
+    const previousSection =
+      clicktrack.current.data.sections[totalSectionsPlayed - 1];
     const section = currentSection || previousSection;
 
     if (audioCtx.current === null) return;
     if (section === undefined) return;
-    if (currentSection === undefined && clicktrack.data.playExtraBeat === false)
+    if (
+      currentSection === undefined &&
+      clicktrack.current.data.playExtraBeat === false
+    )
       return;
     if (section instanceof Repeat) return;
 
@@ -71,6 +82,7 @@ export const useClicktrackPlayer = (
     oscillator.connect(gain);
 
     // Give it a nicer sound by fading out.
+    gain.gain.setValueAtTime(gain.gain.value, time);
     gain.gain.exponentialRampToValueAtTime(
       0.00001,
       time + metronomeSoundLength
@@ -99,8 +111,10 @@ export const useClicktrackPlayer = (
    * the next 16th note is due.
    */
   const next = () => {
-    const currentSection = clicktrack.data.sections[totalSectionsPlayed];
-    const previousSection = clicktrack.data.sections[totalSectionsPlayed - 1];
+    const currentSection =
+      clicktrack.current.data.sections[totalSectionsPlayed];
+    const previousSection =
+      clicktrack.current.data.sections[totalSectionsPlayed - 1];
     const section = currentSection || previousSection;
 
     if (section instanceof Repeat) {
@@ -177,7 +191,7 @@ export const useClicktrackPlayer = (
       unlocked = true;
     }
 
-    if (!validatePlay(clicktrack.data.sections)) return;
+    if (!validatePlay(clicktrack.current.data.sections)) return;
 
     setPlayingDisplay((previouslyPlayingDisplay) => !previouslyPlayingDisplay);
 
