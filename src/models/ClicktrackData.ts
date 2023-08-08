@@ -4,6 +4,7 @@ import {
   CLICKTRACK_DEFAULT_MUTED,
   CLICKTRACK_DEFAULT_NOTE_DURATION,
   CLICKTRACK_DEFAULT_PLAY_EXTRA_BEAT,
+  CLICKTRACK_DEFAULT_FADE_OUT,
 } from '../config';
 import { Metronome } from './Metronome';
 import { Repeat } from './Repeat';
@@ -15,6 +16,7 @@ export class ClicktrackData {
   public noteDuration: number;
   public muted: boolean;
   public playExtraBeat: boolean;
+  public fadeOutSound: boolean;
 
   constructor(options?: Partial<ClicktrackData>) {
     this.sections = options?.sections ?? [new Metronome(), new Repeat()];
@@ -25,5 +27,6 @@ export class ClicktrackData {
       options?.noteDuration ?? CLICKTRACK_DEFAULT_NOTE_DURATION;
     this.playExtraBeat =
       options?.playExtraBeat ?? CLICKTRACK_DEFAULT_PLAY_EXTRA_BEAT;
+    this.fadeOutSound = options?.fadeOutSound ?? CLICKTRACK_DEFAULT_FADE_OUT;
   }
 }

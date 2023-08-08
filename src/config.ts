@@ -14,6 +14,7 @@ export const CLICKTRACK_DEFAULT_NOTE: [note: string, octave: number] = ['C', 5];
 export const CLICKTRACK_DEFAULT_MUTED = false;
 export const CLICKTRACK_DEFAULT_NOTE_DURATION = 1;
 export const CLICKTRACK_DEFAULT_PLAY_EXTRA_BEAT = true;
+export const CLICKTRACK_DEFAULT_FADE_OUT = true;
 export const CLICKTRACK_DEFAULT_SECTION_TYPE = 'metronome';
 
 // Metronome Defaults

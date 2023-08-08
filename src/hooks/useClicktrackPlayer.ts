@@ -86,10 +86,12 @@ export const useClicktrackPlayer = (
 
     // Give it a nicer sound by fading out.
     gain.gain.setValueAtTime(volume, time);
-    gain.gain.exponentialRampToValueAtTime(
-      0.00001,
-      time + metronomeSoundLength
-    );
+    if (clicktrack.current.data.fadeOutSound) {
+      gain.gain.exponentialRampToValueAtTime(
+        0.00001,
+        time + metronomeSoundLength
+      );
+    }
 
     oscillator.start(time);
     oscillator.stop(time + metronomeSoundLength);
