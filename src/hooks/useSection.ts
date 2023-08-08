@@ -2,6 +2,7 @@ import { Repeat } from '../models/clicktrack/Repeat';
 import { Clicktrack } from '../models/clicktrack/Clicktrack';
 import { ClicktrackData } from '../models/clicktrack/ClicktrackData';
 import { Metronome } from '../models/clicktrack/Metronome';
+import { validateDeleteSection } from '../utils/validators/validateDeleteSection';
 
 export const useSection = (
   setClicktrack: (value: React.SetStateAction<Clicktrack>) => void,
@@ -58,8 +59,9 @@ export const useSection = (
 
   const deleteSection = (id: string): void => {
     setClicktrack((previousClicktrack) => {
-      if (previousClicktrack.data.sections.length === 1)
+      if (validateDeleteSection(previousClicktrack.data.sections) === false)
         return previousClicktrack;
+
       const updated = new Clicktrack({
         ...previousClicktrack,
         data: new ClicktrackData({
