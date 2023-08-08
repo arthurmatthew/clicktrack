@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { STORAGE_KEYS_CLICKTRACK } from '../config';
-import { Clicktrack } from '../models/clicktrack/Clicktrack';
+import { Clicktrack } from '../models/Clicktrack';
 
 export const useClicktrackUpdater = (clicktrack: Clicktrack) => {
   useEffect(() => {

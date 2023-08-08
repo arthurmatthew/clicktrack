@@ -4,7 +4,7 @@ import {
   TEMPO_TAPPER_COOLDOWN_TIME,
   TEMPO_TAPPER_MAX_SAMPLE_SIZE,
 } from '../config';
-import { Metronome } from '../models/clicktrack/Metronome';
+import { Metronome } from '../models/Metronome';
 
 export const useTempoTapper = (
   metronome: Metronome | undefined,

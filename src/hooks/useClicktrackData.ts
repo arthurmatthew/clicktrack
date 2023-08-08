@@ -1,5 +1,5 @@
-import { Clicktrack } from '../models/clicktrack/Clicktrack';
-import { ClicktrackData } from '../models/clicktrack/ClicktrackData';
+import { Clicktrack } from '../models/Clicktrack';
+import { ClicktrackData } from '../models/ClicktrackData';
 
 export const useClicktrackData = (
   setClicktrack: (value: React.SetStateAction<Clicktrack>) => void

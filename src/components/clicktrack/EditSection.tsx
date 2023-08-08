@@ -1,6 +1,6 @@
-import { Metronome } from '../../models/clicktrack/Metronome';
-import { Repeat } from '../../models/clicktrack/Repeat';
-import { Section } from '../../models/clicktrack/Section';
+import { Metronome } from '../../models/Metronome';
+import { Repeat } from '../../models/Repeat';
+import { Section } from '../../models/Section';
 import { EditMetronome } from './EditMetronome';
 import { EditRepeat } from './EditRepeat';
 import { SectionControls } from './SectionControls';

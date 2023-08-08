@@ -1,4 +1,4 @@
-import { Repeat } from '../../models/clicktrack/Repeat';
+import { Repeat } from '../../models/Repeat';
 
 export const SequencerListRepeat = ({
   repeat,

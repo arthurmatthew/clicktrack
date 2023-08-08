@@ -1,7 +1,7 @@
 import { motion, AnimatePresence, AnimationControls } from 'framer-motion';
 import { DataViewItem } from './DataViewItem';
 import { SettingsWindow } from './SettingsWindow';
-import { Clicktrack } from '../../models/clicktrack/Clicktrack';
+import { Clicktrack } from '../../models/Clicktrack';
 
 interface ITitle {
   clicktrack: Clicktrack;

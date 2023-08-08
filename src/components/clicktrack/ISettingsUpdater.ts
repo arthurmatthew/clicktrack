@@ -1,4 +1,4 @@
-import { ClicktrackData } from '../../models/clicktrack/ClicktrackData';
+import { ClicktrackData } from '../../models/ClicktrackData';
 
 export interface ISettingsUpdater {
   settings: ClicktrackData;

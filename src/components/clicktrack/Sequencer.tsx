@@ -1,6 +1,6 @@
-import { Clicktrack } from '../../models/clicktrack/Clicktrack';
-import { Metronome } from '../../models/clicktrack/Metronome';
-import { Repeat } from '../../models/clicktrack/Repeat';
+import { Clicktrack } from '../../models/Clicktrack';
+import { Metronome } from '../../models/Metronome';
+import { Repeat } from '../../models/Repeat';
 import { validateAddRepeat } from '../../utils/validators/validateAddRepeat';
 import { SequencerControls } from './SequencerControls';
 import { SequencerListMetronome } from './SequencerListMetronome';

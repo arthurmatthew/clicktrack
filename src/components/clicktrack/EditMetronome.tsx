@@ -1,4 +1,4 @@
-import { Metronome } from '../../models/clicktrack/Metronome';
+import { Metronome } from '../../models/Metronome';
 import { useTempoTapper } from '../../hooks/useTempoTapper';
 import { EditLength } from './EditLength';
 import { EditTempo } from './EditTempo';

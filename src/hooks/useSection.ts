@@ -1,7 +1,7 @@
-import { Repeat } from '../models/clicktrack/Repeat';
-import { Clicktrack } from '../models/clicktrack/Clicktrack';
-import { ClicktrackData } from '../models/clicktrack/ClicktrackData';
-import { Metronome } from '../models/clicktrack/Metronome';
+import { Repeat } from '../models/Repeat';
+import { Clicktrack } from '../models/Clicktrack';
+import { ClicktrackData } from '../models/ClicktrackData';
+import { Metronome } from '../models/Metronome';
 import { validateDeleteSection } from '../utils/validators/validateDeleteSection';
 
 export const useSection = (

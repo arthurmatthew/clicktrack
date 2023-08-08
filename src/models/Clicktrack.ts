@@ -2,8 +2,8 @@ import {
   CLICKTRACK_DEFAULT_NAME,
   CLICKTRACK_DEFAULT_POSITION,
   CLICKTRACK_DEFAULT_PERMANANT,
-} from '../../config';
-import { generateUniqueName } from '../../utils/generateUniqueName';
+} from '../config';
+import { generateUniqueName } from '../utils/generateUniqueName';
 import { ClicktrackData } from './ClicktrackData';
 import { v4 as uuidv4 } from 'uuid';
 import { Metronome } from './Metronome';

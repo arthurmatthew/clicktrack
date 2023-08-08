@@ -1,4 +1,4 @@
-import { ClicktrackData } from '../../models/clicktrack/ClicktrackData';
+import { ClicktrackData } from '../../models/ClicktrackData';
 import { sectionEmpty } from './sectionEmpty';
 import { sectionHasNoMetronomes } from './sectionHasNoMetronomes';
 import { sectionMetronomesAfterRepeatForever } from './sectionMetronomesAfterRepeatForever';

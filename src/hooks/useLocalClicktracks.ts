@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { DropResult } from 'react-beautiful-dnd';
 import { STORAGE_KEYS_CLICKTRACK } from '../config';
-import { Clicktrack } from '../models/clicktrack/Clicktrack';
+import { Clicktrack } from '../models/Clicktrack';
 import { addNewClicktrack } from '../utils/clicktracks/addNewClicktrack';
 import { changeClicktrackName } from '../utils/clicktracks/changeClicktrackName';
 import { importClicktrack } from '../utils/clicktracks/importClicktrack';

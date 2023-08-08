@@ -1,4 +1,4 @@
-import { Clicktrack } from '../models/clicktrack/Clicktrack';
+import { Clicktrack } from '../models/Clicktrack';
 import { CLICKTRACK_MAX_UNSUCCESSFUL_CHECKS } from '../config';
 
 export const generateUniqueName = (

@@ -1,5 +1,5 @@
-import { ClicktrackData } from '../../models/clicktrack/ClicktrackData';
-import { Metronome } from '../../models/clicktrack/Metronome';
+import { ClicktrackData } from '../../models/ClicktrackData';
+import { Metronome } from '../../models/Metronome';
 
 export const sectionHasNoMetronomes = (
   sections: ClicktrackData['sections']

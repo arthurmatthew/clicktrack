@@ -1,6 +1,6 @@
-import { ClicktrackData } from '../../models/clicktrack/ClicktrackData';
-import { Metronome } from '../../models/clicktrack/Metronome';
-import { Repeat } from '../../models/clicktrack/Repeat';
+import { ClicktrackData } from '../../models/ClicktrackData';
+import { Metronome } from '../../models/Metronome';
+import { Repeat } from '../../models/Repeat';
 
 export const sectionMetronomesAfterRepeatForever = (
   sections: ClicktrackData['sections']

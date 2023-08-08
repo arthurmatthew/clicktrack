@@ -1,4 +1,4 @@
-import { Clicktrack } from '../models/clicktrack/Clicktrack';
+import { Clicktrack } from '../models/Clicktrack';
 
 export const useClicktrackCode = (clicktrack: Clicktrack) => {
   const code = btoa(JSON.stringify(clicktrack));

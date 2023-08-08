@@ -1,5 +1,5 @@
 import { DropResult } from 'react-beautiful-dnd';
-import { Clicktrack } from '../../models/clicktrack/Clicktrack';
+import { Clicktrack } from '../../models/Clicktrack';
 
 export const onDragEnd = (
   setClicktracks: (value: React.SetStateAction<Clicktrack[]>) => void,

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Repeat } from '../../models/clicktrack/Repeat';
+import { Repeat } from '../../models/Repeat';
 import { NumberInput } from '../core/NumberInput';
 
 interface IEditRepeat {

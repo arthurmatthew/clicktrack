@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
-import { Repeat } from '../models/clicktrack/Repeat';
-import { Clicktrack } from '../models/clicktrack/Clicktrack';
+import { Repeat } from '../models/Repeat';
+import { Clicktrack } from '../models/Clicktrack';
 import { validatePlay } from '../utils/validators/validatePlay';
 
 export const useClicktrackPlayer = (

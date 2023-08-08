@@ -1,4 +1,4 @@
-import { ClicktrackData } from '../../models/clicktrack/ClicktrackData';
+import { ClicktrackData } from '../../models/ClicktrackData';
 import { sectionOnlyOne } from './sectionOnlyOne';
 
 export const validateDeleteSection = (sections: ClicktrackData['sections']) => {

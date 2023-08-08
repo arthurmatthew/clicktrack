@@ -1,9 +1,9 @@
 import { ControlWindow } from './ControlWindow';
 import { EditSection } from './EditSection';
 import { Sequencer } from './Sequencer';
-import { Clicktrack } from '../../models/clicktrack/Clicktrack';
-import { Repeat } from '../../models/clicktrack/Repeat';
-import { Metronome } from '../../models/clicktrack/Metronome';
+import { Clicktrack } from '../../models/Clicktrack';
+import { Repeat } from '../../models/Repeat';
+import { Metronome } from '../../models/Metronome';
 
 interface IControls {
   clicktrack: Clicktrack;

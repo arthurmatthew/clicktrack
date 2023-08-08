@@ -1,4 +1,4 @@
-import { Clicktrack } from '../../models/clicktrack/Clicktrack';
+import { Clicktrack } from '../../models/Clicktrack';
 
 export const importClicktrack = (
   setClicktracks: (value: React.SetStateAction<Clicktrack[]>) => void,

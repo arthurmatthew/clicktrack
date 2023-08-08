@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
-import { Clicktrack } from '../../models/clicktrack/Clicktrack';
+import { Clicktrack } from '../../models/Clicktrack';
 import { IComponent } from '../IComponent';
 import { Button } from '../core/Button';
 

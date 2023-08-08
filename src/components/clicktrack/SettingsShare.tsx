@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { SettingsButton } from './SettingsButton';
 import { SettingsSection } from './SettingsSection';
 import { useClicktrackCode } from '../../hooks/useClicktrackCode';
-import { Clicktrack } from '../../models/clicktrack/Clicktrack';
+import { Clicktrack } from '../../models/Clicktrack';
 
 interface ISettingsShare {
   clicktrack: Clicktrack;

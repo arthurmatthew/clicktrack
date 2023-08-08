@@ -1,4 +1,4 @@
-import { Metronome } from '../../models/clicktrack/Metronome';
+import { Metronome } from '../../models/Metronome';
 import { validateTempo } from '../../utils/validators/validateTempo';
 
 interface ITempoIncrementButton {

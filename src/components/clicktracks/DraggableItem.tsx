@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Draggable } from 'react-beautiful-dnd';
 import { ClicktrackListItem } from './ClicktrackListItem';
-import { Clicktrack } from '../../models/clicktrack/Clicktrack';
+import { Clicktrack } from '../../models/Clicktrack';
 
 interface IDraggableItem {
   clicktrack: Clicktrack;

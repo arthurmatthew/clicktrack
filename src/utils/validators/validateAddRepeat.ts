@@ -1,4 +1,4 @@
-import { ClicktrackData } from '../../models/clicktrack/ClicktrackData';
+import { ClicktrackData } from '../../models/ClicktrackData';
 import { sectionHasNoMetronomes } from './sectionHasNoMetronomes';
 
 export const validateAddRepeat = (sections: ClicktrackData['sections']) => {

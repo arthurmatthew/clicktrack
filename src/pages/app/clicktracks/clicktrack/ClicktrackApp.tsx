@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Title } from '../../../../components/clicktrack/Title';
 import { Controls } from '../../../../components/clicktrack/Controls';
-import { Clicktrack } from '../../../../models/clicktrack/Clicktrack';
+import { Clicktrack } from '../../../../models/Clicktrack';
 import { useClicktrackPlayer } from '../../../../hooks/useClicktrackPlayer';
 import { useVisualizer } from '../../../../hooks/useVisualizer';
 import { useSection } from '../../../../hooks/useSection';

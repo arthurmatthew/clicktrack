@@ -1,4 +1,4 @@
-import { ClicktrackData } from '../../models/clicktrack/ClicktrackData';
+import { ClicktrackData } from '../../models/ClicktrackData';
 
 export const sectionOnlyOne = (sections: ClicktrackData['sections']) => {
   if (sections.length !== 1) return false;

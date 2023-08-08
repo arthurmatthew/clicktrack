@@ -4,7 +4,7 @@ import {
   CLICKTRACK_DEFAULT_MUTED,
   CLICKTRACK_DEFAULT_NOTE_DURATION,
   CLICKTRACK_DEFAULT_PLAY_EXTRA_BEAT,
-} from '../../config';
+} from '../config';
 import { Metronome } from './Metronome';
 import { Repeat } from './Repeat';
 

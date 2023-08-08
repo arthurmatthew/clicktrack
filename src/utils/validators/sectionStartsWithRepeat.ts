@@ -1,5 +1,5 @@
-import { ClicktrackData } from '../../models/clicktrack/ClicktrackData';
-import { Repeat } from '../../models/clicktrack/Repeat';
+import { ClicktrackData } from '../../models/ClicktrackData';
+import { Repeat } from '../../models/Repeat';
 
 export const sectionStartsWithRepeat = (
   sections: ClicktrackData['sections']
