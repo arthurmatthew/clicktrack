@@ -92,8 +92,6 @@ export const useClicktrackPlayer = (
     localGain.connect(masterGain);
     oscillator.connect(localGain);
 
-    console.log(localVolume);
-
     // Give it a nicer sound by fading out.
     localGain.gain.setValueAtTime(localVolume, time);
     if (clicktrack.current.data.fadeOutSound) {
