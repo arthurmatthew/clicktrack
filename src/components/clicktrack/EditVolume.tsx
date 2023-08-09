@@ -8,7 +8,7 @@ export const EditVolume = ({
   return (
     <div className="flex flex-col gap-1">
       <h2 className="text-sm opacity-50">Volume</h2>
-      <div className="flex flex-col gap-1">
+      <div className="flex gap-1">
         <div className="flex gap-4">
           <button
             className="rounded-sm bg-neutral-200 px-10 py-2 dark:bg-neutral-900"
