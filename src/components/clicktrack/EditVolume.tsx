@@ -1,3 +1,4 @@
+import { RangeInput } from '../core/RangeInput';
 import { IMetronomeUpdater } from './IMetronomeUpdater';
 
 export const EditVolume = ({
@@ -27,29 +28,13 @@ export const EditVolume = ({
           </button>
         </div>
 
-        <div
-          className={`flex gap-3 rounded-sm bg-neutral-200 p-2 px-4 dark:bg-neutral-900 ${
-            metronome.muted && 'opacity-50'
-          }`}
-        >
-          <p className="roboto w-12 text-center">
-            {metronome.volume}
-            <span className="inter">%</span>
-          </p>
-          <input
-            className="w-full accent-purple-500"
-            disabled={metronome.muted}
-            type="range"
-            value={metronome.volume}
-            onChange={(e) =>
-              updateMetronome(metronome, {
-                volume: parseInt(e.currentTarget.value),
-              })
-            }
-            min={0}
-            max={150}
-          />
-        </div>
+        <RangeInput
+          volume={metronome.volume}
+          muted={metronome.muted}
+          updateVolume={(volume) =>
+            updateMetronome(metronome, { volume: volume })
+          }
+        />
       </div>
     </div>
   );
