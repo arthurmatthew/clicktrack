@@ -31,14 +31,6 @@ export const useClicktrackPlayer = (
 
   let selectedIdBeforePlaying: string;
 
-  // Initialize Audio
-  useEffect(() => {
-    audioCtx.current = new AudioContext();
-    return () => {
-      audioCtx.current = null;
-    };
-  }, []);
-
   useEffect(() => {
     clicktrack.current = _clicktrack;
   }, [_clicktrack]);
@@ -222,11 +214,13 @@ export const useClicktrackPlayer = (
     interval.current = null;
   };
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
+      audioCtx.current = null;
       if (interval.current) clearInterval(interval.current);
-    };
-  }, []);
+    },
+    []
+  );
 
   return { play, playingDisplay, selectedId, setSelectedId };
 };
