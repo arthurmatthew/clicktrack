@@ -23,6 +23,8 @@ export const METRONOME_DEFAULT_BPM = 120;
 export const METRONOME_DEFAULT_TIME_SIGNATURE: [beats: number, value: number] =
   [4, 4];
 export const METRONOME_DEFAULT_LENGTH = 2;
+export const METRONOME_DEFAULT_VOLUME = 100;
+export const METRONOME_DEFAULT_MUTED = false;
 
 // Repeat Defaults
 

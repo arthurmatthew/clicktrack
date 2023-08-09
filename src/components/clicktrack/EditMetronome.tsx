@@ -5,6 +5,7 @@ import { EditTempo } from './EditTempo';
 import { EditTimeSignature } from './EditTimeSignature';
 import { EditCustomTimeSignature } from './EditCustomTimeSignature';
 import { motion } from 'framer-motion';
+import { EditVolume } from './EditVolume';
 
 interface IEditMetronome {
   updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;
@@ -29,6 +30,7 @@ export const EditMetronome = ({
         <div className="flex flex-wrap gap-2 overflow-hidden rounded-sm sm:overflow-visible sm:rounded-none">
           <EditLength {...{ metronome, updateMetronome }} />
           <EditCustomTimeSignature {...{ metronome, updateMetronome }} />
+          <EditVolume {...{ metronome, updateMetronome }} />
         </div>
       </motion.div>
     );
