@@ -3,7 +3,6 @@ import {
   CLICKTRACK_DEFAULT_POSITION,
   CLICKTRACK_DEFAULT_PERMANANT,
 } from '../config';
-import { generateUniqueName } from '../utils/generateUniqueName';
 import { ClicktrackData } from './ClicktrackData';
 import { v4 as uuidv4 } from 'uuid';
 import { Metronome } from './Metronome';
@@ -41,12 +40,5 @@ export class Clicktrack {
         }),
       }),
     });
-  }
-  public static generateUniqueName(
-    name: string,
-    newName: string,
-    clicktracks: Clicktrack[]
-  ) {
-    return generateUniqueName(name, newName, clicktracks);
   }
 }

@@ -14,11 +14,7 @@ export const importClicktrack = (
           ...importedClicktrack,
           id: undefined,
           position: previousClicktracks.length + 1,
-          name: Clicktrack.generateUniqueName(
-            '',
-            importedClicktrack.name,
-            previousClicktracks
-          ),
+          name: importedClicktrack.name,
         }),
       ];
     } catch (error) {

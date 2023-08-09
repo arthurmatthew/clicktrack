@@ -27,8 +27,8 @@ export const useLocalClicktracks = (localStorageKey: string) => {
   const handleImport = () =>
     importClicktrack(setClicktracks, importRef.current?.value as string);
 
-  const handleNameChange = (name: string, newName: string) =>
-    changeClicktrackName(setClicktracks, name, newName);
+  const handleNameChange = (id: string, newName: string) =>
+    changeClicktrackName(setClicktracks, id, newName);
 
   const handleOnDragEnd = (result: DropResult) =>
     onDragEnd(setClicktracks, result);
