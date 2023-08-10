@@ -1,7 +1,7 @@
 import { Metronome } from '../../models/Metronome';
 import { validateTempo } from '../../utils/validators/validateTempo';
 
-interface TempoMultiplyButton {
+interface ITempoMultiplyButton {
   updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;
   selected: Metronome;
   degree: number;
@@ -13,7 +13,7 @@ export const TempoMultiplyButton = ({
   selected,
   degree,
   label,
-}: TempoMultiplyButton) => {
+}: ITempoMultiplyButton) => {
   return (
     <p
       onClick={() => {

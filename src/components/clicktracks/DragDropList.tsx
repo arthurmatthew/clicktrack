@@ -4,7 +4,7 @@ import { Clicktrack } from '../../models/Clicktrack';
 import { IImport, Import } from './Import';
 import { DraggableItem } from './DraggableItem';
 
-interface DragDropList extends IImport {
+interface IDragDropList extends IImport {
   clicktracks: Clicktrack[];
   handleOnDragEnd: (result: DropResult) => void;
   handleRemove: (id: string) => void;
@@ -18,7 +18,7 @@ export const DragDropList = ({
   handleRemove,
   handleNameChange,
   importRef,
-}: DragDropList) => {
+}: IDragDropList) => {
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <StrictModeDroppable droppableId="metronomes">

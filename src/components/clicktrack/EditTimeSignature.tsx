@@ -3,25 +3,14 @@ import { IMetronomeUpdater } from './IMetronomeUpdater';
 import { TimeSignatureButton } from './TimeSignatureButton';
 import { TimeSignatureShowMore } from './TimeSignatureShowMore';
 import { EditCustomTimeSignature } from './EditCustomTimeSignature';
-
-const timeSignatures: [beats: number, value: number][] = [
-  [4, 4],
-  [3, 4],
-  [12, 8],
-  [3, 8],
-  [6, 8],
-  [9, 8],
-  [2, 2],
-  [5, 4],
-  [6, 4],
-];
+import { METRONOME_TIME_SIGNATURES } from '../../config';
 
 export const EditTimeSignature = ({
   metronome,
   updateMetronome,
 }: IMetronomeUpdater) => {
-  const first3TimeSignatures = timeSignatures.slice(0, 3);
-  const restOfTimeSignatures = timeSignatures.slice(3);
+  const first3TimeSignatures = METRONOME_TIME_SIGNATURES.slice(0, 3);
+  const restOfTimeSignatures = METRONOME_TIME_SIGNATURES.slice(3);
 
   const [showingMore, setShowingMore] = useState(false);
 
