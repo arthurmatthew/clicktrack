@@ -34,14 +34,12 @@ export const DragDropList = ({
                 You don't have any metronomes right now.
               </h1>
             ) : (
-              clicktracks
-                .sort((a, b) => a.position - b.position)
-                .map((clicktrack, index) => (
-                  <DraggableItem
-                    key={clicktrack.id}
-                    {...{ handleNameChange, handleRemove, clicktrack, index }}
-                  />
-                ))
+              clicktracks.map((clicktrack, index) => (
+                <DraggableItem
+                  key={clicktrack.id}
+                  {...{ handleNameChange, handleRemove, clicktrack, index }}
+                />
+              ))
             )}
             {provided.placeholder}
           </ul>
