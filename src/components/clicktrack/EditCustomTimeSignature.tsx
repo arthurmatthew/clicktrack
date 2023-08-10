@@ -1,4 +1,5 @@
 import { validateTimeSignature } from '../../utils/validators/validateTimeSignature';
+import { CustomTimeSignatureRow } from './CustomTimeSignatureRow';
 import { IMetronomeUpdater } from './IMetronomeUpdater';
 
 export const EditCustomTimeSignature = ({
@@ -31,40 +32,16 @@ export const EditCustomTimeSignature = ({
 
   return (
     <div className="row-span-2 flex h-full w-full flex-col items-center justify-center gap-2 border-neutral-200 bg-white text-3xl dark:border-neutral-900 dark:bg-black">
-      <div className="flex items-center gap-2">
-        <button
-          onClick={increaseNumerator}
-          className="flex aspect-square h-7 items-center justify-center rounded-full bg-neutral-900"
-        >
-          <i className="bi-plus leading-[0]" />
-        </button>
-        <h1 className="w-14 text-center leading-[0]">
-          {metronome.timeSignature[0]}
-        </h1>
-        <button
-          onClick={decreaseNumerator}
-          className="flex aspect-square h-7 items-center justify-center rounded-full bg-neutral-900"
-        >
-          <i className="bi-dash leading-[0]" />
-        </button>
-      </div>
-      <div className="flex items-center gap-2">
-        <button
-          onClick={increaseDenominator}
-          className="flex aspect-square h-7 items-center justify-center rounded-full bg-neutral-900"
-        >
-          <i className="bi-plus leading-[0]" />
-        </button>
-        <h1 className="w-14 text-center leading-[0]">
-          {metronome.timeSignature[1]}
-        </h1>
-        <button
-          onClick={decreaseDenominator}
-          className="flex aspect-square h-7 items-center justify-center rounded-full bg-neutral-900"
-        >
-          <i className="bi-dash leading-[0]" />
-        </button>
-      </div>
+      <CustomTimeSignatureRow
+        increase={increaseNumerator}
+        decrease={decreaseNumerator}
+        number={metronome.timeSignature[0]}
+      />
+      <CustomTimeSignatureRow
+        increase={increaseDenominator}
+        decrease={decreaseDenominator}
+        number={metronome.timeSignature[1]}
+      />
     </div>
   );
 };
