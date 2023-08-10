@@ -7,11 +7,11 @@ import { EditCustomTimeSignature } from './EditCustomTimeSignature';
 const timeSignatures: [beats: number, value: number][] = [
   [4, 4],
   [3, 4],
-  [2, 2],
+  [12, 8],
   [3, 8],
   [6, 8],
   [9, 8],
-  [12, 8],
+  [2, 2],
   [5, 4],
   [6, 4],
 ];
