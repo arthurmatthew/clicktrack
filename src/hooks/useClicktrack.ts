@@ -18,10 +18,13 @@ export const useClicktrack = (loadedClicktrack: Clicktrack) => {
     useClicktrackPlayer(clicktrack, () => {
       startPulseAnimation();
     });
-  const { addSection, updateSection, copySection, deleteSection } = useSection(
-    setClicktrack,
-    setSelectedId
-  );
+  const {
+    addSection,
+    updateSection,
+    copySection,
+    deleteSection,
+    sequencerOnDragEnd,
+  } = useSection(setClicktrack, setSelectedId);
   const { updateClicktrackData } = useClicktrackDataUpdater(setClicktrack);
   const [settingsShown, setSettingsShown] = useState(false);
 
@@ -40,5 +43,6 @@ export const useClicktrack = (loadedClicktrack: Clicktrack) => {
     deleteSection,
     settingsShown,
     setSettingsShown,
+    sequencerOnDragEnd,
   };
 };

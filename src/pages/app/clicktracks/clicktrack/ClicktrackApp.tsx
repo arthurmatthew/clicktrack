@@ -24,6 +24,7 @@ export const ClicktrackApp = ({
     deleteSection,
     settingsShown,
     setSettingsShown,
+    sequencerOnDragEnd,
   } = useClicktrack(loadedClicktrack);
 
   return (
@@ -49,6 +50,7 @@ export const ClicktrackApp = ({
           updateSection,
           copySection,
           deleteSection,
+          sequencerOnDragEnd,
         }}
       />
     </motion.div>

@@ -3,6 +3,7 @@ import { Clicktrack } from '../models/Clicktrack';
 import { ClicktrackData } from '../models/ClicktrackData';
 import { Metronome } from '../models/Metronome';
 import { validateDeleteSection } from '../utils/validators/validateDeleteSection';
+import { DropResult } from 'react-beautiful-dnd';
 
 export const useSection = (
   setClicktrack: (value: React.SetStateAction<Clicktrack>) => void,
@@ -119,5 +120,32 @@ export const useSection = (
     });
   };
 
-  return { addSection, updateSection, copySection, deleteSection };
+  const sequencerOnDragEnd = (result: DropResult) => {
+    setClicktrack((previousClicktrack) => {
+      if (!result.destination) return previousClicktrack;
+
+      const [reorderedItem] = previousClicktrack.data.sections.splice(
+        result.source.index,
+        1
+      );
+
+      if (!reorderedItem) return previousClicktrack;
+
+      previousClicktrack.data.sections.splice(
+        result.destination.index,
+        0,
+        reorderedItem
+      );
+
+      return previousClicktrack;
+    });
+  };
+
+  return {
+    addSection,
+    updateSection,
+    copySection,
+    deleteSection,
+    sequencerOnDragEnd,
+  };
 };
