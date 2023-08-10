@@ -31,7 +31,7 @@ export const EditCustomTimeSignature = ({
     });
 
   return (
-    <div className="row-span-2 flex h-full w-full flex-col items-center justify-center gap-2 border-neutral-200 bg-white text-3xl dark:border-neutral-900 dark:bg-black">
+    <div className="row-span-2 flex h-full w-full flex-col items-center justify-center gap-1 border-neutral-200 bg-white text-2xl dark:border-neutral-900 dark:bg-black sm:gap-2 sm:text-3xl">
       <CustomTimeSignatureRow
         increase={increaseNumerator}
         decrease={decreaseNumerator}

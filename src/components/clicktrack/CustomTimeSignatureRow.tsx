@@ -22,7 +22,7 @@ export const CustomTimeSignatureRow = ({
       >
         <i className="bi-plus leading-[0]" />
       </motion.button>
-      <h1 className="w-14 text-center leading-[0]">{number}</h1>
+      <h1 className="w-7 text-center leading-[0] sm:w-14">{number}</h1>
       <motion.button
         whileTap={{ scale: 0.9 }}
         whileHover={{ scale: 1.05 }}
