@@ -14,6 +14,7 @@ interface ISequencer {
   setSelectedId: (id: string) => void;
   sequence: Clicktrack['data']['sections'];
   sequencerOnDragEnd: (result: DropResult) => void;
+  playingDisplay: boolean;
 }
 
 export const Sequencer = ({
@@ -22,6 +23,7 @@ export const Sequencer = ({
   setSelectedId,
   sequence,
   sequencerOnDragEnd,
+  playingDisplay,
 }: ISequencer) => {
   return (
     <div className="flex h-full select-none flex-col gap-2">
@@ -38,6 +40,7 @@ export const Sequencer = ({
                   index={index}
                   draggableId={section.id}
                   key={section.id}
+                  isDragDisabled={playingDisplay}
                 >
                   {(provided) => (
                     <li
@@ -84,23 +87,3 @@ export const Sequencer = ({
     </div>
   );
 };
-
-// const selected = section.id === selectedId;
-//                 if (section instanceof Metronome)
-//                   return (
-//                     <SequencerListMetronome
-//                       key={section.id}
-//                       selected={selected}
-//                       setSelectedId={setSelectedId}
-//                       metronome={section as Metronome}
-//                     />
-//                   );
-//                 if (section instanceof Repeat)
-//                   return (
-//                     <SequencerListRepeat
-//                       key={section.id}
-//                       selected={selected}
-//                       setSelectedId={setSelectedId}
-//                       repeat={section as Repeat}
-//                     />
-//                   );

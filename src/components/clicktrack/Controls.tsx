@@ -18,6 +18,7 @@ interface IControls {
   deleteSection: (id: string) => void;
   copySection: (id: string) => void;
   sequencerOnDragEnd: (result: DropResult) => void;
+  playingDisplay: boolean;
 }
 
 export const Controls = ({
@@ -29,6 +30,7 @@ export const Controls = ({
   deleteSection,
   copySection,
   sequencerOnDragEnd,
+  playingDisplay,
 }: IControls) => {
   return (
     <div className="grid gap-2 px-2 lg:grid-cols-2">
@@ -44,6 +46,7 @@ export const Controls = ({
           setSelectedId={setSelectedId}
           add={addSection}
           sequence={clicktrack.data.sections}
+          playingDisplay={playingDisplay}
         />
         {/* <Routes>
           <Route path="/" element={<Outlet />}>

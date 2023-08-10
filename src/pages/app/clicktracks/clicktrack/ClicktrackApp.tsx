@@ -51,6 +51,7 @@ export const ClicktrackApp = ({
           copySection,
           deleteSection,
           sequencerOnDragEnd,
+          playingDisplay,
         }}
       />
     </motion.div>
