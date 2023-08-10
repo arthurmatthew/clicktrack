@@ -2,34 +2,29 @@ import { motion } from 'framer-motion';
 import { Title } from '../../../../components/clicktrack/Title';
 import { Controls } from '../../../../components/clicktrack/Controls';
 import { Clicktrack } from '../../../../models/Clicktrack';
-import { useClicktrackPlayer } from '../../../../hooks/useClicktrackPlayer';
-import { useVisualizer } from '../../../../hooks/useVisualizer';
-import { useSection } from '../../../../hooks/useSection';
-import { useClicktrackUpdater } from '../../../../hooks/useClicktrackUpdater';
-import { useClicktrackData } from '../../../../hooks/useClicktrackData';
-import { useState } from 'react';
+import { useClicktrack } from '../../../../hooks/useClicktrack';
 
 export const ClicktrackApp = ({
   loadedClicktrack,
 }: {
   loadedClicktrack: Clicktrack;
 }) => {
-  const [clicktrack, setClicktrack] = useState<Clicktrack>(
-    Clicktrack.parseInternals(loadedClicktrack)
-  );
-
-  useClicktrackUpdater(clicktrack);
-  const { controls, pulse } = useVisualizer();
-  const { play, playingDisplay, selectedId, setSelectedId } =
-    useClicktrackPlayer(clicktrack, () => {
-      pulse();
-    });
-  const { addSection, updateSection, copySection, deleteSection } = useSection(
-    setClicktrack,
-    setSelectedId
-  );
-  const { updateClicktrackData } = useClicktrackData(setClicktrack);
-  const [settingsShown, setSettingsShown] = useState(false);
+  const {
+    clicktrack,
+    play,
+    playingDisplay,
+    selectedId,
+    setSelectedId,
+    pulseAnimationControls,
+    startPulseAnimation,
+    updateClicktrackData,
+    addSection,
+    updateSection,
+    copySection,
+    deleteSection,
+    settingsShown,
+    setSettingsShown,
+  } = useClicktrack(loadedClicktrack);
 
   return (
     <motion.div className="flex min-h-screen min-w-full flex-col">
@@ -38,8 +33,8 @@ export const ClicktrackApp = ({
           clicktrack,
           play,
           playingDisplay,
-          pulse,
-          controls,
+          startPulseAnimation,
+          pulseAnimationControls,
           settingsShown,
           setSettingsShown,
           updateClicktrackData,

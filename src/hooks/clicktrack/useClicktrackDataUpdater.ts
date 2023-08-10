@@ -1,7 +1,7 @@
-import { Clicktrack } from '../models/Clicktrack';
-import { ClicktrackData } from '../models/ClicktrackData';
+import { Clicktrack } from '../../models/Clicktrack';
+import { ClicktrackData } from '../../models/ClicktrackData';
 
-export const useClicktrackData = (
+export const useClicktrackDataUpdater = (
   setClicktrack: (value: React.SetStateAction<Clicktrack>) => void
 ) => {
   const updateClicktrackData = (update: Partial<Clicktrack['data']>): void => {
