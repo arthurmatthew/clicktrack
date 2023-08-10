@@ -4,6 +4,7 @@ import { Clicktrack } from '../../models/Clicktrack';
 
 export const useClicktrackUpdater = (clicktrack: Clicktrack) => {
   useEffect(() => {
+    console.log(clicktrack);
     const storedClicktracks = JSON.parse(
       localStorage.getItem(STORAGE_KEYS_CLICKTRACK) as string
     ) as Clicktrack[];

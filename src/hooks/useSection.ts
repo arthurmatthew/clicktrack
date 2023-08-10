@@ -121,23 +121,19 @@ export const useSection = (
   };
 
   const sequencerOnDragEnd = (result: DropResult) => {
+    if (!result.destination) return;
+    const { source, destination } = result;
     setClicktrack((previousClicktrack) => {
-      if (!result.destination) return previousClicktrack;
-
-      const [reorderedItem] = previousClicktrack.data.sections.splice(
-        result.source.index,
-        1
-      );
-
-      if (!reorderedItem) return previousClicktrack;
-
-      previousClicktrack.data.sections.splice(
-        result.destination.index,
-        0,
-        reorderedItem
-      );
-
-      return previousClicktrack;
+      const result = [...previousClicktrack.data.sections];
+      const [removed] = result.splice(source.index, 1);
+      if (removed) result.splice(destination.index, 0, removed);
+      return new Clicktrack({
+        ...previousClicktrack,
+        data: {
+          ...previousClicktrack.data,
+          sections: result,
+        },
+      });
     });
   };
 
