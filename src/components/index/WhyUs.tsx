@@ -1,6 +1,6 @@
 export const WhyUs = () => {
   return (
-    <section className="grid grid-cols-2 gap-10">
+    <section className="grid gap-10 sm:grid-cols-2">
       <div className="flex flex-col gap-5">
         <h1 className="text-4xl font-semibold">
           So... <span className="text-purple-500">why us</span>?

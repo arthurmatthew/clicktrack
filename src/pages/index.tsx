@@ -2,6 +2,7 @@ import { Hero } from '../components/index/Hero';
 import { Features } from '../components/index/Features';
 import { NonHeroContent } from '../components/index/NonHeroContent';
 import { WhyUs } from '../components/index/WhyUs';
+import { BeforeFooter } from '../components/index/BeforeFooter';
 
 export const Index = () => {
   return (
@@ -11,6 +12,7 @@ export const Index = () => {
       <NonHeroContent>
         <WhyUs />
       </NonHeroContent>
+      <BeforeFooter />
     </>
   );
 };
