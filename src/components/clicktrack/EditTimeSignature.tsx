@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { IMetronomeUpdater } from './IMetronomeUpdater';
 import { TimeSignatureButton } from './TimeSignatureButton';
 import { TimeSignatureShowMore } from './TimeSignatureShowMore';
+import { EditCustomTimeSignature } from './EditCustomTimeSignature';
 
 const timeSignatures: [beats: number, value: number][] = [
   [4, 4],
@@ -19,15 +20,16 @@ export const EditTimeSignature = ({
   metronome,
   updateMetronome,
 }: IMetronomeUpdater) => {
-  const first5TimeSignatures = timeSignatures.slice(0, 5);
-  const restOfTimeSignatures = timeSignatures.slice(5);
+  const first3TimeSignatures = timeSignatures.slice(0, 3);
+  const restOfTimeSignatures = timeSignatures.slice(3);
 
   const [showingMore, setShowingMore] = useState(false);
 
   return (
     <div>
       <div className="lora grid grid-cols-3 gap-px overflow-hidden rounded-sm border-[1px] border-neutral-200 bg-neutral-200 text-2xl font-semibold dark:border-neutral-900 dark:bg-neutral-900">
-        {first5TimeSignatures.map((timeSignature) => (
+        <EditCustomTimeSignature {...{ metronome, updateMetronome }} />
+        {first3TimeSignatures.map((timeSignature) => (
           <TimeSignatureButton
             key={JSON.stringify(timeSignature)}
             onClick={() =>
