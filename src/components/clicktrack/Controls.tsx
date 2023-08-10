@@ -36,7 +36,7 @@ export const Controls = ({
     <div className="grid gap-2 px-2 lg:grid-cols-2">
       <ControlWindow
         tabs={[
-          { title: 'Sequencer', to: 'sequencer' },
+          { title: 'Sequencer' },
           // { title: 'Settings', to: 'settings' },
         ]}
       >

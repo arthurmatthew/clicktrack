@@ -64,11 +64,7 @@ export const ClicktrackListItem = ({
         </div>
         <div className="my-2 block h-px w-full bg-gradient-to-r from-neutral-300 to-transparent dark:from-neutral-700 sm:hidden" />
         <div className="flex gap-4">
-          <Link
-            to={`/app/clicktracks/${encodeURIComponent(
-              metronome.id
-            )}/sequencer`}
-          >
+          <Link to={`/app/clicktracks/${encodeURIComponent(metronome.id)}`}>
             <Button className="bg-neutral-200 dark:bg-neutral-900">Open</Button>
           </Link>
 
