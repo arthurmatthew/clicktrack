@@ -21,7 +21,7 @@ export const HeroLinks = () => {
             </motion.button>
           </motion.span>
         </Link>
-        <Link to="/app">
+        <a href="#about">
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -36,7 +36,7 @@ export const HeroLinks = () => {
               Learn more
             </motion.button>
           </motion.span>
-        </Link>
+        </a>
       </div>
       <motion.p
         initial={{ opacity: 0 }}
