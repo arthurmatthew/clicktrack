@@ -16,7 +16,6 @@ export const useLocalClicktracks = (localStorageKey: string) => {
       new Clicktrack({
         permanant: true,
         id: 'default',
-        position: -1,
       }),
     ],
     localStorageKey

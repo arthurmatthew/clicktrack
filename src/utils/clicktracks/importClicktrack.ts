@@ -13,7 +13,6 @@ export const importClicktrack = (
         new Clicktrack({
           ...importedClicktrack,
           id: undefined,
-          position: previousClicktracks.length + 1,
           name: importedClicktrack.name,
         }),
       ];

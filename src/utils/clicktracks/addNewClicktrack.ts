@@ -7,7 +7,6 @@ export const addNewClicktrack = (
     ...previousClicktracks,
     new Clicktrack({
       name: `New Metronome ${previousClicktracks.length + 1}`,
-      position: previousClicktracks.length + 1,
     }),
   ]);
   return;

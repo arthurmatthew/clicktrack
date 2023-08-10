@@ -7,7 +7,6 @@ export const CLICKTRACK_MIN_BPM = 20; // The minimum BPM the user can set in the
 // Clicktrack General Defaults
 
 export const CLICKTRACK_DEFAULT_NAME = 'Default Clicktrack';
-export const CLICKTRACK_DEFAULT_POSITION = -1;
 export const CLICKTRACK_DEFAULT_PERMANANT = false;
 export const CLICKTRACK_DEFAULT_MASTER_VOLUME = 100; // Default master volume percentage
 export const CLICKTRACK_DEFAULT_NOTE: [note: string, octave: number] = ['C', 5];
