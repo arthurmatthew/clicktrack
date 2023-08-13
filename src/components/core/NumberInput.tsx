@@ -34,10 +34,10 @@ export const NumberInput = ({
       >
         <button
           disabled={disabled}
-          onClick={increase}
+          onClick={decrease}
           className="group w-10 disabled:cursor-not-allowed"
         >
-          <i className="bi-plus-lg duration-75 group-hover:text-purple-500" />
+          <i className="bi-dash-lg duration-75 group-hover:text-purple-500" />
         </button>
         <div className="flex aspect-square w-10 items-center justify-center overflow-hidden bg-neutral-300 dark:bg-neutral-800">
           <input
@@ -49,10 +49,10 @@ export const NumberInput = ({
         </div>
         <button
           disabled={disabled}
-          onClick={decrease}
+          onClick={increase}
           className="group w-10 disabled:cursor-not-allowed"
         >
-          <i className="bi-dash-lg duration-75 group-hover:text-purple-500" />
+          <i className="bi-plus-lg duration-75 group-hover:text-purple-500" />
         </button>
       </div>
     </div>
