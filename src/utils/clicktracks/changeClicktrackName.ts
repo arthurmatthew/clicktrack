@@ -15,12 +15,15 @@ export const changeClicktrackName = (
 
     if (!clicktrackToBeNamed) return previousClicktracks;
 
-    return [
-      ...clicktracksWithoutToBeNamed,
-      {
-        ...clicktrackToBeNamed,
-        name: newName,
-      },
-    ];
+    const clicktrackToBeNamedIndex =
+      previousClicktracks.indexOf(clicktrackToBeNamed);
+
+    clicktracksWithoutToBeNamed.splice(
+      clicktrackToBeNamedIndex,
+      0,
+      new Clicktrack({ ...clicktrackToBeNamed, name: newName })
+    );
+
+    return clicktracksWithoutToBeNamed;
   });
 };
