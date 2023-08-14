@@ -12,8 +12,9 @@ export const EditRepeat = ({ updateRepeat, repeat }: IEditRepeat) => {
     return (
       <motion.div
         className="flex flex-col gap-px overflow-hidden rounded-sm text-lg sm:gap-2 sm:overflow-visible sm:rounded-none"
-        initial={{ x: -20, opacity: 0 }}
-        animate={{ x: 0, opacity: 100 }}
+        initial={{ opacity: 0, filter: 'blur(2px)' }}
+        animate={{ opacity: 100, filter: 'blur(0)' }}
+        transition={{ duration: 0.2 }}
       >
         <div className="flex items-center gap-3 px-2 py-1 sm:rounded-sm">
           <h1 className="text-lg">Repeat Forever: </h1>
