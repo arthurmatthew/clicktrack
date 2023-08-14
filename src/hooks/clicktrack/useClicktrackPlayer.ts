@@ -67,15 +67,10 @@ export const useClicktrackPlayer = (
     if (noteType === 4 && beat % 4) return; // Note divisible by 4 means the current beat is not a 16th note
     if (noteType === 2 && beat % 8) return;
 
-    oscillator.frequency.value = 880.0;
+    oscillator.frequency.value = 440.0;
     if (beat === 0) {
       oscillator.frequency.value = 880.0;
       callback();
-    } else if (beat % 4 === 0) {
-      oscillator.frequency.value = 440.0;
-      callback();
-    } else {
-      oscillator.frequency.value = 220.0;
     }
 
     masterGain.gain.value = masterVolume;
