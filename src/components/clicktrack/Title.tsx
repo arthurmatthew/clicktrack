@@ -32,11 +32,11 @@ export const Title = ({
 
   return (
     <div className="flex w-full items-center justify-center py-8">
-      <div className="flex max-w-5xl flex-col items-center justify-center sm:flex-row">
+      <div className="flex max-w-5xl flex-col items-center justify-center px-6 sm:flex-row sm:px-0">
         <div className="flex flex-col items-center gap-2">
           <div className="flex items-center gap-3">
             <h1
-              className={`flex cursor-default items-center text-3xl focus:outline-0 ${
+              className={`flex cursor-default items-center break-all text-center text-3xl focus:outline-0 ${
                 editing && 'cursor-text underline'
               }`}
               suppressContentEditableWarning
