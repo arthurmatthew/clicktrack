@@ -17,9 +17,9 @@ export const EditCustomTimeSignature = ({
       timeSignature: [prevNumerator + 1, prevDenominator],
     });
   const increaseDenominator = () =>
-    validateTimeSignature(prevDenominator + 1, notify) &&
+    validateTimeSignature(prevDenominator * 2, notify) &&
     updateMetronome(metronome, {
-      timeSignature: [prevNumerator, prevDenominator + 1],
+      timeSignature: [prevNumerator, prevDenominator * 2],
     });
   const decreaseNumerator = () =>
     validateTimeSignature(prevNumerator - 1, notify) &&
@@ -27,9 +27,9 @@ export const EditCustomTimeSignature = ({
       timeSignature: [prevNumerator - 1, prevDenominator],
     });
   const decreaseDenominator = () =>
-    validateTimeSignature(prevDenominator - 1, notify) &&
+    validateTimeSignature(prevDenominator / 2, notify) &&
     updateMetronome(metronome, {
-      timeSignature: [prevNumerator, prevDenominator - 1],
+      timeSignature: [prevNumerator, prevDenominator / 2],
     });
 
   return (
