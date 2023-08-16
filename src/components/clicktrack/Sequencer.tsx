@@ -45,35 +45,43 @@ export const Sequencer = ({
                   key={section.id}
                   isDragDisabled={playingDisplay}
                 >
-                  {(provided) => (
-                    <li
-                      {...provided.dragHandleProps}
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                    >
-                      {(() => {
-                        const selected = section.id === selectedId;
-                        if (section instanceof Metronome)
-                          return (
-                            <SequencerListMetronome
-                              key={section.id}
-                              selected={selected}
-                              setSelectedId={setSelectedId}
-                              metronome={section as Metronome}
-                            />
-                          );
-                        if (section instanceof Repeat)
-                          return (
-                            <SequencerListRepeat
-                              key={section.id}
-                              selected={selected}
-                              setSelectedId={setSelectedId}
-                              repeat={section as Repeat}
-                            />
-                          );
-                      })()}
-                    </li>
-                  )}
+                  {(provided) => {
+                    const transform = provided.draggableProps.style?.transform;
+                    if (transform && provided.draggableProps.style) {
+                      const transformY = transform.split(',')[1];
+                      provided.draggableProps.style.transform =
+                        'translate(0px,' + transformY;
+                    }
+                    return (
+                      <li
+                        {...provided.dragHandleProps}
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                      >
+                        {(() => {
+                          const selected = section.id === selectedId;
+                          if (section instanceof Metronome)
+                            return (
+                              <SequencerListMetronome
+                                key={section.id}
+                                selected={selected}
+                                setSelectedId={setSelectedId}
+                                metronome={section as Metronome}
+                              />
+                            );
+                          if (section instanceof Repeat)
+                            return (
+                              <SequencerListRepeat
+                                key={section.id}
+                                selected={selected}
+                                setSelectedId={setSelectedId}
+                                repeat={section as Repeat}
+                              />
+                            );
+                        })()}
+                      </li>
+                    );
+                  }}
                 </Draggable>
               ))}
               {provided.placeholder}
