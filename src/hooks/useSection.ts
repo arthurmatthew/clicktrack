@@ -3,11 +3,15 @@ import { Clicktrack } from '../models/Clicktrack';
 import { ClicktrackData } from '../models/ClicktrackData';
 import { Metronome } from '../models/Metronome';
 import { validateDeleteSection } from '../utils/validators/validateDeleteSection';
+import { DropResult } from 'react-beautiful-dnd';
+import { useNotify } from './useNotify';
 
 export const useSection = (
   setClicktrack: (value: React.SetStateAction<Clicktrack>) => void,
   setSelectedId: (value: React.SetStateAction<string>) => void
 ) => {
+  const { notify } = useNotify();
+
   const addSection = (newSection: Metronome | Repeat): void => {
     setClicktrack(
       (previousClicktrack) =>
@@ -59,7 +63,10 @@ export const useSection = (
 
   const deleteSection = (id: string): void => {
     setClicktrack((previousClicktrack) => {
-      if (validateDeleteSection(previousClicktrack.data.sections) === false)
+      if (
+        validateDeleteSection(previousClicktrack.data.sections, notify) ===
+        false
+      )
         return previousClicktrack;
 
       const updated = new Clicktrack({
@@ -95,7 +102,6 @@ export const useSection = (
 
   const copySection = (id: string) => {
     setClicktrack((previousClicktrack) => {
-      console.log('copy');
       const sectionToCopy = previousClicktrack.data.sections.find(
         (section) => section.id === id
       );
@@ -108,7 +114,6 @@ export const useSection = (
             return new Repeat({ ...sectionToCopy, id: undefined });
         }
       };
-      console.log([...previousClicktrack.data.sections, sectionCopy()]);
       return new Clicktrack({
         ...previousClicktrack,
         data: {
@@ -119,5 +124,28 @@ export const useSection = (
     });
   };
 
-  return { addSection, updateSection, copySection, deleteSection };
+  const sequencerOnDragEnd = (result: DropResult) => {
+    if (!result.destination) return;
+    const { source, destination } = result;
+    setClicktrack((previousClicktrack) => {
+      const result = [...previousClicktrack.data.sections];
+      const [removed] = result.splice(source.index, 1);
+      if (removed) result.splice(destination.index, 0, removed);
+      return new Clicktrack({
+        ...previousClicktrack,
+        data: {
+          ...previousClicktrack.data,
+          sections: result,
+        },
+      });
+    });
+  };
+
+  return {
+    addSection,
+    updateSection,
+    copySection,
+    deleteSection,
+    sequencerOnDragEnd,
+  };
 };

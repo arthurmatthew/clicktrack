@@ -1,62 +1,48 @@
-import { NumberInput } from '../core/NumberInput';
+import { useNotify } from '../../hooks/useNotify';
+import { validateTimeSignature } from '../../utils/validators/validateTimeSignature';
+import { CustomTimeSignatureRow } from './CustomTimeSignatureRow';
 import { IMetronomeUpdater } from './IMetronomeUpdater';
 
 export const EditCustomTimeSignature = ({
   metronome,
   updateMetronome,
 }: IMetronomeUpdater) => {
+  const { notify } = useNotify();
+  const prevNumerator = metronome.timeSignature[0];
+  const prevDenominator = metronome.timeSignature[1];
+
   const increaseNumerator = () =>
+    validateTimeSignature(prevNumerator + 1, notify) &&
     updateMetronome(metronome, {
-      timeSignature: [
-        metronome.timeSignature[0] + 1,
-        metronome.timeSignature[1],
-      ],
+      timeSignature: [prevNumerator + 1, prevDenominator],
+    });
+  const increaseDenominator = () =>
+    validateTimeSignature(prevDenominator + 1, notify) &&
+    updateMetronome(metronome, {
+      timeSignature: [prevNumerator, prevDenominator + 1],
     });
   const decreaseNumerator = () =>
+    validateTimeSignature(prevNumerator - 1, notify) &&
     updateMetronome(metronome, {
-      timeSignature: [
-        metronome.timeSignature[0] - 1,
-        metronome.timeSignature[1],
-      ],
-    });
-
-  const increaseDenominator = () =>
-    updateMetronome(metronome, {
-      timeSignature: [
-        metronome.timeSignature[0],
-        metronome.timeSignature[1] + 1,
-      ],
+      timeSignature: [prevNumerator - 1, prevDenominator],
     });
   const decreaseDenominator = () =>
+    validateTimeSignature(prevDenominator - 1, notify) &&
     updateMetronome(metronome, {
-      timeSignature: [
-        metronome.timeSignature[0],
-        metronome.timeSignature[1] - 1,
-      ],
+      timeSignature: [prevNumerator, prevDenominator - 1],
     });
 
   return (
-    <div className="flex flex-col gap-1">
-      <NumberInput
-        label="Time Signature"
-        value={metronome.timeSignature[0]}
-        set={(value) =>
-          updateMetronome(metronome, {
-            timeSignature: [value, metronome.timeSignature[1]],
-          })
-        }
+    <div className="row-span-2 flex h-full w-full flex-col items-center justify-center gap-1 border-neutral-200 bg-white text-2xl dark:border-neutral-900 dark:bg-black sm:gap-2 sm:text-3xl">
+      <CustomTimeSignatureRow
         increase={increaseNumerator}
         decrease={decreaseNumerator}
+        number={metronome.timeSignature[0]}
       />
-      <NumberInput
-        value={metronome.timeSignature[1]}
-        set={(value) =>
-          updateMetronome(metronome, {
-            timeSignature: [metronome.timeSignature[0], value],
-          })
-        }
+      <CustomTimeSignatureRow
         increase={increaseDenominator}
         decrease={decreaseDenominator}
+        number={metronome.timeSignature[1]}
       />
     </div>
   );

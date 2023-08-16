@@ -14,7 +14,14 @@ export const Features = () => {
         </InfoCard>
         <InfoCard icon="github" title="Open Source">
           Clicktrack is open source which means users like you can help improve
-          our project.
+          our project.{' '}
+          <a
+            target="_blank"
+            className="underline"
+            href="https://www.github.com/arthurmatthew/clicktrack"
+          >
+            Check it out
+          </a>
         </InfoCard>
       </div>
     </section>

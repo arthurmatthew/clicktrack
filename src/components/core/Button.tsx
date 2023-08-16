@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { IComponent } from '../IComponent';
 
-interface IButton extends IComponent {
+export interface IButton extends IComponent {
   onClick?: React.MouseEventHandler;
   disabled?: boolean;
 }

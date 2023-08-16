@@ -1,8 +1,9 @@
 import { CLICKTRACK_MIN_BPM } from '../../config';
+import { TNotify } from '../../types';
 
-export const tempoTooLow = (amount: number) => {
+export const tempoTooLow = (amount: number, notify: TNotify) => {
   if (amount >= CLICKTRACK_MIN_BPM) return false;
 
-  console.error('Your tempo cannot be below ' + CLICKTRACK_MIN_BPM);
+  notify('Your tempo cannot be below ' + CLICKTRACK_MIN_BPM, 'error');
   return true;
 };

@@ -2,7 +2,7 @@ import { DragDropList } from '../../../components/clicktracks/DragDropList';
 import { Footer } from '../../../components/clicktracks/Footer';
 import { Heading } from '../../../components/clicktracks/Heading';
 
-import { useLocalClicktracks } from '../../../hooks/useLocalClicktracks';
+import { useClicktracks } from '../../../hooks/useClicktracks';
 import { STORAGE_KEYS_CLICKTRACK } from '../../../config';
 
 /**
@@ -18,7 +18,7 @@ const ClicktracksIndex = () => {
     handleRemove,
     handleNameChange,
     handleOnDragEnd,
-  } = useLocalClicktracks(STORAGE_KEYS_CLICKTRACK);
+  } = useClicktracks(STORAGE_KEYS_CLICKTRACK);
 
   return (
     <div className="mx-4 my-10 flex flex-grow flex-col">

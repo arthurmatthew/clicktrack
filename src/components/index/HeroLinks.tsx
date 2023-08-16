@@ -21,7 +21,7 @@ export const HeroLinks = () => {
             </motion.button>
           </motion.span>
         </Link>
-        <Link to="/app">
+        <a href="#about">
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -36,12 +36,17 @@ export const HeroLinks = () => {
               Learn more
             </motion.button>
           </motion.span>
-        </Link>
+        </a>
       </div>
-      <p className="my-8 rounded-full border-[1px] border-white bg-neutral-800 p-2 px-4 text-sm">
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.4 }}
+        className="my-8 rounded-full border-2 border-neutral-200 bg-white p-2 px-4 text-sm dark:border-neutral-800 dark:bg-black"
+      >
         Clicktrack now lives at{' '}
         <b className="font-semibold">www.useclicktrack.com</b>
-      </p>
+      </motion.p>
     </div>
   );
 };

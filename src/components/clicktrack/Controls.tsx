@@ -4,6 +4,7 @@ import { Sequencer } from './Sequencer';
 import { Clicktrack } from '../../models/Clicktrack';
 import { Repeat } from '../../models/Repeat';
 import { Metronome } from '../../models/Metronome';
+import { DropResult } from 'react-beautiful-dnd';
 
 interface IControls {
   clicktrack: Clicktrack;
@@ -16,6 +17,8 @@ interface IControls {
   ) => void;
   deleteSection: (id: string) => void;
   copySection: (id: string) => void;
+  sequencerOnDragEnd: (result: DropResult) => void;
+  playingDisplay: boolean;
 }
 
 export const Controls = ({
@@ -26,20 +29,24 @@ export const Controls = ({
   updateSection,
   deleteSection,
   copySection,
+  sequencerOnDragEnd,
+  playingDisplay,
 }: IControls) => {
   return (
     <div className="grid gap-2 px-2 lg:grid-cols-2">
       <ControlWindow
         tabs={[
-          { title: 'Sequencer', to: 'sequencer' },
+          { title: 'Sequencer' },
           // { title: 'Settings', to: 'settings' },
         ]}
       >
         <Sequencer
+          sequencerOnDragEnd={sequencerOnDragEnd}
           selectedId={selectedId}
           setSelectedId={setSelectedId}
           add={addSection}
           sequence={clicktrack.data.sections}
+          playingDisplay={playingDisplay}
         />
         {/* <Routes>
           <Route path="/" element={<Outlet />}>

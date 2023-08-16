@@ -1,8 +1,11 @@
-export const tempoNotIntegral = (amount: number) => {
+import { TNotify } from '../../types';
+
+export const tempoNotIntegral = (amount: number, notify: TNotify) => {
   if (Number.isSafeInteger(amount)) return false;
 
-  console.warn(
-    "Your tempo must be a whole number. We've gone ahead and updated it for you."
+  notify(
+    "Your tempo must be a whole number. We've gone ahead and updated it for you.",
+    'warning'
   );
   return true;
 };

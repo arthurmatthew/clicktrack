@@ -1,7 +1,8 @@
+import { useNotify } from '../../hooks/useNotify';
 import { Metronome } from '../../models/Metronome';
 import { validateTempo } from '../../utils/validators/validateTempo';
 
-interface TempoMultiplyButton {
+interface ITempoMultiplyButton {
   updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;
   selected: Metronome;
   degree: number;
@@ -13,15 +14,17 @@ export const TempoMultiplyButton = ({
   selected,
   degree,
   label,
-}: TempoMultiplyButton) => {
+}: ITempoMultiplyButton) => {
+  const { notify } = useNotify();
+
   return (
     <p
       onClick={() => {
         updateMetronome(selected, {
-          bpm: validateTempo(selected.bpm * degree),
+          bpm: validateTempo(selected.bpm * degree, notify),
         });
       }}
-      className="flex flex-grow cursor-pointer items-center justify-center border-x-[1px] border-white bg-neutral-200 py-2 text-lg duration-75 hover:text-purple-400 dark:border-black dark:bg-neutral-900 dark:hover:text-purple-700"
+      className="over:bg-neutral-900 flex flex-grow cursor-pointer items-center justify-center border-x-[1px] border-white bg-neutral-200 py-2 text-lg duration-75 hover:bg-neutral-900 hover:text-white dark:border-black dark:bg-neutral-900 dark:hover:bg-neutral-200 dark:hover:text-black"
     >
       {label}
     </p>

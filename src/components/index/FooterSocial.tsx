@@ -4,16 +4,19 @@ export const FooterSocial = () => {
   return (
     <FooterSection title={'Social'}>
       <li>
-        <a>Blog</a>
+        <a>More</a>
       </li>
       <li>
-        <a>Twitter</a>
+        <a>will</a>
       </li>
       <li>
-        <a>Instagram</a>
+        <a>be</a>
       </li>
       <li>
-        <a>YouTube</a>
+        <a>coming</a>
+      </li>
+      <li>
+        <a>soon</a>
       </li>
     </FooterSection>
   );

@@ -1,9 +1,11 @@
 import { ClicktrackData } from '../../models/ClicktrackData';
 import { Metronome } from '../../models/Metronome';
 import { Repeat } from '../../models/Repeat';
+import { TNotify } from '../../types';
 
 export const sectionMetronomesAfterRepeatForever = (
-  sections: ClicktrackData['sections']
+  sections: ClicktrackData['sections'],
+  notify: TNotify
 ) => {
   const firstInfiniteRepeat = sections.find(
     (section) => section instanceof Repeat && section.infinite === true
@@ -19,8 +21,9 @@ export const sectionMetronomesAfterRepeatForever = (
   if (indexOfFirstInfiniteRepeat === undefined) return false;
   if (metronomesAfterInfiniteRepeat.length === 0) return false;
 
-  console.warn(
-    'You have metronome sections after an infinite repeat. These sections will never play.'
+  notify(
+    'You have metronome sections after an infinite repeat. These sections will never play.',
+    'warning'
   );
   return true;
 };

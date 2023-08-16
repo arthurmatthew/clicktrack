@@ -6,19 +6,19 @@ import { IComponent } from '../IComponent';
 import { Button } from '../core/Button';
 
 interface IClicktrackListItem extends IComponent {
-  metronome: Clicktrack;
+  clicktrack: Clicktrack;
+  handleRemove: () => void;
+  handleNameChange: (name: string, newName: string) => void;
   dragHandle: DraggableProvidedDragHandleProps | null | undefined;
-  remove: () => void;
-  changeName: (name: string, newName: string) => void;
 }
 
 export const ClicktrackListItem = ({
-  metronome,
-  remove,
-  changeName,
+  clicktrack,
+  handleRemove,
+  handleNameChange,
   dragHandle,
 }: IClicktrackListItem) => {
-  const [shown, setShown] = useState<boolean>(metronome.opened ?? false);
+  const [shown, setShown] = useState<boolean>(clicktrack.opened ?? false);
   const [editing, setEditing] = useState<boolean>(false);
 
   const nameRef = useRef<HTMLHeadingElement>(null);
@@ -40,7 +40,7 @@ export const ClicktrackListItem = ({
             spellCheck={false}
             ref={nameRef}
           >
-            {metronome.name}
+            {clicktrack.name}
           </h1>
           <i
             onClick={() => {
@@ -49,11 +49,11 @@ export const ClicktrackListItem = ({
                 const newName = (nameRef.current?.innerText as string).trim();
                 if (!nameCheck.test(newName)) {
                   (nameRef.current as HTMLHeadingElement).innerText =
-                    metronome.name;
+                    clicktrack.name;
                   setEditing((previouslyEditing) => !previouslyEditing);
                   return;
                 }
-                changeName(metronome.name, newName);
+                handleNameChange(clicktrack.id, newName);
               }
               setEditing((previouslyEditing) => !previouslyEditing);
             }}
@@ -64,11 +64,7 @@ export const ClicktrackListItem = ({
         </div>
         <div className="my-2 block h-px w-full bg-gradient-to-r from-neutral-300 to-transparent dark:from-neutral-700 sm:hidden" />
         <div className="flex gap-4">
-          <Link
-            to={`/app/clicktracks/${encodeURIComponent(
-              metronome.id
-            )}/sequencer`}
-          >
+          <Link to={`/app/clicktracks/${encodeURIComponent(clicktrack.id)}`}>
             <Button className="bg-neutral-200 dark:bg-neutral-900">Open</Button>
           </Link>
 
@@ -89,13 +85,13 @@ export const ClicktrackListItem = ({
       {shown && (
         <div className="mt-2 flex items-center gap-4">
           <Button
-            onClick={remove}
+            onClick={handleRemove}
             className="border-[1px] border-red-500"
-            disabled={metronome.permanant}
+            disabled={clicktrack.permanant}
           >
-            {metronome.permanant ? "Can't Delete" : 'Delete'}
+            {clicktrack.permanant ? "Can't Delete" : 'Delete'}
           </Button>
-          <p className="text-sm opacity-50 ">id: {metronome.id}</p>
+          <p className="text-sm opacity-50 ">id: {clicktrack.id}</p>
         </div>
       )}
     </div>

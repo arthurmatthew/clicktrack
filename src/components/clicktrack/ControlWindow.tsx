@@ -2,11 +2,11 @@ import { IComponent } from '../IComponent';
 import { HighlightedLink } from './HighlightedLink';
 
 interface IControlWindow extends IComponent {
-  tabs?: Tab[];
+  tabs?: ITab[];
   children?: React.ReactNode;
 }
 
-interface Tab {
+interface ITab {
   to?: string;
   title?: string;
 }

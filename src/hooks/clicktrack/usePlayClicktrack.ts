@@ -1,13 +1,15 @@
 import { useRef, useState, useEffect } from 'react';
-import { Repeat } from '../models/Repeat';
-import { Clicktrack } from '../models/Clicktrack';
-import { validatePlay } from '../utils/validators/validatePlay';
+import { Repeat } from '../../models/Repeat';
+import { Clicktrack } from '../../models/Clicktrack';
+import { validatePlay } from '../../utils/validators/validatePlay';
+import { useNotify } from '../useNotify';
 
-export const useClicktrackPlayer = (
+export const usePlayClicktrack = (
   _clicktrack: Clicktrack,
   callback: () => void
 ) => {
   const audioCtx = useRef<AudioContext | null>(null);
+  const { notify } = useNotify();
 
   const interval = useRef<number | null>();
 
@@ -31,14 +33,6 @@ export const useClicktrackPlayer = (
 
   let selectedIdBeforePlaying: string;
 
-  // Initialize Audio
-  useEffect(() => {
-    audioCtx.current = new AudioContext();
-    return () => {
-      audioCtx.current = null;
-    };
-  }, []);
-
   useEffect(() => {
     clicktrack.current = _clicktrack;
   }, [_clicktrack]);
@@ -61,34 +55,36 @@ export const useClicktrackPlayer = (
 
     const noteType = section.timeSignature[1];
     const oscillator = audioCtx.current.createOscillator();
-    const gain = audioCtx.current.createGain();
-    const calculatedVolume = 1 * (clicktrack.current.data.volume / 100);
-    const volume = clicktrack.current.data.muted ? 0 : calculatedVolume;
+    const masterGain = audioCtx.current.createGain();
+    const localGain = audioCtx.current.createGain();
+
+    const calculatedMasterVolume = 1 * (clicktrack.current.data.volume / 100);
+    const masterVolume = clicktrack.current.data.muted
+      ? 0
+      : calculatedMasterVolume;
+    const calculatedLocalVolume = 1 * (section.volume / 100);
+    const localVolume = section.muted ? 0 : calculatedLocalVolume;
 
     if (noteType === 8 && beat % 2) return; // Not divisible by 2 means the current beat is not an 8th note
     if (noteType === 4 && beat % 4) return; // Note divisible by 4 means the current beat is not a 16th note
     if (noteType === 2 && beat % 8) return;
 
-    oscillator.frequency.value = 880.0;
+    oscillator.frequency.value = 440.0;
     if (beat === 0) {
       oscillator.frequency.value = 880.0;
       callback();
-    } else if (beat % 4 === 0) {
-      oscillator.frequency.value = 440.0;
-      callback();
-    } else {
-      oscillator.frequency.value = 220.0;
     }
 
-    gain.connect(audioCtx.current.destination);
-    oscillator.connect(gain);
+    masterGain.gain.value = masterVolume;
 
-    console.log(volume);
+    masterGain.connect(audioCtx.current.destination);
+    localGain.connect(masterGain);
+    oscillator.connect(localGain);
 
     // Give it a nicer sound by fading out.
-    gain.gain.setValueAtTime(volume, time);
+    localGain.gain.setValueAtTime(localVolume, time);
     if (clicktrack.current.data.fadeOutSound) {
-      gain.gain.exponentialRampToValueAtTime(
+      localGain.gain.exponentialRampToValueAtTime(
         0.00001,
         time + metronomeSoundLength
       );
@@ -96,20 +92,6 @@ export const useClicktrackPlayer = (
 
     oscillator.start(time);
     oscillator.stop(time + metronomeSoundLength);
-  };
-
-  /**
-   * The scheduler function handles scheduling. It checks if any notes are due to be scheduled, and schedules if need be.
-   */
-  const scheduler = (): void => {
-    if (audioCtx.current) {
-      // Schedule the next note when it is due earlier than our current time (and how far ahead we check, if any)
-      while (nextNoteDueIn < audioCtx.current.currentTime + scheduleAheadTime) {
-        if (interval.current === null) break;
-        schedule(current16thBeat, nextNoteDueIn); // Schedule note
-        next(); // Advance beat number and next note due time
-      }
-    }
   };
 
   /**
@@ -176,6 +158,20 @@ export const useClicktrackPlayer = (
   };
 
   /**
+   * The scheduler function handles scheduling. It checks if any notes are due to be scheduled, and schedules if need be.
+   */
+  const scheduler = (): void => {
+    if (audioCtx.current) {
+      // Schedule the next note when it is due earlier than our current time (and how far ahead we check, if any)
+      while (nextNoteDueIn < audioCtx.current.currentTime + scheduleAheadTime) {
+        if (interval.current === null) break;
+        schedule(current16thBeat, nextNoteDueIn); // Schedule note
+        next(); // Advance beat number and next note due time
+      }
+    }
+  };
+
+  /**
    * The play function toggles the metronome on or off. More specifically,
    * it sets and clears the interval which runs the scheduler function.
    */
@@ -197,11 +193,10 @@ export const useClicktrackPlayer = (
       unlocked = true;
     }
 
-    if (!validatePlay(clicktrack.current.data.sections)) return;
-
     setPlayingDisplay((previouslyPlayingDisplay) => !previouslyPlayingDisplay);
 
     if (!interval.current) {
+      if (!validatePlay(clicktrack.current.data.sections, notify)) return;
       selectedIdBeforePlaying = selectedId;
       current16thBeat = 0;
       nextNoteDueIn = audioCtx.current.currentTime;
@@ -215,11 +210,13 @@ export const useClicktrackPlayer = (
     interval.current = null;
   };
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
+      audioCtx.current = null;
       if (interval.current) clearInterval(interval.current);
-    };
-  }, []);
+    },
+    []
+  );
 
   return { play, playingDisplay, selectedId, setSelectedId };
 };
