@@ -1,4 +1,4 @@
-import { Metronome } from '../../models/clicktrack/Metronome';
+import { Metronome } from '../../models/Metronome';
 
 export interface IMetronomeUpdater {
   metronome: Metronome;

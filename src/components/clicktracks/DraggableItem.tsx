@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Draggable } from 'react-beautiful-dnd';
 import { ClicktrackListItem } from './ClicktrackListItem';
-import { Clicktrack } from '../../models/clicktrack/Clicktrack';
+import { Clicktrack } from '../../models/Clicktrack';
 
 interface IDraggableItem {
   clicktrack: Clicktrack;
@@ -22,17 +22,17 @@ export const DraggableItem = ({
         <li
           ref={provided.innerRef}
           {...provided.draggableProps}
-          className="my-2"
+          className="my-1"
         >
           <motion.div
             initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
           >
             <ClicktrackListItem
-              remove={() => handleRemove(clicktrack.id)}
-              changeName={handleNameChange}
-              metronome={clicktrack}
+              handleRemove={() => handleRemove(clicktrack.id)}
+              handleNameChange={handleNameChange}
+              clicktrack={clicktrack}
               dragHandle={provided.dragHandleProps}
             />
           </motion.div>

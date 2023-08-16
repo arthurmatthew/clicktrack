@@ -8,7 +8,7 @@ interface IInfoCard extends IComponent {
 
 export const InfoCard = ({ children, title, icon, emoji }: IInfoCard) => {
   return (
-    <div className="flex w-full cursor-pointer flex-col gap-2 rounded-md bg-neutral-100 p-4 text-black dark:bg-neutral-900 dark:text-white ">
+    <div className="flex w-full cursor-pointer flex-col gap-2 rounded-sm bg-neutral-100 p-4 text-black dark:bg-neutral-900 dark:text-white ">
       <div className="flex items-center gap-3">
         <h1 className="rounded-full bg-neutral-200 p-2 text-2xl leading-none text-purple-600 dark:bg-neutral-700 dark:text-purple-400">
           {emoji ? emoji : <i className={`bi-${icon}`} />}

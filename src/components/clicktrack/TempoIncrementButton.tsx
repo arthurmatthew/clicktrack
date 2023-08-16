@@ -1,5 +1,6 @@
-import { CLICKTRACK_MAX_BPM, CLICKTRACK_MIN_BPM } from '../../config';
-import { Metronome } from '../../models/clicktrack/Metronome';
+import { useNotify } from '../../hooks/useNotify';
+import { Metronome } from '../../models/Metronome';
+import { validateTempo } from '../../utils/validators/validateTempo';
 
 interface ITempoIncrementButton {
   updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;
@@ -14,22 +15,16 @@ export const TempoIncrementButton = ({
   amount,
   icon,
 }: ITempoIncrementButton) => {
+  const { notify } = useNotify();
+
   return (
     <i
       onClick={() => {
-        if (selected.bpm + amount < CLICKTRACK_MIN_BPM) {
-          updateMetronome(selected, { bpm: CLICKTRACK_MIN_BPM });
-          return;
-        }
-        if (selected.bpm + amount > CLICKTRACK_MAX_BPM) {
-          updateMetronome(selected, { bpm: CLICKTRACK_MAX_BPM });
-          return;
-        }
         updateMetronome(selected, {
-          bpm: selected.bpm + amount,
+          bpm: validateTempo(selected.bpm + amount, notify),
         });
       }}
-      className={`bi-${icon} flex flex-grow cursor-pointer items-center justify-center border-x-[1px] border-white bg-neutral-200 py-2 text-2xl tracking-tighter duration-75 hover:text-purple-400 dark:border-black dark:bg-neutral-900 dark:hover:text-purple-700`}
+      className={`bi-${icon} flex flex-grow cursor-pointer items-center justify-center border-x-[1px] border-white bg-neutral-200 py-2 text-2xl tracking-tighter duration-75 hover:bg-neutral-900 hover:text-white dark:border-black dark:bg-neutral-900 dark:hover:bg-neutral-200 dark:hover:text-black`}
     />
   );
 };

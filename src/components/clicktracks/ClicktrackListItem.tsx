@@ -1,30 +1,30 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
-import { Clicktrack } from '../../models/clicktrack/Clicktrack';
+import { Clicktrack } from '../../models/Clicktrack';
 import { IComponent } from '../IComponent';
 import { Button } from '../core/Button';
 
 interface IClicktrackListItem extends IComponent {
-  metronome: Clicktrack;
+  clicktrack: Clicktrack;
+  handleRemove: () => void;
+  handleNameChange: (name: string, newName: string) => void;
   dragHandle: DraggableProvidedDragHandleProps | null | undefined;
-  remove: () => void;
-  changeName: (name: string, newName: string) => void;
 }
 
 export const ClicktrackListItem = ({
-  metronome,
-  remove,
-  changeName,
+  clicktrack,
+  handleRemove,
+  handleNameChange,
   dragHandle,
 }: IClicktrackListItem) => {
-  const [shown, setShown] = useState<boolean>(metronome.opened ?? false);
+  const [shown, setShown] = useState<boolean>(clicktrack.opened ?? false);
   const [editing, setEditing] = useState<boolean>(false);
 
   const nameRef = useRef<HTMLHeadingElement>(null);
 
   return (
-    <div className="w-full rounded-sm border-[1px] border-neutral-200 p-4 dark:border-neutral-900">
+    <div className="w-full select-none rounded-sm border-[1px] border-neutral-200 bg-white p-4 dark:border-neutral-900 dark:bg-black">
       <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
         <div className="flex items-center gap-3">
           <i
@@ -40,7 +40,7 @@ export const ClicktrackListItem = ({
             spellCheck={false}
             ref={nameRef}
           >
-            {metronome.name}
+            {clicktrack.name}
           </h1>
           <i
             onClick={() => {
@@ -49,11 +49,11 @@ export const ClicktrackListItem = ({
                 const newName = (nameRef.current?.innerText as string).trim();
                 if (!nameCheck.test(newName)) {
                   (nameRef.current as HTMLHeadingElement).innerText =
-                    metronome.name;
+                    clicktrack.name;
                   setEditing((previouslyEditing) => !previouslyEditing);
                   return;
                 }
-                changeName(metronome.name, newName);
+                handleNameChange(clicktrack.id, newName);
               }
               setEditing((previouslyEditing) => !previouslyEditing);
             }}
@@ -64,23 +64,19 @@ export const ClicktrackListItem = ({
         </div>
         <div className="my-2 block h-px w-full bg-gradient-to-r from-neutral-300 to-transparent dark:from-neutral-700 sm:hidden" />
         <div className="flex gap-4">
-          <Link
-            to={`/app/clicktracks/${encodeURIComponent(
-              metronome.id
-            )}/sequencer`}
-          >
-            <Button className="bg-neutral-500">Open</Button>
+          <Link to={`/app/clicktracks/${encodeURIComponent(clicktrack.id)}`}>
+            <Button className="bg-neutral-200 dark:bg-neutral-900">Open</Button>
           </Link>
 
           <p
             onClick={() => setShown((previouslyShown) => !previouslyShown)}
-            className="flex cursor-pointer items-center gap-1 text-neutral-600 dark:text-neutral-400"
+            className="group flex cursor-pointer items-center gap-2 text-neutral-600 dark:text-neutral-400"
           >
             More{' '}
             <i
-              className={`${
-                shown ? 'bi-caret-down-fill' : 'bi-caret-right-fill'
-              } text-sm`}
+              className={`bi-caret-right-fill text-sm duration-75 ${
+                shown ? 'rotate-90' : 'group-hover:rotate-45'
+              }`}
             />
           </p>
         </div>
@@ -89,13 +85,13 @@ export const ClicktrackListItem = ({
       {shown && (
         <div className="mt-2 flex items-center gap-4">
           <Button
-            onClick={remove}
-            className="bg-red-700 disabled:bg-neutral-500"
-            disabled={metronome.permanant}
+            onClick={handleRemove}
+            className="border-[1px] border-red-500"
+            disabled={clicktrack.permanant}
           >
-            {metronome.permanant ? "Can't Delete" : 'Delete'}
+            {clicktrack.permanant ? "Can't Delete" : 'Delete'}
           </Button>
-          <p className="text-sm opacity-50 ">id: {metronome.id}</p>
+          <p className="text-sm opacity-50 ">id: {clicktrack.id}</p>
         </div>
       )}
     </div>

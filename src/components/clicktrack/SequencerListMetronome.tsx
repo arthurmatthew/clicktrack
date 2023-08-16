@@ -1,4 +1,4 @@
-import { Metronome } from '../../models/clicktrack/Metronome';
+import { Metronome } from '../../models/Metronome';
 
 export const SequencerListMetronome = ({
   metronome,
@@ -19,7 +19,11 @@ export const SequencerListMetronome = ({
           selected && 'py-6'
         }`}
       >
-        <i className="bi-music-note-list z-10" />{' '}
+        <i
+          className={`bi-music-note-beamed z-10 ${
+            selected && 'px-2 text-3xl text-purple-500'
+          } duration-150`}
+        />{' '}
         <p className="relative z-10">
           {Metronome.convertTempoToTempoIndicator(metronome.bpm)} for{' '}
           {metronome.lengthInBars} bars

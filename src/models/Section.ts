@@ -1,4 +1,4 @@
-import { CLICKTRACK_DEFAULT_SECTION_TYPE } from '../../config';
+import { CLICKTRACK_DEFAULT_SECTION_TYPE } from '../config';
 import { v4 as uuidv4 } from 'uuid';
 
 export class Section {

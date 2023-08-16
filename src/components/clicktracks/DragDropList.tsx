@@ -1,10 +1,10 @@
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { StrictModeDroppable } from './StrictModeDroppable';
-import { Clicktrack } from '../../models/clicktrack/Clicktrack';
+import { StrictModeDroppable } from '../core/StrictModeDroppable';
+import { Clicktrack } from '../../models/Clicktrack';
 import { IImport, Import } from './Import';
 import { DraggableItem } from './DraggableItem';
 
-interface DragDropList extends IImport {
+interface IDragDropList extends IImport {
   clicktracks: Clicktrack[];
   handleOnDragEnd: (result: DropResult) => void;
   handleRemove: (id: string) => void;
@@ -18,7 +18,7 @@ export const DragDropList = ({
   handleRemove,
   handleNameChange,
   importRef,
-}: DragDropList) => {
+}: IDragDropList) => {
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <StrictModeDroppable droppableId="metronomes">
@@ -30,17 +30,17 @@ export const DragDropList = ({
           >
             <Import {...{ handleImport, importRef }} />
             {clicktracks.length === 0 ? (
-              <h1 className="text-center  ">
-                You don't have any metronomes right now.
+              <h1 className="my-20 text-center text-3xl">
+                You don't have any clicktracks made. Make a new one, it's super
+                easy!
               </h1>
             ) : (
-              clicktracks
-                .sort((a, b) => a.position - b.position)
-                .map((clicktrack, index) => (
-                  <DraggableItem
-                    {...{ handleNameChange, handleRemove, clicktrack, index }}
-                  />
-                ))
+              clicktracks.map((clicktrack, index) => (
+                <DraggableItem
+                  key={clicktrack.id}
+                  {...{ handleNameChange, handleRemove, clicktrack, index }}
+                />
+              ))
             )}
             {provided.placeholder}
           </ul>

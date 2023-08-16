@@ -2,11 +2,11 @@ import { IComponent } from '../IComponent';
 import { HighlightedLink } from './HighlightedLink';
 
 interface IControlWindow extends IComponent {
-  tabs?: Tab[];
+  tabs?: ITab[];
   children?: React.ReactNode;
 }
 
-interface Tab {
+interface ITab {
   to?: string;
   title?: string;
 }
@@ -29,7 +29,7 @@ export const ControlWindow = ({ tabs, children }: IControlWindow) => {
           </div>
         )}
       </nav>
-      <div>{children}</div>
+      <div className="flex-grow">{children}</div>
     </div>
   );
 };

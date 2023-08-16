@@ -1,4 +1,3 @@
-import './Hero.css';
 import { HeroTitle } from './HeroTitle';
 import { HeroLinks } from './HeroLinks';
 

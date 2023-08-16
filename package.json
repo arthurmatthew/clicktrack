@@ -1,7 +1,7 @@
 {
   "name": "clicktrack",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.0.1",
     "framer-motion": "^10.12.16",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
@@ -33,11 +34,11 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.1",
     "postcss": "^8.4.24",
+    "prettier": "^2.8.8",
+    "prettier-plugin-tailwindcss": "^0.3.0",
     "tailwindcss": "^3.3.2",
     "typescript": "^5.0.2",
     "vite": "^4.3.2",
-    "vite-plugin-compression": "^0.5.1",
-    "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.3.0"
+    "vite-plugin-compression": "^0.5.1"
   }
 }

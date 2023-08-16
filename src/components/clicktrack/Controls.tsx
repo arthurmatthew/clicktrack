@@ -1,10 +1,10 @@
-import { Routes, Route, Outlet } from 'react-router-dom';
 import { ControlWindow } from './ControlWindow';
 import { EditSection } from './EditSection';
 import { Sequencer } from './Sequencer';
-import { Clicktrack } from '../../models/clicktrack/Clicktrack';
-import { Repeat } from '../../models/clicktrack/Repeat';
-import { Metronome } from '../../models/clicktrack/Metronome';
+import { Clicktrack } from '../../models/Clicktrack';
+import { Repeat } from '../../models/Repeat';
+import { Metronome } from '../../models/Metronome';
+import { DropResult } from 'react-beautiful-dnd';
 
 interface IControls {
   clicktrack: Clicktrack;
@@ -17,6 +17,8 @@ interface IControls {
   ) => void;
   deleteSection: (id: string) => void;
   copySection: (id: string) => void;
+  sequencerOnDragEnd: (result: DropResult) => void;
+  playingDisplay: boolean;
 }
 
 export const Controls = ({
@@ -27,16 +29,26 @@ export const Controls = ({
   updateSection,
   deleteSection,
   copySection,
+  sequencerOnDragEnd,
+  playingDisplay,
 }: IControls) => {
   return (
     <div className="grid gap-2 px-2 lg:grid-cols-2">
       <ControlWindow
         tabs={[
-          { title: 'Sequencer', to: 'sequencer' },
-          { title: 'Settings', to: 'settings' },
+          { title: 'Sequencer' },
+          // { title: 'Settings', to: 'settings' },
         ]}
       >
-        <Routes>
+        <Sequencer
+          sequencerOnDragEnd={sequencerOnDragEnd}
+          selectedId={selectedId}
+          setSelectedId={setSelectedId}
+          add={addSection}
+          sequence={clicktrack.data.sections}
+          playingDisplay={playingDisplay}
+        />
+        {/* <Routes>
           <Route path="/" element={<Outlet />}>
             <Route element={<h1>Settings</h1>} path="/settings" />
             <Route
@@ -45,19 +57,19 @@ export const Controls = ({
                   selectedId={selectedId}
                   setSelectedId={setSelectedId}
                   add={addSection}
-                  sequence={clicktrack.data.children}
+                  sequence={clicktrack.data.sections}
                 />
               }
               path="/sequencer"
             />
           </Route>
-        </Routes>
+        </Routes> */}
       </ControlWindow>
       <ControlWindow tabs={[{ title: 'Edit' }]}>
         <EditSection
           {...{ updateSection, copySection, deleteSection }}
-          selected={clicktrack.data.children.find(
-            (metronome) => metronome.id === selectedId
+          selected={clicktrack.data.sections.find(
+            (section) => section.id === selectedId
           )}
         />
       </ControlWindow>

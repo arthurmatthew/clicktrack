@@ -4,20 +4,22 @@ import {
   CLICKTRACK_DEFAULT_MUTED,
   CLICKTRACK_DEFAULT_NOTE_DURATION,
   CLICKTRACK_DEFAULT_PLAY_EXTRA_BEAT,
-} from '../../config';
+  CLICKTRACK_DEFAULT_FADE_OUT,
+} from '../config';
 import { Metronome } from './Metronome';
 import { Repeat } from './Repeat';
 
 export class ClicktrackData {
-  public children: (Metronome | Repeat)[];
+  public sections: (Metronome | Repeat)[];
   public note: [note: string, octave: number];
   public volume: number; // % , default is 100%
   public noteDuration: number;
   public muted: boolean;
   public playExtraBeat: boolean;
+  public fadeOutSound: boolean;
 
   constructor(options?: Partial<ClicktrackData>) {
-    this.children = options?.children ?? [new Metronome()];
+    this.sections = options?.sections ?? [new Metronome(), new Repeat()];
     this.note = options?.note ?? CLICKTRACK_DEFAULT_NOTE;
     this.volume = options?.volume ?? CLICKTRACK_DEFAULT_MASTER_VOLUME;
     this.muted = options?.muted ?? CLICKTRACK_DEFAULT_MUTED;
@@ -25,5 +27,6 @@ export class ClicktrackData {
       options?.noteDuration ?? CLICKTRACK_DEFAULT_NOTE_DURATION;
     this.playExtraBeat =
       options?.playExtraBeat ?? CLICKTRACK_DEFAULT_PLAY_EXTRA_BEAT;
+    this.fadeOutSound = options?.fadeOutSound ?? CLICKTRACK_DEFAULT_FADE_OUT;
   }
 }

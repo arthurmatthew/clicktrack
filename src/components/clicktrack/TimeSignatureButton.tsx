@@ -15,7 +15,7 @@ export const TimeSignatureButton = ({
       className="flex flex-col items-center justify-center"
     >
       <div
-        className={`flex h-full w-full flex-col items-center justify-center p-2 leading-none duration-75 hover:bg-neutral-200 dark:hover:bg-neutral-900 ${
+        className={`flex h-full w-full flex-col items-center justify-center p-3 leading-[0.75] duration-75 hover:bg-neutral-200 dark:hover:bg-neutral-900 ${
           selected
             ? 'border-neutral-200 bg-neutral-200 dark:border-neutral-300 dark:bg-neutral-900'
             : 'border-neutral-200 bg-white dark:border-neutral-900 dark:bg-black'

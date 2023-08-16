@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { ClicktrackApp } from './ClicktrackApp';
-import { Clicktrack } from '../../../../models/clicktrack/Clicktrack';
+import { Clicktrack } from '../../../../models/Clicktrack';
 import { STORAGE_KEYS_CLICKTRACK } from '../../../../config';
 import { ClicktrackNotFound } from './not-found';
 

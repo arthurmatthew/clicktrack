@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Clicktrack } from '../../models/clicktrack/Clicktrack';
+import { Clicktrack } from '../../models/Clicktrack';
 import { SettingsGeneral } from './SettingsGeneral';
 import { SettingsPlayback } from './SettingsPlayback';
 import { SettingsShare } from './SettingsShare';

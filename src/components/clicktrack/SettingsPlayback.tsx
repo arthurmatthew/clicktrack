@@ -55,6 +55,18 @@ export const SettingsPlayback = ({
         </div>
         <p className="hidden sm:block">Volume</p>
       </div>
+      <p className="flex items-center gap-4 text-xl">
+        <SettingsButton
+          onClick={() =>
+            updateSettings({
+              fadeOutSound: !settings.fadeOutSound,
+            })
+          }
+        >
+          {settings.fadeOutSound ? 'On' : 'Off'}
+        </SettingsButton>{' '}
+        Fade Out Sound
+      </p>
     </SettingsSection>
   );
 };

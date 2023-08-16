@@ -6,7 +6,7 @@ interface ISettingsSection extends IComponent {
 
 export const SettingsSection = ({ name, children }: ISettingsSection) => {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-2">
       <h1 className="font-semibold uppercase text-black/50 dark:text-white/50">
         {name}
       </h1>

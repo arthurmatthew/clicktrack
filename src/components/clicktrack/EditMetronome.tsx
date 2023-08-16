@@ -1,9 +1,10 @@
-import { Metronome } from '../../models/clicktrack/Metronome';
+import { Metronome } from '../../models/Metronome';
 import { useTempoTapper } from '../../hooks/useTempoTapper';
 import { EditLength } from './EditLength';
 import { EditTempo } from './EditTempo';
 import { EditTimeSignature } from './EditTimeSignature';
-import { EditCustomTimeSignature } from './EditCustomTimeSignature';
+import { motion } from 'framer-motion';
+import { EditVolume } from './EditVolume';
 
 interface IEditMetronome {
   updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;
@@ -18,13 +19,18 @@ export const EditMetronome = ({
 
   if (metronome)
     return (
-      <div className="grid items-center gap-2">
+      <motion.div
+        className="grid items-center gap-2"
+        initial={{ opacity: 0, filter: 'blur(2px)' }}
+        animate={{ opacity: 100, filter: 'blur(0)' }}
+        transition={{ duration: 0.2 }}
+      >
         <EditTempo {...{ metronome, updateMetronome, tapTempo }} />
         <EditTimeSignature {...{ metronome, updateMetronome }} />
-        <div className="flex flex-col gap-px overflow-hidden rounded-sm sm:flex-row sm:gap-2 sm:overflow-visible sm:rounded-none">
+        <div className="flex flex-wrap gap-2 overflow-hidden rounded-sm sm:overflow-visible sm:rounded-none">
           <EditLength {...{ metronome, updateMetronome }} />
-          <EditCustomTimeSignature {...{ metronome, updateMetronome }} />
+          <EditVolume {...{ metronome, updateMetronome }} />
         </div>
-      </div>
+      </motion.div>
     );
 };

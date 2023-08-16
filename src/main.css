@@ -35,4 +35,5 @@
     sans-serif;
   font-display: swap;
   overflow-y: scroll;
+  scroll-behavior: smooth;
 }
