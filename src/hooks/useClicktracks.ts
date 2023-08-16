@@ -98,6 +98,23 @@ export const useClicktracks = (localStorageKey: string) => {
     location.reload();
   };
 
+  const handleCopy = (id: string) => {
+    setClicktracks((previousClicktracks) => {
+      const clicktrackToCopy = previousClicktracks.find(
+        (clicktrack) => clicktrack.id === id
+      );
+      if (!clicktrackToCopy) return previousClicktracks;
+
+      return [
+        ...previousClicktracks,
+        new Clicktrack({
+          ...clicktrackToCopy,
+          id: undefined,
+        }),
+      ];
+    });
+  };
+
   return {
     clicktracks,
     importRef,
@@ -107,5 +124,6 @@ export const useClicktracks = (localStorageKey: string) => {
     handleRemove,
     handleNameChange,
     handleOnDragEnd,
+    handleCopy,
   };
 };

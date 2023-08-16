@@ -10,6 +10,7 @@ interface IClicktrackListItem extends IComponent {
   handleRemove: () => void;
   handleNameChange: (name: string, newName: string) => void;
   dragHandle: DraggableProvidedDragHandleProps | null | undefined;
+  handleCopy: (id: string) => void;
 }
 
 export const ClicktrackListItem = ({
@@ -17,6 +18,7 @@ export const ClicktrackListItem = ({
   handleRemove,
   handleNameChange,
   dragHandle,
+  handleCopy,
 }: IClicktrackListItem) => {
   const [shown, setShown] = useState<boolean>(clicktrack.opened);
   const [editing, setEditing] = useState<boolean>(false);
@@ -86,6 +88,14 @@ export const ClicktrackListItem = ({
 
       {shown && (
         <div className="mt-2 flex items-center gap-4">
+          <Button
+            className="bg-neutral-200 dark:bg-neutral-900"
+            onClick={() => {
+              handleCopy(clicktrack.id);
+            }}
+          >
+            Copy
+          </Button>
           <Button
             onClick={handleRemove}
             className="border-[1px] border-red-500"

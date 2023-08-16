@@ -8,6 +8,7 @@ interface IDraggableItem {
   index: number;
   handleRemove: (id: string) => void;
   handleNameChange: (name: string, newName: string) => void;
+  handleCopy: (id: string) => void;
 }
 
 export const DraggableItem = ({
@@ -15,6 +16,7 @@ export const DraggableItem = ({
   index,
   handleRemove,
   handleNameChange,
+  handleCopy,
 }: IDraggableItem) => {
   return (
     <Draggable key={clicktrack.id} draggableId={clicktrack.id} index={index}>
@@ -30,8 +32,11 @@ export const DraggableItem = ({
             transition={{ duration: 0.3, ease: 'easeOut' }}
           >
             <ClicktrackListItem
-              handleRemove={() => { handleRemove(clicktrack.id); }}
+              handleRemove={() => {
+                handleRemove(clicktrack.id);
+              }}
               handleNameChange={handleNameChange}
+              handleCopy={handleCopy}
               clicktrack={clicktrack}
               dragHandle={provided.dragHandleProps}
             />

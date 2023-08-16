@@ -18,6 +18,7 @@ const ClicktracksIndex = () => {
     handleRemove,
     handleNameChange,
     handleOnDragEnd,
+    handleCopy,
   } = useClicktracks(STORAGE_KEYS_CLICKTRACK);
 
   return (
@@ -32,6 +33,7 @@ const ClicktracksIndex = () => {
             handleRemove,
             handleOnDragEnd,
             importRef,
+            handleCopy,
           }}
         />
         <Footer {...{ handleClear }} />

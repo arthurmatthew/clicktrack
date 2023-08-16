@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { IHeader } from '../index/Header';
+import { DarkModeButton } from '../core/DarkModeButton';
 
 export const AppHeader = ({ toggleDark, dark }: IHeader) => {
   return (
@@ -13,18 +14,11 @@ export const AppHeader = ({ toggleDark, dark }: IHeader) => {
         </Link>
         <Link
           to="/app/clicktracks"
-          className="flex items-center gap-1 rounded-md border-[1px] border-neutral-200 px-4 py-1 text-black dark:border-neutral-900 dark:text-white"
+          className="flex items-center gap-1 rounded-md border-[1px] border-neutral-200 px-4 py-1 dark:border-neutral-900"
         >
           My Clicktracks
         </Link>
-        <div className="flex gap-4">
-          <i
-            className={`${
-              dark ? 'bi-moon' : 'bi-sun'
-            } text-xl text-black  hover:text-neutral-600 dark:text-white dark:hover:text-neutral-400`}
-            onClick={toggleDark}
-          />
-        </div>
+        <DarkModeButton onClick={toggleDark} dark={dark} className="text-xl" />
       </div>
     </header>
   );
