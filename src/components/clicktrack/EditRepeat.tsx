@@ -19,11 +19,11 @@ export const EditRepeat = ({ updateRepeat, repeat }: IEditRepeat) => {
         <div className="flex items-center gap-3 px-2 py-1 sm:rounded-sm">
           <h1 className="text-lg">Repeat Forever: </h1>
           <button
-            onClick={() =>
+            onClick={() => {
               updateRepeat(repeat, {
                 infinite: !repeat.infinite,
-              })
-            }
+              });
+            }}
             className="w-16 bg-neutral-200 px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-neutral-900 sm:rounded-sm"
           >
             {repeat.infinite ? 'On' : 'Off'}
@@ -33,9 +33,15 @@ export const EditRepeat = ({ updateRepeat, repeat }: IEditRepeat) => {
           disabled={repeat.infinite}
           label="Repeats"
           value={repeat.times}
-          set={(value) => updateRepeat(repeat, { times: value })}
-          increase={() => updateRepeat(repeat, { times: repeat.times + 1 })}
-          decrease={() => updateRepeat(repeat, { times: repeat.times - 1 })}
+          set={(value) => {
+            updateRepeat(repeat, { times: value });
+          }}
+          increase={() => {
+            updateRepeat(repeat, { times: repeat.times + 1 });
+          }}
+          decrease={() => {
+            updateRepeat(repeat, { times: repeat.times - 1 });
+          }}
         />
       </motion.div>
     );

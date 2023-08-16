@@ -11,13 +11,13 @@ export const useLocalStorage = <T extends TSaveableData>(
   defaultValue: T,
   key: string
 ): [value: T, setValue: Dispatch<SetStateAction<T>>] => {
-  const [value, setValue] = useState(() => {
+  const [value, setValue] = useState<T>(() => {
     const v = localStorage.getItem(key);
     if (v === null) {
       return defaultValue;
     }
     try {
-      return JSON.parse(v);
+      return JSON.parse(v) as T;
     } catch (e) {
       console.error('Could not parse data');
       return defaultValue;

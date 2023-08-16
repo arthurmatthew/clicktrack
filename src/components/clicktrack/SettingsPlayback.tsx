@@ -43,11 +43,11 @@ export const SettingsPlayback = ({
               disabled={settings.muted}
               type="range"
               value={settings.volume}
-              onChange={(e) =>
+              onChange={(e) => {
                 updateSettings({
                   volume: parseInt(e.currentTarget.value),
-                })
-              }
+                });
+              }}
               min={0}
               max={150}
             />
@@ -57,11 +57,11 @@ export const SettingsPlayback = ({
       </div>
       <p className="flex items-center gap-4 text-xl">
         <SettingsButton
-          onClick={() =>
+          onClick={() => {
             updateSettings({
               fadeOutSound: !settings.fadeOutSound,
-            })
-          }
+            });
+          }}
         >
           {settings.fadeOutSound ? 'On' : 'Off'}
         </SettingsButton>{' '}

@@ -5,8 +5,8 @@ export const useShareClicktrack = (clicktrack: Clicktrack) => {
   const { notify } = useNotify();
 
   const sharingCode = btoa(JSON.stringify(clicktrack));
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(sharingCode);
+  const copyToClipboard = async () => {
+    await navigator.clipboard.writeText(sharingCode);
     notify('Copied to clipboard.', 'info');
   };
 

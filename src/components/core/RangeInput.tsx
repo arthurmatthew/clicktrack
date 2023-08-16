@@ -27,7 +27,9 @@ export const RangeInput = ({
         disabled={muted}
         type="range"
         value={volume}
-        onChange={(e) => updateVolume(parseInt(e.currentTarget.value))}
+        onChange={(e) => {
+          updateVolume(parseInt(e.currentTarget.value));
+        }}
         min={0}
         max={150}
       />

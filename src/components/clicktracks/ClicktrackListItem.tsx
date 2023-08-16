@@ -18,7 +18,7 @@ export const ClicktrackListItem = ({
   handleNameChange,
   dragHandle,
 }: IClicktrackListItem) => {
-  const [shown, setShown] = useState<boolean>(clicktrack.opened ?? false);
+  const [shown, setShown] = useState<boolean>(clicktrack.opened);
   const [editing, setEditing] = useState<boolean>(false);
 
   const nameRef = useRef<HTMLHeadingElement>(null);
@@ -69,7 +69,9 @@ export const ClicktrackListItem = ({
           </Link>
 
           <p
-            onClick={() => setShown((previouslyShown) => !previouslyShown)}
+            onClick={() => {
+              setShown((previouslyShown) => !previouslyShown);
+            }}
             className="group flex cursor-pointer items-center gap-2 text-neutral-600 dark:text-neutral-400"
           >
             More{' '}

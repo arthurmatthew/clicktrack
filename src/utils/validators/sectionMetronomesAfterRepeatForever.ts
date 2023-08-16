@@ -8,7 +8,7 @@ export const sectionMetronomesAfterRepeatForever = (
   notify: TNotify
 ) => {
   const firstInfiniteRepeat = sections.find(
-    (section) => section instanceof Repeat && section.infinite === true
+    (section) => section instanceof Repeat && section.infinite
   );
   const indexOfFirstInfiniteRepeat = firstInfiniteRepeat
     ? sections.indexOf(firstInfiniteRepeat)

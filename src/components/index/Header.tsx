@@ -18,7 +18,9 @@ export const Header = ({
             className={`${
               dark ? 'bi-moon' : 'bi-sun'
             } text-3xl text-black  hover:text-neutral-600 dark:text-white dark:hover:text-neutral-400`}
-            onClick={() => darkToggle((previouslyDark) => !previouslyDark)}
+            onClick={() => {
+              darkToggle((previouslyDark) => !previouslyDark);
+            }}
           />
         </div>
       </div>

@@ -31,8 +31,8 @@ export const DragDropList = ({
             <Import {...{ handleImport, importRef }} />
             {clicktracks.length === 0 ? (
               <h1 className="my-20 text-center text-3xl">
-                You don't have any clicktracks made. Make a new one, it's super
-                easy!
+                You don&apos;t have any clicktracks made. Make a new one,
+                it&apos;s super easy!
               </h1>
             ) : (
               clicktracks.map((clicktrack, index) => (

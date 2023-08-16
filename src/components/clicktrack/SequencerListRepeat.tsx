@@ -12,7 +12,9 @@ export const SequencerListRepeat = ({
   return (
     <div
       className="group flex cursor-pointer items-center gap-2"
-      onClick={() => setSelectedId(repeat.id)}
+      onClick={() => {
+        setSelectedId(repeat.id);
+      }}
     >
       <div
         className={`relative flex w-full items-center gap-3 p-4 py-3 duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${

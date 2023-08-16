@@ -48,7 +48,7 @@ export const usePlayClicktrack = (
     if (section === undefined) return;
     if (
       currentSection === undefined &&
-      clicktrack.current.data.playExtraBeat === false
+      !clicktrack.current.data.playExtraBeat
     )
       return;
     if (section instanceof Repeat) return;
@@ -175,7 +175,7 @@ export const usePlayClicktrack = (
    * The play function toggles the metronome on or off. More specifically,
    * it sets and clears the interval which runs the scheduler function.
    */
-  const play = () => {
+  const play = async () => {
     if (!audioCtx.current) audioCtx.current = new AudioContext();
 
     // Web Audio API requires user gesture to unlock audio.
@@ -187,7 +187,7 @@ export const usePlayClicktrack = (
       );
       const buffer = audioCtx.current.createBuffer(1, 1, 22050);
       const node = audioCtx.current.createBufferSource();
-      dummyAudio.play();
+      await dummyAudio.play();
       node.buffer = buffer;
       node.start(0);
       unlocked = true;

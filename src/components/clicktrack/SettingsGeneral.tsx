@@ -10,11 +10,11 @@ export const SettingsGeneral = ({
     <SettingsSection name="General">
       <p className="flex items-center gap-4 text-xl">
         <SettingsButton
-          onClick={() =>
+          onClick={() => {
             updateSettings({
               playExtraBeat: !settings.playExtraBeat,
-            })
-          }
+            });
+          }}
         >
           {settings.playExtraBeat ? 'On' : 'Off'}
         </SettingsButton>{' '}

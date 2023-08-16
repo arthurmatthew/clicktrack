@@ -12,7 +12,9 @@ export const SequencerListMetronome = ({
   return (
     <div
       className="group flex cursor-pointer items-center gap-2"
-      onClick={() => setSelectedId(metronome.id)}
+      onClick={() => {
+        setSelectedId(metronome.id);
+      }}
     >
       <div
         className={`relative flex w-full gap-3 p-4 py-3 duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${

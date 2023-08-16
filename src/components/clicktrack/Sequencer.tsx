@@ -66,7 +66,7 @@ export const Sequencer = ({
                                 key={section.id}
                                 selected={selected}
                                 setSelectedId={setSelectedId}
-                                metronome={section as Metronome}
+                                metronome={section}
                               />
                             );
                           if (section instanceof Repeat)
@@ -75,7 +75,7 @@ export const Sequencer = ({
                                 key={section.id}
                                 selected={selected}
                                 setSelectedId={setSelectedId}
-                                repeat={section as Repeat}
+                                repeat={section}
                               />
                             );
                         })()}
@@ -90,7 +90,9 @@ export const Sequencer = ({
         </StrictModeDroppable>
       </DragDropContext>
       <SequencerControls
-        addMetronome={() => add(new Metronome())}
+        addMetronome={() => {
+          add(new Metronome());
+        }}
         addRepeat={() => {
           if (validateAddRepeat(sequence, notify)) add(new Repeat());
         }}

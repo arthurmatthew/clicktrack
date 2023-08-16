@@ -45,9 +45,9 @@ export const Title = ({
             <i className={playingDisplay ? 'bi-pause-fill' : 'bi-play-fill'} />
           </motion.button>
           <div
-            onClick={() =>
-              setSettingsShown((previouslyShown) => !previouslyShown)
-            }
+            onClick={() => {
+              setSettingsShown((previouslyShown) => !previouslyShown);
+            }}
             className="group rounded-sm bg-black px-4 py-2 text-white dark:bg-white dark:text-black"
           >
             <i className="bi-gear-fill block duration-150 group-hover:rotate-[40deg]" />

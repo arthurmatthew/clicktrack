@@ -10,7 +10,7 @@ export const HeroTitle = () => {
         id="title"
         className="text-center text-6xl font-black text-purple-700 dark:text-purple-600 sm:text-7xl"
       >
-        The only metronome you'll ever need.
+        The only metronome you&apos;ll ever need.
       </motion.h1>
       <motion.p
         initial={{ opacity: 0 }}

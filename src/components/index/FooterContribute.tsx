@@ -6,6 +6,7 @@ export const FooterContribute = () => {
       <li>
         <a
           href="https://github.com/arthurmatthew/clicktrack/issues/new?assignees=&labels=bug&projects=&template=%F0%9F%90%9E-bug-report.md&title="
+          rel="noreferrer"
           target="_blank"
         >
           Report a Bug
@@ -14,13 +15,18 @@ export const FooterContribute = () => {
       <li>
         <a
           href="https://github.com/arthurmatthew/clicktrack/issues/new?assignees=&labels=enhancement&projects=&template=%F0%9F%92%A1-feature-request.md&title="
+          rel="noreferrer"
           target="_blank"
         >
           Request a Feature
         </a>
       </li>
       <li>
-        <a href="https://github.com/arthurmatthew/clicktrack" target="_blank">
+        <a
+          href="https://github.com/arthurmatthew/clicktrack"
+          rel="noreferrer"
+          target="_blank"
+        >
           Source Code
         </a>
       </li>

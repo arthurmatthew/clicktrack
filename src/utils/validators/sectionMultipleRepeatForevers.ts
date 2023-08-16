@@ -7,10 +7,9 @@ export const sectionMultipleRepeatForevers = (
   notify: TNotify
 ) => {
   const infiniteRepeats = sections.filter(
-    (section) => section instanceof Repeat && section.infinite === true
+    (section) => section instanceof Repeat && section.infinite
   );
 
-  if (infiniteRepeats === undefined) return false;
   if (infiniteRepeats.length <= 1) return false;
 
   notify(

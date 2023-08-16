@@ -30,7 +30,7 @@ export const DraggableItem = ({
             transition={{ duration: 0.3, ease: 'easeOut' }}
           >
             <ClicktrackListItem
-              handleRemove={() => handleRemove(clicktrack.id)}
+              handleRemove={() => { handleRemove(clicktrack.id); }}
               handleNameChange={handleNameChange}
               clicktrack={clicktrack}
               dragHandle={provided.dragHandleProps}
