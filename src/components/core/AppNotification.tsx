@@ -22,10 +22,10 @@ export const AppNotification = () => {
           animate={{ opacity: 100, y: 0 }}
           transition={{ ease: 'easeOut' }}
           exit={{ opacity: 0, y: 20 }}
-          className="fixed bottom-0 z-[99999999999] m-1 max-w-xl rounded-sm border-[1px] border-neutral-800 bg-white p-3 text-lg shadow-2xl dark:bg-black sm:m-6 sm:p-6 sm:text-2xl"
+          className="fixed bottom-0 z-[99999999999] m-1 max-w-xl rounded-sm border-[1px] border-neutral-200 bg-white p-3 text-lg shadow-2xl dark:border-neutral-800 dark:bg-black sm:m-6 sm:p-6 sm:text-2xl"
         >
           <div className="flex items-center justify-between">
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               {(() => {
                 switch (notif.type) {
                   case 'warning':
@@ -43,7 +43,7 @@ export const AppNotification = () => {
               <i className="bi-x-lg" />
             </button>
           </div>
-          <div className="my-2 h-px w-36 bg-gradient-to-r from-neutral-800 to-transparent" />
+          <div className="my-2 h-px w-36 bg-gradient-to-r from-neutral-300 to-transparent dark:from-neutral-800" />
           <p className="text-base">{notif.content}</p>
         </motion.div>
       )}
@@ -72,7 +72,7 @@ const Error = () => {
 const Info = () => {
   return (
     <>
-      <i className="bi-info-circle-fill" />
+      <i className="bi-info-circle-fill text-blue-500" />
       <h1 className="font-semibold">Info</h1>
     </>
   );

@@ -3,8 +3,10 @@ import { DropResult } from 'react-beautiful-dnd';
 import { STORAGE_KEYS_CLICKTRACK } from '../config';
 import { Clicktrack } from '../models/Clicktrack';
 import { useLocalStorage } from './useLocalStorage';
+import { useNotify } from './useNotify';
 
 export const useClicktracks = (localStorageKey: string) => {
+  const { notify } = useNotify();
   const importRef = useRef<HTMLInputElement | null>(null);
   const [clicktracks, setClicktracks] = useLocalStorage<Clicktrack[]>(
     [new Clicktrack()],
@@ -44,6 +46,10 @@ export const useClicktracks = (localStorageKey: string) => {
           }),
         ];
       } catch (error) {
+        notify(
+          `We couldn't parse your code. Check your browser console for more details.`,
+          'error'
+        );
         console.error(error);
         return previousClicktracks;
       }
