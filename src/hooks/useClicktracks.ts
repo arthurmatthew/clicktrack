@@ -39,6 +39,8 @@ export const useClicktracks = (localStorageKey: string) => {
           atob(importRef.current?.value as string)
         ) as Clicktrack;
 
+        notify(`Import successful.`, 'info');
+
         return [
           ...previousClicktracks,
           new Clicktrack({
