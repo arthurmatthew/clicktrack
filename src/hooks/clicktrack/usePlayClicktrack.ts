@@ -93,20 +93,6 @@ export const usePlayClicktrack = (
   };
 
   /**
-   * The scheduler function handles scheduling. It checks if any notes are due to be scheduled, and schedules if need be.
-   */
-  const scheduler = (): void => {
-    if (audioCtx.current) {
-      // Schedule the next note when it is due earlier than our current time (and how far ahead we check, if any)
-      while (nextNoteDueIn < audioCtx.current.currentTime + scheduleAheadTime) {
-        if (interval.current === null) break;
-        schedule(current16thBeat, nextNoteDueIn); // Schedule note
-        next(); // Advance beat number and next note due time
-      }
-    }
-  };
-
-  /**
    * The next function handles the advancement of the beat number and the time in which
    * the next 16th note is due.
    */
@@ -167,6 +153,20 @@ export const usePlayClicktrack = (
     }
 
     setSelectedId(section.id);
+  };
+
+  /**
+   * The scheduler function handles scheduling. It checks if any notes are due to be scheduled, and schedules if need be.
+   */
+  const scheduler = (): void => {
+    if (audioCtx.current) {
+      // Schedule the next note when it is due earlier than our current time (and how far ahead we check, if any)
+      while (nextNoteDueIn < audioCtx.current.currentTime + scheduleAheadTime) {
+        if (interval.current === null) break;
+        schedule(current16thBeat, nextNoteDueIn); // Schedule note
+        next(); // Advance beat number and next note due time
+      }
+    }
   };
 
   /**
