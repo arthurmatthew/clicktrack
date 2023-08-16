@@ -34,7 +34,7 @@ export const ClicktrackListItem = ({
             {...dragHandle}
           />
           <h1
-            className={`flex cursor-default items-center text-3xl font-semibold focus:outline-0 ${
+            className={`flex cursor-default items-center break-all text-3xl font-semibold focus:outline-0 ${
               editing && 'cursor-text underline'
             }`}
             suppressContentEditableWarning
