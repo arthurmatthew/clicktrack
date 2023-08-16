@@ -176,12 +176,9 @@ export const usePlayClicktrack = (
    * it sets and clears the interval which runs the scheduler function.
    */
   const play = async () => {
-    console.time('playPressed');
     if (!audioCtx.current) audioCtx.current = new AudioContext();
-    console.timeLog('playPressed', 'audioCtx made');
 
     setPlayingDisplay((previouslyPlayingDisplay) => !previouslyPlayingDisplay);
-    console.timeLog('playPressed', 'display set');
 
     if (!interval.current) {
       if (!validatePlay(clicktrack.current.data.sections, notify)) return;
@@ -191,11 +188,9 @@ export const usePlayClicktrack = (
       interval.current = setInterval(() => {
         scheduler();
       }, schedulingFrequency);
-      console.timeEnd('playPressed');
       return;
     }
 
-    console.timeEnd('playPressed');
     clearInterval(interval.current);
     interval.current = null;
   };
