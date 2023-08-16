@@ -4,11 +4,14 @@ import { ClicktrackData } from '../models/ClicktrackData';
 import { Metronome } from '../models/Metronome';
 import { validateDeleteSection } from '../utils/validators/validateDeleteSection';
 import { DropResult } from 'react-beautiful-dnd';
+import { useNotify } from './useNotify';
 
 export const useSection = (
   setClicktrack: (value: React.SetStateAction<Clicktrack>) => void,
   setSelectedId: (value: React.SetStateAction<string>) => void
 ) => {
+  const { notify } = useNotify();
+
   const addSection = (newSection: Metronome | Repeat): void => {
     setClicktrack(
       (previousClicktrack) =>
@@ -60,7 +63,10 @@ export const useSection = (
 
   const deleteSection = (id: string): void => {
     setClicktrack((previousClicktrack) => {
-      if (validateDeleteSection(previousClicktrack.data.sections) === false)
+      if (
+        validateDeleteSection(previousClicktrack.data.sections, notify) ===
+        false
+      )
         return previousClicktrack;
 
       const updated = new Clicktrack({

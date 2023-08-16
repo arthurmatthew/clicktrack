@@ -1,3 +1,4 @@
+import { useNotify } from '../../hooks/useNotify';
 import { Metronome } from '../../models/Metronome';
 import { validateTempo } from '../../utils/validators/validateTempo';
 
@@ -14,11 +15,13 @@ export const TempoIncrementButton = ({
   amount,
   icon,
 }: ITempoIncrementButton) => {
+  const { notify } = useNotify();
+
   return (
     <i
       onClick={() => {
         updateMetronome(selected, {
-          bpm: validateTempo(selected.bpm + amount),
+          bpm: validateTempo(selected.bpm + amount, notify),
         });
       }}
       className={`bi-${icon} flex flex-grow cursor-pointer items-center justify-center border-x-[1px] border-white bg-neutral-200 py-2 text-2xl tracking-tighter duration-75 hover:bg-neutral-900 hover:text-white dark:border-black dark:bg-neutral-900 dark:hover:bg-neutral-200 dark:hover:text-black`}

@@ -1,6 +1,8 @@
-export const numberNotPositive = (number: number) => {
+import { TNotify } from '../../types';
+
+export const numberNotPositive = (number: number, notify: TNotify) => {
   if (number > 0) return false;
 
-  console.error('This value must be positive.');
+  notify('This value must be positive.', 'error');
   return true;
 };

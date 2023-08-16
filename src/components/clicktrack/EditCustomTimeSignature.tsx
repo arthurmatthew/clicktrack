@@ -1,3 +1,4 @@
+import { useNotify } from '../../hooks/useNotify';
 import { validateTimeSignature } from '../../utils/validators/validateTimeSignature';
 import { CustomTimeSignatureRow } from './CustomTimeSignatureRow';
 import { IMetronomeUpdater } from './IMetronomeUpdater';
@@ -6,26 +7,27 @@ export const EditCustomTimeSignature = ({
   metronome,
   updateMetronome,
 }: IMetronomeUpdater) => {
+  const { notify } = useNotify();
   const prevNumerator = metronome.timeSignature[0];
   const prevDenominator = metronome.timeSignature[1];
 
   const increaseNumerator = () =>
-    validateTimeSignature(prevNumerator + 1) &&
+    validateTimeSignature(prevNumerator + 1, notify) &&
     updateMetronome(metronome, {
       timeSignature: [prevNumerator + 1, prevDenominator],
     });
   const increaseDenominator = () =>
-    validateTimeSignature(prevDenominator + 1) &&
+    validateTimeSignature(prevDenominator + 1, notify) &&
     updateMetronome(metronome, {
       timeSignature: [prevNumerator, prevDenominator + 1],
     });
   const decreaseNumerator = () =>
-    validateTimeSignature(prevNumerator - 1) &&
+    validateTimeSignature(prevNumerator - 1, notify) &&
     updateMetronome(metronome, {
       timeSignature: [prevNumerator - 1, prevDenominator],
     });
   const decreaseDenominator = () =>
-    validateTimeSignature(prevDenominator - 1) &&
+    validateTimeSignature(prevDenominator - 1, notify) &&
     updateMetronome(metronome, {
       timeSignature: [prevNumerator, prevDenominator - 1],
     });

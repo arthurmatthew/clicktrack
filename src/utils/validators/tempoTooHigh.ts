@@ -1,8 +1,9 @@
 import { CLICKTRACK_MAX_BPM } from '../../config';
+import { TNotify } from '../../types';
 
-export const tempoTooHigh = (amount: number) => {
+export const tempoTooHigh = (amount: number, notify: TNotify) => {
   if (amount <= CLICKTRACK_MAX_BPM) return false;
 
-  console.error('Your tempo cannot be above ' + CLICKTRACK_MAX_BPM);
+  notify('Your tempo cannot be above ' + CLICKTRACK_MAX_BPM, 'error');
   return true;
 };

@@ -7,6 +7,7 @@ import { SequencerControls } from './SequencerControls';
 import { SequencerListMetronome } from './SequencerListMetronome';
 import { SequencerListRepeat } from './SequencerListRepeat';
 import { StrictModeDroppable } from '../core/StrictModeDroppable';
+import { useNotify } from '../../hooks/useNotify';
 
 interface ISequencer {
   add: (child: Clicktrack['data']['sections'][number]) => void;
@@ -25,6 +26,8 @@ export const Sequencer = ({
   sequencerOnDragEnd,
   playingDisplay,
 }: ISequencer) => {
+  const { notify } = useNotify();
+
   return (
     <div className="flex h-full select-none flex-col gap-2">
       <DragDropContext onDragEnd={sequencerOnDragEnd}>
@@ -81,7 +84,7 @@ export const Sequencer = ({
       <SequencerControls
         addMetronome={() => add(new Metronome())}
         addRepeat={() => {
-          if (validateAddRepeat(sequence)) add(new Repeat());
+          if (validateAddRepeat(sequence, notify)) add(new Repeat());
         }}
       />
     </div>

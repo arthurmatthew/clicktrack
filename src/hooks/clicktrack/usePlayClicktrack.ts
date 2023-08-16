@@ -2,12 +2,14 @@ import { useRef, useState, useEffect } from 'react';
 import { Repeat } from '../../models/Repeat';
 import { Clicktrack } from '../../models/Clicktrack';
 import { validatePlay } from '../../utils/validators/validatePlay';
+import { useNotify } from '../useNotify';
 
 export const usePlayClicktrack = (
   _clicktrack: Clicktrack,
   callback: () => void
 ) => {
   const audioCtx = useRef<AudioContext | null>(null);
+  const { notify } = useNotify();
 
   const interval = useRef<number | null>();
 
@@ -191,11 +193,10 @@ export const usePlayClicktrack = (
       unlocked = true;
     }
 
-    if (!validatePlay(clicktrack.current.data.sections)) return;
-
     setPlayingDisplay((previouslyPlayingDisplay) => !previouslyPlayingDisplay);
 
     if (!interval.current) {
+      if (!validatePlay(clicktrack.current.data.sections, notify)) return;
       selectedIdBeforePlaying = selectedId;
       current16thBeat = 0;
       nextNoteDueIn = audioCtx.current.currentTime;
