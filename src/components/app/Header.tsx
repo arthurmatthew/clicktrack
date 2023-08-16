@@ -1,12 +1,7 @@
 import { Link } from 'react-router-dom';
+import { IHeader } from '../index/Header';
 
-export const AppHeader = ({
-  darkToggle,
-  dark,
-}: {
-  darkToggle: React.Dispatch<React.SetStateAction<boolean>>;
-  dark: boolean;
-}) => {
+export const AppHeader = ({ toggleDark, dark }: IHeader) => {
   return (
     <header className="backdrop- sticky top-0 z-[9999999] shrink grow-0 basis-auto border-b-[1px] border-neutral-200 bg-white/90 px-3 py-2 backdrop-blur-md dark:border-neutral-900 dark:bg-black/90">
       <div className="mx-auto flex w-full items-center justify-between">
@@ -27,7 +22,7 @@ export const AppHeader = ({
             className={`${
               dark ? 'bi-moon' : 'bi-sun'
             } text-xl text-black  hover:text-neutral-600 dark:text-white dark:hover:text-neutral-400`}
-            onClick={() => { darkToggle((previouslyDark) => !previouslyDark); }}
+            onClick={toggleDark}
           />
         </div>
       </div>
