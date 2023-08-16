@@ -13,7 +13,6 @@ export const usePlayClicktrack = (
 
   const interval = useRef<number | null>();
 
-  let unlocked = false;
   const [playingDisplay, setPlayingDisplay] = useState(false);
 
   const clicktrack = useRef<Clicktrack>(_clicktrack);
@@ -37,6 +36,10 @@ export const usePlayClicktrack = (
     clicktrack.current = _clicktrack;
   }, [_clicktrack]);
 
+  useEffect(() => {
+    audioCtx.current = new AudioContext();
+  }, []);
+
   const schedule = (beat: number, time: number) => {
     const currentSection =
       clicktrack.current.data.sections[totalSectionsPlayed];
@@ -46,10 +49,7 @@ export const usePlayClicktrack = (
 
     if (audioCtx.current === null) return;
     if (section === undefined) return;
-    if (
-      currentSection === undefined &&
-      !clicktrack.current.data.playExtraBeat
-    )
+    if (currentSection === undefined && !clicktrack.current.data.playExtraBeat)
       return;
     if (section instanceof Repeat) return;
 
@@ -176,24 +176,12 @@ export const usePlayClicktrack = (
    * it sets and clears the interval which runs the scheduler function.
    */
   const play = async () => {
+    console.time('playPressed');
     if (!audioCtx.current) audioCtx.current = new AudioContext();
-
-    // Web Audio API requires user gesture to unlock audio.
-    // We play a silent buffer beforehand so that our metronome
-    // is not affected.
-    if (!unlocked) {
-      const dummyAudio = new Audio(
-        'data:audio/mpeg;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAAFAAADqQAzMzMzMzMzMzMzMzMzMzMzMzMzZmZmZmZmZmZmZmZmZmZmZmZmZmaZmZmZmZmZmZmZmZmZmZmZmZmZmczMzMzMzMzMzMzMzMzMzMzMzMzM//////////////////////////8AAABQTEFNRTMuMTAwBLkAAAAAAAAAABUgJAMGQQAB4AAAA6kQum07AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//sQxAADwAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/+xDEKYPAAAGkAAAAIAAANIAAAARVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/7EMRTA8AAAaQAAAAgAAA0gAAABFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV//sQxHyDwAABpAAAACAAADSAAAAEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/+xDEpgPAAAGkAAAAIAAANIAAAARVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ=='
-      );
-      const buffer = audioCtx.current.createBuffer(1, 1, 22050);
-      const node = audioCtx.current.createBufferSource();
-      await dummyAudio.play();
-      node.buffer = buffer;
-      node.start(0);
-      unlocked = true;
-    }
+    console.timeLog('playPressed', 'audioCtx made');
 
     setPlayingDisplay((previouslyPlayingDisplay) => !previouslyPlayingDisplay);
+    console.timeLog('playPressed', 'display set');
 
     if (!interval.current) {
       if (!validatePlay(clicktrack.current.data.sections, notify)) return;
@@ -203,9 +191,11 @@ export const usePlayClicktrack = (
       interval.current = setInterval(() => {
         scheduler();
       }, schedulingFrequency);
+      console.timeEnd('playPressed');
       return;
     }
 
+    console.timeEnd('playPressed');
     clearInterval(interval.current);
     interval.current = null;
   };
