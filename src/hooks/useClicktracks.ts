@@ -7,12 +7,7 @@ import { useLocalStorage } from './useLocalStorage';
 export const useClicktracks = (localStorageKey: string) => {
   const importRef = useRef<HTMLInputElement | null>(null);
   const [clicktracks, setClicktracks] = useLocalStorage<Clicktrack[]>(
-    [
-      new Clicktrack({
-        permanant: true,
-        id: 'default',
-      }),
-    ],
+    [new Clicktrack()],
     localStorageKey
   );
 

@@ -30,8 +30,9 @@ export const DragDropList = ({
           >
             <Import {...{ handleImport, importRef }} />
             {clicktracks.length === 0 ? (
-              <h1 className="text-center  ">
-                You don't have any metronomes right now.
+              <h1 className="my-20 text-center text-3xl">
+                You don't have any clicktracks made. Make a new one, it's super
+                easy!
               </h1>
             ) : (
               clicktracks.map((clicktrack, index) => (
