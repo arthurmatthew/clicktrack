@@ -3,7 +3,7 @@ import { Repeat } from '../../models/Repeat';
 import { Clicktrack } from '../../models/Clicktrack';
 import { validatePlay } from '../../utils/validators/validatePlay';
 
-export const useClicktrackPlayer = (
+export const usePlayClicktrack = (
   _clicktrack: Clicktrack,
   callback: () => void
 ) => {
