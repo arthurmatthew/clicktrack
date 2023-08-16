@@ -1,15 +1,28 @@
 import { useEffect, useState } from 'react';
 import { Clicktrack } from '../models/Clicktrack';
-import { useUpdateClicktrack } from './clicktrack/useUpdateClicktrack';
 import { usePlayClicktrack } from './clicktrack/usePlayClicktrack';
 import { useSection } from './useSection';
 import { STORAGE_KEYS_CLICKTRACK } from '../config';
 import { useAnimationControls } from 'framer-motion';
+import { ClicktrackData } from '../models/ClicktrackData';
 
 export const useClicktrack = (loadedClicktrack: Clicktrack) => {
   const [clicktrack, setClicktrack] = useState<Clicktrack>(
     Clicktrack.parseInternals(loadedClicktrack)
   );
+
+  const updateClicktrackData = (update: Partial<Clicktrack['data']>): void => {
+    setClicktrack((previousClicktrack) => {
+      const updatedData = new ClicktrackData({
+        ...previousClicktrack.data,
+        ...update,
+      });
+      return new Clicktrack({
+        ...previousClicktrack,
+        data: updatedData,
+      });
+    });
+  };
 
   useEffect(() => {
     const storedClicktracks = JSON.parse(
@@ -31,17 +44,13 @@ export const useClicktrack = (loadedClicktrack: Clicktrack) => {
       transition: { duration: 1, ease: 'easeOut' },
     });
   };
-
   const { play, playingDisplay, selectedId, setSelectedId } = usePlayClicktrack(
     clicktrack,
     () => {
       startPulseAnimation();
     }
   );
-
-  const { updateClicktrackData } = useUpdateClicktrack(setClicktrack);
   const [settingsShown, setSettingsShown] = useState(false);
-
   const {
     addSection,
     updateSection,
