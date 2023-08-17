@@ -3,6 +3,7 @@ import { Repeat } from '../models/Repeat';
 import { Clicktrack } from '../models/Clicktrack';
 import { validatePlay } from '../utils/validators/validatePlay';
 import { useNotify } from './useNotify';
+import { Metronome } from '../models/Metronome';
 
 export const usePlayClicktrack = (
   _clicktrack: Clicktrack,
@@ -16,7 +17,7 @@ export const usePlayClicktrack = (
   const [playingDisplay, setPlayingDisplay] = useState(false);
 
   const clicktrack = useRef<Clicktrack>(_clicktrack);
-  const repeats = useRef<number[]>([]);
+  const repeatsTaken = useRef<Map<string, number>>(new Map());
 
   const [selectedId, setSelectedId] = useState<string>(
     clicktrack.current.data.sections[0]?.id ?? ''
@@ -26,23 +27,14 @@ export const usePlayClicktrack = (
   let current16thBeat: number; // Relative to the bar
   let totalSectionsPlayed = 0;
   let totalBarsPlayed = 0;
-  let repeatsTaken: number = 0;
   const schedulingFrequency = 25; // In milliseconds
   const metronomeSoundLength = 0.3; // In seconds
   const scheduleAheadTime = 0.1; // In seconds
 
-  let selectedIdBeforePlaying: string;
+  const selectedIdBeforePlaying = useRef<string | undefined>();
 
   useEffect(() => {
     clicktrack.current = _clicktrack;
-
-    // set up repeats array
-    const allRepeatSections = _clicktrack.data.sections.filter(
-      (section) => section instanceof Repeat
-    ) as Repeat[];
-    repeats.current = allRepeatSections.map((repeat) =>
-      repeat.infinite ? 0 : repeat.times
-    );
   }, [_clicktrack]);
 
   useEffect(() => {
@@ -54,7 +46,14 @@ export const usePlayClicktrack = (
       clicktrack.current.data.sections[totalSectionsPlayed];
     const previousSection =
       clicktrack.current.data.sections[totalSectionsPlayed - 1];
-    const section = currentSection || previousSection;
+    const lastMetronomeSection = clicktrack.current.data.sections.findLast(
+      (section) => section instanceof Metronome
+    ) as Metronome | undefined;
+    const section =
+      currentSection ||
+      (previousSection instanceof Repeat
+        ? lastMetronomeSection
+        : previousSection);
 
     if (audioCtx.current === null) return;
     if (section === undefined) return;
@@ -108,23 +107,53 @@ export const usePlayClicktrack = (
    * the next 16th note is due.
    */
   const next = () => {
-    const currentSection =
-      clicktrack.current.data.sections[totalSectionsPlayed];
-    const previousSection =
-      clicktrack.current.data.sections[totalSectionsPlayed - 1];
-    const section = currentSection || previousSection;
+    const sections = clicktrack.current.data.sections;
+    const currentSection = sections[totalSectionsPlayed];
+    const previousSection = sections[totalSectionsPlayed - 1];
+    const lastMetronomeSection = sections.findLast(
+      (section) => section instanceof Metronome
+    ) as Metronome | undefined;
+
+    const section =
+      currentSection ||
+      (previousSection instanceof Repeat
+        ? lastMetronomeSection
+        : previousSection);
 
     if (section instanceof Repeat) {
+      if (repeatsTaken.current.get(section.id) === undefined)
+        repeatsTaken.current.set(section.id, 0);
+
+      const individualRepeatsTaken = repeatsTaken.current.get(
+        section.id
+      ) as number;
+
       if (section.infinite) {
         totalSectionsPlayed = 0;
         return;
       }
-      if (repeatsTaken == section.times) {
-        stop();
+      if (individualRepeatsTaken == section.times) {
+        totalSectionsPlayed = sections.indexOf(section) + 1;
         return;
       }
-      if (repeatsTaken != section.times) totalSectionsPlayed = 0;
-      repeatsTaken++;
+      if (individualRepeatsTaken != section.times) {
+        // repeat back to start
+        totalSectionsPlayed = 0;
+
+        const sectionsBeforeThisRepeat = sections.slice(
+          0,
+          sections.indexOf(section)
+        );
+        const repeatsBeforeThisRepeat = sectionsBeforeThisRepeat.filter(
+          (section) => section instanceof Repeat
+        );
+
+        repeatsBeforeThisRepeat.forEach((repeat) =>
+          repeatsTaken.current.set(repeat.id, 0)
+        ); // reset all repeats before the current one so it truly repeats
+      }
+
+      repeatsTaken.current.set(section.id, individualRepeatsTaken + 1);
       return;
     }
 
@@ -175,13 +204,13 @@ export const usePlayClicktrack = (
    * it sets and clears the interval which runs the scheduler function.
    */
   const play = async () => {
-    if (!audioCtx.current) audioCtx.current = new AudioContext();
-
     setPlayingDisplay((previouslyPlayingDisplay) => !previouslyPlayingDisplay);
 
     if (!interval.current) {
+      if (!audioCtx.current) audioCtx.current = new AudioContext();
       if (!validatePlay(clicktrack.current.data.sections, notify)) return;
-      selectedIdBeforePlaying = selectedId;
+
+      selectedIdBeforePlaying.current = selectedId;
       current16thBeat = 0;
       nextNoteDueIn = audioCtx.current.currentTime;
       interval.current = setInterval(() => {
@@ -190,8 +219,17 @@ export const usePlayClicktrack = (
       return;
     }
 
-    clearInterval(interval.current);
+    stop();
+  };
+
+  const stop = () => {
+    if (interval.current !== null) clearInterval(interval.current);
     interval.current = null;
+
+    setSelectedId(selectedIdBeforePlaying.current as string);
+    setPlayingDisplay(false);
+
+    repeatsTaken.current.clear();
   };
 
   useEffect(
@@ -201,14 +239,6 @@ export const usePlayClicktrack = (
     },
     []
   );
-
-  const stop = () => {
-    if (interval.current !== null) clearInterval(interval.current);
-    interval.current = null;
-
-    setSelectedId(selectedIdBeforePlaying);
-    setPlayingDisplay(false);
-  };
 
   return { play, playingDisplay, selectedId, setSelectedId };
 };
