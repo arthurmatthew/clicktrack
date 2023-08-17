@@ -1,5 +1,6 @@
 import { ClicktrackData } from '../../models/ClicktrackData';
 import { TNotify } from '../../types';
+import { sectionAdjacentRepeats } from './sectionAdjacentRepeats';
 import { sectionEmpty } from './sectionEmpty';
 import { sectionHasNoMetronomes } from './sectionHasNoMetronomes';
 import { sectionMetronomesAfterRepeatForever } from './sectionMetronomesAfterRepeatForever';
@@ -18,6 +19,7 @@ export const validatePlay = (
   if (sectionEmpty(sections, notify)) return false;
   if (sectionHasNoMetronomes(sections, notify)) return false;
   if (sectionStartsWithRepeat(sections, notify)) return false;
+  if (sectionAdjacentRepeats(sections, notify)) return false;
 
   return true;
 };
