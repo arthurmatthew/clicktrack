@@ -1,5 +1,5 @@
-import { Clicktrack } from '../../models/Clicktrack';
-import { useNotify } from '../useNotify';
+import { Clicktrack } from '../models/Clicktrack';
+import { useNotify } from './useNotify';
 
 export const useShareClicktrack = (clicktrack: Clicktrack) => {
   const { notify } = useNotify();

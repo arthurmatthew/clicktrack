@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
-import { Repeat } from '../../models/Repeat';
-import { Clicktrack } from '../../models/Clicktrack';
-import { validatePlay } from '../../utils/validators/validatePlay';
-import { useNotify } from '../useNotify';
+import { Repeat } from '../models/Repeat';
+import { Clicktrack } from '../models/Clicktrack';
+import { validatePlay } from '../utils/validators/validatePlay';
+import { useNotify } from './useNotify';
 
 export const usePlayClicktrack = (
   _clicktrack: Clicktrack,
@@ -111,12 +111,7 @@ export const usePlayClicktrack = (
         return;
       }
       if (repeatsTaken == section.times) {
-        if (interval.current !== null) clearInterval(interval.current);
-        interval.current = null;
-
-        setSelectedId(selectedIdBeforePlaying);
-        setPlayingDisplay(false);
-
+        stop();
         return;
       }
       if (repeatsTaken != section.times) totalSectionsPlayed = 0;
@@ -125,12 +120,7 @@ export const usePlayClicktrack = (
     }
 
     if (section === undefined) {
-      if (interval.current !== null) clearInterval(interval.current);
-      interval.current = null;
-
-      setSelectedId(selectedIdBeforePlaying);
-      setPlayingDisplay(false);
-
+      stop();
       return;
     }
 
@@ -202,6 +192,14 @@ export const usePlayClicktrack = (
     },
     []
   );
+
+  const stop = () => {
+    if (interval.current !== null) clearInterval(interval.current);
+    interval.current = null;
+
+    setSelectedId(selectedIdBeforePlaying);
+    setPlayingDisplay(false);
+  };
 
   return { play, playingDisplay, selectedId, setSelectedId };
 };

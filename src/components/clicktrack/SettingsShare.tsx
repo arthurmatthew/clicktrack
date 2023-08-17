@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { SettingsButton } from './SettingsButton';
 import { SettingsSection } from './SettingsSection';
-import { useShareClicktrack } from '../../hooks/clicktrack/useShareClicktrack';
+import { useShareClicktrack } from '../../hooks/useShareClicktrack';
 import { Clicktrack } from '../../models/Clicktrack';
 
 interface ISettingsShare {

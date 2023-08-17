@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Clicktrack } from '../models/Clicktrack';
-import { usePlayClicktrack } from './clicktrack/usePlayClicktrack';
+import { usePlayClicktrack } from './usePlayClicktrack';
 import { useSection } from './useSection';
 import { STORAGE_KEYS_CLICKTRACK } from '../config';
 import { useAnimationControls } from 'framer-motion';
