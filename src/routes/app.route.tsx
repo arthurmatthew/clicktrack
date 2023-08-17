@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { getClicktrackFromLocalStorageByID } from '../utils/getClicktrackFromLocalStorageByID';
 import ClicktrackPage from '../pages/app/clicktracks/clicktrack';
 
 const AppLayout = React.lazy(() => import('../components/app/Layout'));
@@ -20,12 +19,6 @@ export const AppRoute = (
   >
     <Route path="/app/" element={<AppIndex />} />
     <Route path="/app/clicktracks" element={<ClicktracksIndex />} />
-    <Route
-      path="/app/clicktracks/:id/*"
-      element={<ClicktrackPage />}
-      loader={async ({ params }) => {
-        return getClicktrackFromLocalStorageByID(params.id);
-      }}
-    />
+    <Route path="/app/clicktracks/:id/*" element={<ClicktrackPage />} />
   </Route>
 );
