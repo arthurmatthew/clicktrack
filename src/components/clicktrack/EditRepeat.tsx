@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { Repeat } from '../../models/Repeat';
 import { NumberInput } from '../core/NumberInput';
+import { numberNotPositive } from '../../utils/validators/numberNotPositive';
+import { useNotify } from '../../hooks/useNotify';
 
 interface IEditRepeat {
   updateRepeat: (metronome: Repeat, update: Partial<Repeat>) => void;
@@ -8,6 +10,8 @@ interface IEditRepeat {
 }
 
 export const EditRepeat = ({ updateRepeat, repeat }: IEditRepeat) => {
+  const { notify } = useNotify();
+
   if (repeat)
     return (
       <motion.div
@@ -34,13 +38,15 @@ export const EditRepeat = ({ updateRepeat, repeat }: IEditRepeat) => {
           label="Repeats"
           value={repeat.times}
           set={(value) => {
-            updateRepeat(repeat, { times: value });
+            numberNotPositive(value, notify) &&
+              updateRepeat(repeat, { times: value });
           }}
           increase={() => {
             updateRepeat(repeat, { times: repeat.times + 1 });
           }}
           decrease={() => {
-            updateRepeat(repeat, { times: repeat.times - 1 });
+            !numberNotPositive(repeat.times - 1, notify) &&
+              updateRepeat(repeat, { times: repeat.times - 1 });
           }}
         />
       </motion.div>

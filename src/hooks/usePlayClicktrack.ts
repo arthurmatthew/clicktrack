@@ -16,6 +16,7 @@ export const usePlayClicktrack = (
   const [playingDisplay, setPlayingDisplay] = useState(false);
 
   const clicktrack = useRef<Clicktrack>(_clicktrack);
+  const repeats = useRef<number[]>([]);
 
   const [selectedId, setSelectedId] = useState<string>(
     clicktrack.current.data.sections[0]?.id ?? ''
@@ -34,6 +35,14 @@ export const usePlayClicktrack = (
 
   useEffect(() => {
     clicktrack.current = _clicktrack;
+
+    // set up repeats array
+    const allRepeatSections = _clicktrack.data.sections.filter(
+      (section) => section instanceof Repeat
+    ) as Repeat[];
+    repeats.current = allRepeatSections.map((repeat) =>
+      repeat.infinite ? 0 : repeat.times
+    );
   }, [_clicktrack]);
 
   useEffect(() => {
