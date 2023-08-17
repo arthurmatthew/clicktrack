@@ -2,12 +2,14 @@ import { motion, AnimatePresence, AnimationControls } from 'framer-motion';
 import { DataViewItem } from './DataViewItem';
 import { SettingsWindow } from './SettingsWindow';
 import { Clicktrack } from '../../models/Clicktrack';
+import { useRef, useState } from 'react';
+import { useClicktracks } from '../../hooks/useClicktracks';
+import { STORAGE_KEYS_CLICKTRACK } from '../../config';
 
 interface ITitle {
   clicktrack: Clicktrack;
   play: () => void;
   playingDisplay: boolean;
-  startPulseAnimation: () => void;
   pulseAnimationControls: AnimationControls;
   settingsShown: boolean;
   setSettingsShown: (value: React.SetStateAction<boolean>) => void;
@@ -18,19 +20,53 @@ export const Title = ({
   play,
   clicktrack,
   playingDisplay,
-  startPulseAnimation,
   pulseAnimationControls,
   settingsShown,
   setSettingsShown,
   updateClicktrackData,
 }: ITitle) => {
+  const nameRef = useRef<HTMLHeadingElement>(null);
+  const [editing, setEditing] = useState<boolean>(false);
+
+  const { handleNameChange } = useClicktracks(STORAGE_KEYS_CLICKTRACK);
+
   return (
     <div className="flex w-full items-center justify-center py-8">
-      <div className="flex max-w-5xl flex-col items-center justify-center sm:flex-row">
+      <div className="flex max-w-5xl flex-col items-center justify-center px-6 sm:flex-row sm:px-0">
         <div className="flex flex-col items-center gap-2">
-          <h1 className="text-3xl" onClick={startPulseAnimation}>
-            {clicktrack.name}
-          </h1>
+          <div className="flex items-center gap-3">
+            <h1
+              className={`flex cursor-default items-center break-all text-center text-3xl focus:outline-0 ${
+                editing && 'cursor-text underline'
+              }`}
+              suppressContentEditableWarning
+              contentEditable={editing}
+              spellCheck={false}
+              ref={nameRef}
+            >
+              {clicktrack.name}
+            </h1>
+            <i
+              onClick={() => {
+                if (editing) {
+                  const nameCheck = /(.|\s)*\S(.|\s)*/gm;
+                  const newName = (nameRef.current?.innerText as string).trim();
+                  if (!nameCheck.test(newName)) {
+                    (nameRef.current as HTMLHeadingElement).innerText =
+                      clicktrack.name;
+                    setEditing((previouslyEditing) => !previouslyEditing);
+                    return;
+                  }
+                  handleNameChange(clicktrack.id, newName);
+                }
+                setEditing((previouslyEditing) => !previouslyEditing);
+              }}
+              className={`bi-${
+                editing ? 'check-lg' : 'pencil-fill'
+              } mx-2 cursor-pointer text-sm opacity-50`}
+            />
+          </div>
+
           <ul className="flex text-sm">
             <DataViewItem title={'ID'}>{clicktrack.id}</DataViewItem>
           </ul>
@@ -45,9 +81,9 @@ export const Title = ({
             <i className={playingDisplay ? 'bi-pause-fill' : 'bi-play-fill'} />
           </motion.button>
           <div
-            onClick={() =>
-              setSettingsShown((previouslyShown) => !previouslyShown)
-            }
+            onClick={() => {
+              setSettingsShown((previouslyShown) => !previouslyShown);
+            }}
             className="group rounded-sm bg-black px-4 py-2 text-white dark:bg-white dark:text-black"
           >
             <i className="bi-gear-fill block duration-150 group-hover:rotate-[40deg]" />

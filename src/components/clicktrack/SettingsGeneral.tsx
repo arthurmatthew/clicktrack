@@ -1,4 +1,5 @@
 import { ISettingsUpdater } from './ISettingsUpdater';
+import { Setting } from './Setting';
 import { SettingsButton } from './SettingsButton';
 import { SettingsSection } from './SettingsSection';
 
@@ -8,18 +9,20 @@ export const SettingsGeneral = ({
 }: ISettingsUpdater) => {
   return (
     <SettingsSection name="General">
-      <p className="flex items-center gap-4 text-xl">
+      <Setting
+        label="Play Extra Beat"
+        description="Clicktrack will play the downbeat of an extra measure if this setting is enabled."
+      >
         <SettingsButton
-          onClick={() =>
+          onClick={() => {
             updateSettings({
               playExtraBeat: !settings.playExtraBeat,
-            })
-          }
+            });
+          }}
         >
           {settings.playExtraBeat ? 'On' : 'Off'}
-        </SettingsButton>{' '}
-        Play Extra Beat
-      </p>
+        </SettingsButton>
+      </Setting>
     </SettingsSection>
   );
 };

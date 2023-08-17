@@ -10,6 +10,7 @@ interface IClicktrackListItem extends IComponent {
   handleRemove: () => void;
   handleNameChange: (name: string, newName: string) => void;
   dragHandle: DraggableProvidedDragHandleProps | null | undefined;
+  handleCopy: (id: string) => void;
 }
 
 export const ClicktrackListItem = ({
@@ -17,8 +18,9 @@ export const ClicktrackListItem = ({
   handleRemove,
   handleNameChange,
   dragHandle,
+  handleCopy,
 }: IClicktrackListItem) => {
-  const [shown, setShown] = useState<boolean>(clicktrack.opened ?? false);
+  const [shown, setShown] = useState<boolean>(clicktrack.opened);
   const [editing, setEditing] = useState<boolean>(false);
 
   const nameRef = useRef<HTMLHeadingElement>(null);
@@ -32,7 +34,7 @@ export const ClicktrackListItem = ({
             {...dragHandle}
           />
           <h1
-            className={`flex cursor-default items-center text-3xl font-semibold focus:outline-0 ${
+            className={`flex cursor-default items-center break-all text-3xl font-semibold focus:outline-0 ${
               editing && 'cursor-text underline'
             }`}
             suppressContentEditableWarning
@@ -69,7 +71,9 @@ export const ClicktrackListItem = ({
           </Link>
 
           <p
-            onClick={() => setShown((previouslyShown) => !previouslyShown)}
+            onClick={() => {
+              setShown((previouslyShown) => !previouslyShown);
+            }}
             className="group flex cursor-pointer items-center gap-2 text-neutral-600 dark:text-neutral-400"
           >
             More{' '}
@@ -84,6 +88,14 @@ export const ClicktrackListItem = ({
 
       {shown && (
         <div className="mt-2 flex items-center gap-4">
+          <Button
+            className="bg-neutral-200 dark:bg-neutral-900"
+            onClick={() => {
+              handleCopy(clicktrack.id);
+            }}
+          >
+            Copy
+          </Button>
           <Button
             onClick={handleRemove}
             className="border-[1px] border-red-500"

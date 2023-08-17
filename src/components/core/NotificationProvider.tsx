@@ -15,7 +15,9 @@ export const NotificationContext = createContext<TNotificationContext>({
 export const NotificationProvider = ({ children }: IComponent) => {
   const [notif, setNotif] = useState<TNotification>(undefined);
 
-  const clearNotif = () => setNotif(undefined);
+  const clearNotif = () => {
+    setNotif(undefined);
+  };
   const notify = (content: string, type: TNotificationTypes) => {
     setNotif({ content, type });
     switch (type) {
@@ -37,10 +39,9 @@ export const NotificationProvider = ({ children }: IComponent) => {
 
   const contextValue: TNotificationContext = {
     notif,
-    notify: useCallback(
-      (content: string, type: TNotificationTypes) => notify(content, type),
-      []
-    ),
+    notify: useCallback((content: string, type: TNotificationTypes) => {
+      notify(content, type);
+    }, []),
     clearNotif: useCallback(clearNotif, []),
   };
 

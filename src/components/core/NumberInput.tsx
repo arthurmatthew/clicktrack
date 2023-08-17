@@ -18,7 +18,6 @@ export const NumberInput = ({
   const validateAndSet = (value: string) => {
     const parsedValue = parseInt(value);
 
-    if (value === undefined) return;
     if (Number.isNaN(parsedValue)) return;
 
     set(parsedValue);
@@ -44,7 +43,9 @@ export const NumberInput = ({
             type="text"
             className="roboto w-full bg-transparent text-center text-2xl focus:outline-none"
             value={value}
-            onChange={(e) => validateAndSet(e.currentTarget.value)}
+            onChange={(e) => {
+              validateAndSet(e.currentTarget.value);
+            }}
           />
         </div>
         <button

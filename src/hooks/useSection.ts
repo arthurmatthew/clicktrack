@@ -63,10 +63,7 @@ export const useSection = (
 
   const deleteSection = (id: string): void => {
     setClicktrack((previousClicktrack) => {
-      if (
-        validateDeleteSection(previousClicktrack.data.sections, notify) ===
-        false
-      )
+      if (!validateDeleteSection(previousClicktrack.data.sections, notify))
         return previousClicktrack;
 
       const updated = new Clicktrack({
@@ -107,7 +104,7 @@ export const useSection = (
       );
       if (!sectionToCopy) return previousClicktrack;
       const sectionCopy = () => {
-        switch (sectionToCopy?.type) {
+        switch (sectionToCopy.type) {
           case 'metronome':
             return new Metronome({ ...sectionToCopy, id: undefined });
           case 'repeat':

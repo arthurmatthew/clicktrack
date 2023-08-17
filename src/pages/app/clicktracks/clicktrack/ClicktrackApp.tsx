@@ -32,13 +32,15 @@ export const ClicktrackApp = ({
       <Title
         {...{
           clicktrack,
-          play,
           playingDisplay,
           startPulseAnimation,
           pulseAnimationControls,
           settingsShown,
           setSettingsShown,
           updateClicktrackData,
+        }}
+        play={() => {
+          void play();
         }}
       />
       <Controls

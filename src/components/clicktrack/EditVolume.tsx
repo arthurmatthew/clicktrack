@@ -31,9 +31,9 @@ export const EditVolume = ({
         <RangeInput
           volume={metronome.volume}
           muted={metronome.muted}
-          updateVolume={(volume) =>
-            updateMetronome(metronome, { volume: volume })
-          }
+          updateVolume={(volume) => {
+            updateMetronome(metronome, { volume: volume });
+          }}
         />
       </div>
     </div>

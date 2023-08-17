@@ -19,7 +19,7 @@ export const SettingsWindow = ({
 
   return (
     <div
-      className="fixed left-0 top-0 z-50 flex h-full max-h-screen w-screen items-center justify-center  text-black dark:text-white sm:px-2 sm:pb-2 sm:pt-14 "
+      className="fixed left-0 top-0 z-[999999999] flex h-full max-h-screen w-screen items-center justify-center sm:px-2 sm:pb-2 sm:pt-14 "
       onClick={hideSettings}
     >
       <motion.div
@@ -27,7 +27,9 @@ export const SettingsWindow = ({
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 20, opacity: 0 }}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
         transition={{
           type: 'spring',
           stiffness: 500,

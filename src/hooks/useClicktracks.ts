@@ -13,15 +13,16 @@ export const useClicktracks = (localStorageKey: string) => {
     localStorageKey
   );
 
-  const handleAdd = () =>
+  const handleAdd = () => {
     setClicktracks((previousClicktracks) => [
       ...previousClicktracks,
       new Clicktrack({
         name: `New Metronome ${previousClicktracks.length + 1}`,
       }),
     ]);
+  };
 
-  const handleRemove = (id: string) =>
+  const handleRemove = (id: string) => {
     setClicktracks((previousClicktracks) => {
       if (
         !previousClicktracks.find((metronome) => metronome.id === id)?.permanant
@@ -29,13 +30,16 @@ export const useClicktracks = (localStorageKey: string) => {
         return previousClicktracks.filter((metronome) => metronome.id !== id);
       return previousClicktracks;
     });
+  };
 
-  const handleImport = () =>
+  const handleImport = () => {
     setClicktracks((previousClicktracks) => {
       try {
         const importedClicktrack = JSON.parse(
           atob(importRef.current?.value as string)
         ) as Clicktrack;
+
+        notify(`Import successful.`, 'info');
 
         return [
           ...previousClicktracks,
@@ -54,8 +58,9 @@ export const useClicktracks = (localStorageKey: string) => {
         return previousClicktracks;
       }
     });
+  };
 
-  const handleNameChange = (id: string, newName: string) =>
+  const handleNameChange = (id: string, newName: string) => {
     setClicktracks((previousClicktracks) => {
       const clicktracksWithoutToBeNamed = previousClicktracks.filter(
         (metronome) => metronome.id !== id
@@ -77,6 +82,7 @@ export const useClicktracks = (localStorageKey: string) => {
 
       return clicktracksWithoutToBeNamed;
     });
+  };
 
   const handleOnDragEnd = (result: DropResult) => {
     if (!result.destination) return;
@@ -94,6 +100,23 @@ export const useClicktracks = (localStorageKey: string) => {
     location.reload();
   };
 
+  const handleCopy = (id: string) => {
+    setClicktracks((previousClicktracks) => {
+      const clicktrackToCopy = previousClicktracks.find(
+        (clicktrack) => clicktrack.id === id
+      );
+      if (!clicktrackToCopy) return previousClicktracks;
+
+      return [
+        ...previousClicktracks,
+        new Clicktrack({
+          ...clicktrackToCopy,
+          id: undefined,
+        }),
+      ];
+    });
+  };
+
   return {
     clicktracks,
     importRef,
@@ -103,5 +126,6 @@ export const useClicktracks = (localStorageKey: string) => {
     handleRemove,
     handleNameChange,
     handleOnDragEnd,
+    handleCopy,
   };
 };

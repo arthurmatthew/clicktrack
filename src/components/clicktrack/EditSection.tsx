@@ -38,7 +38,7 @@ export const EditSection = ({
         {selected && (
           <SectionControls
             {...{ copySection, deleteSection }}
-            id={selected?.id}
+            id={selected.id}
           />
         )}
       </div>

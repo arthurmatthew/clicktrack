@@ -9,6 +9,7 @@ interface IDragDropList extends IImport {
   handleOnDragEnd: (result: DropResult) => void;
   handleRemove: (id: string) => void;
   handleNameChange: (name: string, newName: string) => void;
+  handleCopy: (id: string) => void;
 }
 
 export const DragDropList = ({
@@ -18,6 +19,7 @@ export const DragDropList = ({
   handleRemove,
   handleNameChange,
   importRef,
+  handleCopy,
 }: IDragDropList) => {
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
@@ -31,14 +33,20 @@ export const DragDropList = ({
             <Import {...{ handleImport, importRef }} />
             {clicktracks.length === 0 ? (
               <h1 className="my-20 text-center text-3xl">
-                You don't have any clicktracks made. Make a new one, it's super
-                easy!
+                You don&apos;t have any clicktracks made. Make a new one,
+                it&apos;s super easy!
               </h1>
             ) : (
               clicktracks.map((clicktrack, index) => (
                 <DraggableItem
                   key={clicktrack.id}
-                  {...{ handleNameChange, handleRemove, clicktrack, index }}
+                  {...{
+                    handleNameChange,
+                    handleRemove,
+                    clicktrack,
+                    index,
+                    handleCopy,
+                  }}
                 />
               ))
             )}

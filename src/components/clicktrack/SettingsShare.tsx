@@ -20,10 +20,16 @@ export const SettingsShare = ({ clicktrack }: ISettingsShare) => {
             Clicktrack list
           </Link>
         </span>
-        . Copy your code below. It's specific to each of your Clicktracks.
+        . Copy your code below. It&apos;s specific to each of your Clicktracks.
       </p>
       <div className="flex items-center gap-2">
-        <SettingsButton onClick={copyToClipboard}>Copy</SettingsButton>
+        <SettingsButton
+          onClick={() => {
+            void copyToClipboard();
+          }}
+        >
+          Copy
+        </SettingsButton>
         <p className="h-full max-w-sm overflow-hidden text-ellipsis rounded-sm rounded-b-none p-2 text-sm text-black/50 dark:text-white/20">
           {sharingCode}
         </p>

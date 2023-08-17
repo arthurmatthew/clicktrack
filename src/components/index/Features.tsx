@@ -9,14 +9,15 @@ export const Features = () => {
           free.
         </InfoCard>
         <InfoCard icon="cloud-download-fill" title="No Strings Attatched">
-          You don't need to make an account. Everything happens locally on your
-          browser.
+          You don&apos;t need to make an account. Everything happens locally on
+          your browser.
         </InfoCard>
         <InfoCard icon="github" title="Open Source">
           Clicktrack is open source which means users like you can help improve
           our project.{' '}
           <a
             target="_blank"
+            rel="noreferrer"
             className="underline"
             href="https://www.github.com/arthurmatthew/clicktrack"
           >

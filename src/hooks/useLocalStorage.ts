@@ -1,5 +1,6 @@
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import { TSaveableData } from '../types';
+import { useNotify } from './useNotify';
 
 /**
  * Normal React `setState` hook, except the state is stored and updated in local storage
@@ -11,15 +12,21 @@ export const useLocalStorage = <T extends TSaveableData>(
   defaultValue: T,
   key: string
 ): [value: T, setValue: Dispatch<SetStateAction<T>>] => {
-  const [value, setValue] = useState(() => {
-    const v = localStorage.getItem(key);
-    if (v === null) {
+  const { notify } = useNotify();
+
+  const [value, setValue] = useState<T>(() => {
+    const storedData = localStorage.getItem(key);
+    if (storedData === null) {
       return defaultValue;
     }
     try {
-      return JSON.parse(v);
+      return JSON.parse(storedData) as T;
     } catch (e) {
-      console.error('Could not parse data');
+      notify(
+        'Something went wrong while loading your clicktracks. Check the browser console for details.',
+        'error'
+      );
+      console.error(e);
       return defaultValue;
     }
   });

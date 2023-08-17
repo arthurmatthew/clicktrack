@@ -12,6 +12,11 @@ export type TNotificationContext = {
   clearNotif: () => void;
 };
 
+export type TDarkModeContext = {
+  dark: boolean;
+  toggleDark: () => void;
+};
+
 export type TTimeSignature = [beats: number, value: number];
 export type TNote = [note: string, octave: number];
 export type TSaveableData =

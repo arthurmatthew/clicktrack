@@ -21,9 +21,9 @@ export const EditTimeSignature = ({
         {first3TimeSignatures.map((timeSignature) => (
           <TimeSignatureButton
             key={JSON.stringify(timeSignature)}
-            onClick={() =>
-              updateMetronome(metronome, { timeSignature: timeSignature })
-            }
+            onClick={() => {
+              updateMetronome(metronome, { timeSignature: timeSignature });
+            }}
             selected={
               JSON.stringify(metronome.timeSignature) ==
               JSON.stringify(timeSignature)
@@ -35,9 +35,9 @@ export const EditTimeSignature = ({
           restOfTimeSignatures.map((timeSignature) => (
             <TimeSignatureButton
               key={JSON.stringify(timeSignature)}
-              onClick={() =>
-                updateMetronome(metronome, { timeSignature: timeSignature })
-              }
+              onClick={() => {
+                updateMetronome(metronome, { timeSignature: timeSignature });
+              }}
               selected={
                 JSON.stringify(metronome.timeSignature) ==
                 JSON.stringify(timeSignature)
@@ -47,9 +47,9 @@ export const EditTimeSignature = ({
           ))}
         <TimeSignatureShowMore
           showingMore={showingMore}
-          onClick={() =>
-            setShowingMore((previouslyShowingMore) => !previouslyShowingMore)
-          }
+          onClick={() => {
+            setShowingMore((previouslyShowingMore) => !previouslyShowingMore);
+          }}
         />
       </div>
     </div>
