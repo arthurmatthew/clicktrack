@@ -57,6 +57,16 @@ export const Sequencer = ({
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}
                         {...provided.draggableProps}
+                        className={
+                          sequence
+                            .slice(0, sequence.indexOf(section))
+                            .find(
+                              (section) =>
+                                section instanceof Repeat && section.infinite
+                            ) !== undefined
+                            ? 'opacity-50'
+                            : ''
+                        }
                       >
                         {(() => {
                           const selected = section.id === selectedId;
