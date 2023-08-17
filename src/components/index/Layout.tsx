@@ -5,6 +5,7 @@ import './Layout.css';
 import { Suspense } from 'react';
 import { ScrollToTop } from '../core/ScrollToTop';
 import { useTheme } from '../../hooks/useTheme';
+import { LoadingScreen } from '../core/LoadingScreen';
 
 const Layout = ({ children }: { children?: React.ReactNode }) => {
   const { dark, toggleDark } = useTheme();
@@ -18,13 +19,7 @@ const Layout = ({ children }: { children?: React.ReactNode }) => {
       >
         <Header dark={dark} toggleDark={toggleDark} />
         <main className="relative flex flex-auto flex-col">
-          <Suspense
-            fallback={
-              <div className="flex flex-grow items-center justify-center">
-                <i className="bi-arrow-clockwise animate-spin text-5xl" />
-              </div>
-            }
-          >
+          <Suspense fallback={<LoadingScreen />}>
             {children ?? <Outlet />}
           </Suspense>
         </main>

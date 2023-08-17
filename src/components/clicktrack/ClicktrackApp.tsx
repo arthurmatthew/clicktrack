@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import { Title } from '../../../../components/clicktrack/Title';
-import { Controls } from '../../../../components/clicktrack/Controls';
-import { Clicktrack } from '../../../../models/Clicktrack';
-import { useClicktrack } from '../../../../hooks/useClicktrack';
+import { useClicktrack } from '../../hooks/useClicktrack';
+import { Clicktrack } from '../../models/Clicktrack';
+import { Controls } from './Controls';
+import { Title } from './Title';
 
 export const ClicktrackApp = ({
   loadedClicktrack,
