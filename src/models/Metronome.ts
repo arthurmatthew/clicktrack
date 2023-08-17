@@ -28,7 +28,7 @@ export class Metronome extends Section {
     this.muted = options?.muted ?? METRONOME_DEFAULT_MUTED;
   }
 
-  public static convertTempoToTempoIndicator(bpm: number) {
+  public static bpmToIndicator(bpm: number) {
     return convertTempoToTempoIndicator(bpm);
   }
 }

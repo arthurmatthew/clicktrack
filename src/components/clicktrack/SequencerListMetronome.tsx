@@ -27,8 +27,8 @@ export const SequencerListMetronome = ({
           } duration-150`}
         />{' '}
         <p className="relative z-10">
-          {Metronome.convertTempoToTempoIndicator(metronome.bpm)} for{' '}
-          {metronome.lengthInBars} bars
+          {Metronome.bpmToIndicator(metronome.bpm)} for {metronome.lengthInBars}{' '}
+          bars
         </p>
         <div
           className={`absolute left-0 top-0 h-full w-full bg-neutral-100 duration-75 dark:bg-neutral-800 ${

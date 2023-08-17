@@ -35,10 +35,10 @@ export const useClicktracks = (localStorageKey: string) => {
   const handleImport = () => {
     setClicktracks((previousClicktracks) => {
       try {
-        const importedClicktrack = JSON.parse(
-          atob(importRef.current?.value as string)
-        ) as Clicktrack;
+        const importedClicktrack = Clicktrack.decode(importRef.current?.value);
 
+        if (importedClicktrack === undefined)
+          throw new Error('Clicktrack from code is undefined');
         notify(`Import successful.`, 'info');
 
         return [
