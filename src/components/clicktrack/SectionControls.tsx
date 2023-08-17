@@ -15,17 +15,17 @@ export const SectionControls = ({
         onClick={() => {
           copySection(id);
         }}
-        className="w-full rounded-sm border-[1px] border-neutral-300 p-4 py-3 dark:border-neutral-900"
+        className="h-full w-1/2 rounded-sm bg-neutral-300 p-4 py-3 duration-100 ease-out dark:bg-neutral-900"
       >
-        Duplicate this Section
+        Duplicate
       </button>
       <button
         onClick={() => {
           deleteSection(id);
         }}
-        className="w-full rounded-sm border-[1px] border-red-300 p-4 py-3 duration-75 hover:bg-red-300 dark:border-red-700 dark:hover:bg-red-700"
+        className="h-full w-1/2 rounded-sm bg-red-500 p-4 py-3 text-white duration-100 ease-out dark:bg-red-700"
       >
-        Delete this Section
+        Delete
       </button>
     </div>
   );

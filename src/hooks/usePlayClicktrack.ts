@@ -204,11 +204,15 @@ export const usePlayClicktrack = (
    * it sets and clears the interval which runs the scheduler function.
    */
   const play = async () => {
+    if (
+      !interval.current &&
+      !validatePlay(clicktrack.current.data.sections, notify)
+    )
+      return;
     setPlayingDisplay((previouslyPlayingDisplay) => !previouslyPlayingDisplay);
 
     if (!interval.current) {
       if (!audioCtx.current) audioCtx.current = new AudioContext();
-      if (!validatePlay(clicktrack.current.data.sections, notify)) return;
 
       selectedIdBeforePlaying.current = selectedId;
       current16thBeat = 0;
