@@ -64,7 +64,7 @@ export const Sequencer = ({
                               (section) =>
                                 section instanceof Repeat && section.infinite
                             ) !== undefined
-                            ? 'opacity-50'
+                            ? 'opacity-30'
                             : ''
                         }
                       >
