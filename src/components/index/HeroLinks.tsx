@@ -5,7 +5,7 @@ export const HeroLinks = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="mx-2 mt-10 flex flex-col flex-wrap items-center justify-center gap-2 sm:flex-row">
-        <Link to="/app">
+        <Link to="/app/clicktracks">
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
