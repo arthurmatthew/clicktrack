@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { Metronome } from './Metronome';
 import { Repeat } from './Repeat';
 import { getClicktrackFromLocalStorageByID } from '../utils/getClicktrackFromLocalStorageByID';
+import { minifyAndEncodeClicktrack } from '../utils/minifyAndEncodeClicktrack';
+import { decodeClicktrack } from '../utils/decodeClicktrack';
 
 export class Clicktrack {
   public name: string; // Display name
@@ -45,14 +47,10 @@ export class Clicktrack {
   }
 
   public static encode(clicktrack: Clicktrack) {
-    return btoa(JSON.stringify(clicktrack));
+    return minifyAndEncodeClicktrack(clicktrack);
   }
   public static decode(string: string | undefined) {
-    try {
-      if (string === undefined) return;
-      return JSON.parse(atob(string)) as Clicktrack;
-    } catch (e) {
-      throw new Error(e as string);
-    }
+    if (string === undefined) return;
+    return decodeClicktrack(string);
   }
 }
