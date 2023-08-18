@@ -44,7 +44,5 @@ export const minifyAndEncodeClicktrack = (clicktrack: Clicktrack) => {
     }),
   });
 
-  console.log(JSON.stringify(minifiedClicktrack));
-  console.log(btoa(JSON.stringify(minifiedClicktrack)));
   return btoa(JSON.stringify(minifiedClicktrack));
 };

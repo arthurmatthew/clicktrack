@@ -2,15 +2,19 @@ import { createUserWithEmailAndPassword } from 'firebase/auth/cordova';
 import { useState } from 'react';
 import { auth } from '../../../../firebase';
 import { useNotify } from '../../../../hooks/useNotify';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export const AccountRegister = () => {
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const navigate = useNavigate();
   const { notify } = useNotify();
 
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -21,15 +25,20 @@ export const AccountRegister = () => {
       return undefined;
     });
 
+    setLoading(false);
     if (userCredential === undefined) return;
 
-    const user = userCredential.user;
-    console.log(user);
+    navigate('/app/account/');
   };
 
   return (
-    <div className="flex flex-grow items-center justify-center">
-      <form className="flex flex-col gap-2 rounded-md bg-neutral-900 p-8">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 100, y: 0 }}
+      transition={{ ease: 'easeInOut', duration: 0.5 }}
+      className="flex flex-grow items-center justify-center"
+    >
+      <form className="flex flex-col gap-2 rounded-md p-8 sm:bg-neutral-900">
         <h1 className="mb-3 px-5 text-center text-3xl font-semibold">
           Make a Clicktrack account
         </h1>
@@ -61,12 +70,12 @@ export const AccountRegister = () => {
           type="submit"
           onClick={handleSubmit}
         >
-          Register
+          {loading ? 'Registering...' : 'Register'}
         </button>
         <Link to="/app/account/login" className="mt-2 text-center opacity-50">
           Already have one? Log in
         </Link>
       </form>
-    </div>
+    </motion.div>
   );
 };

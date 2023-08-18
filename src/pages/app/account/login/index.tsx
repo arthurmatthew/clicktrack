@@ -3,16 +3,19 @@ import { useState } from 'react';
 import { auth } from '../../../../firebase';
 import { useNotify } from '../../../../hooks/useNotify';
 import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export const AccountLogin = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { notify } = useNotify();
 
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     const userCredential = await signInWithEmailAndPassword(
       auth,
@@ -25,12 +28,18 @@ export const AccountLogin = () => {
 
     if (userCredential === undefined) return;
 
+    setLoading(false);
     navigate('/app/account/');
   };
 
   return (
-    <div className="flex flex-grow items-center justify-center">
-      <form className="flex flex-col gap-2 rounded-md bg-neutral-900 p-8">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 100, y: 0 }}
+      transition={{ ease: 'easeInOut', duration: 0.5 }}
+      className="flex flex-grow items-center justify-center"
+    >
+      <form className="flex flex-col gap-2 rounded-md p-8 sm:bg-neutral-900">
         <h1 className="mb-3 px-5 text-center text-3xl font-semibold">
           Sign in to your account
         </h1>
@@ -62,7 +71,7 @@ export const AccountLogin = () => {
           type="submit"
           onClick={handleSubmit}
         >
-          Sign in
+          {loading ? 'Logging in...' : 'Log in'}
         </button>
         <Link
           to="/app/account/register"
@@ -71,6 +80,6 @@ export const AccountLogin = () => {
           Don't have one yet? Sign up
         </Link>
       </form>
-    </div>
+    </motion.div>
   );
 };

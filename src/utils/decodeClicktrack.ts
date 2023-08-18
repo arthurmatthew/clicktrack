@@ -7,7 +7,6 @@ import { MinifiedRepeat } from '../models/MinifiedRepeat';
 import { Repeat } from '../models/Repeat';
 
 export const decodeClicktrack = (code: string) => {
-  console.log(code);
   try {
     const minifiedClicktrack = JSON.parse(atob(code)) as MinifiedClicktrack;
     const minifiedClicktrackData = minifiedClicktrack.d;
