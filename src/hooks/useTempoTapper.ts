@@ -49,7 +49,7 @@ export const useTempoTapper = (
     }
 
     if (tempoTapTimer) clearTimeout(tempoTapTimer);
-    tempoTapTimer = setTimeout(() => {
+    tempoTapTimer = window.setTimeout(() => {
       tempoTapTimes.length = 0;
     }, TEMPO_TAPPER_COOLDOWN_TIME * 1000);
   };

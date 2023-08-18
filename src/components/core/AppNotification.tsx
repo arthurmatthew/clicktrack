@@ -9,7 +9,7 @@ export const AppNotification = () => {
 
   useEffect(() => {
     clearTimeout(notificationTimeout.current);
-    notificationTimeout.current = setTimeout(() => {
+    notificationTimeout.current = window.setTimeout(() => {
       clearNotif();
     }, NOTIFICATION_FADE_AFTER);
   }, [notif]);

@@ -217,7 +217,7 @@ export const usePlayClicktrack = (
       selectedIdBeforePlaying.current = selectedId;
       current16thBeat = 0;
       nextNoteDueIn = audioCtx.current.currentTime;
-      interval.current = setInterval(() => {
+      interval.current = window.setInterval(() => {
         scheduler();
       }, schedulingFrequency);
       return;
