@@ -44,6 +44,10 @@ export const ClicktrackApp = ({
         }}
       />
       <Controls
+        sequence={clicktrack.data.sections}
+        selected={clicktrack.data.sections.find(
+          (section) => section.id === selectedId
+        )}
         {...{
           clicktrack,
           selectedId,

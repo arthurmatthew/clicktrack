@@ -21,6 +21,12 @@ export type ClicktrackRouteParams = {
   id: string;
 };
 
+export type TTemplate = {
+  code: string;
+  name: string;
+  description: string;
+};
+
 export type TTimeSignature = [beats: number, value: number];
 export type TNote = [note: string, octave: number];
 export type TSaveableData =

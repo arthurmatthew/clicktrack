@@ -9,8 +9,8 @@ import { SequencerListRepeat } from './SequencerListRepeat';
 import { StrictModeDroppable } from '../core/StrictModeDroppable';
 import { useNotify } from '../../hooks/useNotify';
 
-interface ISequencer {
-  add: (child: Clicktrack['data']['sections'][number]) => void;
+export interface ISequencer {
+  addSection: (child: Clicktrack['data']['sections'][number]) => void;
   selectedId: string;
   setSelectedId: (id: string) => void;
   sequence: Clicktrack['data']['sections'];
@@ -19,7 +19,7 @@ interface ISequencer {
 }
 
 export const Sequencer = ({
-  add,
+  addSection,
   selectedId,
   setSelectedId,
   sequence,
@@ -101,10 +101,10 @@ export const Sequencer = ({
       </DragDropContext>
       <SequencerControls
         addMetronome={() => {
-          add(new Metronome());
+          addSection(new Metronome());
         }}
         addRepeat={() => {
-          if (validateAddRepeat(sequence, notify)) add(new Repeat());
+          if (validateAddRepeat(sequence, notify)) addSection(new Repeat());
         }}
       />
     </div>

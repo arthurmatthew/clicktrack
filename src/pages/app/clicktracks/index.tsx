@@ -14,6 +14,7 @@ const ClicktracksIndex = () => {
     importRef,
     handleAdd,
     handleImport,
+    handleTemplate,
     handleClear,
     handleRemove,
     handleNameChange,
@@ -24,7 +25,7 @@ const ClicktracksIndex = () => {
   return (
     <div className="mx-4 my-10 flex flex-grow flex-col">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-4">
-        <Heading {...{ handleAdd }} />
+        <Heading {...{ handleAdd, handleTemplate }} />
         <DragDropList
           {...{
             clicktracks,

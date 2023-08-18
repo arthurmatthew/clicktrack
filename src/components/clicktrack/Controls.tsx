@@ -1,28 +1,14 @@
-import { ControlWindow } from './ControlWindow';
-import { EditSection } from './EditSection';
-import { Sequencer } from './Sequencer';
 import { Clicktrack } from '../../models/Clicktrack';
-import { Repeat } from '../../models/Repeat';
-import { Metronome } from '../../models/Metronome';
-import { DropResult } from 'react-beautiful-dnd';
-
-interface IControls {
+import { ControlWindow } from './ControlWindow';
+import { EditSection, IEditSection } from './EditSection';
+import { ISequencer, Sequencer } from './Sequencer';
+interface IControls extends ISequencer, IEditSection {
   clicktrack: Clicktrack;
-  selectedId: string;
-  setSelectedId: React.Dispatch<React.SetStateAction<string>>;
-  addSection: (newSection: Metronome | Repeat) => void;
-  updateSection: <T extends Metronome | Repeat>(
-    section: T,
-    update: Partial<Omit<T, 'id' | 'type'>>
-  ) => void;
-  deleteSection: (id: string) => void;
-  copySection: (id: string) => void;
-  sequencerOnDragEnd: (result: DropResult) => void;
-  playingDisplay: boolean;
 }
 
 export const Controls = ({
-  clicktrack,
+  sequence,
+  selected,
   selectedId,
   setSelectedId,
   addSection,
@@ -44,33 +30,15 @@ export const Controls = ({
           sequencerOnDragEnd={sequencerOnDragEnd}
           selectedId={selectedId}
           setSelectedId={setSelectedId}
-          add={addSection}
-          sequence={clicktrack.data.sections}
+          addSection={addSection}
+          sequence={sequence}
           playingDisplay={playingDisplay}
         />
-        {/* <Routes>
-          <Route path="/" element={<Outlet />}>
-            <Route element={<h1>Settings</h1>} path="/settings" />
-            <Route
-              element={
-                <Sequencer
-                  selectedId={selectedId}
-                  setSelectedId={setSelectedId}
-                  add={addSection}
-                  sequence={clicktrack.data.sections}
-                />
-              }
-              path="/sequencer"
-            />
-          </Route>
-        </Routes> */}
       </ControlWindow>
       <ControlWindow tabs={[{ title: 'Edit' }]}>
         <EditSection
           {...{ updateSection, copySection, deleteSection }}
-          selected={clicktrack.data.sections.find(
-            (section) => section.id === selectedId
-          )}
+          selected={selected}
         />
       </ControlWindow>
     </div>

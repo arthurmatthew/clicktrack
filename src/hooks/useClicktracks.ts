@@ -60,6 +60,34 @@ export const useClicktracks = (localStorageKey: string) => {
     });
   };
 
+  const handleTemplate = (code: string) => {
+    setClicktracks((previousClicktracks) => {
+      try {
+        const template = Clicktrack.decode(code);
+
+        if (template === undefined)
+          throw new Error('Clicktrack from code is undefined');
+        notify(`Template added!`, 'info');
+
+        return [
+          ...previousClicktracks,
+          new Clicktrack({
+            ...template,
+            id: undefined,
+            name: template.name,
+          }),
+        ];
+      } catch (error) {
+        notify(
+          `We couldn't import this template. Check your browser console for more details.`,
+          'error'
+        );
+        console.error(error);
+        return previousClicktracks;
+      }
+    });
+  };
+
   const handleNameChange = (id: string, newName: string) => {
     setClicktracks((previousClicktracks) => {
       const clicktracksWithoutToBeNamed = previousClicktracks.filter(
@@ -122,6 +150,7 @@ export const useClicktracks = (localStorageKey: string) => {
     importRef,
     handleAdd,
     handleImport,
+    handleTemplate,
     handleClear,
     handleRemove,
     handleNameChange,

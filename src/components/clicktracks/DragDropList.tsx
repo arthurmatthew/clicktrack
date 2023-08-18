@@ -3,6 +3,7 @@ import { StrictModeDroppable } from '../core/StrictModeDroppable';
 import { Clicktrack } from '../../models/Clicktrack';
 import { IImport, Import } from './Import';
 import { DraggableItem } from './DraggableItem';
+import { NoClicktracksPlaceholder } from './NoClicktracksPlaceholder';
 
 interface IDragDropList extends IImport {
   clicktracks: Clicktrack[];
@@ -32,10 +33,7 @@ export const DragDropList = ({
           >
             <Import {...{ handleImport, importRef }} />
             {clicktracks.length === 0 ? (
-              <h1 className="my-20 text-center text-3xl">
-                You don&apos;t have any clicktracks made. Make a new one,
-                it&apos;s super easy!
-              </h1>
+              <NoClicktracksPlaceholder />
             ) : (
               clicktracks.map((clicktrack, index) => (
                 <DraggableItem

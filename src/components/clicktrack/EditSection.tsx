@@ -5,7 +5,7 @@ import { EditMetronome } from './EditMetronome';
 import { EditRepeat } from './EditRepeat';
 import { SectionControls } from './SectionControls';
 
-interface IEditSection {
+export interface IEditSection {
   updateSection: <T extends Metronome | Repeat>(
     section: T,
     update: Partial<Omit<T, 'id' | 'type'>>
