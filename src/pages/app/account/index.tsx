@@ -1,22 +1,8 @@
-import { useEffect, useState } from 'react';
 import { AccountTitle } from '../../../components/account/AccountTitle';
-import { User, onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../../firebase';
-import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../../hooks/useUser';
 
 export const AccountIndex = () => {
-  const navigate = useNavigate();
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        navigate('/app/account/login');
-      }
-    });
-  }, []);
+  const { user } = useUser('/app/account/login');
 
   if (user)
     return (
