@@ -20,7 +20,7 @@ export const AppHeader = ({ toggleDark, dark }: IHeader) => {
             My Clicktracks
           </Link>
           <Link
-            to="/app/clicktracks"
+            to="/app/account"
             className="flex items-center gap-1 rounded-md border-[1px] border-neutral-200 px-4 py-1 dark:border-neutral-900"
           >
             Account
