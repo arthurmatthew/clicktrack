@@ -1,7 +1,7 @@
 import { InteractableListItem } from './InteractableListItem';
 import { Templates } from './Templates';
 import { useState } from 'react';
-import { ClicktracksTitle } from './Title';
+import { ClicktracksTitle } from './ClicktracksTitle';
 import { ClicktracksTitleAccount } from './ClicktracksTitleAccount';
 
 interface IHeading {
