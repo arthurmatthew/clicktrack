@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './main.css';
 
 import { RouterProvider } from 'react-router-dom';
-import { router } from './routes/router';
+import { router } from './router';
 import { AnalyticsProvider } from './components/core/AnalyticsProvider';
 import { NotificationProvider } from './components/core/NotificationProvider';
 import { AppNotification } from './components/core/AppNotification';
