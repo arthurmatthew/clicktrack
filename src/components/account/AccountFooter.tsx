@@ -17,6 +17,10 @@ export const AccountFooter = () => {
       await user.delete();
       setLoading(false);
     } catch (error) {
+      notify(
+        'You need to verify your ownership of the account before performing this action.',
+        'info'
+      );
       navigate('/app/account/verify');
       setLoading(false);
     }
