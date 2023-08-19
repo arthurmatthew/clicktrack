@@ -25,6 +25,7 @@ export const useClicktrack = (loadedClicktrack: Clicktrack) => {
   };
 
   useEffect(() => {
+    console.log('Saving');
     const storedClicktracks = JSON.parse(
       localStorage.getItem(STORAGE_KEYS_CLICKTRACK) as string
     ) as Clicktrack[];

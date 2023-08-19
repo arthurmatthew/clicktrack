@@ -16,20 +16,21 @@ export const LoginProvider = () => {
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
     setLoading(true);
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    ).catch(() => {
+      if (userCredential === undefined) throw new Error('User undefined');
+
+      setLoading(false);
+      navigate('/app/account/');
+    } catch (error) {
       notify('There was an issue accessing your account.', 'error');
-      return undefined;
-    });
-
-    if (userCredential === undefined) return;
-
-    setLoading(false);
-    navigate('/app/account/');
+      setLoading(false);
+    }
   };
 
   return (

@@ -1,3 +1,4 @@
+import { AccountFooter } from '../../../components/account/AccountFooter';
 import { AccountOverview } from '../../../components/account/AccountOverview';
 import { AccountTitle } from '../../../components/account/AccountTitle';
 import { EditProfile } from '../../../components/account/EditProfile';
@@ -13,6 +14,7 @@ export const AccountIndex = () => {
           <AccountTitle name={user.displayName ?? user?.email} />
           <AccountOverview user={user} />
           <EditProfile user={user} />
+          <AccountFooter />
         </div>
       </div>
     );

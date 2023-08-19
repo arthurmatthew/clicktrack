@@ -14,12 +14,11 @@ export const ClicktracksTitle = () => {
         </h2>
       ) : (
         <h2 className="max-w-3xl text-lg leading-tight opacity-80 sm:text-2xl">
-          View all your clicktracks here. They're saved to your browser
-          automatically.{' '}
+          View all your clicktracks here.{' '}
           <Link to="/app/account/" className="underline">
             Sign in
           </Link>{' '}
-          to access them on all devices.
+          to save them and access them across your devices.
         </h2>
       )}
     </div>

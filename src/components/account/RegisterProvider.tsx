@@ -1,9 +1,10 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../../firebase';
+import { auth, db } from '../../firebase';
 import { useNotify } from '../../hooks/useNotify';
 import { RegisterForm } from './RegisterForm';
+import { collection, doc, setDoc } from 'firebase/firestore';
 
 export const RegisterProvider = () => {
   const [loading, setLoading] = useState(false);
@@ -16,19 +17,27 @@ export const RegisterProvider = () => {
     e.preventDefault();
     setLoading(true);
 
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    ).catch(() => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      if (userCredential === undefined) throw new Error('User undefined');
+
+      const usersCollectionRef = collection(db, 'users');
+      await setDoc(doc(usersCollectionRef, userCredential.user.uid), {
+        clicktracks: JSON.stringify('[]'),
+      });
+
+      setLoading(false);
+      navigate('/app/account/');
+    } catch (error) {
       notify('There was an issue creating your account.', 'error');
-      return undefined;
-    });
-
-    setLoading(false);
-    if (userCredential === undefined) return;
-
-    navigate('/app/account/');
+      console.error(error);
+      setLoading(false);
+    }
   };
 
   return (
