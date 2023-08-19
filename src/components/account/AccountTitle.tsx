@@ -13,9 +13,6 @@ export const AccountTitle = ({ name }: IAccountTitle) => {
       </div>
 
       <AccountActions />
-      <div className="flex flex-col gap-2">
-        <h3 className="text-xl opacity-50">Account Overview</h3>
-      </div>
     </div>
   );
 };
