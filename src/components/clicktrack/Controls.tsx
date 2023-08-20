@@ -2,7 +2,7 @@ import { Clicktrack } from '../../models/Clicktrack';
 import { ControlWindow } from './ControlWindow';
 import { EditSection, IEditSection } from './EditSection';
 import { ISequencer, Sequencer } from './Sequencer';
-interface IControls extends ISequencer, IEditSection {
+export interface IControls extends ISequencer, IEditSection {
   clicktrack: Clicktrack;
 }
 
