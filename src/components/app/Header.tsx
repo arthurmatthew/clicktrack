@@ -16,6 +16,12 @@ export const AppHeader = ({ toggleDark, dark }: IHeader) => {
           ct.
         </Link>
         <div className="flex gap-2">
+          <Link
+            to="/app/clicktracks/clicktrack/static"
+            className="flex items-center gap-1 rounded-md border-[1px] border-neutral-200 px-4 py-1 dark:border-neutral-900"
+          >
+            Basic
+          </Link>
           {user ? (
             <>
               <Link
