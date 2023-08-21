@@ -40,7 +40,8 @@ export const AccountFooter = () => {
         </button>
         <p className="opacity-70 sm:py-2">
           Deleting your account will delete all user data associated. This
-          includes your saved clicktracks.
+          includes your saved clicktracks. This process is instant. Support
+          cannot assist in data recovery.
         </p>
       </div>
     </div>

@@ -34,6 +34,7 @@ export const decodeClicktrack = (code: string) => {
 
     const clicktrack = new Clicktrack({
       name: minifiedClicktrack.n,
+      id: minifiedClicktrack.id,
       data: new ClicktrackData({
         fadeOutSound: minifiedClicktrackData.fOS,
         muted: minifiedClicktrackData.m,
@@ -48,6 +49,6 @@ export const decodeClicktrack = (code: string) => {
     return clicktrack;
   } catch (error) {
     console.error(error);
-    return;
+    return new Clicktrack();
   }
 };

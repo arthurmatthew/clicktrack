@@ -1,3 +1,7 @@
+export type TUserDocument = {
+  clicktracks: string;
+};
+
 export type TNotification =
   | {
       content: string;

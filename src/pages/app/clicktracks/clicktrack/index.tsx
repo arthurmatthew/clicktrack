@@ -1,65 +1,35 @@
 import { useParams } from 'react-router-dom';
 import { ClicktrackApp } from '../../../../components/clicktrack/ClicktrackApp';
 import { ClicktrackNotFound } from '../../../../components/clicktrack/ClicktrackNotFound';
-import { ClicktrackRouteParams } from '../../../../types';
 import { Clicktrack } from '../../../../models/Clicktrack';
-import { useClicktrack } from '../../../../hooks/useClicktrack';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+import { loadAvailableClicktrack } from '../../../../utils/loadAvailableClicktrack';
+import { auth } from '../../../../firebase';
 
 /**
  * Webpage which loads the metronome from storage and passes it off to the actual application.
  */
 const ClicktrackPage = () => {
-  const params = useParams<ClicktrackRouteParams>();
-  const savedClicktrack = Clicktrack.localFromID(params.id);
+  const params = useParams();
+  const [savedClicktrack, setSavedClicktrack] = useState<
+    Clicktrack | undefined
+  >(undefined);
 
-  if (savedClicktrack === undefined) return <ClicktrackNotFound />;
+  useEffect(() => {
+    onAuthStateChanged(auth, async () => {
+      if (savedClicktrack === undefined && params.id !== undefined) {
+        const availableClicktrack = await loadAvailableClicktrack(params.id);
+        if (availableClicktrack)
+          setSavedClicktrack(Clicktrack.parseInternals(availableClicktrack));
+      }
+    });
+  });
 
-  const {
-    clicktrack,
-    play,
-    playingDisplay,
-    selectedId,
-    setSelectedId,
-    pulseAnimationControls,
-    startPulseAnimation,
-    updateClicktrackData,
-    addSection,
-    updateSection,
-    copySection,
-    deleteSection,
-    settingsShown,
-    setSettingsShown,
-    sequencerOnDragEnd,
-    saveChanges,
-    changesSaved,
-  } = useClicktrack(savedClicktrack);
-
-  return (
-    <ClicktrackApp
-      sequence={clicktrack.data.sections}
-      selected={clicktrack.data.sections.find(
-        (section) => section.id === selectedId
-      )}
-      {...{
-        clicktrack,
-        play,
-        saveChanges,
-        changesSaved,
-        playingDisplay,
-        selectedId,
-        setSelectedId,
-        pulseAnimationControls,
-        startPulseAnimation,
-        updateClicktrackData,
-        addSection,
-        updateSection,
-        copySection,
-        deleteSection,
-        settingsShown,
-        setSettingsShown,
-        sequencerOnDragEnd,
-      }}
-    />
+  return savedClicktrack ? (
+    <ClicktrackApp loadedClicktrack={savedClicktrack} />
+  ) : (
+    <ClicktrackNotFound />
   );
 };
 

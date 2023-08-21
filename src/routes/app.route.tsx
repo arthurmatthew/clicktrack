@@ -24,7 +24,7 @@ export const AppRoute = (
   >
     <Route path="/app/" element={<AppIndex />} />
     <Route path="/app/clicktracks" element={<ClicktracksIndex />} />
-    <Route path="/app/clicktracks/:id/*" element={<ClicktrackPage />} />
+    <Route path="/app/clicktracks/:id" element={<ClicktrackPage />} />
     <Route path="/app/account/" element={<AccountIndex />} />
     <Route path="/app/account/register" element={<AccountRegister />} />
     <Route path="/app/account/login" element={<AccountLogin />} />

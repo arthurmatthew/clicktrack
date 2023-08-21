@@ -1,5 +1,7 @@
 import { TNote, TTimeSignature } from './types';
 
+export const DB_USERS_COLLECTION_KEY = 'users';
+
 export const STORAGE_KEYS_CLICKTRACK = 'clicktracks'; // The key to store clicktracks at in local storage
 export const STORAGE_KEYS_DARKMODE = 'dark-mode'; // The key to store the dark mode setting at in local storage
 export const CLICKTRACK_MAX_UNSUCCESSFUL_CHECKS = 1000; // The amount of times to attempt the generation of a unique name

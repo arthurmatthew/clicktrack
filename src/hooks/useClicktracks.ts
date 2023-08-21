@@ -1,29 +1,85 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { DropResult } from 'react-beautiful-dnd';
-import { STORAGE_KEYS_CLICKTRACK } from '../config';
+import { DB_USERS_COLLECTION_KEY } from '../config';
 import { Clicktrack } from '../models/Clicktrack';
-import { useLocalStorage } from './useLocalStorage';
 import { useNotify } from './useNotify';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth, db } from '../firebase';
+import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
+import { TUserDocument } from '../types';
 
-export const useClicktracks = (localStorageKey: string) => {
+export const useClicktracks = () => {
   const { notify } = useNotify();
   const importRef = useRef<HTMLInputElement | null>(null);
-  const [clicktracks, setClicktracks] = useLocalStorage<Clicktrack[]>(
-    [new Clicktrack()],
-    localStorageKey
-  );
+  const [clicktracks, setClicktracks] = useState<Clicktrack[] | undefined>();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, async () => {
+      const user = auth.currentUser;
+
+      if (user) {
+        const cloudStoredUserDataRef = doc(
+          db,
+          DB_USERS_COLLECTION_KEY,
+          user.uid
+        );
+        const cloudStoredUserDataSnap = await getDoc(cloudStoredUserDataRef);
+
+        setClicktracks(() => {
+          if (
+            cloudStoredUserDataSnap.exists() &&
+            cloudStoredUserDataSnap.data().clicktracks !== undefined
+          ) {
+            const cloudStoredUserData =
+              cloudStoredUserDataSnap.data() as TUserDocument;
+            const minifiedCloudClicktracks = JSON.parse(
+              cloudStoredUserData.clicktracks
+            ) as string[]; // these are encoded and minifed in useEffect below
+            const cloudClicktracks = minifiedCloudClicktracks.map(
+              (minifiedClicktrack) => Clicktrack.decode(minifiedClicktrack)
+            );
+
+            return cloudClicktracks;
+          }
+        });
+      }
+    });
+  }, []);
+
+  const updateCloudClicktracks = async (updatedData: Clicktrack[]) => {
+    const user = auth.currentUser;
+
+    if (user === null) return;
+
+    const usersCollectionRef = collection(db, DB_USERS_COLLECTION_KEY);
+    const minifiedClicktracks = updatedData.map((clicktrack) =>
+      Clicktrack.encode(clicktrack)
+    );
+
+    await setDoc(doc(usersCollectionRef, user.uid), {
+      clicktracks: JSON.stringify(minifiedClicktracks),
+    });
+  };
+
+  useEffect(() => {
+    if (clicktracks) updateCloudClicktracks(clicktracks);
+  }, [clicktracks]);
 
   const handleAdd = () => {
-    setClicktracks((previousClicktracks) => [
-      ...previousClicktracks,
-      new Clicktrack({
-        name: `New Metronome ${previousClicktracks.length + 1}`,
-      }),
-    ]);
+    setClicktracks((previousClicktracks) => {
+      if (previousClicktracks === undefined) return;
+      return [
+        ...previousClicktracks,
+        new Clicktrack({
+          name: `New Metronome ${previousClicktracks.length + 1}`,
+        }),
+      ];
+    });
   };
 
   const handleRemove = (id: string) => {
     setClicktracks((previousClicktracks) => {
+      if (previousClicktracks === undefined) return;
       if (
         !previousClicktracks.find((metronome) => metronome.id === id)?.permanant
       )
@@ -34,8 +90,13 @@ export const useClicktracks = (localStorageKey: string) => {
 
   const handleImport = () => {
     setClicktracks((previousClicktracks) => {
+      if (
+        previousClicktracks === undefined ||
+        importRef.current?.value === undefined
+      )
+        return;
       try {
-        const importedClicktrack = Clicktrack.decode(importRef.current?.value);
+        const importedClicktrack = Clicktrack.decode(importRef.current.value);
 
         if (importedClicktrack === undefined)
           throw new Error('Clicktrack code returns undefined.');
@@ -62,6 +123,7 @@ export const useClicktracks = (localStorageKey: string) => {
 
   const handleTemplate = (code: string) => {
     setClicktracks((previousClicktracks) => {
+      if (previousClicktracks === undefined) return;
       try {
         const template = Clicktrack.decode(code);
 
@@ -90,6 +152,7 @@ export const useClicktracks = (localStorageKey: string) => {
 
   const handleNameChange = (id: string, newName: string) => {
     setClicktracks((previousClicktracks) => {
+      if (previousClicktracks === undefined) return;
       const clicktracksWithoutToBeNamed = previousClicktracks.filter(
         (metronome) => metronome.id !== id
       );
@@ -116,6 +179,7 @@ export const useClicktracks = (localStorageKey: string) => {
     if (!result.destination) return;
     const { source, destination } = result;
     setClicktracks((previousClicktracks) => {
+      if (previousClicktracks === undefined) return;
       const result = [...previousClicktracks];
       const [removed] = result.splice(source.index, 1);
       if (removed) result.splice(destination.index, 0, removed);
@@ -123,13 +187,9 @@ export const useClicktracks = (localStorageKey: string) => {
     });
   };
 
-  const handleClear = () => {
-    localStorage.removeItem(STORAGE_KEYS_CLICKTRACK);
-    location.reload();
-  };
-
   const handleCopy = (id: string) => {
     setClicktracks((previousClicktracks) => {
+      if (previousClicktracks === undefined) return;
       const clicktrackToCopy = previousClicktracks.find(
         (clicktrack) => clicktrack.id === id
       );
@@ -151,7 +211,6 @@ export const useClicktracks = (localStorageKey: string) => {
     handleAdd,
     handleImport,
     handleTemplate,
-    handleClear,
     handleRemove,
     handleNameChange,
     handleOnDragEnd,

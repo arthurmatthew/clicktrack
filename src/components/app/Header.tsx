@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import { IHeader } from '../index/Header';
 import { DarkModeButton } from '../core/DarkModeButton';
+import { useUser } from '../../hooks/useUser';
 
 export const AppHeader = ({ toggleDark, dark }: IHeader) => {
+  const { user } = useUser();
+
   return (
     <header className="backdrop- sticky top-0 z-[9999999] shrink grow-0 basis-auto border-b-[1px] border-neutral-200 bg-white/90 px-3 py-2 backdrop-blur-md dark:border-neutral-900 dark:bg-black/90">
       <div className="mx-auto flex w-full items-center justify-between">
@@ -13,18 +16,37 @@ export const AppHeader = ({ toggleDark, dark }: IHeader) => {
           ct.
         </Link>
         <div className="flex gap-2">
-          <Link
-            to="/app/clicktracks"
-            className="flex items-center gap-1 rounded-md border-[1px] border-neutral-200 px-4 py-1 dark:border-neutral-900"
-          >
-            My Clicktracks
-          </Link>
-          <Link
-            to="/app/account"
-            className="flex items-center gap-1 rounded-md border-[1px] border-neutral-200 px-4 py-1 dark:border-neutral-900"
-          >
-            Account
-          </Link>
+          {user ? (
+            <>
+              <Link
+                to="/app/clicktracks"
+                className="flex items-center gap-1 rounded-md border-[1px] border-neutral-200 px-4 py-1 dark:border-neutral-900"
+              >
+                My Clicktracks
+              </Link>
+              <Link
+                to="/app/account"
+                className="flex items-center gap-1 rounded-md border-[1px] border-neutral-200 px-4 py-1 dark:border-neutral-900"
+              >
+                Account
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/app/clicktracks/login"
+                className="flex items-center gap-1 rounded-md border-[1px] border-neutral-200 px-4 py-1 dark:border-neutral-900"
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/app/account/register"
+                className="flex items-center gap-1 rounded-md border-[1px] border-neutral-200 px-4 py-1 dark:border-neutral-900"
+              >
+                Sign up
+              </Link>
+            </>
+          )}
         </div>
 
         <DarkModeButton onClick={toggleDark} dark={dark} className="text-xl" />

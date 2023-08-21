@@ -33,6 +33,7 @@ export const minifyAndEncodeClicktrack = (clicktrack: Clicktrack) => {
 
   const minifiedClicktrack = new MinifiedClicktrack({
     n: clicktrack.name,
+    id: clicktrack.id,
     d: new MinifiedClicktrackData({
       s: sections,
       fOS: clicktrackData.fadeOutSound,

@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import { STORAGE_KEYS_CLICKTRACK } from '../../config';
 import { useClicktracks } from '../../hooks/useClicktracks';
 import { DataViewItem } from './DataViewItem';
 import { Clicktrack } from '../../models/Clicktrack';
@@ -12,7 +11,7 @@ export const TitleInfo = ({ clicktrack }: ITitleInfo) => {
   const nameRef = useRef<HTMLHeadingElement>(null);
   const [editing, setEditing] = useState<boolean>(false);
 
-  const { handleNameChange } = useClicktracks(STORAGE_KEYS_CLICKTRACK);
+  const { handleNameChange } = useClicktracks();
 
   return (
     <div className="flex flex-col items-center gap-2">

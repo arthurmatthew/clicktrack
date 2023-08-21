@@ -49,8 +49,7 @@ export class Clicktrack {
   public static encode(clicktrack: Clicktrack) {
     return minifyAndEncodeClicktrack(clicktrack);
   }
-  public static decode(string: string | undefined) {
-    if (string === undefined) return;
+  public static decode(string: string) {
     return decodeClicktrack(string);
   }
 }

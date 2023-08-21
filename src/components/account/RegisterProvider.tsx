@@ -5,6 +5,7 @@ import { auth, db } from '../../firebase';
 import { useNotify } from '../../hooks/useNotify';
 import { RegisterForm } from './RegisterForm';
 import { collection, doc, setDoc } from 'firebase/firestore';
+import { DB_USERS_COLLECTION_KEY } from '../../config';
 
 export const RegisterProvider = () => {
   const [loading, setLoading] = useState(false);
@@ -26,9 +27,9 @@ export const RegisterProvider = () => {
 
       if (userCredential === undefined) throw new Error('User undefined');
 
-      const usersCollectionRef = collection(db, 'users');
+      const usersCollectionRef = collection(db, DB_USERS_COLLECTION_KEY);
       await setDoc(doc(usersCollectionRef, userCredential.user.uid), {
-        clicktracks: JSON.stringify('[]'),
+        clicktracks: JSON.stringify([]),
       });
 
       setLoading(false);

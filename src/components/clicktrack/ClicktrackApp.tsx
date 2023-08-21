@@ -1,27 +1,34 @@
 import { motion } from 'framer-motion';
-import { Controls, IControls } from './Controls';
+import { Controls } from './Controls';
 import { Title } from './Title';
-import { ITitleInfo } from './TitleInfo';
-import { ITitleButtons } from './TitleButtons';
+import { useClicktrack } from '../../hooks/useClicktrack';
+import { Clicktrack } from '../../models/Clicktrack';
 
-export const ClicktrackApp = ({
-  clicktrack,
-  play,
-  playingDisplay,
-  selectedId,
-  setSelectedId,
-  pulseAnimationControls,
-  updateClicktrackData,
-  addSection,
-  updateSection,
-  copySection,
-  deleteSection,
-  settingsShown,
-  setSettingsShown,
-  sequencerOnDragEnd,
-  saveChanges,
-  changesSaved,
-}: ITitleInfo & ITitleButtons & IControls) => {
+interface IClicktrackApp {
+  loadedClicktrack: Clicktrack;
+}
+
+export const ClicktrackApp = ({ loadedClicktrack }: IClicktrackApp) => {
+  const {
+    clicktrack,
+    play,
+    playingDisplay,
+    selectedId,
+    setSelectedId,
+    pulseAnimationControls,
+    updateClicktrackData,
+    addSection,
+    updateSection,
+    copySection,
+    deleteSection,
+    settingsShown,
+    setSettingsShown,
+    sequencerOnDragEnd,
+    saveChanges,
+    changesSaved,
+    saving,
+  } = useClicktrack(loadedClicktrack);
+
   return (
     <motion.div className="flex min-h-screen min-w-full flex-col">
       <Title
@@ -34,6 +41,7 @@ export const ClicktrackApp = ({
           updateClicktrackData,
           saveChanges,
           changesSaved,
+          saving,
         }}
         play={() => {
           void play();

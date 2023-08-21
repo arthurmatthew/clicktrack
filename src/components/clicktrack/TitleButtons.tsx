@@ -5,8 +5,9 @@ import { Clicktrack } from '../../models/Clicktrack';
 export interface ITitleButtons {
   clicktrack: Clicktrack;
   play: () => void;
-  saveChanges: () => void;
+  saveChanges: () => Promise<void>;
   changesSaved: boolean;
+  saving: boolean;
   playingDisplay: boolean;
   pulseAnimationControls: AnimationControls;
   settingsShown: boolean;
@@ -19,6 +20,7 @@ export const TitleButtons = ({
   play,
   saveChanges,
   changesSaved,
+  saving,
   playingDisplay,
   pulseAnimationControls,
   settingsShown,
@@ -42,7 +44,11 @@ export const TitleButtons = ({
         {changesSaved === false && (
           <div className="absolute right-0 top-0 -m-1 h-3 w-3 rounded-full bg-red-500" />
         )}
-        <i className="bi-cloud-upload-fill block" />
+        {saving ? (
+          <i className="bi-arrow-clockwise block animate-spin" />
+        ) : (
+          <i className="bi-cloud-upload-fill block" />
+        )}
       </button>
       <button
         onClick={() => {
