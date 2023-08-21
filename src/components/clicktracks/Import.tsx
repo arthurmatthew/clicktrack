@@ -3,11 +3,16 @@ import { Button } from '../core/Button';
 export interface IImport {
   importRef: React.MutableRefObject<HTMLInputElement | null>;
   handleImport: () => void;
+  showImport: boolean;
 }
 
-export const Import = ({ importRef, handleImport }: IImport) => {
+export const Import = ({ importRef, handleImport, showImport }: IImport) => {
   return (
-    <div className="my-1 rounded-sm border-[1px] border-neutral-200 p-4 dark:border-neutral-900">
+    <div
+      className={`gap-2 overflow-hidden rounded-md bg-neutral-200 p-4 duration-100 dark:bg-neutral-900 sm:grid-cols-2 md:grid-cols-3 ${
+        showImport ? 'block' : 'hidden'
+      }`}
+    >
       <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
         <div className="flex w-full grid-cols-3 items-center gap-3">
           <i className="bi-clipboard2 text-3xl text-neutral-600 dark:text-neutral-400" />
@@ -18,10 +23,7 @@ export const Import = ({ importRef, handleImport }: IImport) => {
           />
         </div>
         <div className="my-2 block h-px w-full bg-gradient-to-r from-neutral-300 to-transparent dark:from-neutral-700 sm:hidden" />
-        <Button
-          onClick={handleImport}
-          className="bg-neutral-200 dark:bg-neutral-900"
-        >
+        <Button onClick={handleImport} className="bg-white dark:bg-black">
           Import
         </Button>
       </div>

@@ -27,7 +27,6 @@ const TEMPLATES: TTemplate[] = [
 export const Templates = ({ handleTemplate, showTemplates }: ITemplates) => {
   return (
     <div
-      style={{ transition: 'max-height 1s' }}
       className={`gap-2 overflow-hidden rounded-md bg-neutral-200 p-4 duration-100 dark:bg-neutral-900 sm:grid-cols-2 md:grid-cols-3 ${
         showTemplates ? 'grid' : 'hidden'
       }`}

@@ -1,6 +1,10 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { TProduct } from '../../../types';
 
 export const SubscribeIndex = () => {
+  const [products, _setProducts] = useState<TProduct[] | undefined>();
+
   return (
     <div className="mx-auto flex flex-col items-center justify-center">
       <div className="my-20 flex max-w-5xl flex-col justify-center">
@@ -17,21 +21,15 @@ export const SubscribeIndex = () => {
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        <Product
-          index={1}
-          label="Clicktrack Monthly"
-          price="$4.99 USD / month"
-        />
-        <Product
-          index={2}
-          label="Clicktrack Quarterly"
-          price="$12.99 USD / 3 months"
-        />
-        <Product
-          index={3}
-          label="Clicktrack Yearly"
-          price="$49.99 USD / year"
-        />
+        {products?.map((product, index) => {
+          return (
+            <Product
+              index={index}
+              label={product.name}
+              price={JSON.stringify(product.prices)}
+            />
+          );
+        })}
       </div>
     </div>
   );

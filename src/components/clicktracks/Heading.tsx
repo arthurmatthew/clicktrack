@@ -3,14 +3,21 @@ import { Templates } from './Templates';
 import { useState } from 'react';
 import { ClicktracksTitle } from './ClicktracksTitle';
 import { ClicktracksTitleAccount } from './ClicktracksTitleAccount';
+import { IImport, Import } from './Import';
 
-interface IHeading {
+interface IHeading extends Omit<IImport, 'showImport'> {
   handleAdd: () => void;
   handleTemplate: (code: string) => void;
 }
 
-export const Heading = ({ handleAdd, handleTemplate }: IHeading) => {
+export const Heading = ({
+  handleAdd,
+  handleTemplate,
+  handleImport,
+  importRef,
+}: IHeading) => {
   const [showTemplates, setShowTemplates] = useState(false);
+  const [showImport, setShowImport] = useState(false);
 
   return (
     <>
@@ -23,6 +30,15 @@ export const Heading = ({ handleAdd, handleTemplate }: IHeading) => {
         <InteractableListItem icon="plus-square" interaction={handleAdd}>
           Create New
         </InteractableListItem>
+        <InteractableListItem
+          icon="download"
+          interaction={() =>
+            setShowImport((previouslyShowing) => !previouslyShowing)
+          }
+        >
+          Import
+        </InteractableListItem>
+        <Import {...{ handleImport, importRef, showImport }} />
         <InteractableListItem
           icon="boxes"
           interaction={() =>

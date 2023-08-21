@@ -1,3 +1,14 @@
+export type TProduct = {
+  name: string;
+  prices: TProductPrice[];
+};
+
+export type TProductPrice = {
+  unitAmount: number;
+  currency: string;
+  interval: string;
+};
+
 export type TUserDocument = {
   clicktracks: string;
 };

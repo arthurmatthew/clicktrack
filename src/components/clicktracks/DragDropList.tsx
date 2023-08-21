@@ -1,11 +1,10 @@
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { StrictModeDroppable } from '../core/StrictModeDroppable';
 import { Clicktrack } from '../../models/Clicktrack';
-import { IImport, Import } from './Import';
 import { DraggableItem } from './DraggableItem';
 import { NoClicktracksPlaceholder } from './NoClicktracksPlaceholder';
 
-interface IDragDropList extends IImport {
+interface IDragDropList {
   clicktracks: Clicktrack[];
   handleOnDragEnd: (result: DropResult) => void;
   handleRemove: (id: string) => void;
@@ -16,10 +15,8 @@ interface IDragDropList extends IImport {
 export const DragDropList = ({
   clicktracks,
   handleOnDragEnd,
-  handleImport,
   handleRemove,
   handleNameChange,
-  importRef,
   handleCopy,
 }: IDragDropList) => {
   return (
@@ -31,7 +28,6 @@ export const DragDropList = ({
             ref={provided.innerRef}
             className="flex flex-col"
           >
-            <Import {...{ handleImport, importRef }} />
             {clicktracks.length === 0 ? (
               <NoClicktracksPlaceholder />
             ) : (
