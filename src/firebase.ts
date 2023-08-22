@@ -13,16 +13,16 @@ const firebaseConfig: FirebaseOptions = {
   measurementId: 'G-BLH6J7CN2P',
 };
 
-const firebaseTestingConfig = {
-  apiKey: 'AIzaSyDKmfU9jkBS4lNXRMAtquf4Ro-AJLn4Pvk',
-  authDomain: 'clicktracktest.firebaseapp.com',
-  projectId: 'clicktracktest',
-  storageBucket: 'clicktracktest.appspot.com',
-  messagingSenderId: '785559312074',
-  appId: '1:785559312074:web:b135155396d4e9c568c633',
-};
+// const firebaseTestingConfig = {
+//   apiKey: 'AIzaSyDKmfU9jkBS4lNXRMAtquf4Ro-AJLn4Pvk',
+//   authDomain: 'clicktracktest.firebaseapp.com',
+//   projectId: 'clicktracktest',
+//   storageBucket: 'clicktracktest.appspot.com',
+//   messagingSenderId: '785559312074',
+//   appId: '1:785559312074:web:b135155396d4e9c568c633',
+// };
 
-const app = initializeApp(firebaseTestingConfig);
+const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
