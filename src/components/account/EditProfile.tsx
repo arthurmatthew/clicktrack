@@ -1,31 +1,20 @@
 import { useState } from 'react';
 import { IAccountOverview } from './AccountOverview';
-import { getAuth, updateProfile } from 'firebase/auth';
-import { useNotify } from '../../hooks/useNotify';
+import { updateUserProfile } from '../../lib/firebase/updateUserProfile';
 
 export const EditProfile = ({ user }: IAccountOverview) => {
   const [localDisplayName, setLocalDisplayName] = useState(
     user.displayName ?? ''
   );
   const [loading, setLoading] = useState(false);
-  const { notify } = useNotify();
 
   const handleDisplayNameChange = async (e: React.MouseEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    const auth = getAuth();
-    if (auth.currentUser === null) {
-      setLoading(false);
-      return;
-    }
-
-    await updateProfile(auth.currentUser, {
-      displayName: localDisplayName,
-    }).catch((e) => {
-      notify('Your display name could not be changed.', 'error');
-      console.error(e);
-    });
+    await updateUserProfile({ displayName: localDisplayName }).catch(() =>
+      setLoading(false)
+    );
 
     setLoading(false);
     window.location.reload();

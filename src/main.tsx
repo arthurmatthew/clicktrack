@@ -8,16 +8,19 @@ import { AnalyticsProvider } from './components/core/AnalyticsProvider';
 import { NotificationProvider } from './components/core/NotificationProvider';
 import { AppNotification } from './components/core/AppNotification';
 import { ThemeProvider } from './components/core/ThemeProvider';
+import { UserProvider } from './components/core/UserProvider';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <AnalyticsProvider>
-      <ThemeProvider>
-        <NotificationProvider>
-          <AppNotification />
-          <RouterProvider router={router} />
-        </NotificationProvider>
-      </ThemeProvider>
-    </AnalyticsProvider>
+    <UserProvider>
+      <AnalyticsProvider>
+        <ThemeProvider>
+          <NotificationProvider>
+            <AppNotification />
+            <RouterProvider router={router} />
+          </NotificationProvider>
+        </ThemeProvider>
+      </AnalyticsProvider>
+    </UserProvider>
   </React.StrictMode>
 );

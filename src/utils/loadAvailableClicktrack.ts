@@ -24,8 +24,6 @@ export const loadAvailableClicktrack = async (id: string) => {
           (minifiedClicktrack) => Clicktrack.decode(minifiedClicktrack)
         );
 
-        console.log(cloudClicktracks);
-
         return cloudClicktracks.find((clicktrack) => clicktrack.id === id);
       }
     }

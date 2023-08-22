@@ -16,6 +16,7 @@ export const AccountFooter = () => {
     try {
       await user.delete();
       setLoading(false);
+      window.location.assign(window.location.origin);
     } catch (error) {
       notify(
         'You need to verify your ownership of the account before performing this action.',

@@ -1,4 +1,4 @@
-import { User } from 'firebase/auth/cordova';
+import { User } from 'firebase/auth';
 import { AccountDataValue } from './AccountDataValue';
 
 export interface IAccountOverview {

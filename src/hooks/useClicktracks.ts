@@ -1,69 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { DropResult } from 'react-beautiful-dnd';
-import { DB_USERS_COLLECTION_KEY } from '../config';
 import { Clicktrack } from '../models/Clicktrack';
 import { useNotify } from './useNotify';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth, db } from '../firebase';
-import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
-import { TUserDocument } from '../types';
+import { useCloudClicktracks } from './useCloudClicktracks';
 
 export const useClicktracks = () => {
+  const { clicktracks, setClicktracks } = useCloudClicktracks();
   const { notify } = useNotify();
   const importRef = useRef<HTMLInputElement | null>(null);
-  const [clicktracks, setClicktracks] = useState<Clicktrack[] | undefined>();
-
-  useEffect(() => {
-    onAuthStateChanged(auth, async () => {
-      const user = auth.currentUser;
-
-      if (user) {
-        const cloudStoredUserDataRef = doc(
-          db,
-          DB_USERS_COLLECTION_KEY,
-          user.uid
-        );
-        const cloudStoredUserDataSnap = await getDoc(cloudStoredUserDataRef);
-
-        setClicktracks(() => {
-          if (
-            cloudStoredUserDataSnap.exists() &&
-            cloudStoredUserDataSnap.data().clicktracks !== undefined
-          ) {
-            const cloudStoredUserData =
-              cloudStoredUserDataSnap.data() as TUserDocument;
-            const minifiedCloudClicktracks = JSON.parse(
-              cloudStoredUserData.clicktracks
-            ) as string[]; // these are encoded and minifed in useEffect below
-            const cloudClicktracks = minifiedCloudClicktracks.map(
-              (minifiedClicktrack) => Clicktrack.decode(minifiedClicktrack)
-            );
-
-            return cloudClicktracks;
-          }
-        });
-      }
-    });
-  }, []);
-
-  const updateCloudClicktracks = async (updatedData: Clicktrack[]) => {
-    const user = auth.currentUser;
-
-    if (user === null) return;
-
-    const usersCollectionRef = collection(db, DB_USERS_COLLECTION_KEY);
-    const minifiedClicktracks = updatedData.map((clicktrack) =>
-      Clicktrack.encode(clicktrack)
-    );
-
-    await setDoc(doc(usersCollectionRef, user.uid), {
-      clicktracks: JSON.stringify(minifiedClicktracks),
-    });
-  };
-
-  useEffect(() => {
-    if (clicktracks) updateCloudClicktracks(clicktracks);
-  }, [clicktracks]);
 
   const handleAdd = () => {
     setClicktracks((previousClicktracks) => {

@@ -1,21 +1,7 @@
-import { User, onAuthStateChanged } from 'firebase/auth';
-import { useState, useEffect } from 'react';
-import { auth } from '../firebase';
-import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../components/core/UserProvider';
 
-export const useUser = (link?: string) => {
-  const [user, setUser] = useState<User | null>(auth.currentUser);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        link && navigate(link);
-      }
-    });
-  }, []);
-
-  return { user };
+export const useUser = () => {
+  const { user, premium } = useContext(UserContext);
+  return { user, premium };
 };

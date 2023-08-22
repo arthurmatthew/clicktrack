@@ -1,11 +1,8 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth, db } from '../../firebase';
 import { useNotify } from '../../hooks/useNotify';
 import { RegisterForm } from './RegisterForm';
-import { collection, doc, setDoc } from 'firebase/firestore';
-import { DB_USERS_COLLECTION_KEY } from '../../config';
+import { createUser } from '../../lib/firebase/createUser';
 
 export const RegisterProvider = () => {
   const [loading, setLoading] = useState(false);
@@ -19,19 +16,7 @@ export const RegisterProvider = () => {
     setLoading(true);
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      if (userCredential === undefined) throw new Error('User undefined');
-
-      const usersCollectionRef = collection(db, DB_USERS_COLLECTION_KEY);
-      await setDoc(doc(usersCollectionRef, userCredential.user.uid), {
-        clicktracks: JSON.stringify([]),
-      });
-
+      await createUser(email, password);
       setLoading(false);
       navigate('/app/account/');
     } catch (error) {

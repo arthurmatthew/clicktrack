@@ -1,18 +1,8 @@
-export type TProduct = {
-  name: string;
-  prices: TProductPrice[];
-};
-
-export type TProductPrice = {
-  unitAmount: number;
-  currency: string;
-  interval: string;
-};
+import { User } from 'firebase/auth';
 
 export type TUserDocument = {
   clicktracks: string;
 };
-
 export type TNotification =
   | {
       content: string;
@@ -26,22 +16,22 @@ export type TNotificationContext = {
   notify: TNotify;
   clearNotif: () => void;
 };
-
 export type TDarkModeContext = {
   dark: boolean;
   toggleDark: () => void;
 };
-
+export type TUserContext = {
+  user: User | null;
+  premium: boolean;
+};
 export type ClicktrackRouteParams = {
   id: string;
 };
-
 export type TTemplate = {
   code: string;
   name: string;
   description: string;
 };
-
 export type TTimeSignature = [beats: number, value: number];
 export type TNote = [note: string, octave: number];
 export type TSaveableData =

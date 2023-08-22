@@ -1,3 +1,4 @@
+import { Navigate } from 'react-router-dom';
 import { AccountFooter } from '../../../components/account/AccountFooter';
 import { AccountOverview } from '../../../components/account/AccountOverview';
 import { AccountTitle } from '../../../components/account/AccountTitle';
@@ -5,9 +6,9 @@ import { EditProfile } from '../../../components/account/EditProfile';
 import { useUser } from '../../../hooks/useUser';
 
 export const AccountIndex = () => {
-  const { user } = useUser('/app/account/login');
+  const { user } = useUser();
 
-  if (user)
+  if (user) {
     return (
       <div className="mx-4 my-10 flex flex-grow flex-col">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-4">
@@ -18,4 +19,7 @@ export const AccountIndex = () => {
         </div>
       </div>
     );
+  } else {
+    <Navigate to="/app/account/login" />;
+  }
 };

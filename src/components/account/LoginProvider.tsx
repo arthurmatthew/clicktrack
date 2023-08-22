@@ -1,9 +1,8 @@
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../../firebase';
 import { useNotify } from '../../hooks/useNotify';
 import { LoginForm } from './LoginForm';
+import { authenticateUser } from '../../lib/firebase/authenticateUser';
 
 export const LoginProvider = () => {
   const [email, setEmail] = useState<string>('');
@@ -17,14 +16,7 @@ export const LoginProvider = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      if (userCredential === undefined) throw new Error('User undefined');
-
+      await authenticateUser(email, password);
       setLoading(false);
       navigate('/app/account/');
     } catch (error) {

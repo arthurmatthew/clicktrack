@@ -1,33 +1,25 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { reauthenticateUser } from '../../lib/firebase/reauthenticateUser';
 import { useNavigate } from 'react-router-dom';
-import { useNotify } from '../../hooks/useNotify';
-import { useUser } from '../../hooks/useUser';
-import { EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
 
 export const Reauthenticate = () => {
   const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState(false);
-  const { user } = useUser();
 
   const navigate = useNavigate();
-  const { notify } = useNotify();
 
   const handleVerify = async (e: React.MouseEvent) => {
     e.preventDefault();
-    if (user === null || user.email === null) return;
     setLoading(true);
 
-    try {
-      const credential = EmailAuthProvider.credential(user.email, password);
-      await reauthenticateWithCredential(user, credential);
+    await reauthenticateUser(password).catch((error) => {
+      console.error(error);
+      setLoading(false);
+    });
 
-      setLoading(false);
-      navigate('/app/account');
-    } catch (error) {
-      notify(`We couldn't verify you.`, 'error');
-      setLoading(false);
-    }
+    navigate('/app/account');
+    setLoading(false);
   };
 
   return (
