@@ -18,10 +18,12 @@ export const AccountActions = () => {
 
   const handleUpgrade = async () => {
     setUpgradeLoading(true);
-    await getSubscriptionCheckout().catch(() => {
+    await getSubscriptionCheckout(() => {
+      setUpgradeLoading(false);
+    }).catch((error) => {
+      console.error(error);
       setUpgradeLoading(false);
     });
-    setUpgradeLoading(false);
   };
 
   return (
@@ -31,13 +33,18 @@ export const AccountActions = () => {
         {premium ? (
           <AccountAction>Manage Subscription</AccountAction>
         ) : (
-          <AccountAction disabled={upgradeLoading} onClick={handleUpgrade}>
-            {upgradeLoading ? (
-              <i className="bi-arrow-clockwise block animate-spin" />
-            ) : (
-              'Upgrade to Premium'
-            )}
-          </AccountAction>
+          <button
+            onClick={handleUpgrade}
+            className="flex h-full w-full select-none flex-col items-center justify-center gap-4 rounded-md border-[1px] border-purple-400 bg-white p-4 duration-75 hover:-translate-y-1 hover:bg-neutral-100 dark:border-purple-700 dark:bg-black dark:hover:bg-neutral-900 sm:p-8"
+          >
+            <h1 className="text-center text-xl sm:text-3xl">
+              {upgradeLoading ? (
+                <i className="bi-arrow-clockwise block animate-spin text-center text-xl sm:text-3xl" />
+              ) : (
+                'Upgrade to Premium'
+              )}
+            </h1>
+          </button>
         )}
         <AccountAction onClick={handleSignOut}>Sign Out</AccountAction>
       </div>

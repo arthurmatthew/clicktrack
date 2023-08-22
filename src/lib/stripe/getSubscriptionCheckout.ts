@@ -1,7 +1,9 @@
 import { addDoc, collection, doc, onSnapshot } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
+import { CLICKTRACK_PREMIUM_PRODUCT_ID } from '../../stripe';
 
 export const getSubscriptionCheckout = async (
+  callback?: () => void,
   successUrl?: string,
   cancelUrl?: string
 ) => {
@@ -12,9 +14,9 @@ export const getSubscriptionCheckout = async (
     const checkoutSessionRef = await addDoc(
       collection(customerDocumentRef, 'checkout_sessions'),
       {
-        price: 'price_1NAd5ODC0LsrQ16H5YllP3gE',
-        success_url: successUrl ?? window.location.origin,
-        cancel_url: cancelUrl ?? window.location.origin,
+        price: CLICKTRACK_PREMIUM_PRODUCT_ID,
+        success_url: successUrl ?? window.location.href,
+        cancel_url: cancelUrl ?? window.location.href,
       }
     );
     // wait for extension to register the session
@@ -23,9 +25,11 @@ export const getSubscriptionCheckout = async (
         const { error, url } = snapshot.data();
         if (error) {
           console.error(error);
+          if (callback) callback();
         }
         if (url) {
           window.location.assign(url);
+          if (callback) callback();
         }
       }
     });

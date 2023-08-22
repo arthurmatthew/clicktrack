@@ -20,7 +20,7 @@ export const RegisterProvider = () => {
       setLoading(false);
       navigate('/app/account/');
     } catch (error) {
-      notify('There was an issue creating your account.', 'error');
+      notify('Something went wrong.', 'error');
       console.error(error);
       setLoading(false);
     }

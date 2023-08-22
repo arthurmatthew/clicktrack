@@ -16,12 +16,6 @@ export const AppHeader = ({ toggleDark, dark }: IHeader) => {
           ct.
         </Link>
         <div className="flex gap-2">
-          <Link
-            to="/app/clicktracks/clicktrack/static"
-            className="flex items-center gap-1 rounded-md border-[1px] border-neutral-200 px-4 py-1 dark:border-neutral-900"
-          >
-            Basic
-          </Link>
           {user ? (
             <>
               <Link
@@ -30,32 +24,29 @@ export const AppHeader = ({ toggleDark, dark }: IHeader) => {
               >
                 My Clicktracks
               </Link>
-              <Link
-                to="/app/account"
-                className="flex items-center gap-1 rounded-md border-[1px] border-neutral-200 px-4 py-1 dark:border-neutral-900"
-              >
-                Account
-              </Link>
             </>
           ) : (
             <>
               <Link
-                to="/app/account/login"
+                to=""
                 className="flex items-center gap-1 rounded-md border-[1px] border-neutral-200 px-4 py-1 dark:border-neutral-900"
               >
-                Sign In
-              </Link>
-              <Link
-                to="/app/account/register"
-                className="flex items-center gap-1 rounded-md border-[1px] border-neutral-200 px-4 py-1 dark:border-neutral-900"
-              >
-                Sign up
+                Demo Clicktrack
               </Link>
             </>
           )}
         </div>
 
-        <DarkModeButton onClick={toggleDark} dark={dark} className="text-xl" />
+        <div className="flex items-center gap-4">
+          <Link to="/app/account">
+            <i className="bi-person-circle text-xl" />
+          </Link>
+          <DarkModeButton
+            onClick={toggleDark}
+            dark={dark}
+            className="text-xl"
+          />
+        </div>
       </div>
     </header>
   );

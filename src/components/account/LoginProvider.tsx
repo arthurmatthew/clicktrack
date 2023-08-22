@@ -20,7 +20,10 @@ export const LoginProvider = () => {
       setLoading(false);
       navigate('/app/account/');
     } catch (error) {
-      notify('There was an issue accessing your account.', 'error');
+      notify(
+        'Invalid login attempt. Make your password and/or email are correct.',
+        'error'
+      );
       setLoading(false);
     }
   };

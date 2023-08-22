@@ -13,7 +13,7 @@ export const AccountTitle = ({ name }: IAccountTitle) => {
   return (
     <div className="flex flex-col gap-10">
       <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-4">
           <h1 className="text-3xl font-semibold sm:text-5xl">
             Welcome, {name}
           </h1>
