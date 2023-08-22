@@ -42,6 +42,8 @@ export const minifyAndEncodeClicktrack = (clicktrack: Clicktrack) => {
       nD: clicktrackData.noteDuration,
       pEB: clicktrackData.playExtraBeat,
       v: clicktrackData.volume,
+      sSI: clicktrackData.showSaveIndicator,
+      aSI: clicktrackData.animateSaveIndicator,
     }),
   });
 

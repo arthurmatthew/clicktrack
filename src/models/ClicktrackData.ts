@@ -17,6 +17,8 @@ export class ClicktrackData {
   public muted: boolean;
   public playExtraBeat: boolean;
   public fadeOutSound: boolean;
+  public showSaveIndicator: boolean;
+  public animateSaveIndicator: boolean;
 
   constructor(options?: Partial<ClicktrackData>) {
     this.sections = options?.sections ?? [new Metronome(), new Repeat()];
@@ -28,5 +30,7 @@ export class ClicktrackData {
     this.playExtraBeat =
       options?.playExtraBeat ?? CLICKTRACK_DEFAULT_PLAY_EXTRA_BEAT;
     this.fadeOutSound = options?.fadeOutSound ?? CLICKTRACK_DEFAULT_FADE_OUT;
+    this.showSaveIndicator = options?.showSaveIndicator ?? true;
+    this.animateSaveIndicator = options?.animateSaveIndicator ?? true;
   }
 }

@@ -43,6 +43,8 @@ export const decodeClicktrack = (code: string) => {
         playExtraBeat: minifiedClicktrackData.pEB,
         sections: minifiedSections,
         volume: minifiedClicktrackData.v,
+        showSaveIndicator: minifiedClicktrackData.sSI,
+        animateSaveIndicator: minifiedClicktrackData.aSI,
       }),
     });
 

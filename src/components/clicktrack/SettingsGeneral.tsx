@@ -10,17 +10,29 @@ export const SettingsGeneral = ({
   return (
     <SettingsSection name="General">
       <Setting
-        label="Play Extra Beat"
-        description="Clicktrack will play the downbeat of an extra measure if this setting is enabled."
+        label="Show Save Indicator"
+        description="Enable the little dot that shows on the save button when unsaved changes are present."
+      >
+        <SettingsButton
+          onClick={() => {
+            updateSettings({ showSaveIndicator: !settings.showSaveIndicator });
+          }}
+        >
+          {settings.showSaveIndicator ? 'On' : 'Off'}
+        </SettingsButton>
+      </Setting>
+      <Setting
+        disabled={settings.showSaveIndicator === false}
+        label="Animate Save Indicator"
       >
         <SettingsButton
           onClick={() => {
             updateSettings({
-              playExtraBeat: !settings.playExtraBeat,
+              animateSaveIndicator: !settings.animateSaveIndicator,
             });
           }}
         >
-          {settings.playExtraBeat ? 'On' : 'Off'}
+          {settings.animateSaveIndicator ? 'On' : 'Off'}
         </SettingsButton>
       </Setting>
     </SettingsSection>

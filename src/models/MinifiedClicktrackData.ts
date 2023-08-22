@@ -17,6 +17,8 @@ export class MinifiedClicktrackData {
   public m: boolean;
   public pEB: boolean;
   public fOS: boolean;
+  public sSI: boolean;
+  public aSI: boolean;
 
   constructor(options?: Partial<MinifiedClicktrackData>) {
     this.s = options?.s ?? [new MinifiedMetronome(), new MinifiedRepeat()];
@@ -26,5 +28,7 @@ export class MinifiedClicktrackData {
     this.nD = options?.nD ?? CLICKTRACK_DEFAULT_NOTE_DURATION;
     this.pEB = options?.pEB ?? CLICKTRACK_DEFAULT_PLAY_EXTRA_BEAT;
     this.fOS = options?.fOS ?? CLICKTRACK_DEFAULT_FADE_OUT;
+    this.sSI = options?.sSI ?? true;
+    this.aSI = options?.aSI ?? true;
   }
 }
