@@ -39,10 +39,13 @@ export const TitleButtons = ({
       <button
         onClick={saveChanges}
         disabled={changesSaved}
-        className="relative rounded-sm bg-black px-4 py-2 text-white disabled:opacity-60 dark:bg-white dark:text-black"
+        className="relative rounded-sm bg-black px-4 py-2 text-white disabled:cursor-not-allowed disabled:opacity-20 dark:bg-white dark:text-black"
       >
         {changesSaved === false && (
-          <div className="absolute right-0 top-0 -m-1 h-3 w-3 rounded-full bg-red-500" />
+          <>
+            <div className="absolute right-0 top-0 -m-1 h-3 w-3 animate-ping rounded-full bg-purple-500" />
+            <div className="absolute right-0 top-0 -m-1 h-3 w-3 rounded-full bg-purple-500" />
+          </>
         )}
         {saving ? (
           <i className="bi-arrow-clockwise block animate-spin" />
