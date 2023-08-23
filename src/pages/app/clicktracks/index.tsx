@@ -1,18 +1,16 @@
-import { useNavigate } from 'react-router-dom';
 import { DragDropList } from '../../../components/clicktracks/DragDropList';
 import { Footer } from '../../../components/clicktracks/Footer';
 import { Heading } from '../../../components/clicktracks/Heading';
 import { SkeletonLoaderList } from '../../../components/clicktracks/SkeletonLoaderList';
-
 import { useClicktracks } from '../../../hooks/useClicktracks';
+import { useRedirectToLogin } from '../../../hooks/useRedirectToLogin';
 import { useUser } from '../../../hooks/useUser';
-import { useEffect } from 'react';
 
 /**
  * Webpage that lists metronomes from storage.
  */
 const ClicktracksIndex = () => {
-  const navigate = useNavigate();
+  useRedirectToLogin();
   const { user } = useUser();
 
   const {
@@ -26,10 +24,6 @@ const ClicktracksIndex = () => {
     handleOnDragEnd,
     handleCopy,
   } = useClicktracks();
-
-  useEffect(() => {
-    if (user === null) navigate('/app/account/login');
-  }, [user]);
 
   if (user) {
     return (

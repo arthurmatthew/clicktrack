@@ -1,27 +1,13 @@
 import { AccountAction } from './AccountAction';
 import { unauthenticateUser } from '../../lib/firebase/unauthenticateUser';
-import { getSubscriptionCheckout } from '../../lib/stripe/getSubscriptionCheckout';
 import { useUser } from '../../hooks/useUser';
-import { useState } from 'react';
 import { AccountUpgrade } from './AccountUpgrade';
 
 export const AccountActions = () => {
-  const [upgradeLoading, setUpgradeLoading] = useState(false);
-
   const { premium } = useUser();
 
   const handleSignOut = async () => {
     await unauthenticateUser();
-  };
-
-  const handleUpgrade = async () => {
-    setUpgradeLoading(true);
-    await getSubscriptionCheckout(() => {
-      setUpgradeLoading(false);
-    }).catch((error) => {
-      console.error(error);
-      setUpgradeLoading(false);
-    });
   };
 
   return (
@@ -31,10 +17,7 @@ export const AccountActions = () => {
         {premium ? (
           <AccountAction>Manage Subscription</AccountAction>
         ) : (
-          <AccountUpgrade
-            onClick={handleUpgrade}
-            upgradeLoading={upgradeLoading}
-          />
+          <AccountUpgrade />
         )}
         <AccountAction onClick={handleSignOut}>Sign Out</AccountAction>
       </div>

@@ -21,7 +21,7 @@ export const LoginProvider = () => {
       navigate('/app/account/');
     } catch (error) {
       notify(
-        'Invalid login attempt. Make your password and/or email are correct.',
+        'Invalid login attempt. Make sure your password and/or email are correct.',
         'error'
       );
       setLoading(false);
