@@ -29,7 +29,7 @@ const ClicktracksIndex = () => {
 
   useEffect(() => {
     if (user === null) navigate('/app/account/login');
-  }, []);
+  }, [user]);
 
   if (user) {
     return (

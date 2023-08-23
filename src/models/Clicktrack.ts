@@ -6,7 +6,6 @@ import { ClicktrackData } from './ClicktrackData';
 import { v4 as uuidv4 } from 'uuid';
 import { Metronome } from './Metronome';
 import { Repeat } from './Repeat';
-import { getClicktrackFromLocalStorageByID } from '../utils/getClicktrackFromLocalStorageByID';
 import { minifyAndEncodeClicktrack } from '../utils/minifyAndEncodeClicktrack';
 import { decodeClicktrack } from '../utils/decodeClicktrack';
 
@@ -40,10 +39,6 @@ export class Clicktrack {
         }),
       }),
     });
-  }
-
-  public static localFromID(id: string | undefined) {
-    return getClicktrackFromLocalStorageByID(id);
   }
 
   public static encode(clicktrack: Clicktrack) {

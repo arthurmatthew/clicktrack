@@ -16,8 +16,8 @@ export const UserProvider = ({ children }: IComponent) => {
 
   useEffect(() => {
     onAuthStateChanged(auth, async (authUser) => {
+      setUser(authUser);
       if (authUser) {
-        setUser(authUser);
         const userPremium = await getUserPremium();
         setPremium(userPremium);
       }

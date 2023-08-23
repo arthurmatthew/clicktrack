@@ -1,12 +1,19 @@
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AccountFooter } from '../../../components/account/AccountFooter';
 import { AccountOverview } from '../../../components/account/AccountOverview';
 import { AccountTitle } from '../../../components/account/AccountTitle';
 import { EditProfile } from '../../../components/account/EditProfile';
 import { useUser } from '../../../hooks/useUser';
+import { useEffect } from 'react';
 
 export const AccountIndex = () => {
   const { user } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(user);
+    if (user === null) navigate('/app/account/login');
+  }, [user]);
 
   if (user) {
     return (
@@ -19,7 +26,5 @@ export const AccountIndex = () => {
         </div>
       </div>
     );
-  } else {
-    <Navigate to="/app/account/login" />;
   }
 };
