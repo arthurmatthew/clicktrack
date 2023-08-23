@@ -1,10 +1,12 @@
-import { Navigate } from 'react-router-dom';
+import { ClicktrackApp } from '../../components/clicktrack/ClicktrackApp';
+import { Clicktrack } from '../../models/Clicktrack';
 
-/**
- * Webpage which simply redirects you to the metronome list
- */
 const AppIndex = () => {
-  return <Navigate to="/app/clicktracks" />;
+  return (
+    <ClicktrackApp
+      loadedClicktrack={new Clicktrack({ name: 'Demo Clicktrack', id: 'demo' })}
+    />
+  );
 };
 
 export default AppIndex;

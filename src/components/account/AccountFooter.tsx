@@ -39,11 +39,18 @@ export const AccountFooter = () => {
             {loading ? 'Deleting...' : 'Delete Account'}
           </h1>
         </button>
-        <p className="opacity-70 sm:py-2">
-          Deleting your account will delete all user data associated. This
-          includes your saved clicktracks. This process is instant. Support
-          cannot assist in data recovery.
-        </p>
+        <div className="flex flex-col gap-2 opacity-70 sm:py-2">
+          <p>
+            Deleting your account will delete all user data associated. This
+            includes your saved clicktracks. This process is instant. Support
+            cannot assist in data recovery.
+          </p>
+          <p>
+            Your subscription is supposed to be canceled when your account is
+            deleted. However, to avoid accidental charges, please cancel it
+            manually.
+          </p>
+        </div>
       </div>
     </div>
   );

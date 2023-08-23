@@ -39,7 +39,11 @@ export const useCloudClicktrack = (loadedClicktrack: Clicktrack) => {
     );
 
     const result = [...currentSavedWithoutEdited];
-    result.splice(indexOfEdited, 0, clicktrack);
+    result.splice(
+      indexOfEdited === -1 ? result.length : indexOfEdited, // add to end if didnt exist yet
+      0,
+      clicktrack
+    );
     const minifiedClicktracks = result.map((clicktrack) =>
       Clicktrack.encode(clicktrack)
     );
