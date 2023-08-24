@@ -29,7 +29,7 @@ export const Sequencer = ({
   const { notify } = useNotify();
 
   return (
-    <div className="flex h-full select-none flex-col gap-2">
+    <div className="flex h-full select-none flex-col">
       <DragDropContext onDragEnd={sequencerOnDragEnd}>
         <StrictModeDroppable droppableId="sequencer">
           {(provided) => (
