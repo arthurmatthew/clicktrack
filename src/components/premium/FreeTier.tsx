@@ -26,7 +26,7 @@ export const FreeTier = ({ premium, user }: ITier) => {
             </h2>
           </div>
           <p className="text-xl opacity-70">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+            You get this when you sign up. It's access to the essentials.
           </p>
           <ul className="flex flex-col gap-px bg-neutral-300 text-xl dark:bg-neutral-800">
             <Downside>Up to 3 saved metronomes</Downside>

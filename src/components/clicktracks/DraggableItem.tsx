@@ -5,7 +5,7 @@ import { Clicktrack } from '../../models/Clicktrack';
 
 interface IDraggableItem {
   clicktrack: Clicktrack;
-  clicktracks: Clicktrack[];
+  limitSaves: boolean;
   index: number;
   handleRemove: (id: string) => void;
   handleNameChange: (name: string, newName: string) => void;
@@ -14,7 +14,7 @@ interface IDraggableItem {
 
 export const DraggableItem = ({
   clicktrack,
-  clicktracks,
+  limitSaves,
   index,
   handleRemove,
   handleNameChange,
@@ -41,7 +41,7 @@ export const DraggableItem = ({
               transition={{ duration: 0.3, ease: 'easeOut' }}
             >
               <ClicktrackListItem
-                clicktracks={clicktracks}
+                limitSaves={limitSaves}
                 handleRemove={() => {
                   handleRemove(clicktrack.id);
                 }}

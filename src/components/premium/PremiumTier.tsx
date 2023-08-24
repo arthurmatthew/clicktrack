@@ -38,9 +38,8 @@ export const PremiumTier = ({ premium, user }: ITier) => {
             </h2>
           </div>
           <p className="text-xl opacity-70">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit
-            deleniti odit dignissimos provident reprehenderit dolor ex
-            praesentium corrupti iste fugit
+            Premium includes everything in the free tier with no limits. You can
+            use your premium account across all devices that support Clicktrack.
           </p>
           <ul className="flex flex-col gap-px bg-neutral-300 text-xl dark:bg-neutral-800">
             <Feature>Unlimited saved metronomes</Feature>

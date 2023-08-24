@@ -6,6 +6,7 @@ import { NoClicktracksPlaceholder } from './NoClicktracksPlaceholder';
 
 interface IDragDropList {
   clicktracks: Clicktrack[];
+  limitSaves: boolean;
   handleOnDragEnd: (result: DropResult) => void;
   handleRemove: (id: string) => void;
   handleNameChange: (name: string, newName: string) => void;
@@ -14,6 +15,7 @@ interface IDragDropList {
 
 export const DragDropList = ({
   clicktracks,
+  limitSaves,
   handleOnDragEnd,
   handleRemove,
   handleNameChange,
@@ -33,9 +35,9 @@ export const DragDropList = ({
             ) : (
               clicktracks.map((clicktrack, index) => (
                 <DraggableItem
-                  clicktracks={clicktracks}
                   key={clicktrack.id}
                   {...{
+                    limitSaves,
                     handleNameChange,
                     handleRemove,
                     clicktrack,

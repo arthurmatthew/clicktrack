@@ -1,4 +1,5 @@
 import { FreeTier } from '../../../components/premium/FreeTier';
+import { HelpUsRun } from '../../../components/premium/HelpUsRun';
 import { PremiumTier } from '../../../components/premium/PremiumTier';
 import { PremiumTitle } from '../../../components/premium/PremiumTitle';
 import { useUser } from '../../../hooks/useUser';
@@ -13,6 +14,7 @@ export const PremiumIndex = () => {
         <FreeTier {...{ user, premium }} />
         <PremiumTier {...{ user, premium }} />
       </section>
+      <HelpUsRun />
     </div>
   );
 };

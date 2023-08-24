@@ -4,16 +4,15 @@ import { useState } from 'react';
 import { ClicktracksTitle } from './ClicktracksTitle';
 import { ClicktracksTitleAccount } from './ClicktracksTitleAccount';
 import { IImport, Import } from './Import';
-import { DB_RULE_MAX_CLICKTRACKS } from '../../config';
 
 interface IHeading extends Omit<IImport, 'showImport'> {
-  length: number;
+  limitSaves: boolean;
   handleAdd: () => void;
   handleTemplate: (code: string) => void;
 }
 
 export const Heading = ({
-  length,
+  limitSaves,
   handleAdd,
   handleTemplate,
   handleImport,
@@ -21,8 +20,6 @@ export const Heading = ({
 }: IHeading) => {
   const [showTemplates, setShowTemplates] = useState(false);
   const [showImport, setShowImport] = useState(false);
-
-  const exceedsMaxClicktracks = length >= DB_RULE_MAX_CLICKTRACKS;
 
   return (
     <>
@@ -33,14 +30,14 @@ export const Heading = ({
 
       <div className="flex flex-col gap-2">
         <InteractableListItem
-          disabled={exceedsMaxClicktracks}
+          disabled={limitSaves}
           icon="plus-square"
           onClick={handleAdd}
         >
           Create New
         </InteractableListItem>
         <InteractableListItem
-          disabled={exceedsMaxClicktracks}
+          disabled={limitSaves}
           icon="download"
           onClick={() =>
             setShowImport((previouslyShowing) => !previouslyShowing)
@@ -49,12 +46,12 @@ export const Heading = ({
           Import
         </InteractableListItem>
         <Import
-          disabled={exceedsMaxClicktracks}
+          disabled={limitSaves}
           {...{ handleImport, importRef, showImport }}
         />
         <InteractableListItem
           icon="boxes"
-          disabled={exceedsMaxClicktracks}
+          disabled={limitSaves}
           onClick={() =>
             setShowTemplates((previouslyShowing) => !previouslyShowing)
           }
@@ -64,7 +61,7 @@ export const Heading = ({
             <i className="bi-dot" /> Great for Beginners
           </p>
         </InteractableListItem>
-        {!exceedsMaxClicktracks && (
+        {!limitSaves && (
           <Templates
             showTemplates={showTemplates}
             handleTemplate={handleTemplate}
