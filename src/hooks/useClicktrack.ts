@@ -33,7 +33,7 @@ export const useClicktrack = (loadedClicktrack: Clicktrack) => {
   const { play, playingDisplay, selectedId, setSelectedId } = usePlayClicktrack(
     clicktrack,
     () => {
-      startPulseAnimation();
+      if (clicktrack.data.flashPlayButton) startPulseAnimation();
     }
   );
   const [settingsShown, setSettingsShown] = useState(false);

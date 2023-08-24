@@ -19,6 +19,7 @@ export class ClicktrackData {
   public fadeOutSound: boolean;
   public showSaveIndicator: boolean;
   public animateSaveIndicator: boolean;
+  public flashPlayButton: boolean;
 
   constructor(options?: Partial<ClicktrackData>) {
     this.sections = options?.sections ?? [new Metronome(), new Repeat()];
@@ -32,5 +33,6 @@ export class ClicktrackData {
     this.fadeOutSound = options?.fadeOutSound ?? CLICKTRACK_DEFAULT_FADE_OUT;
     this.showSaveIndicator = options?.showSaveIndicator ?? true;
     this.animateSaveIndicator = options?.animateSaveIndicator ?? true;
+    this.flashPlayButton = options?.flashPlayButton ?? true;
   }
 }

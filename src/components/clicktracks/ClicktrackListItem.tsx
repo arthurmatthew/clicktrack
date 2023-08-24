@@ -4,9 +4,11 @@ import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 import { Clicktrack } from '../../models/Clicktrack';
 import { IComponent } from '../IComponent';
 import { Button } from '../core/Button';
+import { DB_RULE_MAX_CLICKTRACKS } from '../../config';
 
 interface IClicktrackListItem extends IComponent {
   clicktrack: Clicktrack;
+  clicktracks: Clicktrack[];
   handleRemove: () => void;
   handleNameChange: (name: string, newName: string) => void;
   dragHandle: DraggableProvidedDragHandleProps | null | undefined;
@@ -15,6 +17,7 @@ interface IClicktrackListItem extends IComponent {
 
 export const ClicktrackListItem = ({
   clicktrack,
+  clicktracks,
   handleRemove,
   handleNameChange,
   dragHandle,
@@ -90,6 +93,7 @@ export const ClicktrackListItem = ({
         <div className="mt-2 flex items-center gap-4">
           <Button
             className="bg-neutral-200 dark:bg-neutral-900"
+            disabled={clicktracks.length >= DB_RULE_MAX_CLICKTRACKS}
             onClick={() => {
               handleCopy(clicktrack.id);
             }}

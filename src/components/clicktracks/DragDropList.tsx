@@ -33,6 +33,7 @@ export const DragDropList = ({
             ) : (
               clicktracks.map((clicktrack, index) => (
                 <DraggableItem
+                  clicktracks={clicktracks}
                   key={clicktrack.id}
                   {...{
                     handleNameChange,

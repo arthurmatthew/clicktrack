@@ -11,8 +11,8 @@ export const Button = ({ children, className, onClick, disabled }: IButton) => {
     <motion.button
       disabled={disabled}
       onClick={onClick}
-      whileTap={{ scale: 0.9 }}
-      whileHover={{ scale: 1.05 }}
+      whileTap={disabled ? {} : { scale: 0.9 }}
+      whileHover={disabled ? {} : { scale: 1.05 }}
       transition={{ type: 'spring', stiffness: 400, damping: 17 }}
       className={'select-none rounded-sm px-10 py-2 ' + className}
     >

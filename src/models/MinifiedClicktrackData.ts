@@ -19,6 +19,7 @@ export class MinifiedClicktrackData {
   public fOS: boolean;
   public sSI: boolean;
   public aSI: boolean;
+  public fPB: boolean
 
   constructor(options?: Partial<MinifiedClicktrackData>) {
     this.s = options?.s ?? [new MinifiedMetronome(), new MinifiedRepeat()];
@@ -30,5 +31,6 @@ export class MinifiedClicktrackData {
     this.fOS = options?.fOS ?? CLICKTRACK_DEFAULT_FADE_OUT;
     this.sSI = options?.sSI ?? true;
     this.aSI = options?.aSI ?? true;
+    this.fPB = options?.fPB ?? true
   }
 }

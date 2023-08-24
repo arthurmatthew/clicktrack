@@ -45,6 +45,7 @@ export const decodeClicktrack = (code: string) => {
         volume: minifiedClicktrackData.v,
         showSaveIndicator: minifiedClicktrackData.sSI,
         animateSaveIndicator: minifiedClicktrackData.aSI,
+        flashPlayButton: minifiedClicktrackData.fPB,
       }),
     });
 

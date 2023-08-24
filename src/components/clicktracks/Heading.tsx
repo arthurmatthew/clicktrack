@@ -64,10 +64,12 @@ export const Heading = ({
             <i className="bi-dot" /> Great for Beginners
           </p>
         </InteractableListItem>
-        <Templates
-          showTemplates={showTemplates}
-          handleTemplate={handleTemplate}
-        />
+        {!exceedsMaxClicktracks && (
+          <Templates
+            showTemplates={showTemplates}
+            handleTemplate={handleTemplate}
+          />
+        )}
       </div>
     </>
   );

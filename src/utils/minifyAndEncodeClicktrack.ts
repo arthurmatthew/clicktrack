@@ -44,6 +44,7 @@ export const minifyAndEncodeClicktrack = (clicktrack: Clicktrack) => {
       v: clicktrackData.volume,
       sSI: clicktrackData.showSaveIndicator,
       aSI: clicktrackData.animateSaveIndicator,
+      fPB: clicktrackData.flashPlayButton
     }),
   });
 

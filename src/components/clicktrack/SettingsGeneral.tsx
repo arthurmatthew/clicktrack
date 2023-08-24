@@ -35,6 +35,21 @@ export const SettingsGeneral = ({
           {settings.animateSaveIndicator ? 'On' : 'Off'}
         </SettingsButton>
       </Setting>
+      <Setting
+        disabled={settings.showSaveIndicator === false}
+        label="Flash Play Button"
+        description="Flash the color of the play button on accented beats."
+      >
+        <SettingsButton
+          onClick={() => {
+            updateSettings({
+              flashPlayButton: !settings.flashPlayButton,
+            });
+          }}
+        >
+          {settings.flashPlayButton ? 'On' : 'Off'}
+        </SettingsButton>
+      </Setting>
     </SettingsSection>
   );
 };
