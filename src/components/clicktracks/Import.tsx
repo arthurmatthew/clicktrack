@@ -4,9 +4,15 @@ export interface IImport {
   importRef: React.MutableRefObject<HTMLInputElement | null>;
   handleImport: () => void;
   showImport: boolean;
+  disabled?: boolean;
 }
 
-export const Import = ({ importRef, handleImport, showImport }: IImport) => {
+export const Import = ({
+  importRef,
+  handleImport,
+  showImport,
+  disabled,
+}: IImport) => {
   return (
     <div
       className={`gap-2 overflow-hidden rounded-md bg-neutral-200 p-4 duration-100 dark:bg-neutral-900 sm:grid-cols-2 md:grid-cols-3 ${
@@ -23,7 +29,11 @@ export const Import = ({ importRef, handleImport, showImport }: IImport) => {
           />
         </div>
         <div className="my-2 block h-px w-full bg-gradient-to-r from-neutral-300 to-transparent dark:from-neutral-700 sm:hidden" />
-        <Button onClick={handleImport} className="bg-white dark:bg-black">
+        <Button
+          disabled={disabled}
+          onClick={handleImport}
+          className="bg-white dark:bg-black"
+        >
           Import
         </Button>
       </div>

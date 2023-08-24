@@ -1,6 +1,6 @@
 import { DragDropList } from '../../../components/clicktracks/DragDropList';
-import { Footer } from '../../../components/clicktracks/Footer';
 import { Heading } from '../../../components/clicktracks/Heading';
+import { SaveLimitAlert } from '../../../components/clicktracks/SaveLimitAlert';
 import { SkeletonLoaderList } from '../../../components/clicktracks/SkeletonLoaderList';
 import { useClicktracks } from '../../../hooks/useClicktracks';
 import { useRedirectToLogin } from '../../../hooks/useRedirectToLogin';
@@ -30,22 +30,25 @@ const ClicktracksIndex = () => {
       <div className="mx-4 my-10 flex flex-grow flex-col">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-4">
           <Heading
+            length={clicktracks?.length ?? 9999}
             {...{ handleAdd, handleTemplate, handleImport, importRef }}
           />
           {clicktracks ? (
-            <DragDropList
-              {...{
-                clicktracks,
-                handleNameChange,
-                handleRemove,
-                handleOnDragEnd,
-                handleCopy,
-              }}
-            />
+            <>
+              <DragDropList
+                {...{
+                  clicktracks,
+                  handleNameChange,
+                  handleRemove,
+                  handleOnDragEnd,
+                  handleCopy,
+                }}
+              />
+              <SaveLimitAlert length={clicktracks?.length} />
+            </>
           ) : (
             <SkeletonLoaderList />
           )}
-          <Footer />
         </div>
       </div>
     );
