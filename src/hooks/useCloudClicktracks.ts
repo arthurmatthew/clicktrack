@@ -21,7 +21,7 @@ export const useCloudClicktracks = () => {
     );
 
     await setUserData({
-      clicktracks: JSON.stringify(minifiedClicktracks),
+      clicktracks: minifiedClicktracks,
     });
   };
 

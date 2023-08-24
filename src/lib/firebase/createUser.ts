@@ -13,7 +13,7 @@ export const createUser = async (email: string, password: string) => {
   if (userCredential) {
     const usersCollectionRef = collection(db, DB_USERS_COLLECTION_KEY);
     await setDoc(doc(usersCollectionRef, userCredential.user.uid), {
-      clicktracks: JSON.stringify([]),
+      clicktracks: [],
     });
   }
 };

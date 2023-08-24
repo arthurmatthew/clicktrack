@@ -49,7 +49,7 @@ export const useCloudClicktrack = (loadedClicktrack: Clicktrack) => {
     );
 
     await setUserData({
-      clicktracks: JSON.stringify(minifiedClicktracks),
+      clicktracks: minifiedClicktracks,
     });
 
     lastSavedClicktrack.current = clicktrack;

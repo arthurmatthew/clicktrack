@@ -17,9 +17,7 @@ export const loadAvailableClicktrack = async (id: string) => {
       ) {
         const cloudStoredUserData =
           cloudStoredUserDataSnap.data() as TUserDocument;
-        const minifiedCloudClicktracks = JSON.parse(
-          cloudStoredUserData.clicktracks
-        ) as string[]; // these are encoded and minifed in useEffect below
+        const minifiedCloudClicktracks = cloudStoredUserData.clicktracks; // these are encoded and minifed in useEffect below
         const cloudClicktracks = minifiedCloudClicktracks.map(
           (minifiedClicktrack) => Clicktrack.decode(minifiedClicktrack)
         );

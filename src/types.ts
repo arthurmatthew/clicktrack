@@ -1,7 +1,7 @@
 import { User } from 'firebase/auth';
 
 export type TUserDocument = {
-  clicktracks: string;
+  clicktracks: string[];
 };
 export type TNotification =
   | {
