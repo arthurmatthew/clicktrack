@@ -1,5 +1,8 @@
 import { User } from 'firebase/auth';
 
+export type TCustomerPortalResult = {
+  url: string;
+};
 export type TUserDocument = {
   clicktracks: string[];
 };

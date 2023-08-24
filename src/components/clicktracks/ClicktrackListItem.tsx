@@ -101,7 +101,7 @@ export const ClicktrackListItem = ({
           </Button>
           <Button
             onClick={handleRemove}
-            className="border-[1px] border-red-500"
+            className="bg-red-600 text-white"
             disabled={clicktrack.permanant}
           >
             {clicktrack.permanant ? "Can't Delete" : 'Delete'}
