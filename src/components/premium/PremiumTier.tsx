@@ -43,12 +43,8 @@ export const PremiumTier = ({ premium, user }: ITier) => {
             praesentium corrupti iste fugit
           </p>
           <ul className="flex flex-col gap-px bg-neutral-800 text-xl">
-            <Feature>Up to 100 saved metronomes</Feature>
-            <Feature>Up to 100 saved metronomes</Feature>
-            <Feature>Up to 100 saved metronomes</Feature>
-            <Feature>Up to 100 saved metronomes</Feature>
-            <Feature>Up to 100 saved metronomes</Feature>
-            <Feature>Up to 100 saved metronomes</Feature>
+            <Feature>Unlimited saved metronomes</Feature>
+            <Feature>Help our service run</Feature>
           </ul>
           <SubscribeButton
             user={user}

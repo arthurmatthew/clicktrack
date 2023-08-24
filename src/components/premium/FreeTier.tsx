@@ -30,11 +30,6 @@ export const FreeTier = ({ premium, user }: ITier) => {
           </p>
           <ul className="flex flex-col gap-px bg-neutral-800 text-xl">
             <Downside>Up to 3 saved metronomes</Downside>
-            <Downside>Up to 3 saved metronomes</Downside>
-            <Downside>Up to 3 saved metronomes</Downside>
-            <Downside>Up to 3 saved metronomes</Downside>
-            <Downside>Up to 3 saved metronomes</Downside>
-            <Downside>Up to 3 saved metronomes</Downside>
           </ul>
         </div>
         <SubscribeButton user={user} subscribed={!premium} />
