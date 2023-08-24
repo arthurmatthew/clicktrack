@@ -14,7 +14,7 @@ export const FreeTier = ({ premium, user }: ITier) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 100 }}
       transition={{ duration: 0.8 }}
-      className="flex h-full flex-col items-center overflow-hidden rounded-lg bg-neutral-900"
+      className="z-10 flex h-full flex-col items-center overflow-hidden rounded-lg bg-neutral-200 dark:bg-neutral-900"
     >
       <div className="flex h-full w-full flex-col justify-between p-16">
         <div className="flex w-full flex-col gap-4">
@@ -28,7 +28,7 @@ export const FreeTier = ({ premium, user }: ITier) => {
           <p className="text-xl opacity-70">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit.
           </p>
-          <ul className="flex flex-col gap-px bg-neutral-800 text-xl">
+          <ul className="flex flex-col gap-px bg-neutral-300 text-xl dark:bg-neutral-800">
             <Downside>Up to 3 saved metronomes</Downside>
           </ul>
         </div>

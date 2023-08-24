@@ -23,9 +23,9 @@ export const PremiumTier = ({ premium, user }: ITier) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 100 }}
       transition={{ duration: 0.8, delay: 0.2 }}
-      className="relative flex h-full flex-col items-center rounded-lg border-2 border-purple-500 bg-neutral-900 xl:col-span-2"
+      className="relative flex h-full flex-col items-center rounded-lg border-2 border-purple-500 bg-neutral-200 shadow-2xl shadow-purple-500/25 dark:bg-neutral-900 xl:col-span-2"
     >
-      <h1 className="absolute -mt-5 rounded-full bg-purple-500 px-6 py-2 text-center">
+      <h1 className="absolute -mt-5 rounded-full bg-purple-500 px-6 py-2 text-center text-white">
         Most Popular
       </h1>
       <div className="flex h-full flex-col justify-between p-16">
@@ -42,7 +42,7 @@ export const PremiumTier = ({ premium, user }: ITier) => {
             deleniti odit dignissimos provident reprehenderit dolor ex
             praesentium corrupti iste fugit
           </p>
-          <ul className="flex flex-col gap-px bg-neutral-800 text-xl">
+          <ul className="flex flex-col gap-px bg-neutral-300 text-xl dark:bg-neutral-800">
             <Feature>Unlimited saved metronomes</Feature>
             <Feature>Help our service run</Feature>
           </ul>

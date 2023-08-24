@@ -19,7 +19,9 @@ export const AccountActions = () => {
         ) : (
           <AccountUpgrade />
         )}
-        <AccountAction onClick={handleSignOut}>Sign Out</AccountAction>
+        <AccountAction onClick={handleSignOut} className="z-10">
+          Sign Out
+        </AccountAction>
       </div>
     </div>
   );

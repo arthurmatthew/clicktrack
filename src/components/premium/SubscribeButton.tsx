@@ -20,13 +20,13 @@ export const SubscribeButton = ({
         <>
           {subscribed ? (
             <button
-              className={`w-full cursor-not-allowed rounded-full p-4 px-6 text-xl dark:bg-neutral-800 ${className}`}
+              className={`w-full cursor-not-allowed rounded-full bg-neutral-300 p-4 px-6 text-xl dark:bg-neutral-800 ${className}`}
             >
               Current Plan
             </button>
           ) : (
             <button
-              className={`flex w-full justify-between rounded-full p-4 px-6 text-xl dark:bg-white dark:text-black ${className}`}
+              className={`flex w-full justify-between rounded-full bg-black p-4 px-6 text-xl text-white dark:bg-white dark:text-black ${className}`}
               onClick={onClick}
             >
               {loading ? (
