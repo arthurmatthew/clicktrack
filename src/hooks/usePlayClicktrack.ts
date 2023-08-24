@@ -170,7 +170,7 @@ export const usePlayClicktrack = (
     nextNoteDueIn += secondsPer16thNote; // Add the length of another 16th note.
     current16thBeat++; // Increment the beat number
 
-    if (current16thBeat === quarterNotesPerBar * 4) {
+    if (current16thBeat >= quarterNotesPerBar * 4) {
       current16thBeat = 0;
       totalBarsPlayed++;
     }
