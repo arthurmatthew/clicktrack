@@ -1,5 +1,5 @@
-import { RangeInput } from '../core/RangeInput';
 import { IMetronomeUpdater } from './IMetronomeUpdater';
+import { VolumeSlider } from './VolumeSlider';
 
 export const EditVolume = ({
   metronome,
@@ -11,7 +11,7 @@ export const EditVolume = ({
       <div className="flex gap-1">
         <div className="flex gap-4">
           <button
-            className="rounded-sm bg-neutral-200 p-2 px-4 dark:bg-neutral-900"
+            className="rounded-sm rounded-r-none bg-neutral-200 p-2 px-4 dark:bg-neutral-900"
             onClick={() => {
               updateMetronome(metronome, { muted: !metronome.muted });
             }}
@@ -27,13 +27,12 @@ export const EditVolume = ({
             )}
           </button>
         </div>
-
-        <RangeInput
-          volume={metronome.volume}
+        <VolumeSlider
           muted={metronome.muted}
-          updateVolume={(volume) => {
-            updateMetronome(metronome, { volume: volume });
-          }}
+          volume={metronome.volume}
+          updateVolume={(volume: number) =>
+            updateMetronome(metronome, { volume: volume })
+          }
         />
       </div>
     </div>
