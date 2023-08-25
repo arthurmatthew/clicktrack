@@ -23,7 +23,7 @@ export const SectionControls = ({
         onClick={() => {
           deleteSection(id);
         }}
-        className="h-full w-1/2 rounded-sm bg-red-500 p-4 py-3 text-white duration-100 ease-out dark:bg-red-700"
+        className="h-full w-1/2 rounded-sm bg-neutral-300 p-4 py-3 duration-100 ease-out hover:bg-red-500 hover:text-white dark:bg-neutral-900 hover:dark:bg-red-700"
       >
         Delete
       </button>
