@@ -4,8 +4,11 @@ import { AccountTitle } from '../../../components/account/AccountTitle';
 import { EditProfile } from '../../../components/account/EditProfile';
 import { useUser } from '../../../hooks/useUser';
 import { useRedirectToLogin } from '../../../hooks/useRedirectToLogin';
+import { usePageTitle } from '../../../hooks/usePageTitle';
 
 export const AccountIndex = () => {
+  usePageTitle('Account Settings');
+
   useRedirectToLogin();
   const { user } = useUser();
 

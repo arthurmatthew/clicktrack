@@ -6,6 +6,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { loadAvailableClicktrack } from '../../../../utils/loadAvailableClicktrack';
 import { auth } from '../../../../firebase';
+import { usePageTitle } from '../../../../hooks/usePageTitle';
 
 /**
  * Webpage which loads the metronome from storage and passes it off to the actual application.
@@ -25,6 +26,8 @@ const ClicktrackPage = () => {
       }
     });
   });
+
+  usePageTitle(savedClicktrack ? savedClicktrack.name : 'Loading...');
 
   return savedClicktrack ? (
     <ClicktrackApp loadedClicktrack={savedClicktrack} />
