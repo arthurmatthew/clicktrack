@@ -73,14 +73,24 @@ export const usePlayClicktrack = (
     const calculatedLocalVolume = 1 * (section.volume / 100);
     const localVolume = section.muted ? 0 : calculatedLocalVolume;
 
+    const [downbeatIsAccented, backbeatIsAccented] = section.accents;
+
     if (noteType === 8 && beat % 2) return; // Not divisible by 2 means the current beat is not an 8th note
     if (noteType === 4 && beat % 4) return; // Note divisible by 4 means the current beat is not a 16th note
     if (noteType === 2 && beat % 8) return;
 
+    const isDownbeat = beat === 0;
+    const isBackbeat = beat === 8;
+    const isAccentedDownbeat = isDownbeat && downbeatIsAccented;
+    const isAccentedBackbeat = isBackbeat && backbeatIsAccented;
+
     oscillator.frequency.value = 440.0;
     if (beat === 0) {
-      oscillator.frequency.value = 880.0;
       callback();
+    }
+
+    if (isAccentedDownbeat || isAccentedBackbeat) {
+      oscillator.frequency.value = 880.0;
     }
 
     masterGain.gain.value = masterVolume;

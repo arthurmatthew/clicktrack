@@ -18,6 +18,7 @@ export const CLICKTRACK_DEFAULT_NOTE_DURATION = 1;
 export const CLICKTRACK_DEFAULT_PLAY_EXTRA_BEAT = true;
 export const CLICKTRACK_DEFAULT_FADE_OUT = true;
 export const CLICKTRACK_DEFAULT_SECTION_TYPE = 'metronome';
+export const CLICKTRACK_DEFAULT_ACCENTS : [boolean, boolean] = [true,false];
 
 // Metronome Defaults
 
@@ -37,6 +38,7 @@ export const METRONOME_TIME_SIGNATURES: TTimeSignature[] = [
   [5, 4],
   [6, 4],
 ];
+export const METRONOME_DEFAULT_ACCENTS : [boolean, boolean] = [true,false];
 
 // Repeat Defaults
 
