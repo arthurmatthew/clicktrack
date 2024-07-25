@@ -7,7 +7,7 @@ import { Metronome } from '../models/Metronome';
 
 export const usePlayClicktrack = (
   _clicktrack: Clicktrack,
-  callback: () => void
+  onClick: () => void
 ) => {
   const audioCtx = useRef<AudioContext | null>(null);
   const { notify } = useNotify();
@@ -84,11 +84,9 @@ export const usePlayClicktrack = (
     const isAccentedDownbeat = isDownbeat && downbeatIsAccented;
     const isAccentedBackbeat = isBackbeat && backbeatIsAccented;
 
-    oscillator.frequency.value = 440.0;
-    if (beat === 0) {
-      callback();
-    }
+    onClick();
 
+    oscillator.frequency.value = 440.0;
     if (isAccentedDownbeat || isAccentedBackbeat) {
       oscillator.frequency.value = 880.0;
     }
