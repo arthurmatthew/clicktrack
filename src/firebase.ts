@@ -14,7 +14,7 @@ const firebaseConfig: FirebaseOptions = {
   measurementId: 'G-BLH6J7CN2P',
 };
 
-// const firebaseTestingConfig = {
+// const firebaseTestingConfig: FirebaseOptions = {
 //   apiKey: 'AIzaSyDKmfU9jkBS4lNXRMAtquf4Ro-AJLn4Pvk',
 //   authDomain: 'clicktracktest.firebaseapp.com',
 //   projectId: 'clicktracktest',
