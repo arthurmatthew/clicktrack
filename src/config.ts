@@ -56,3 +56,4 @@ export const TEMPO_TAPPER_COOLDOWN_TIME = 2; // seconds
 // Sound Defaults
 export const SOUND_DEFAULT_DESCRIPTION = "Default CLicksound"
 export const SOUND_DEFAULT_BUFFER = NULL_AUDIOBUFFER
+export const SOUND_DEFAULT_ACCENT_DETUNE = 600

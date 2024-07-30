@@ -29,7 +29,7 @@ export const EditMetronome = ({
       >
         <EditTempo {...{ metronome, updateMetronome, tapTempo }} />
         <EditTimeSignature {...{ metronome, updateMetronome }} />
-        <div className="flex flex-wrap gap-2 overflow-hidden rounded-sm sm:overflow-visible sm:rounded-none">
+        <div className="flex flex-wrap justify-between gap-2 overflow-hidden rounded-sm sm:overflow-visible sm:rounded-none">
           <EditLength {...{ metronome, updateMetronome }} />
           <EditVolume {...{ metronome, updateMetronome }} />
           <EditAccents {...{ metronome, updateMetronome }} />

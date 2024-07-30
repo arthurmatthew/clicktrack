@@ -32,7 +32,6 @@ export const usePlayClicktrack = (
   let totalSectionsPlayed = 0;
   let totalBarsPlayed = 0;
   const schedulingFrequency = 25; // In milliseconds
-  const metronomeSoundLength = 0.3; // In seconds
   const scheduleAheadTime = 0.1; // In seconds
 
   const selectedIdBeforePlaying = useRef<string | undefined>();
@@ -40,11 +39,6 @@ export const usePlayClicktrack = (
   useEffect(() => {
     clicktrack.current = _clicktrack;
   }, [_clicktrack]);
-
-  useEffect(() => {
-    audioCtx.current = new AudioContext();
-    buffers.current = Sound.availableSounds;
-  }, []);
 
   const schedule = (beat: number, time: number) => {
     const currentSection =
@@ -60,7 +54,6 @@ export const usePlayClicktrack = (
         ? lastMetronomeSection
         : previousSection);
 
-    if (audioCtx.current === null) return;
     if (section === undefined) return;
     if (currentSection === undefined && !clicktrack.current.data.playExtraBeat)
       return;
@@ -72,11 +65,11 @@ export const usePlayClicktrack = (
     if (noteType === 4 && beat % 4) return; // Note divisible by 4 means the current beat is not a 16th note
     if (noteType === 2 && beat % 8) return;
 
-    const calculatedMasterVolume = 1 * (clicktrack.current.data.volume / 100);
+    const calculatedMasterVolume = clicktrack.current.data.volume / 100;
     const masterVolume = clicktrack.current.data.muted
       ? 0
       : calculatedMasterVolume;
-    const calculatedLocalVolume = 1 * (section.volume / 100);
+    const calculatedLocalVolume = section.volume / 100;
     const localVolume = section.muted ? 0 : calculatedLocalVolume;
 
     const [downbeatIsAccented, backbeatIsAccented] = section.accents;
@@ -187,21 +180,19 @@ export const usePlayClicktrack = (
    * The scheduler function handles scheduling. It checks if any notes are due to be scheduled, and schedules if need be.
    */
   const scheduler = (): void => {
-    if (audioCtx.current) {
       // Schedule the next note when it is due earlier than our current time (and how far ahead we check, if any)
       while (nextNoteDueIn < audioCtx.current.currentTime + scheduleAheadTime) {
         if (interval.current === null) break;
         schedule(current16thBeat, nextNoteDueIn); // Schedule note
         next(); // Advance beat number and next note due time
       }
-    }
   };
 
   /**
    * The play function toggles the metronome on or off. More specifically,
    * it sets and clears the interval which runs the scheduler function.
    */
-  const play = async () => {
+  const play = () => {
     if (
       !interval.current &&
       !validatePlay(clicktrack.current.data.sections, notify)
@@ -210,7 +201,6 @@ export const usePlayClicktrack = (
     setPlayingDisplay((previouslyPlayingDisplay) => !previouslyPlayingDisplay);
 
     if (!interval.current) {
-      if (!audioCtx.current) audioCtx.current = new AudioContext();
 
       selectedIdBeforePlaying.current = selectedId;
       current16thBeat = 0;
@@ -236,7 +226,6 @@ export const usePlayClicktrack = (
 
   useEffect(
     () => () => {
-      audioCtx.current = null;
       if (interval.current) clearInterval(interval.current);
     },
     []
