@@ -5,14 +5,15 @@ import { validatePlay } from '../utils/validators/validatePlay';
 import { useNotify } from './useNotify';
 import { Metronome } from '../models/Metronome';
 
-const nulledAudioBuffer = new AudioBuffer({length:1, sampleRate: 44100})
+import { Sound, soundDescriptor } from '../models/Sound.ts';
+import { NULL_AUDIOBUFFER } from '../config.ts';
 
 export const usePlayClicktrack = (
   _clicktrack: Clicktrack,
   onClick: () => void
 ) => {
-  const audioCtx = useRef<AudioContext | null>(null);
-  const buffers = useRef<{noise:AudioBuffer, click:AudioBuffer}>({noise:nulledAudioBuffer, click:nulledAudioBuffer});
+  const audioCtx = useRef<AudioContext>(new AudioContext());
+  const buffers = useRef<Map<soundDescriptor, Sound>>(Sound.availableSounds);
   const { notify } = useNotify();
 
   const interval = useRef<number | null>();
@@ -42,20 +43,7 @@ export const usePlayClicktrack = (
 
   useEffect(() => {
     audioCtx.current = new AudioContext();
-
-    const bufferSize = 2 * audioCtx.current.sampleRate;
-    buffers.current.noise = audioCtx.current.createBuffer(1, bufferSize, audioCtx.current.sampleRate);
-    const output = buffers.current.noise.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-      output[i] = Math.random() * 2 - 1;
-    }
-
-    void (async () =>
-        buffers.current.click = await fetch('/sounds/click.wav')
-          .then(res => res.arrayBuffer())
-          .then(buffer => audioCtx.current?.decodeAudioData(buffer) ?? nulledAudioBuffer)
-    )();
-
+    buffers.current = Sound.availableSounds;
   }, []);
 
   const schedule = (beat: number, time: number) => {
@@ -97,51 +85,19 @@ export const usePlayClicktrack = (
     const isBackbeat = beat === 8;
     const isAccentedDownbeat = isDownbeat && downbeatIsAccented;
     const isAccentedBackbeat = isBackbeat && backbeatIsAccented;
+    const isAccented = isAccentedBackbeat || isAccentedDownbeat
 
     onClick();
 
-    const oscillator = audioCtx.current.createOscillator();
-    const whiteNoiseSource = audioCtx.current.createBufferSource();
-    whiteNoiseSource.buffer = buffers.current.noise;
     const clickSource = audioCtx.current.createBufferSource();
-    clickSource.buffer = buffers.current.click;
+    clickSource.buffer = buffers.current.get(section.sounds[isAccented ? 0 : 1])?.buffer ?? NULL_AUDIOBUFFER;
 
-    const masterGain = audioCtx.current.createGain();
-    const localGain = audioCtx.current.createGain();
-    const relativeGain = audioCtx.current.createGain();
+    const gain = audioCtx.current.createGain();
+    gain.gain.value = masterVolume * 2 * localVolume;
+    gain.connect(audioCtx.current.destination);
 
-    oscillator.frequency.value = 440.0;
-    if (isAccentedDownbeat || isAccentedBackbeat) {
-      oscillator.frequency.value = 880.0;
-    }
-
-    masterGain.gain.value = masterVolume;
-    relativeGain.gain.value = 3;
-
-    masterGain.connect(audioCtx.current.destination);
-    localGain.connect(masterGain);
-    relativeGain.connect(localGain);
-
-    oscillator.connect(localGain);
-    whiteNoiseSource.connect(localGain);
-    clickSource.connect(relativeGain);
-
-    // Give it a nicer sound by fading out.
-    localGain.gain.setValueAtTime(localVolume, time);
-    if (clicktrack.current.data.fadeOutSound) {
-      localGain.gain.exponentialRampToValueAtTime(
-        0.00001,
-        time + metronomeSoundLength
-      );
-    }
-
-    //oscillator.start(time);
-    //oscillator.stop(time + metronomeSoundLength);
-
-    //whiteNoiseSource.start(time);
-
+    clickSource.connect(gain);
     clickSource.start(time);
-
   };
 
   /**

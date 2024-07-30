@@ -3,11 +3,13 @@ import {
   METRONOME_DEFAULT_BPM,
   METRONOME_DEFAULT_LENGTH,
   METRONOME_DEFAULT_MUTED,
+  METRONOME_DEFAULT_SOUNDS,
   METRONOME_DEFAULT_TIME_SIGNATURE,
   METRONOME_DEFAULT_VOLUME
 } from '../config';
 import { convertTempoToTempoIndicator } from '../utils/convertTempoToTempoIndicator';
 import { Section } from './Section';
+import { soundDescriptor } from './Sound.ts';
 
 export class Metronome extends Section {
   public bpm: number;
@@ -16,11 +18,12 @@ export class Metronome extends Section {
   public volume: number;
   public muted: boolean;
   public accents: [onbeat: boolean, backbeat: boolean];
+  public sounds: [onAccentSoundId: soundDescriptor, onClickSoundId: soundDescriptor];
 
   constructor(options?: Partial<Metronome>) {
     super({
       id: options?.id,
-      type: 'metronome',
+      type: 'metronome'
     });
     this.bpm = options?.bpm ?? METRONOME_DEFAULT_BPM;
     this.timeSignature =
@@ -29,6 +32,7 @@ export class Metronome extends Section {
     this.volume = options?.volume ?? METRONOME_DEFAULT_VOLUME;
     this.muted = options?.muted ?? METRONOME_DEFAULT_MUTED;
     this.accents = options?.accents ?? METRONOME_DEFAULT_ACCENTS;
+    this.sounds = options?.sounds ?? METRONOME_DEFAULT_SOUNDS;
   }
 
   public static bpmToIndicator(bpm: number) {
