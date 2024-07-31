@@ -51,6 +51,9 @@ export const LoginForm = ({
       <Link to="/app/account/register" className="mt-10 text-center text-xl">
         Don't have one yet? <span className="underline">Sign up</span>
       </Link>
+      <Link to="/app/" className="text-center text-base opacity-75">
+        Or, continue without an account
+      </Link>
     </motion.div>
   );
 };
