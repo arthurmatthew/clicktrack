@@ -1,4 +1,6 @@
 import { TNote, TTimeSignature } from './types';
+import { hwPreferredSampleRate } from './models/GlobalAudioContext.ts';
+import { soundDescriptor } from './models/Sound.ts';
 
 export const STORAGE_KEYS_CLICKTRACK = 'clicktracks'; // The key to store clicktracks at in local storage
 export const STORAGE_KEYS_DARKMODE = 'dark-mode'; // The key to store the dark mode setting at in local storage
@@ -6,6 +8,8 @@ export const CLICKTRACK_MAX_UNSUCCESSFUL_CHECKS = 1000; // The amount of times t
 export const CLICKTRACK_MAX_BPM = 500; // The maximum BPM the user can set in the controls
 export const CLICKTRACK_MIN_BPM = 20; // The minimum BPM the user can set in the controls
 export const NOTIFICATION_FADE_AFTER = 5000; // ms
+
+export const NULL_AUDIOBUFFER = new AudioBuffer({length:1, sampleRate: hwPreferredSampleRate})
 
 // Clicktrack General Defaults
 
@@ -18,6 +22,7 @@ export const CLICKTRACK_DEFAULT_NOTE_DURATION = 1;
 export const CLICKTRACK_DEFAULT_PLAY_EXTRA_BEAT = true;
 export const CLICKTRACK_DEFAULT_FADE_OUT = true;
 export const CLICKTRACK_DEFAULT_SECTION_TYPE = 'metronome';
+export const CLICKTRACK_DEFAULT_ACCENTS : [boolean, boolean] = [true,false];
 
 // Metronome Defaults
 
@@ -37,6 +42,8 @@ export const METRONOME_TIME_SIGNATURES: TTimeSignature[] = [
   [5, 4],
   [6, 4],
 ];
+export const METRONOME_DEFAULT_ACCENTS : [boolean, boolean] = [true,false];
+export const METRONOME_DEFAULT_SOUNDS : [soundDescriptor, soundDescriptor] = [1, 0]
 
 // Repeat Defaults
 
@@ -45,3 +52,8 @@ export const REPEAT_DEFAULT_INFINITE = true;
 
 export const TEMPO_TAPPER_MAX_SAMPLE_SIZE = 2;
 export const TEMPO_TAPPER_COOLDOWN_TIME = 2; // seconds
+
+// Sound Defaults
+export const SOUND_DEFAULT_DESCRIPTION = "Default CLicksound"
+export const SOUND_DEFAULT_BUFFER = NULL_AUDIOBUFFER
+export const SOUND_DEFAULT_ACCENT_DETUNE = 600

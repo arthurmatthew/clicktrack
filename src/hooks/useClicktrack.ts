@@ -41,7 +41,7 @@ export const useClicktrack = (loadedClicktrack: Clicktrack) => {
   const startPulseAnimation = () => {
     void pulseAnimationControls.start({
       filter: ['hue-rotate(45deg)', 'hue-rotate(0)'],
-      transition: { duration: 1, ease: 'easeOut' },
+      transition: { duration: 0.4, ease: 'easeOut' },
     });
   };
   const { play, playingDisplay, selectedId, setSelectedId } = usePlayClicktrack(
