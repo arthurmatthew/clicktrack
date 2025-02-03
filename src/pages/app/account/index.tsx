@@ -16,7 +16,7 @@ export const AccountIndex = () => {
     return (
       <div className="mx-4 my-10 flex flex-grow flex-col">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-4">
-          <AccountTitle name={user.displayName ?? user?.email} />
+          <AccountTitle name={user.displayName ?? user?.email ?? 'User'} />
           <AccountOverview user={user} />
           <EditProfile user={user} />
           <AccountFooter />

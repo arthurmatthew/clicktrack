@@ -1,7 +1,7 @@
 import { TNote, TTimeSignature } from './types';
 
 export const DB_USERS_COLLECTION_KEY = 'users';
-export const DB_RULE_MAX_CLICKTRACKS = 3;
+export const DB_RULE_MAX_CLICKTRACKS = 20;
 
 export const STORAGE_KEYS_CLICKTRACK = 'clicktracks'; // The key to store clicktracks at in local storage
 export const STORAGE_KEYS_DARKMODE = 'dark-mode'; // The key to store the dark mode setting at in local storage

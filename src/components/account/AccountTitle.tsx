@@ -20,7 +20,9 @@ export const AccountTitle = ({ name }: IAccountTitle) => {
           {premium ? <PremiumBadge /> : <FreeBadge />}
         </div>
 
-        <h2 className="text-2xl opacity-70">Need help? Contact support</h2>
+        <h2 className="text-2xl opacity-70">
+          Need help? Contact support: useclicktrack@gmail.com
+        </h2>
       </div>
 
       <AccountActions />

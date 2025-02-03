@@ -16,7 +16,7 @@ const ClicktracksIndex = () => {
   usePageTitle('Your Clicktracks');
 
   useRedirectToLogin();
-  const { user, premium } = useUser();
+  const { user } = useUser();
 
   const {
     clicktracks,
@@ -30,8 +30,10 @@ const ClicktracksIndex = () => {
     handleCopy,
   } = useClicktracks();
 
+  /* const limitSaves =
+     !premium && (clicktracks?.length ?? 9999) >= DB_RULE_MAX_CLICKTRACKS; */
   const limitSaves =
-    !premium && (clicktracks?.length ?? 9999) >= DB_RULE_MAX_CLICKTRACKS;
+    (clicktracks?.length ?? 99999999) >= DB_RULE_MAX_CLICKTRACKS; // premium functionality is currently removed, all saves limited at 20
 
   if (user) {
     return (
@@ -46,9 +48,12 @@ const ClicktracksIndex = () => {
               importRef,
             }}
           />
-          {limitSaves && (clicktracks?.length ?? 0) > 3 && (
-            <WontSaveWarning length={clicktracks?.length ?? 3} />
-          )}
+          {limitSaves &&
+            (clicktracks?.length ?? 0) > DB_RULE_MAX_CLICKTRACKS && (
+              <WontSaveWarning
+                length={clicktracks?.length ?? DB_RULE_MAX_CLICKTRACKS}
+              />
+            )}
           {clicktracks ? (
             <>
               <DragDropList
