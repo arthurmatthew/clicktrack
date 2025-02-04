@@ -6,7 +6,7 @@ import { WontSaveWarning } from '../../../components/clicktracks/WontSaveWarning
 import { DB_RULE_MAX_CLICKTRACKS } from '../../../config';
 import { useClicktracks } from '../../../hooks/useClicktracks';
 import { usePageTitle } from '../../../hooks/usePageTitle';
-import { useRedirectToLogin } from '../../../hooks/useRedirectToLogin';
+// import { useRedirectToLogin } from '../../../hooks/useRedirectToLogin';
 import { useUser } from '../../../hooks/useUser';
 
 /**
@@ -15,7 +15,7 @@ import { useUser } from '../../../hooks/useUser';
 const ClicktracksIndex = () => {
   usePageTitle('Your Clicktracks');
 
-  useRedirectToLogin();
+  // useRedirectToLogin();
   const { user } = useUser();
 
   const {
@@ -35,46 +35,44 @@ const ClicktracksIndex = () => {
   const limitSaves =
     (clicktracks?.length ?? 99999999) >= DB_RULE_MAX_CLICKTRACKS; // premium functionality is currently removed, all saves limited at 20
 
-  if (user) {
-    return (
-      <div className="mx-4 my-10 flex flex-grow flex-col">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-4">
-          <Heading
-            {...{
-              handleAdd,
-              limitSaves,
-              handleTemplate,
-              handleImport,
-              importRef,
-            }}
+  return (
+    <div className="mx-4 my-10 flex flex-grow flex-col">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-4">
+        <Heading
+          {...{
+            handleAdd,
+            limitSaves,
+            handleTemplate,
+            handleImport,
+            importRef,
+            user,
+          }}
+        />
+        {limitSaves && (clicktracks?.length ?? 0) > DB_RULE_MAX_CLICKTRACKS && (
+          <WontSaveWarning
+            length={clicktracks?.length ?? DB_RULE_MAX_CLICKTRACKS}
           />
-          {limitSaves &&
-            (clicktracks?.length ?? 0) > DB_RULE_MAX_CLICKTRACKS && (
-              <WontSaveWarning
-                length={clicktracks?.length ?? DB_RULE_MAX_CLICKTRACKS}
-              />
-            )}
-          {clicktracks ? (
-            <>
-              <DragDropList
-                {...{
-                  limitSaves,
-                  clicktracks,
-                  handleNameChange,
-                  handleRemove,
-                  handleOnDragEnd,
-                  handleCopy,
-                }}
-              />
-              <SaveLimitAlert limitSaves={limitSaves} />
-            </>
-          ) : (
-            <SkeletonLoaderList />
-          )}
-        </div>
+        )}
+        {clicktracks ? (
+          <>
+            <DragDropList
+              {...{
+                limitSaves,
+                clicktracks,
+                handleNameChange,
+                handleRemove,
+                handleOnDragEnd,
+                handleCopy,
+              }}
+            />
+            <SaveLimitAlert limitSaves={limitSaves} />
+          </>
+        ) : (
+          <SkeletonLoaderList />
+        )}
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default ClicktracksIndex;

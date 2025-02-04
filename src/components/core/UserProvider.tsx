@@ -15,13 +15,14 @@ export const UserProvider = ({ children }: IComponent) => {
   const [premium, setPremium] = useState<boolean>(false);
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (authUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
       if (authUser) {
         const userPremium = await getUserPremium();
         setPremium(userPremium);
       }
       setUser(authUser);
     });
+    return () => unsubscribe();
   }, []);
 
   const contextValue: TUserContext = {

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { loadAvailableClicktrack } from '../../../../utils/loadAvailableClicktrack';
 import { auth } from '../../../../firebase';
 import { usePageTitle } from '../../../../hooks/usePageTitle';
+import { STORAGE_KEYS_CLICKTRACK } from '../../../../config';
 
 /**
  * Webpage which loads the metronome from storage and passes it off to the actual application.
@@ -18,14 +19,30 @@ const ClicktrackPage = () => {
   >(undefined);
 
   useEffect(() => {
-    onAuthStateChanged(auth, async () => {
-      if (savedClicktrack === undefined && params.id !== undefined) {
-        const availableClicktrack = await loadAvailableClicktrack(params.id);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!!user) {
+        if (savedClicktrack === undefined && params.id !== undefined) {
+          const availableClicktrack = await loadAvailableClicktrack(params.id);
+          if (availableClicktrack)
+            setSavedClicktrack(Clicktrack.parseInternals(availableClicktrack));
+        }
+      } else {
+        const localClicktracks = localStorage.getItem(STORAGE_KEYS_CLICKTRACK);
+        const localParsedClicktracks = localClicktracks
+          ? (JSON.parse(localClicktracks) as Clicktrack[])
+          : undefined;
+        const availableClicktrack = (localParsedClicktracks || []).find(
+          (clicktrack) => clicktrack.id === params.id
+        );
         if (availableClicktrack)
-          setSavedClicktrack(Clicktrack.parseInternals(availableClicktrack));
+          setSavedClicktrack(
+            Clicktrack.parseInternals(availableClicktrack || [])
+          );
       }
     });
-  });
+
+    return () => unsubscribe();
+  }, [params.id]);
 
   usePageTitle(savedClicktrack ? savedClicktrack.name : 'Loading...');
 

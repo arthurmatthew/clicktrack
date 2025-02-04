@@ -2,10 +2,16 @@ import { useRef } from 'react';
 import { DropResult } from 'react-beautiful-dnd';
 import { Clicktrack } from '../models/Clicktrack';
 import { useNotify } from './useNotify';
-import { useCloudClicktracks } from './useCloudClicktracks';
+import { useClicktrackStorage } from './useClicktrackStorage';
 
+/**
+ * Built upon the `useClicktrackStorage` hook, this hook provides functions to interact with the
+ * stored Clicktracks. This is seperate from actual Clicktrack individual storage functionality,
+ * as inside of the app the only data passed into the Clicktrack page is the Clicktrack ID. Is
+ * this redundant?!
+ */
 export const useClicktracks = () => {
-  const { clicktracks, setClicktracks } = useCloudClicktracks();
+  const { clicktracks, setClicktracks } = useClicktrackStorage();
   const { notify } = useNotify();
   const importRef = useRef<HTMLInputElement | null>(null);
 

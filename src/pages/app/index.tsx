@@ -1,15 +1,15 @@
-import { ClicktrackApp } from '../../components/clicktrack/ClicktrackApp';
-import { usePageTitle } from '../../hooks/usePageTitle';
-import { Clicktrack } from '../../models/Clicktrack';
+import { Navigate } from 'react-router-dom';
 
 const AppIndex = () => {
-  usePageTitle('Metronome');
+  // usePageTitle('Metronome');
 
-  return (
-    <ClicktrackApp
-      loadedClicktrack={new Clicktrack({ name: 'Demo Clicktrack', id: 'demo' })}
-    />
-  );
+  // return (
+  //   <ClicktrackApp
+  //     loadedClicktrack={new Clicktrack({ name: 'Demo Clicktrack', id: 'demo' })}
+  //   />
+  // );
+
+  return <Navigate to="/app/clicktracks" />;
 };
 
 export default AppIndex;

@@ -4,11 +4,13 @@ import { useState } from 'react';
 import { ClicktracksTitle } from './ClicktracksTitle';
 import { ClicktracksTitleAccount } from './ClicktracksTitleAccount';
 import { IImport, Import } from './Import';
+import { User } from 'firebase/auth';
 
 interface IHeading extends Omit<IImport, 'showImport'> {
   limitSaves: boolean;
   handleAdd: () => void;
   handleTemplate: (code: string) => void;
+  user: User | null;
 }
 
 export const Heading = ({
@@ -17,6 +19,7 @@ export const Heading = ({
   handleTemplate,
   handleImport,
   importRef,
+  user,
 }: IHeading) => {
   const [showTemplates, setShowTemplates] = useState(false);
   const [showImport, setShowImport] = useState(false);
@@ -24,8 +27,8 @@ export const Heading = ({
   return (
     <>
       <div className="mb-5 flex items-center justify-between">
-        <ClicktracksTitle />
-        <ClicktracksTitleAccount />
+        <ClicktracksTitle loggedIn={user !== null} />
+        {user && <ClicktracksTitleAccount />}
       </div>
 
       <div className="flex flex-col gap-2">

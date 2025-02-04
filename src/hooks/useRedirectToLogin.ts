@@ -7,8 +7,9 @@ export const useRedirectToLogin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (authUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (authUser) => {
       if (authUser === null) navigate('/app/account/login');
     });
+    return () => unsubscribe();
   }, []);
 };

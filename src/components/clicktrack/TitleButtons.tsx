@@ -54,7 +54,7 @@ export const TitleButtons = ({
         {saving ? (
           <i className="bi-arrow-clockwise block animate-spin" />
         ) : (
-          <i className="bi-cloud-upload-fill block" />
+          <i className="bi bi-floppy-fill" />
         )}
       </button>
       <button

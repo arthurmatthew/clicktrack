@@ -1,14 +1,14 @@
-import { useUser } from '../../hooks/useUser';
+// import { useUser } from '../../hooks/useUser';
 import { AccountActions } from './AccountActions';
-import { FreeBadge } from './FreeBadge';
-import { PremiumBadge } from './PremiumBadge';
+// import { FreeBadge } from './FreeBadge';
+// import { PremiumBadge } from './PremiumBadge';
 
 interface IAccountTitle {
   name: string | null | undefined;
 }
 
 export const AccountTitle = ({ name }: IAccountTitle) => {
-  const { premium } = useUser();
+  // const { premium } = useUser();
 
   return (
     <div className="flex flex-col gap-10">
@@ -17,7 +17,7 @@ export const AccountTitle = ({ name }: IAccountTitle) => {
           <h1 className="text-3xl font-semibold sm:text-5xl">
             Welcome, {name}
           </h1>
-          {premium ? <PremiumBadge /> : <FreeBadge />}
+          {/*premium ? <PremiumBadge /> : <FreeBadge /> */}
         </div>
 
         <h2 className="text-2xl opacity-70">
