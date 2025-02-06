@@ -27,6 +27,7 @@ export const RegisterForm = ({
             name="email"
             type="email"
             value={email}
+            autocomplete="username"
             onChange={(e) => setEmail(e.target.value)}
             placeholder="johndoe@gmail.com"
           />
@@ -34,6 +35,7 @@ export const RegisterForm = ({
             label="Password"
             name="password"
             type="password"
+            autocomplete="new-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />

@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotify } from '../../hooks/useNotify';
 import { LoginForm } from './LoginForm';
 import { authenticateUser } from '../../lib/firebase/authenticateUser';
+import { getRedirectResult } from 'firebase/auth';
+import { auth } from '../../firebase';
 
 export const LoginProvider = () => {
   const [email, setEmail] = useState<string>('');
@@ -11,6 +13,16 @@ export const LoginProvider = () => {
 
   const navigate = useNavigate();
   const { notify } = useNotify();
+
+  // Check for auth by redirect
+  useEffect(() => {
+    const checkRedirectAuth = async () => {
+      const result = await getRedirectResult(auth);
+      console.log('result: ', result);
+    };
+
+    checkRedirectAuth();
+  }, []);
 
   const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();

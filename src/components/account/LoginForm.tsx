@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import { IAuthForm } from './IAuthForm';
 import { AuthInput } from './AuthInput';
+import { AuthProvider } from './AuthProvider';
+import { authenticateUserWithGoogle } from '../../lib/firebase/authenticateUserWithGoogle';
+import { authenticateUserWithGitHub } from '../../lib/firebase/authenticateUserWithGitHub';
 
 export const LoginForm = ({
   email,
@@ -11,7 +14,7 @@ export const LoginForm = ({
   loading,
 }: IAuthForm) => {
   return (
-    <div className="flex flex-grow flex-col items-center justify-center">
+    <div className="flex flex-grow flex-col items-center justify-center p-2">
       <form className="relative flex flex-col gap-6 rounded-2xl p-8 sm:bg-neutral-200 dark:sm:bg-neutral-900">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-3">
@@ -22,6 +25,21 @@ export const LoginForm = ({
           <h2>Welcome back to Clicktrack!</h2>
         </div>
         <div className="flex flex-col gap-2">
+          <AuthProvider
+            onClick={() => authenticateUserWithGoogle()}
+            name="Google"
+          >
+            <i className="bi-google" />
+          </AuthProvider>
+          <AuthProvider
+            onClick={() => authenticateUserWithGitHub()}
+            name="GitHub"
+          >
+            <i className="bi-github" />
+          </AuthProvider>
+        </div>
+        <div className="h-px w-full bg-black opacity-20 dark:bg-white" />
+        <div className="flex flex-col gap-2">
           <AuthInput
             label="Email"
             name="email"
@@ -29,12 +47,14 @@ export const LoginForm = ({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="johndoe@gmail.com"
+            autocomplete="username"
           />
           <AuthInput
             label="Password"
             name="password"
             type="password"
             value={password}
+            autocomplete="current-password"
             onChange={(e) => setPassword(e.target.value)}
           />
           <button

@@ -6,7 +6,7 @@ import { getFunctions } from 'firebase/functions';
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: 'AIzaSyAABIVPT-V17zPxY-yMH9srZkYadClXgec',
-  authDomain: 'clicktrack-7dc92.firebaseapp.com',
+  authDomain: 'auth.useclicktrack.com',
   projectId: 'clicktrack-7dc92',
   storageBucket: 'clicktrack-7dc92.appspot.com',
   messagingSenderId: '149894037389',
