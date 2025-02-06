@@ -11,7 +11,8 @@ import { DB_USERS_COLLECTION_KEY } from '../../config';
 export const LoginProvider = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [creatingUser, setCreatingUser] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const { notify } = useNotify();
@@ -21,6 +22,7 @@ export const LoginProvider = () => {
     const checkRedirectAuth = async () => {
       const userCredential = await getRedirectResult(auth);
       if (userCredential && userCredential.user) {
+        setCreatingUser(true);
         const userDocRef = doc(
           db,
           DB_USERS_COLLECTION_KEY,
@@ -58,8 +60,16 @@ export const LoginProvider = () => {
   };
 
   return (
-    <LoginForm
-      {...{ email, setEmail, password, setPassword, handleSubmit, loading }}
-    />
+    <>
+      {creatingUser ? (
+        <div className="flex h-full flex-grow items-center justify-center">
+          <i className="bi-arrow-clockwise block animate-spin text-6xl" />
+        </div>
+      ) : (
+        <LoginForm
+          {...{ email, setEmail, password, setPassword, handleSubmit, loading }}
+        />
+      )}
+    </>
   );
 };
