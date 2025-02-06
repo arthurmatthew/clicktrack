@@ -4,7 +4,9 @@ import { useNotify } from '../../hooks/useNotify';
 import { LoginForm } from './LoginForm';
 import { authenticateUser } from '../../lib/firebase/authenticateUser';
 import { getRedirectResult } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { auth, db } from '../../firebase';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { DB_USERS_COLLECTION_KEY } from '../../config';
 
 export const LoginProvider = () => {
   const [email, setEmail] = useState<string>('');
@@ -17,8 +19,23 @@ export const LoginProvider = () => {
   // Check for auth by redirect
   useEffect(() => {
     const checkRedirectAuth = async () => {
-      const result = await getRedirectResult(auth);
-      console.log('result: ', result);
+      const userCredential = await getRedirectResult(auth);
+      if (userCredential && userCredential.user) {
+        const userDocRef = doc(
+          db,
+          DB_USERS_COLLECTION_KEY,
+          userCredential.user.uid
+        );
+        const userDoc = await getDoc(userDocRef);
+
+        if (!userDoc.exists()) {
+          await setDoc(userDocRef, {
+            clicktracks: [],
+          });
+        }
+
+        navigate('/app/clicktracks');
+      }
     };
 
     checkRedirectAuth();
@@ -30,7 +47,7 @@ export const LoginProvider = () => {
     try {
       await authenticateUser(email, password);
       setLoading(false);
-      navigate('/app/account/');
+      navigate('/app/clicktracks/');
     } catch (error) {
       notify(
         'Invalid login attempt. Make sure your password and/or email are correct.',

@@ -13,6 +13,7 @@
 - - more providers - login with google
 - - email verification (dont interrupt user flow)
 - - forgot password feature
+- - don't override email password login when logging in with google
 - Display name limit stricter & purposeful
 - Metronome sine wave overlaps at higher tempos
 - fix light mode (darker bg, lighter elements)
