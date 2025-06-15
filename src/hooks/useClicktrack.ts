@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Clicktrack } from '../models/Clicktrack';
-import { usePlayClicktrack } from './usePlayClicktrack';
+import { usePlayClicktrack } from './metronome/usePlayClicktrack';
 import { useSection } from './useSection';
 import { useAnimationControls } from 'framer-motion';
 import { ClicktrackData } from '../models/ClicktrackData';

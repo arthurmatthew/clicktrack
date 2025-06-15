@@ -27,7 +27,7 @@ export const TempoIncrementers = ({
           selected={metronome}
           updateMetronome={updateMetronome}
           degree={0.5}
-          label="1/2"
+          label="Halve"
         />
       </div>
 
@@ -58,7 +58,7 @@ export const TempoIncrementers = ({
           selected={metronome}
           updateMetronome={updateMetronome}
           degree={2}
-          label="x2"
+          label="Double"
         />
       </div>
     </div>
