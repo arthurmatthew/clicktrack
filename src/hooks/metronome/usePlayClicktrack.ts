@@ -4,6 +4,7 @@ import { Clicktrack } from '../../models/Clicktrack';
 import { validatePlay } from '../../utils/validators/validatePlay';
 import { useNotify } from '../useNotify';
 import { Metronome } from '../../models/Metronome';
+import { playClick } from './playClick';
 
 export const usePlayClicktrack = (
   _clicktrack: Clicktrack,
@@ -28,7 +29,6 @@ export const usePlayClicktrack = (
   const totalSectionsPlayed = useRef(0);
   const totalBarsPlayed = useRef(0);
   const schedulingFrequency = 25; // In milliseconds
-  const metronomeSoundLength = 0.3; // In seconds
   const scheduleAheadTime = 0.1; // In seconds
 
   const selectedIdBeforePlaying = useRef<string | undefined>();
@@ -53,43 +53,6 @@ export const usePlayClicktrack = (
     return current || (previous instanceof Repeat ? lastMetronome : previous);
   };
 
-  const playClick = (beat: number, section: Metronome, time: number) => {
-    if (audioCtx.current === null) return;
-
-    const oscillator = audioCtx.current.createOscillator();
-    const masterGain = audioCtx.current.createGain();
-    const localGain = audioCtx.current.createGain();
-
-    const masterVolume = clicktrack.current.data.muted
-      ? 0
-      : clicktrack.current.data.volume / 100;
-    const localVolume = section.muted ? 0 : section.volume / 100;
-
-    oscillator.frequency.value = 440.0;
-    if (beat === 0) {
-      oscillator.frequency.value = 880.0;
-      callback();
-    }
-
-    masterGain.gain.value = masterVolume;
-
-    masterGain.connect(audioCtx.current.destination);
-    localGain.connect(masterGain);
-    oscillator.connect(localGain);
-
-    // Give it a nicer sound by fading out.
-    localGain.gain.setValueAtTime(localVolume, time);
-    if (clicktrack.current.data.fadeOutSound) {
-      localGain.gain.exponentialRampToValueAtTime(
-        0.00001,
-        time + metronomeSoundLength
-      );
-    }
-
-    oscillator.start(time);
-    oscillator.stop(time + metronomeSoundLength);
-  };
-
   const schedule = (beat: number, time: number) => {
     const section = getCurrentSection();
 
@@ -111,7 +74,14 @@ export const usePlayClicktrack = (
     const divisor = 16 / noteType;
     if (beat % divisor !== 0) return;
 
-    playClick(beat, section, time);
+    playClick(
+      audioCtx.current,
+      clicktrack.current,
+      beat,
+      section,
+      time,
+      callback
+    );
   };
 
   const handleRepeat = (section: Repeat, index: number) => {
