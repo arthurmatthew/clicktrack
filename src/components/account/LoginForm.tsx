@@ -52,7 +52,7 @@ export const LoginForm = ({
           <AuthInput
             label="Password"
             name="password"
-            type="password"
+            type="current-password"
             value={password}
             autocomplete="current-password"
             onChange={(e) => setPassword(e.target.value)}

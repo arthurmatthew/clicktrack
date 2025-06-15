@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import { IAuthForm } from './IAuthForm';
 import { AuthInput } from './AuthInput';
+import { authenticateUserWithGitHub } from '../../lib/firebase/authenticateUserWithGitHub';
+import { authenticateUserWithGoogle } from '../../lib/firebase/authenticateUserWithGoogle';
+import { AuthProvider } from './AuthProvider';
 
 export const RegisterForm = ({
   email,
@@ -22,6 +25,21 @@ export const RegisterForm = ({
           <h2>Unlock the potential of Clicktrack</h2>
         </div>
         <div className="flex flex-col gap-2">
+          <AuthProvider
+            onClick={() => authenticateUserWithGoogle()}
+            name="Google"
+          >
+            <i className="bi-google" />
+          </AuthProvider>
+          <AuthProvider
+            onClick={() => authenticateUserWithGitHub()}
+            name="GitHub"
+          >
+            <i className="bi-github" />
+          </AuthProvider>
+        </div>
+        <div className="h-px w-full bg-black opacity-20 dark:bg-white" />
+        <div className="flex flex-col gap-2">
           <AuthInput
             label="Email"
             name="email"
@@ -34,7 +52,7 @@ export const RegisterForm = ({
           <AuthInput
             label="Password"
             name="password"
-            type="password"
+            type="new-password"
             autocomplete="new-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
