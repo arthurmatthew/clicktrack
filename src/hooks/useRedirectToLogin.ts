@@ -1,6 +1,6 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { auth } from '../firebase';
 
 export const useRedirectToLogin = () => {

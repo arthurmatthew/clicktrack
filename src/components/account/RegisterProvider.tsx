@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useNotify } from '../../hooks/useNotify';
 import { RegisterForm } from './RegisterForm';
 import { createUser } from '../../lib/firebase/createUser';

@@ -1,9 +1,7 @@
-import { Route } from 'react-router-dom';
+import { Route } from 'react-router';
 import { TermsIndex } from '../pages/legal/terms';
-import React from 'react';
-
-const Layout = React.lazy(() => import('../components/index/Layout'));
-const NotFound = React.lazy(() => import('../pages/not-found'));
+import Layout from '../components/app/Layout';
+import NotFound from '../pages/not-found';
 
 export const LegalRoute = (
   <Route

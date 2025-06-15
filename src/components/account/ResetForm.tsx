@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { IAuthForm } from './IAuthForm';
 import { AuthInput } from './AuthInput';
 

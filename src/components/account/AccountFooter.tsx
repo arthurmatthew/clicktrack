@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useUser } from '../../hooks/useUser';
 import { useNotify } from '../../hooks/useNotify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 export const AccountFooter = () => {
   const navigate = useNavigate();

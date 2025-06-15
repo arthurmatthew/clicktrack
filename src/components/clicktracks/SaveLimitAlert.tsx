@@ -1,4 +1,4 @@
-// import { Link } from 'react-router-dom';
+// import { Link } from 'react-router';
 import { DB_RULE_MAX_CLICKTRACKS } from '../../config';
 
 interface ISaveLimitAlert {

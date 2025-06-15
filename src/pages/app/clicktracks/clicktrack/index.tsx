@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { ClicktrackApp } from '../../../../components/clicktrack/ClicktrackApp';
 import { ClicktrackNotFound } from '../../../../components/clicktrack/ClicktrackNotFound';
 import { Clicktrack } from '../../../../models/Clicktrack';

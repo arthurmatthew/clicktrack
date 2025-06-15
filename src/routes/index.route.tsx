@@ -1,10 +1,7 @@
-import { Route } from 'react-router-dom';
-import React from 'react';
-
-const Layout = React.lazy(() => import('../components/index/Layout'));
-const NotFound = React.lazy(() => import('../pages/not-found'));
-
+import { Route } from 'react-router';
 import { Index } from '../pages/index';
+import Layout from '../components/app/Layout';
+import NotFound from '../pages/not-found';
 
 export const IndexRoute = (
   <Route

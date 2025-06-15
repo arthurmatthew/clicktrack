@@ -1,5 +1,4 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route } from 'react-router';
 import ClicktrackPage from '../pages/app/clicktracks/clicktrack';
 import { AccountIndex } from '../pages/app/account';
 import { LibraryIndex } from '../pages/app/library';
@@ -7,12 +6,11 @@ import { RegisterIndex } from '../pages/app/account/register';
 import { LoginIndex } from '../pages/app/account/login';
 import { VerifyIndex } from '../pages/app/account/verify';
 import { ResetIndex } from '../pages/app/account/reset';
+import AppLayout from '../components/app/Layout';
+import AppIndex from '../pages/app';
+import ClicktracksIndex from '../pages/app/clicktracks';
+import NotFound from '../pages/not-found';
 // import { PremiumIndex } from '../pages/app/premium';
-
-const AppLayout = React.lazy(() => import('../components/app/Layout'));
-const AppIndex = React.lazy(() => import('../pages/app/index'));
-const ClicktracksIndex = React.lazy(() => import('../pages/app/clicktracks'));
-const NotFound = React.lazy(() => import('../pages/not-found'));
 
 export const AppRoute = (
   <Route

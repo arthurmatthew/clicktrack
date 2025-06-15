@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { reauthenticateUser } from '../../lib/firebase/reauthenticateUser';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 export const Reauthenticate = () => {
   const [password, setPassword] = useState<string>('');
