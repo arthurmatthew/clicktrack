@@ -54,4 +54,5 @@ export const SectionTypeMap = {
   transition: Transition,
 };
 
-export type TSection = Metronome | Repeat;
+export type TSection = Metronome | Repeat | Transition;
+export type TSectionTypes = 'metronome' | 'repeat' | 'transition';

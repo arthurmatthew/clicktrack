@@ -6,6 +6,7 @@ import { useNotify } from '../useNotify';
 import { Metronome } from '../../models/Metronome';
 import { playClick } from './playClick';
 import { TSection } from '../../types';
+import { Transition } from '../../models/Transition';
 
 export const usePlayClicktrack = (
   _clicktrack: Clicktrack,
@@ -69,6 +70,7 @@ export const usePlayClicktrack = (
       return;
 
     if (section instanceof Repeat) return;
+    if (section instanceof Transition) return; // REMOVE LATER
 
     // based on type of note and time sig, dont play beat if unnecessary cause this counts way more beats than you'll need to hear
     const noteType = section.timeSignature[1];
@@ -133,6 +135,8 @@ export const usePlayClicktrack = (
       if (handleRepeat(section, totalSectionsPlayed.current)) return;
       return; // yes this is redundant but its functionally the same as the old logic just in case
     }
+
+    if (section instanceof Transition) return; // REMOVE LATER
 
     if (section === undefined) {
       stop();
