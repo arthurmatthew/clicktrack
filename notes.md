@@ -27,3 +27,6 @@ autosave!!!
 continue v7 migration , framework will take a while
 
 probably rework UX flow, so go from landing page into default clicktrack which can be saved locally
+
+transition drag and drop is buggy asf, how to update consistently?
+actually add edits for transition
