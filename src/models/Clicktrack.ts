@@ -4,8 +4,6 @@ import {
 } from '../config';
 import { ClicktrackData } from './ClicktrackData';
 import { v4 as uuidv4 } from 'uuid';
-import { minifyAndEncodeClicktrack } from '../utils/minifyAndEncodeClicktrack';
-import { decodeClicktrack } from '../utils/decodeClicktrack';
 import { constructSection } from '../utils/constructSection';
 
 export class Clicktrack {
@@ -36,9 +34,9 @@ export class Clicktrack {
   }
 
   public static encode(clicktrack: Clicktrack) {
-    return minifyAndEncodeClicktrack(clicktrack);
+    return btoa(JSON.stringify(clicktrack));
   }
   public static decode(string: string) {
-    return decodeClicktrack(string);
+    return JSON.parse(atob(string)) as Clicktrack;
   }
 }
