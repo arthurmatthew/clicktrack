@@ -4,7 +4,7 @@ import {
   METRONOME_DEFAULT_LENGTH,
   METRONOME_DEFAULT_VOLUME,
   METRONOME_DEFAULT_MUTED,
-} from '../config';
+} from '../../config';
 import { MinifiedSection } from './MinifiedSection';
 
 export class MinifiedMetronome extends MinifiedSection {

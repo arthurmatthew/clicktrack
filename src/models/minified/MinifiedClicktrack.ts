@@ -1,5 +1,5 @@
-import { CLICKTRACK_DEFAULT_NAME } from '../config';
-import { MinifiedClicktrackData } from './MinifiedClicktrackData';
+import { CLICKTRACK_DEFAULT_NAME } from '../../config';
+import { MinifiedClicktrackData } from '.././minified/MinifiedClicktrackData';
 import { v4 as uuidv4 } from 'uuid';
 
 export class MinifiedClicktrack {

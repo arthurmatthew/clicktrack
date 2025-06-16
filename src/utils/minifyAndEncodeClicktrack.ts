@@ -1,9 +1,9 @@
 import { Clicktrack } from '../models/Clicktrack';
 import { Metronome } from '../models/Metronome';
-import { MinifiedClicktrack } from '../models/MinifiedClicktrack';
-import { MinifiedClicktrackData } from '../models/MinifiedClicktrackData';
-import { MinifiedMetronome } from '../models/MinifiedMetronome';
-import { MinifiedRepeat } from '../models/MinifiedRepeat';
+import { MinifiedClicktrack } from '../models/minified/MinifiedClicktrack';
+import { MinifiedClicktrackData } from '../models/minified/MinifiedClicktrackData';
+import { MinifiedMetronome } from '../models/minified/MinifiedMetronome';
+import { MinifiedRepeat } from '../models/minified/MinifiedRepeat';
 import { Repeat } from '../models/Repeat';
 
 export const minifyAndEncodeClicktrack = (clicktrack: Clicktrack) => {
@@ -44,7 +44,7 @@ export const minifyAndEncodeClicktrack = (clicktrack: Clicktrack) => {
       v: clicktrackData.volume,
       sSI: clicktrackData.showSaveIndicator,
       aSI: clicktrackData.animateSaveIndicator,
-      fPB: clicktrackData.flashPlayButton
+      fPB: clicktrackData.flashPlayButton,
     }),
   });
 

@@ -1,10 +1,11 @@
 import { Clicktrack } from '../models/Clicktrack';
 import { ClicktrackData } from '../models/ClicktrackData';
 import { Metronome } from '../models/Metronome';
-import { MinifiedClicktrack } from '../models/MinifiedClicktrack';
-import { MinifiedMetronome } from '../models/MinifiedMetronome';
-import { MinifiedRepeat } from '../models/MinifiedRepeat';
+import { MinifiedClicktrack } from '../models/minified/MinifiedClicktrack';
+import { MinifiedMetronome } from '../models/minified/MinifiedMetronome';
+import { MinifiedRepeat } from '../models/minified/MinifiedRepeat';
 import { Repeat } from '../models/Repeat';
+import { TSection } from '../types';
 
 export const decodeClicktrack = (code: string) => {
   try {
@@ -30,7 +31,7 @@ export const decodeClicktrack = (code: string) => {
           type: 'repeat',
         });
       }
-    }) as (Metronome | Repeat)[];
+    }) as TSection[];
 
     const clicktrack = new Clicktrack({
       name: minifiedClicktrack.n,

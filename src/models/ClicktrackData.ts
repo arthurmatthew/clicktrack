@@ -6,11 +6,12 @@ import {
   CLICKTRACK_DEFAULT_PLAY_EXTRA_BEAT,
   CLICKTRACK_DEFAULT_FADE_OUT,
 } from '../config';
+import { TSection } from '../types';
 import { Metronome } from './Metronome';
 import { Repeat } from './Repeat';
 
 export class ClicktrackData {
-  public sections: (Metronome | Repeat)[];
+  public sections: TSection[];
   public note: [note: string, octave: number];
   public volume: number; // % , default is 100%
   public noteDuration: number;
@@ -22,7 +23,8 @@ export class ClicktrackData {
   public flashPlayButton: boolean;
 
   constructor(options?: Partial<ClicktrackData>) {
-    this.sections = options?.sections ?? [new Metronome(), new Repeat()];
+    this.sections =
+      options?.sections ?? ([new Metronome(), new Repeat()] as TSection[]); // default clicktrack arrangement
     this.note = options?.note ?? CLICKTRACK_DEFAULT_NOTE;
     this.volume = options?.volume ?? CLICKTRACK_DEFAULT_MASTER_VOLUME;
     this.muted = options?.muted ?? CLICKTRACK_DEFAULT_MUTED;

@@ -5,7 +5,7 @@ import {
   CLICKTRACK_DEFAULT_NOTE_DURATION,
   CLICKTRACK_DEFAULT_PLAY_EXTRA_BEAT,
   CLICKTRACK_DEFAULT_FADE_OUT,
-} from '../config';
+} from '../../config';
 import { MinifiedMetronome } from './MinifiedMetronome';
 import { MinifiedRepeat } from './MinifiedRepeat';
 
@@ -19,7 +19,7 @@ export class MinifiedClicktrackData {
   public fOS: boolean;
   public sSI: boolean;
   public aSI: boolean;
-  public fPB: boolean
+  public fPB: boolean;
 
   constructor(options?: Partial<MinifiedClicktrackData>) {
     this.s = options?.s ?? [new MinifiedMetronome(), new MinifiedRepeat()];
@@ -31,6 +31,6 @@ export class MinifiedClicktrackData {
     this.fOS = options?.fOS ?? CLICKTRACK_DEFAULT_FADE_OUT;
     this.sSI = options?.sSI ?? true;
     this.aSI = options?.aSI ?? true;
-    this.fPB = options?.fPB ?? true
+    this.fPB = options?.fPB ?? true;
   }
 }

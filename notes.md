@@ -25,4 +25,5 @@ autosave!!!
 1/1 works now but the accent beats dont work right, actually they do but just test more
 
 continue v7 migration , framework will take a while
-! currently, root layout doesnt work for whatever reason
+
+probably rework UX flow, so go from landing page into default clicktrack which can be saved locally

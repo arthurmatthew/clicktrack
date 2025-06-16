@@ -1,4 +1,4 @@
-import { REPEAT_DEFAULT_INFINITE, REPEAT_DEFAULT_TIMES } from '../config';
+import { REPEAT_DEFAULT_INFINITE, REPEAT_DEFAULT_TIMES } from '../../config';
 import { MinifiedSection } from './MinifiedSection';
 
 export class MinifiedRepeat extends MinifiedSection {

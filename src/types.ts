@@ -1,4 +1,7 @@
 import { User } from 'firebase/auth';
+import { Metronome } from './models/Metronome';
+import { Transition } from './models/Transition';
+import { Repeat } from './models/Repeat';
 
 export type TCustomerPortalResult = {
   url: string;
@@ -44,3 +47,11 @@ export type TSaveableData =
   | boolean
   | undefined
   | null;
+
+export const SectionTypeMap = {
+  metronome: Metronome,
+  repeat: Repeat,
+  transition: Transition,
+};
+
+export type TSection = Metronome | Repeat;

@@ -5,6 +5,7 @@ import { validatePlay } from '../../utils/validators/validatePlay';
 import { useNotify } from '../useNotify';
 import { Metronome } from '../../models/Metronome';
 import { playClick } from './playClick';
+import { TSection } from '../../types';
 
 export const usePlayClicktrack = (
   _clicktrack: Clicktrack,
@@ -42,7 +43,7 @@ export const usePlayClicktrack = (
     audioCtx.current = new AudioContext();
   }, []);
 
-  const getCurrentSection = (): Metronome | Repeat | undefined => {
+  const getCurrentSection = (): TSection | undefined => {
     const sections = clicktrack.current.data.sections;
     const current = sections[totalSectionsPlayed.current];
     const previous = sections[totalSectionsPlayed.current - 1];

@@ -1,10 +1,10 @@
-import { Repeat } from '../models/Repeat';
 import { Clicktrack } from '../models/Clicktrack';
 import { ClicktrackData } from '../models/ClicktrackData';
-import { Metronome } from '../models/Metronome';
 import { validateDeleteSection } from '../utils/validators/validateDeleteSection';
 import { DropResult } from 'react-beautiful-dnd';
 import { useNotify } from './useNotify';
+import { constructSection } from '../utils/constructSection';
+import { TSection } from '../types';
 
 export const useSection = (
   setClicktrack: (value: React.SetStateAction<Clicktrack>) => void,
@@ -12,7 +12,7 @@ export const useSection = (
 ) => {
   const { notify } = useNotify();
 
-  const addSection = (newSection: Metronome | Repeat): void => {
+  const addSection = (newSection: TSection): void => {
     setClicktrack(
       (previousClicktrack) =>
         new Clicktrack({
@@ -25,7 +25,7 @@ export const useSection = (
     );
   };
 
-  const updateSection = <T extends Metronome | Repeat>(
+  const updateSection = <T extends TSection>(
     section: T,
     update: Partial<Omit<T, 'id' | 'type'>>
   ): void => {
@@ -37,19 +37,12 @@ export const useSection = (
         (thisSection) => thisSection.id !== section.id
       );
 
-      if (section instanceof Metronome) {
-        updatedSections.splice(
-          indexBefore,
-          0,
-          new Metronome({ ...section, ...update })
-        );
-      } else if (section instanceof Repeat) {
-        updatedSections.splice(
-          indexBefore,
-          0,
-          new Repeat({ ...section, ...update })
-        );
-      }
+      const updatedSection = constructSection({
+        ...section,
+        ...update,
+      } as Partial<TSection>);
+
+      updatedSections.splice(indexBefore, 0, updatedSection);
 
       return new Clicktrack({
         ...previousClicktrack,
@@ -74,14 +67,9 @@ export const useSection = (
             ...previousClicktrack.data.sections.filter(
               (section) => section.id !== id
             ),
-          ].map((section) => {
-            switch (section.type) {
-              case 'metronome':
-                return new Metronome(section);
-              case 'repeat':
-                return new Repeat(section);
-            }
-          }),
+          ]
+            .map((section) => constructSection({ ...section }))
+            .filter((section) => section !== undefined),
         }),
       });
       const indexOfId = previousClicktrack.data.sections.findIndex(
@@ -104,12 +92,7 @@ export const useSection = (
       );
       if (!sectionToCopy) return previousClicktrack;
       const sectionCopy = () => {
-        switch (sectionToCopy.type) {
-          case 'metronome':
-            return new Metronome({ ...sectionToCopy, id: undefined });
-          case 'repeat':
-            return new Repeat({ ...sectionToCopy, id: undefined });
-        }
+        return constructSection({ ...sectionToCopy, id: undefined });
       };
       return new Clicktrack({
         ...previousClicktrack,
