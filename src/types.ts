@@ -56,3 +56,5 @@ export const SectionTypeMap = {
 
 export type TSection = Metronome | Repeat | Transition;
 export type TSectionTypes = 'metronome' | 'repeat' | 'transition';
+
+export type TCurveTypes = 'linear' | 'ease-in' | 'ease-out' | 'custom';

@@ -8,6 +8,8 @@ import { SequencerListMetronome } from './SequencerListMetronome';
 import { SequencerListRepeat } from './SequencerListRepeat';
 import { StrictModeDroppable } from '../core/StrictModeDroppable';
 import { useNotify } from '../../hooks/useNotify';
+import { Transition } from '../../models/Transition';
+import { SequencerListTransition } from './SequencerListTransition';
 
 export interface ISequencer {
   addSection: (child: Clicktrack['data']['sections'][number]) => void;
@@ -88,6 +90,15 @@ export const Sequencer = ({
                                 repeat={section}
                               />
                             );
+                          if (section instanceof Transition)
+                            return (
+                              <SequencerListTransition
+                                key={section.id}
+                                selected={selected}
+                                setSelectedId={setSelectedId}
+                                transition={section}
+                              />
+                            );
                         })()}
                       </li>
                     );
@@ -105,6 +116,9 @@ export const Sequencer = ({
         }}
         addRepeat={() => {
           if (validateAddRepeat(sequence, notify)) addSection(new Repeat());
+        }}
+        addTransition={() => {
+          addSection(new Transition());
         }}
       />
     </div>

@@ -5,6 +5,8 @@ import { DropResult } from 'react-beautiful-dnd';
 import { useNotify } from './useNotify';
 import { constructSection } from '../utils/constructSection';
 import { TSection } from '../types';
+import { Transition } from '../models/Transition';
+import { Metronome } from '../models/Metronome';
 
 export const useSection = (
   setClicktrack: (value: React.SetStateAction<Clicktrack>) => void,
@@ -19,7 +21,10 @@ export const useSection = (
           ...previousClicktrack,
           data: {
             ...previousClicktrack.data,
-            sections: [...previousClicktrack.data.sections, newSection],
+            sections: [
+              ...previousClicktrack.data.sections,
+              constructSection(newSection),
+            ],
           },
         })
     );
@@ -106,11 +111,27 @@ export const useSection = (
 
   const sequencerOnDragEnd = (result: DropResult) => {
     if (!result.destination) return;
+
     const { source, destination } = result;
+
     setClicktrack((previousClicktrack) => {
       const result = [...previousClicktrack.data.sections];
       const [removed] = result.splice(source.index, 1);
       if (removed) result.splice(destination.index, 0, removed);
+
+      for (let i = 0; i < result.length; i++) {
+        const section = result[i];
+        if (section instanceof Transition) {
+          const before = result[i - 1];
+          const after = result[i + 1];
+
+          section.fromMetronome =
+            before instanceof Metronome ? (before as Metronome) : undefined;
+          section.toMetronome =
+            after instanceof Metronome ? (after as Metronome) : undefined;
+        }
+      }
+
       return new Clicktrack({
         ...previousClicktrack,
         data: {

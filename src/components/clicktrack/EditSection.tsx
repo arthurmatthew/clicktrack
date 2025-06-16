@@ -1,9 +1,11 @@
 import { Metronome } from '../../models/Metronome';
 import { Repeat } from '../../models/Repeat';
 import { Section } from '../../models/Section';
+import { Transition } from '../../models/Transition';
 import { TSection } from '../../types';
 import { EditMetronome } from './EditMetronome';
 import { EditRepeat } from './EditRepeat';
+import { EditTransition } from './EditTransition';
 import { SectionControls } from './SectionControls';
 
 export interface IEditSection {
@@ -30,6 +32,14 @@ export const EditSection = ({
 
     if (selected instanceof Repeat)
       return <EditRepeat updateRepeat={updateSection} repeat={selected} />;
+
+    if (selected instanceof Transition)
+      return (
+        <EditTransition
+          updateTransition={updateSection}
+          transition={selected}
+        />
+      );
   };
 
   return (

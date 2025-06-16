@@ -7,6 +7,7 @@ import { Metronome } from '../../models/Metronome';
 import { playClick } from './playClick';
 import { TSection } from '../../types';
 import { Transition } from '../../models/Transition';
+import { getEffectiveBpm } from '../../utils/getEffectiveBpm';
 
 export const usePlayClicktrack = (
   _clicktrack: Clicktrack,
@@ -70,7 +71,37 @@ export const usePlayClicktrack = (
       return;
 
     if (section instanceof Repeat) return;
-    if (section instanceof Transition) return; // REMOVE LATER
+
+    if (
+      section instanceof Transition &&
+      section.fromMetronome &&
+      section.toMetronome
+    ) {
+      const currentBpm = getEffectiveBpm(
+        section.fromMetronome.bpm,
+        section.toMetronome.bpm,
+        section.lengthInBars,
+        section.timeSignature,
+        section.curveType,
+        totalBarsPlayed.current,
+        current16thBeat.current
+      );
+
+      const noteType = section.timeSignature[1];
+      const divisor = 16 / noteType;
+      if (beat % divisor !== 0) return;
+
+      playClick(
+        audioCtx.current,
+        clicktrack.current,
+        beat,
+        { ...section, bpm: currentBpm },
+        time,
+        callback
+      );
+
+      return;
+    }
 
     // based on type of note and time sig, dont play beat if unnecessary cause this counts way more beats than you'll need to hear
     const noteType = section.timeSignature[1];
@@ -136,14 +167,36 @@ export const usePlayClicktrack = (
       return; // yes this is redundant but its functionally the same as the old logic just in case
     }
 
-    if (section instanceof Transition) return; // REMOVE LATER
-
     if (section === undefined) {
       stop();
       return;
     }
 
-    const secondsPerBeat = 60.0 / section.bpm;
+    // ! PICK UP HERE, U NOT DONE WITH UI, OR FULL IMPLEMENTATION
+
+    let bpm: number;
+
+    if (section instanceof Metronome) {
+      bpm = section.bpm;
+    } else if (
+      section instanceof Transition &&
+      section.fromMetronome &&
+      section.toMetronome
+    ) {
+      bpm = getEffectiveBpm(
+        section.fromMetronome.bpm,
+        section.toMetronome.bpm,
+        section.lengthInBars,
+        section.timeSignature,
+        section.curveType,
+        totalBarsPlayed.current,
+        current16thBeat.current
+      );
+    } else {
+      return;
+    }
+
+    const secondsPerBeat = 60.0 / bpm;
     const secondsPer16thNote = 0.25 * secondsPerBeat;
     const quarterNotesPerBar =
       section.timeSignature[0] / (section.timeSignature[1] / 4);
