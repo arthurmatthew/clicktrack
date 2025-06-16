@@ -17,7 +17,7 @@ export const SequencerListMetronome = ({
       }}
     >
       <div
-        className={`relative flex w-full gap-3 p-4 py-3 duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${
+        className={`relative flex w-full gap-3 p-4 py-3 duration-150 hover:bg-zinc-100 dark:hover:bg-zinc-800 ${
           selected && 'py-6'
         }`}
       >
@@ -31,7 +31,7 @@ export const SequencerListMetronome = ({
           bars
         </p>
         <div
-          className={`absolute left-0 top-0 h-full w-full bg-neutral-100 duration-75 dark:bg-neutral-800 ${
+          className={`absolute left-0 top-0 h-full w-full bg-zinc-100 duration-75 dark:bg-zinc-800 ${
             !selected && 'hidden'
           }`}
         />

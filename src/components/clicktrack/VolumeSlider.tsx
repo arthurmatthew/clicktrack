@@ -40,7 +40,7 @@ export const VolumeSlider = ({
         updating.current = false;
       }}
       onMouseMove={dragSlider}
-      className={`relative h-full w-40 overflow-hidden rounded-sm rounded-l-none bg-neutral-200 dark:bg-neutral-800 ${
+      className={`relative h-full w-40 overflow-hidden rounded-sm rounded-l-none bg-zinc-200 dark:bg-zinc-800 ${
         muted ? 'opacity-50' : ''
       }`}
     >
@@ -52,8 +52,8 @@ export const VolumeSlider = ({
           width: `${(volume / 150) * 100}%`,
           transition: 'background-color 75ms',
         }}
-        className={`h-full bg-neutral-300 dark:bg-neutral-900 ${
-          muted ? '' : 'hover:bg-neutral-100 dark:hover:bg-neutral-700'
+        className={`h-full bg-zinc-300 dark:bg-zinc-900 ${
+          muted ? '' : 'hover:bg-zinc-100 dark:hover:bg-zinc-700'
         }`}
       ></div>
     </div>

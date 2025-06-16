@@ -30,11 +30,11 @@ export const EditProfile = ({ user }: IAccountOverview) => {
             value={localDisplayName}
             onChange={(e) => setLocalDisplayName(e.currentTarget.value)}
             placeholder="Enter a display name here."
-            className="rounded-sm border-[1px] border-neutral-300 bg-white p-3 text-lg focus:bg-neutral-100 focus:outline-none dark:border-neutral-700 dark:bg-black dark:focus:bg-neutral-900"
+            className="rounded-sm border-[1px] border-zinc-300 bg-white p-3 text-lg focus:bg-zinc-100 focus:outline-none dark:border-zinc-700 dark:bg-black dark:focus:bg-zinc-900"
             required
           />
           <button
-            className="rounded-sm border-[1px] border-neutral-300 bg-neutral-100 p-3 text-xl dark:border-neutral-700 dark:bg-neutral-900"
+            className="rounded-sm border-[1px] border-zinc-300 bg-zinc-100 p-3 text-xl dark:border-zinc-700 dark:bg-zinc-900"
             onClick={handleDisplayNameChange}
             disabled={loading}
           >

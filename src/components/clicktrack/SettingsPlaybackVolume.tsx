@@ -28,7 +28,7 @@ export const SettingsPlaybackVolume = ({
         </div>
 
         <div
-          className={`flex flex-grow gap-3 rounded-md bg-neutral-200 p-2 px-4 dark:bg-neutral-900 sm:flex-grow-0 ${
+          className={`flex flex-grow gap-3 rounded-md bg-zinc-200 p-2 px-4 dark:bg-zinc-900 sm:flex-grow-0 ${
             settings.muted && 'opacity-50'
           }`}
         >

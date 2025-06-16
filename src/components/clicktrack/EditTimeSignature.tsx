@@ -16,7 +16,7 @@ export const EditTimeSignature = ({
 
   return (
     <div>
-      <div className="lora grid grid-cols-3 gap-px overflow-hidden rounded-sm border-[1px] border-neutral-200 bg-neutral-200 text-2xl font-semibold dark:border-neutral-900 dark:bg-neutral-900">
+      <div className="lora grid grid-cols-3 gap-px overflow-hidden rounded-sm border-[1px] border-zinc-200 bg-zinc-200 text-2xl font-semibold dark:border-zinc-900 dark:bg-zinc-900">
         <EditCustomTimeSignature {...{ metronome, updateMetronome }} />
         {first3TimeSignatures.map((timeSignature) => (
           <TimeSignatureButton

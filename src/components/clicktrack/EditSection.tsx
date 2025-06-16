@@ -1,12 +1,13 @@
 import { Metronome } from '../../models/Metronome';
 import { Repeat } from '../../models/Repeat';
 import { Section } from '../../models/Section';
+import { TSection } from '../../types';
 import { EditMetronome } from './EditMetronome';
 import { EditRepeat } from './EditRepeat';
 import { SectionControls } from './SectionControls';
 
 export interface IEditSection {
-  updateSection: <T extends Metronome | Repeat>(
+  updateSection: <T extends TSection>(
     section: T,
     update: Partial<Omit<T, 'id' | 'type'>>
   ) => void;

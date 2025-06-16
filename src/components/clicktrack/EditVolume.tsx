@@ -11,7 +11,7 @@ export const EditVolume = ({
       <div className="flex gap-1">
         <div className="flex gap-4">
           <button
-            className="rounded-sm rounded-r-none bg-neutral-200 p-2 px-4 dark:bg-neutral-900"
+            className="rounded-sm rounded-r-none bg-zinc-200 p-2 px-4 dark:bg-zinc-900"
             onClick={() => {
               updateMetronome(metronome, { muted: !metronome.muted });
             }}

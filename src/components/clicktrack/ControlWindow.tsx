@@ -13,8 +13,8 @@ interface ITab {
 
 export const ControlWindow = ({ tabs, children }: IControlWindow) => {
   return (
-    <div className="flex flex-col rounded-md border-[1px] border-neutral-200 bg-white  dark:border-neutral-900 dark:bg-black">
-      <nav className="space-evenly flex w-full gap-5 bg-neutral-200 px-3 dark:bg-neutral-900">
+    <div className="flex flex-col rounded-md border-[1px] border-zinc-200 bg-white  dark:border-zinc-900 dark:bg-black">
+      <nav className="space-evenly flex w-full gap-5 bg-zinc-200 px-3 dark:bg-zinc-900">
         {tabs ? (
           tabs.map((tab) => {
             return (

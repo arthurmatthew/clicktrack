@@ -2,6 +2,7 @@ import { Route } from 'react-router';
 import { Index } from '../pages/index';
 import Layout from '../components/index/Layout';
 import NotFound from '../pages/not-found';
+import { WriteupIndex } from '../pages/writeup';
 
 export const IndexRoute = (
   <Route
@@ -14,5 +15,6 @@ export const IndexRoute = (
     path="/"
   >
     <Route index element={<Index />} />
+    <Route path="/writeup" element={<WriteupIndex />} />
   </Route>
 );

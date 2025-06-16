@@ -33,7 +33,7 @@ export const AccountFooter = () => {
       <div className="grid gap-2 sm:grid-cols-2 sm:gap-6">
         <button
           onClick={handleDelete}
-          className={`flex w-full select-none flex-col items-center justify-center gap-4 rounded-md border-[1px] border-neutral-300 bg-white p-2 duration-75 hover:bg-red-500 hover:text-white dark:border-neutral-700 dark:bg-black dark:hover:bg-red-700`}
+          className={`flex w-full select-none flex-col items-center justify-center gap-4 rounded-md border-[1px] border-zinc-300 bg-white p-2 duration-75 hover:bg-red-500 hover:text-white dark:border-zinc-700 dark:bg-black dark:hover:bg-red-700`}
         >
           <h1 className="text-center text-xl">
             {loading ? 'Deleting...' : 'Delete Account'}

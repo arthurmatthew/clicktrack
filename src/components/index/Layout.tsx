@@ -14,7 +14,7 @@ const Layout = ({ children }: { children?: React.ReactNode }) => {
     <>
       <ScrollToTop />
       <div
-        className="flex min-h-screen flex-col bg-white bg-[length:40px_40px] dark:bg-black"
+        className="flex min-h-screen flex-col bg-white bg-[length:40px_40px] dark:bg-zinc-900"
         id={dark ? 'background' : 'background-light'}
       >
         <Header dark={dark} toggleDark={toggleDark} />

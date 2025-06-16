@@ -1,6 +1,6 @@
 export const FreeBadge = () => {
   return (
-    <h3 className="rounded-full border-2 border-neutral-400 bg-neutral-200 px-2 text-center dark:border-neutral-600 dark:bg-neutral-900">
+    <h3 className="rounded-full border-2 border-zinc-400 bg-zinc-200 px-2 text-center dark:border-zinc-600 dark:bg-zinc-900">
       Free
     </h3>
   );

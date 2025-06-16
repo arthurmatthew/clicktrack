@@ -20,7 +20,7 @@ export const SubscribeButton = ({
         <>
           {subscribed ? (
             <button
-              className={`w-full cursor-not-allowed rounded-full bg-neutral-300 p-4 px-6 text-xl dark:bg-neutral-800 ${className}`}
+              className={`w-full cursor-not-allowed rounded-full bg-zinc-300 p-4 px-6 text-xl dark:bg-zinc-800 ${className}`}
             >
               Current Plan
             </button>
@@ -42,7 +42,7 @@ export const SubscribeButton = ({
         </>
       ) : (
         <button
-          className={`flex w-full justify-between rounded-full p-4 px-6 text-xl dark:bg-neutral-800 dark:text-white ${className}`}
+          className={`flex w-full justify-between rounded-full p-4 px-6 text-xl dark:bg-zinc-800 dark:text-white ${className}`}
         >
           Sign in
           <i className="bi-arrow-right" />

@@ -8,7 +8,7 @@ export interface IHeader {
 
 export const Header = ({ toggleDark, dark }: IHeader) => {
   return (
-    <header className="sticky top-0 z-10 shrink grow-0 basis-auto bg-gray-100 p-5 backdrop-blur-sm dark:bg-neutral-900">
+    <header className="sticky top-0 z-10 shrink grow-0 basis-auto bg-zinc-100 p-5 backdrop-blur-sm dark:bg-zinc-800">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
         <Link to="/" className="text-4xl  ">
           clicktrack
@@ -16,7 +16,7 @@ export const Header = ({ toggleDark, dark }: IHeader) => {
         <div className="flex items-center gap-4">
           <Link
             to="/app/"
-            className="rounded-md border-2 border-gray-200 bg-white px-6 py-2 text-sm"
+            className="rounded-md border-[1px] border-zinc-200 bg-white px-6 py-2 text-sm dark:border-zinc-700 dark:bg-black"
           >
             Open App
           </Link>
