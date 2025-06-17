@@ -26,9 +26,18 @@ export const SequencerListMetronome = ({
             selected && 'px-2 text-3xl text-purple-500'
           } duration-150`}
         />{' '}
-        <p className="relative z-10">
-          {Metronome.bpmToIndicator(metronome.bpm)} for {metronome.lengthInBars}{' '}
-          bars
+        <p className="relative z-10 flex items-center gap-2">
+          <span className="font-semibold">{metronome.lengthInBars}</span> bars
+          of{' '}
+          <div
+            className={`lora flex flex-col px-1 font-black ${
+              !selected && 'text-sm'
+            }`}
+          >
+            <span className="leading-none">{metronome.timeSignature[0]}</span>
+            <span className="leading-none">{metronome.timeSignature[1]}</span>
+          </div>{' '}
+          at <span className="font-semibold">{metronome.bpm}</span> BPM
         </p>
         <div
           className={`absolute left-0 top-0 h-full w-full bg-zinc-100 duration-75 dark:bg-zinc-800 ${
