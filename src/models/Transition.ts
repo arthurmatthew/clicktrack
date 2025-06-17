@@ -1,8 +1,4 @@
-import {
-  METRONOME_DEFAULT_TIME_SIGNATURE,
-  TRANSITION_DEFAULT_CURVE,
-  TRANSITION_DEFAULT_LENGTH,
-} from '../config';
+import { TRANSITION_DEFAULT_CURVE, TRANSITION_DEFAULT_LENGTH } from '../config';
 import { TCurveTypes } from '../types';
 import { Metronome } from './Metronome';
 import { Section } from './Section';
@@ -11,7 +7,7 @@ export class Transition extends Section {
   public fromMetronome: Metronome | undefined;
   public toMetronome: Metronome | undefined;
   public lengthInBars: number;
-  public timeSignature: [beats: number, value: number];
+  public inheritTimeSignature: 'next' | 'previous';
   public curveType: TCurveTypes;
 
   constructor(options?: Partial<Transition>) {
@@ -22,8 +18,14 @@ export class Transition extends Section {
     this.fromMetronome = options?.fromMetronome ?? undefined;
     this.toMetronome = options?.toMetronome ?? undefined;
     this.lengthInBars = options?.lengthInBars ?? TRANSITION_DEFAULT_LENGTH;
-    this.timeSignature =
-      options?.timeSignature ?? METRONOME_DEFAULT_TIME_SIGNATURE;
+    this.inheritTimeSignature = options?.inheritTimeSignature ?? 'previous';
     this.curveType = options?.curveType ?? TRANSITION_DEFAULT_CURVE;
+  }
+
+  get timeSignature() {
+    if (this.inheritTimeSignature === 'previous')
+      return this.fromMetronome?.timeSignature;
+    if (this.inheritTimeSignature === 'next')
+      return this.toMetronome?.timeSignature;
   }
 }

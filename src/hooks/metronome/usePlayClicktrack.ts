@@ -72,11 +72,11 @@ export const usePlayClicktrack = (
 
     if (section instanceof Repeat) return;
 
-    if (
-      section instanceof Transition &&
-      section.fromMetronome &&
-      section.toMetronome
-    ) {
+    if (section instanceof Transition) {
+      if (!section.fromMetronome) return;
+      if (!section.toMetronome) return;
+      if (!section.timeSignature) return;
+
       const currentBpm = getEffectiveBpm(
         section.fromMetronome.bpm,
         section.toMetronome.bpm,
@@ -95,7 +95,7 @@ export const usePlayClicktrack = (
         audioCtx.current,
         clicktrack.current,
         beat,
-        { ...section, bpm: currentBpm },
+        new Metronome({ ...section, bpm: currentBpm }),
         time,
         callback
       );
@@ -173,16 +173,15 @@ export const usePlayClicktrack = (
     }
 
     // ! PICK UP HERE, U NOT DONE WITH UI, OR FULL IMPLEMENTATION
-
     let bpm: number;
 
     if (section instanceof Metronome) {
       bpm = section.bpm;
-    } else if (
-      section instanceof Transition &&
-      section.fromMetronome &&
-      section.toMetronome
-    ) {
+    } else if (section instanceof Transition) {
+      if (section.fromMetronome === undefined) return;
+      if (section.toMetronome === undefined) return;
+      if (section.timeSignature === undefined) return;
+
       bpm = getEffectiveBpm(
         section.fromMetronome.bpm,
         section.toMetronome.bpm,
@@ -195,6 +194,8 @@ export const usePlayClicktrack = (
     } else {
       return;
     }
+
+    if (section.timeSignature === undefined) return;
 
     const secondsPerBeat = 60.0 / bpm;
     const secondsPer16thNote = 0.25 * secondsPerBeat;

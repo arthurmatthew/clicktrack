@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
-import { useNotify } from '../../hooks/useNotify';
 import { Transition } from '../../models/Transition';
+import { TCurveTypes } from '../../types';
+import { NumberInput } from '../core/NumberInput';
+import { useNotify } from '../../hooks/useNotify';
+import { validateLength } from '../../utils/validators/validateLength';
 
 interface IEditTransition {
   updateTransition: (
@@ -10,13 +13,35 @@ interface IEditTransition {
   transition: Transition | undefined;
 }
 
+const curves: [TCurveTypes, string][] = [
+  ['linear', 'Linear'],
+  ['ease-in', 'Ease In'],
+  ['ease-out', 'Ease Out'],
+  ['custom', 'Custom'],
+];
+
 export const EditTransition = ({
   updateTransition,
   transition,
 }: IEditTransition) => {
   const { notify } = useNotify();
 
-  if (transition)
+  if (transition) {
+    const prevLength = transition.lengthInBars;
+
+    const increase = () => {
+      {
+        validateLength(prevLength + 1, notify) &&
+          updateTransition(transition, { lengthInBars: prevLength + 1 });
+      }
+    };
+    const decrease = () => {
+      {
+        validateLength(prevLength - 1, notify) &&
+          updateTransition(transition, { lengthInBars: prevLength - 1 });
+      }
+    };
+
     return (
       <motion.div
         className="flex flex-col gap-px overflow-hidden rounded-sm text-lg sm:gap-2 sm:overflow-visible sm:rounded-none"
@@ -24,19 +49,90 @@ export const EditTransition = ({
         animate={{ opacity: 100, filter: 'blur(0)' }}
         transition={{ duration: 0.2 }}
       >
-        <div className="flex items-center gap-3 px-2 py-1 sm:rounded-sm">
-          <ul>
-            <li>using {transition.curveType}</li>
-            <li>
-              from {transition.fromMetronome?.bpm}{' '}
-              {transition.fromMetronome?.timeSignature}
-            </li>
-            <li>
-              to {transition.toMetronome?.bpm}{' '}
-              {transition.toMetronome?.timeSignature}
-            </li>
-          </ul>
+        {transition.fromMetronome &&
+        transition.toMetronome &&
+        transition.timeSignature ? (
+          <div className="flex gap-4">
+            <div className="flex bg-zinc-900">
+              <div className="lora flex flex-col items-center justify-center bg-zinc-800 p-3 px-6 text-2xl font-black leading-none">
+                <span>{transition.timeSignature[0]}</span>
+                <span>{transition.timeSignature[1]}</span>
+              </div>
+              <div className="grid grid-rows-2 gap-px p-px pl-0">
+                <button
+                  onClick={() =>
+                    updateTransition(transition, {
+                      inheritTimeSignature: 'previous',
+                    })
+                  }
+                  className={`p-2 px-4 ${
+                    transition.inheritTimeSignature === 'previous'
+                      ? 'bg-zinc-900'
+                      : 'bg-black'
+                  }`}
+                >
+                  Inherit Previous
+                </button>
+                <button
+                  onClick={() =>
+                    updateTransition(transition, {
+                      inheritTimeSignature: 'next',
+                    })
+                  }
+                  className={`p-2 px-4 ${
+                    transition.inheritTimeSignature === 'next'
+                      ? 'bg-zinc-900'
+                      : 'bg-black'
+                  }`}
+                >
+                  Inherit Next
+                </button>
+              </div>
+            </div>
+            <p className=" max-w-lg">
+              Transitioning from the previous{' '}
+              <span className="roboto mx-1 rounded-lg bg-zinc-900 p-1 px-3 text-sm">
+                {transition.fromMetronome.bpm} BPM
+              </span>
+              section into the next{' '}
+              <span className="roboto mx-1 rounded-lg bg-zinc-900 p-1 px-3 text-sm">
+                {transition.toMetronome.bpm} BPM
+              </span>{' '}
+              section. Drag to reorder.
+            </p>
+          </div>
+        ) : (
+          <p>
+            You must place the transition in between two Metronome sections.
+          </p>
+        )}
+
+        <div className="flex flex-col gap-1">
+          <h3 className="opacity-50">Transition Speed</h3>
+          <div className="grid grid-cols-4 gap-px rounded-sm bg-zinc-900 p-px">
+            {curves.map((curve) => (
+              <button
+                className={`p-8 ${
+                  transition.curveType === curve[0] ? 'bg-zinc-900' : 'bg-black'
+                }`}
+                onClick={() =>
+                  updateTransition(transition, { curveType: curve[0] })
+                }
+              >
+                {curve[1]}
+              </button>
+            ))}
+          </div>
+          <NumberInput
+            label="Length (bars)"
+            value={transition.lengthInBars}
+            set={(value) => {
+              updateTransition(transition, { lengthInBars: value });
+            }}
+            {...{ increase, decrease }}
+          />
         </div>
       </motion.div>
     );
+  }
 };

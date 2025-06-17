@@ -15,19 +15,19 @@ export const useSection = (
   const { notify } = useNotify();
 
   const addSection = (newSection: TSection): void => {
-    setClicktrack(
-      (previousClicktrack) =>
-        new Clicktrack({
-          ...previousClicktrack,
-          data: {
-            ...previousClicktrack.data,
-            sections: [
-              ...previousClicktrack.data.sections,
-              constructSection(newSection),
-            ],
-          },
-        })
-    );
+    setClicktrack((previousClicktrack) => {
+      const previousSections = [...previousClicktrack.data.sections];
+      const constructed = constructSection(newSection);
+      const updatedSections = [...previousSections, constructed];
+
+      return new Clicktrack({
+        ...previousClicktrack,
+        data: {
+          ...previousClicktrack.data,
+          sections: updateTransitions(updatedSections),
+        },
+      });
+    });
   };
 
   const updateSection = <T extends TSection>(
@@ -49,13 +49,28 @@ export const useSection = (
 
       updatedSections.splice(indexBefore, 0, updatedSection);
 
+      const updatedSectionsAndTransitions = updateTransitions(updatedSections);
+
       return new Clicktrack({
         ...previousClicktrack,
         data: new ClicktrackData({
           ...previousClicktrack.data,
-          sections: updatedSections,
+          sections: updatedSectionsAndTransitions,
         }),
       });
+    });
+  };
+
+  const updateTransitions = (sections: TSection[]): TSection[] => {
+    return sections.map((section, index, array) => {
+      if (section instanceof Transition) {
+        const before = array[index - 1];
+        const after = array[index + 1];
+        section.fromMetronome =
+          before instanceof Metronome ? before : undefined;
+        section.toMetronome = after instanceof Metronome ? after : undefined;
+      }
+      return section;
     });
   };
 
@@ -68,24 +83,29 @@ export const useSection = (
         ...previousClicktrack,
         data: new ClicktrackData({
           ...previousClicktrack.data,
-          sections: [
-            ...previousClicktrack.data.sections.filter(
-              (section) => section.id !== id
-            ),
-          ]
-            .map((section) => constructSection({ ...section }))
-            .filter((section) => section !== undefined),
+          sections: updateTransitions(
+            [
+              ...previousClicktrack.data.sections.filter(
+                (section) => section.id !== id
+              ),
+            ]
+              .map((section) => constructSection({ ...section }))
+              .filter((section) => section !== undefined)
+          ),
         }),
       });
+
       const indexOfId = previousClicktrack.data.sections.findIndex(
         (section) => section.id === id
       );
+
       setSelectedId(() => {
         const closestSection =
           updated.data.sections[indexOfId] ??
           updated.data.sections[indexOfId - 1];
         return closestSection?.id ?? '';
       });
+
       return updated;
     });
   };
@@ -103,7 +123,10 @@ export const useSection = (
         ...previousClicktrack,
         data: {
           ...previousClicktrack.data,
-          sections: [...previousClicktrack.data.sections, sectionCopy()],
+          sections: updateTransitions([
+            ...previousClicktrack.data.sections,
+            sectionCopy(),
+          ]),
         },
       });
     });
@@ -119,24 +142,11 @@ export const useSection = (
       const [removed] = result.splice(source.index, 1);
       if (removed) result.splice(destination.index, 0, removed);
 
-      for (let i = 0; i < result.length; i++) {
-        const section = result[i];
-        if (section instanceof Transition) {
-          const before = result[i - 1];
-          const after = result[i + 1];
-
-          section.fromMetronome =
-            before instanceof Metronome ? (before as Metronome) : undefined;
-          section.toMetronome =
-            after instanceof Metronome ? (after as Metronome) : undefined;
-        }
-      }
-
       return new Clicktrack({
         ...previousClicktrack,
         data: {
           ...previousClicktrack.data,
-          sections: result,
+          sections: updateTransitions(result),
         },
       });
     });
