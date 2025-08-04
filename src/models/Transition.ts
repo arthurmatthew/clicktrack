@@ -8,6 +8,7 @@ export class Transition extends Section {
   public toMetronome: Metronome | undefined;
   public lengthInBars: number;
   public inheritTimeSignature: 'next' | 'previous';
+  public inheritAccentMap: 'next' | 'previous';
   public curveType: TCurveTypes;
 
   constructor(options?: Partial<Transition>) {
@@ -19,6 +20,7 @@ export class Transition extends Section {
     this.toMetronome = options?.toMetronome ?? undefined;
     this.lengthInBars = options?.lengthInBars ?? TRANSITION_DEFAULT_LENGTH;
     this.inheritTimeSignature = options?.inheritTimeSignature ?? 'previous';
+    this.inheritAccentMap = options?.inheritAccentMap ?? 'previous';
     this.curveType = options?.curveType ?? TRANSITION_DEFAULT_CURVE;
   }
 
@@ -27,5 +29,11 @@ export class Transition extends Section {
       return this.fromMetronome?.timeSignature;
     if (this.inheritTimeSignature === 'next')
       return this.toMetronome?.timeSignature;
+  }
+
+  get accentMap() {
+    if (this.inheritAccentMap === 'previous')
+      return this.fromMetronome?.accentMap;
+    if (this.inheritAccentMap === 'next') return this.toMetronome?.accentMap;
   }
 }

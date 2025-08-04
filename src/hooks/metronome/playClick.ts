@@ -6,10 +6,12 @@ export const playClick = (
   audioContext: AudioContext | null,
   clicktrack: Clicktrack,
   beat: number,
+  accent: number,
   section: Metronome | Transition,
   time: number,
   callback: () => void
 ) => {
+  console.log(beat, accent);
   const metronomeSoundLength = 0.3;
 
   if (audioContext === null) return;
@@ -33,11 +35,20 @@ export const playClick = (
     localVolume = from.muted ? 0 : from.volume / 100;
   }
 
-  oscillator.frequency.value = 440.0;
-  if (beat === 0) {
-    oscillator.frequency.value = 880.0;
+  // pre accent map logic rght here
+  // oscillator.frequency.value = 440.0;
+  // if (beat === 0) {
+  //   oscillator.frequency.value = 880.0;
+  //   callback();
+  // }
+
+  if (accent === 3) {
+    oscillator.frequency.value = 880;
     callback();
   }
+  if (accent === 2) oscillator.frequency.value = 440;
+  if (accent === 1) oscillator.frequency.value = 220;
+  // wont trigger on 0
 
   masterGain.gain.value = masterVolume;
 

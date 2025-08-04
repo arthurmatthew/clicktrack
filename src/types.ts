@@ -58,3 +58,6 @@ export type TSection = Metronome | Repeat | Transition;
 export type TSectionTypes = 'metronome' | 'repeat' | 'transition';
 
 export type TCurveTypes = 'linear' | 'ease-in' | 'ease-out' | 'custom';
+
+export type TAccentLevels = 0 | 1 | 2 | 3;
+export type TAccentMap = TAccentLevels[];

@@ -7,6 +7,7 @@ import { constructSection } from '../utils/constructSection';
 import { TSection } from '../types';
 import { Transition } from '../models/Transition';
 import { Metronome } from '../models/Metronome';
+import { generateAccentMap } from '../utils/generateAccentMap';
 
 export const useSection = (
   setClicktrack: (value: React.SetStateAction<Clicktrack>) => void,
@@ -42,13 +43,32 @@ export const useSection = (
         (thisSection) => thisSection.id !== section.id
       );
 
+      let finalUpdate: Partial<T> = { ...update } as Partial<T>;
+
+      // for updating accent map
+      if (section instanceof Metronome) {
+        const metronomeUpdate = update as Partial<
+          Omit<Metronome, 'id' | 'type'>
+        >;
+        if (metronomeUpdate.timeSignature !== undefined) {
+          finalUpdate = {
+            ...finalUpdate,
+            accentMap: generateAccentMap(
+              metronomeUpdate.timeSignature[0],
+              metronomeUpdate.timeSignature[1]
+            ),
+          } as Partial<T>;
+        }
+      }
+
       const updatedSection = constructSection({
         ...section,
-        ...update,
+        ...finalUpdate,
       } as Partial<TSection>);
 
       updatedSections.splice(indexBefore, 0, updatedSection);
 
+      // HANDLE TRANSITION SECTIONS WHICH CHANGE BASED ON OTHER SECTIONS
       const updatedSectionsAndTransitions = updateTransitions(updatedSections);
 
       return new Clicktrack({

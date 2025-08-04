@@ -87,14 +87,16 @@ export const usePlayClicktrack = (
         current16thBeat.current
       );
 
-      const noteType = section.timeSignature[1];
-      const divisor = 16 / noteType;
-      if (beat % divisor !== 0) return;
+      if (!section.accentMap) return;
+
+      const accent = section.accentMap[beat] ?? 0;
+      if (accent <= 0) return;
 
       playClick(
         audioCtx.current,
         clicktrack.current,
         beat,
+        accent,
         new Metronome({ ...section, bpm: currentBpm }),
         time,
         callback
@@ -103,15 +105,14 @@ export const usePlayClicktrack = (
       return;
     }
 
-    // based on type of note and time sig, dont play beat if unnecessary cause this counts way more beats than you'll need to hear
-    const noteType = section.timeSignature[1];
-    const divisor = 16 / noteType;
-    if (beat % divisor !== 0) return;
+    const accent = section.accentMap[beat] ?? 0;
+    if (accent <= 0) return;
 
     playClick(
       audioCtx.current,
       clicktrack.current,
       beat,
+      accent,
       section,
       time,
       callback
