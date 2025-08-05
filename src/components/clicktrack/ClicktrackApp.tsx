@@ -30,7 +30,7 @@ export const ClicktrackApp = ({ loadedClicktrack }: IClicktrackApp) => {
   } = useClicktrack(loadedClicktrack);
 
   return (
-    <motion.div className="flex min-h-screen min-w-full flex-col">
+    <motion.div className="flex max-h-screen min-w-full flex-col py-2">
       <Title
         {...{
           clicktrack,

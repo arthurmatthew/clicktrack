@@ -19,8 +19,9 @@ export const Controls = ({
   playingDisplay,
 }: IControls) => {
   return (
-    <div className="grid gap-2 px-2 lg:grid-cols-2">
+    <div className="grid grid-rows-2 gap-2 px-2 lg:grid-cols-2">
       <ControlWindow
+        className="order-last lg:order-first"
         tabs={[
           { title: 'Sequencer' },
           // { title: 'Settings', to: 'settings' },
@@ -35,7 +36,10 @@ export const Controls = ({
           playingDisplay={playingDisplay}
         />
       </ControlWindow>
-      <ControlWindow tabs={[{ title: 'Edit' }]}>
+      <ControlWindow
+        className="order-first lg:order-last"
+        tabs={[{ title: 'Edit' }]}
+      >
         <EditSection
           {...{ updateSection, copySection, deleteSection }}
           selected={selected}

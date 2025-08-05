@@ -48,7 +48,7 @@ export const TitleInfo = ({ clicktrack }: ITitleInfo) => {
         />
       </div>
 
-      <ul className="flex text-sm">
+      <ul className="hidden text-sm md:flex">
         <DataViewItem title={'ID'}>{clicktrack.id}</DataViewItem>
       </ul>
     </div>
