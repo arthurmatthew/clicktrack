@@ -30,3 +30,43 @@ probably rework UX flow, so go from landing page into default clicktrack which c
 
 transition drag and drop is buggy asf, how to update consistently?
 actually add edits for transition
+
+------ NEW NOTES 8/4/25
+
+ai bullshit possibly
+
+Accent Map
+Add visual legend or tooltip to explain accent levels.
+
+Consider using color/opacity instead of stacked bars.
+
+Optional: use dots or vertical meter-style indicators (●○○).
+
+Sequencer Layout
+Use grid layout for consistent spacing.
+
+Add vertical dividers every 4 subdivisions.
+
+Alternate background colors per beat for visual chunking.
+
+Playback Feedback
+Add a playhead highlight or glow for current step.
+
+Use animation or color shift (transition-colors, bg-purple-500 etc).
+
+Time Signature UI
+Replace buttons with a dropdown or grid selector.
+
+Use “notation-style” (4 above 4) for readability.
+
+Add tooltip: “X beats per measure, Y note gets the beat”
+
+Interaction Feedback
+Add hover/tap effects to accent blocks & buttons.
+
+Tooltips: “Click to change accent level”, etc.
+
+Layout Consistency
+Align text sizes (text-sm, text-md) and paddings (p-4, gap-2).
+
+Balance spacing across all panels for cleaner layout.

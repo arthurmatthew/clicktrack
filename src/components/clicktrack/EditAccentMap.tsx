@@ -31,6 +31,13 @@ const EditAccent = ({
   metronome: Metronome;
   updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;
 }) => {
+  const label =
+    index >= metronome.timeSignature[0] * 4
+      ? ''
+      : index % 4 === 0
+      ? Math.floor(index / 4) + 1
+      : ['', 'e', '&', 'a'][index % 4];
+
   return (
     <div
       onClick={() => {
@@ -60,6 +67,13 @@ const EditAccent = ({
           ></div>
         </div>
       )}
+      <p
+        className={`text-center text-sm opacity-50 ${
+          accent === 0 && 'invisible'
+        }`}
+      >
+        {label}
+      </p>
     </div>
   );
 };
