@@ -29,6 +29,7 @@ export type TDarkModeContext = {
 export type TUserContext = {
   user: User | null;
   premium: boolean;
+  initialized: boolean;
 };
 export type ClicktrackRouteParams = {
   id: string;

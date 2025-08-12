@@ -5,7 +5,7 @@ import { Clicktrack } from '../../models/Clicktrack';
 export interface ITitleButtons {
   clicktrack: Clicktrack;
   play: () => void;
-  saveChanges: () => Promise<void>;
+  saveChanges: () => Promise<boolean>;
   changesSaved: boolean;
   saving: boolean;
   playingDisplay: boolean;

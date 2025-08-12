@@ -4,7 +4,8 @@ import { Clicktrack } from '../models/Clicktrack';
 import { getUserClicktracks } from '../lib/firebase/getUserClicktracks';
 import { setUserData } from '../lib/firebase/setUserData';
 import { useUser } from './useUser';
-import { STORAGE_KEYS_CLICKTRACK } from '../config';
+import { loadLocalClicktracks } from '../utils/loadLocalClicktracks';
+import { saveLocalClicktracks } from '../utils/saveLocalClicktracks';
 
 /**
  * This hook acts as a middleware for editing the Clicktrack it returns.
@@ -28,72 +29,96 @@ export const useCloudClicktrack = (loadedClicktrack: Clicktrack) => {
 
   const user = useUser();
 
+  useEffect(() => {
+    const parsed = Clicktrack.parseInternals(loadedClicktrack);
+    setClicktrack(parsed);
+    lastSavedClicktrack.current = parsed;
+
+    // tiny task to wait for state
+    Promise.resolve().then(() => {
+      try {
+        setChangesSaved(isEqual(parsed, lastSavedClicktrack));
+      } catch (e) {
+        console.error(e);
+      }
+    });
+  }, [loadedClicktrack]);
+
   const saveChanges = async () => {
+    if (saving) return false;
     setSaving(true);
 
-    if (!!user.user) {
-      // save changes for logged in users
-      const currentSavedClicktracks = await getUserClicktracks();
+    try {
+      if (!!user.user) {
+        // save changes for logged in users
+        const currentSavedClicktracks = await getUserClicktracks();
 
-      if (currentSavedClicktracks === undefined) {
-        setSaving(false);
-        return;
+        if (currentSavedClicktracks === undefined) {
+          setSaving(false);
+          return false;
+        }
+
+        const indexOfEdited = currentSavedClicktracks.findIndex(
+          (currentClicktrack) =>
+            currentClicktrack.id === lastSavedClicktrack.current.id
+        );
+        const currentSavedWithoutEdited = currentSavedClicktracks.filter(
+          (currentClicktrack) => currentClicktrack.id !== clicktrack.id
+        );
+
+        const result = [...currentSavedWithoutEdited];
+        result.splice(
+          indexOfEdited === -1 ? result.length : indexOfEdited, // add to end if didnt exist yet
+          0,
+          clicktrack
+        );
+        const minifiedClicktracks = result.map((clicktrack) =>
+          Clicktrack.encode(clicktrack)
+        );
+
+        await setUserData({
+          clicktracks: minifiedClicktracks,
+        });
+
+        lastSavedClicktrack.current = clicktrack;
+        setChangesSaved(clicktracksSynced());
+        return true;
+      } else {
+        // guest user saving logic
+        const currentSavedClicktracks = loadLocalClicktracks();
+
+        if (currentSavedClicktracks === undefined) {
+          setSaving(false);
+          return false;
+        }
+
+        const indexOfEdited = currentSavedClicktracks.findIndex(
+          (currentClicktrack) =>
+            currentClicktrack.id === lastSavedClicktrack.current.id
+        );
+        const currentSavedWithoutEdited = currentSavedClicktracks.filter(
+          (currentClicktrack) => currentClicktrack.id !== clicktrack.id
+        );
+
+        const result = [...currentSavedWithoutEdited];
+        result.splice(
+          indexOfEdited === -1 ? result.length : indexOfEdited, // add to end if didnt exist yet
+          0,
+          clicktrack // ! not saving encoded version?
+        );
+
+        saveLocalClicktracks(result);
+
+        lastSavedClicktrack.current = clicktrack;
+        setChangesSaved(clicktracksSynced());
+        return true;
       }
-
-      const indexOfEdited = currentSavedClicktracks.findIndex(
-        (currentClicktrack) =>
-          currentClicktrack.id === lastSavedClicktrack.current.id
-      );
-      const currentSavedWithoutEdited = currentSavedClicktracks.filter(
-        (currentClicktrack) => currentClicktrack.id !== clicktrack.id
-      );
-
-      const result = [...currentSavedWithoutEdited];
-      result.splice(
-        indexOfEdited === -1 ? result.length : indexOfEdited, // add to end if didnt exist yet
-        0,
-        clicktrack
-      );
-      const minifiedClicktracks = result.map((clicktrack) =>
-        Clicktrack.encode(clicktrack)
-      );
-
-      await setUserData({
-        clicktracks: minifiedClicktracks,
-      });
-    } else {
-      // guest user saving logic
-      const localData = localStorage.getItem(STORAGE_KEYS_CLICKTRACK);
-      const currentSavedClicktracks = localData
-        ? (JSON.parse(localData) as Clicktrack[])
-        : undefined;
-
-      if (currentSavedClicktracks === undefined) {
-        setSaving(false);
-        return;
-      }
-
-      const indexOfEdited = currentSavedClicktracks.findIndex(
-        (currentClicktrack) =>
-          currentClicktrack.id === lastSavedClicktrack.current.id
-      );
-      const currentSavedWithoutEdited = currentSavedClicktracks.filter(
-        (currentClicktrack) => currentClicktrack.id !== clicktrack.id
-      );
-
-      const result = [...currentSavedWithoutEdited];
-      result.splice(
-        indexOfEdited === -1 ? result.length : indexOfEdited, // add to end if didnt exist yet
-        0,
-        clicktrack
-      );
-
-      localStorage.setItem(STORAGE_KEYS_CLICKTRACK, JSON.stringify(result));
+    } catch (error) {
+      console.error('Failed to save changes', error);
+      return false;
+    } finally {
+      setSaving(false);
     }
-
-    lastSavedClicktrack.current = clicktrack;
-    setChangesSaved(clicktracksSynced());
-    setSaving(false);
   };
 
   const [changesSaved, setChangesSaved] = useState(clicktracksSynced());
