@@ -42,6 +42,8 @@ export const playClick = (
   //   callback();
   // }
 
+  oscillator.type = clicktrack.data.wave;
+
   if (accent === 3) {
     oscillator.frequency.value = 880;
     callback();

@@ -1,3 +1,4 @@
+import { TWaves } from '../../types';
 import { ISettingsUpdater } from './ISettingsUpdater';
 import { Setting } from './Setting';
 import { SettingsButton } from './SettingsButton';
@@ -8,9 +9,29 @@ export const SettingsPlayback = ({
   settings,
   updateSettings,
 }: ISettingsUpdater) => {
+  const waveTypes: TWaves[] = ['sawtooth', 'sine', 'triangle', 'square'];
+
   return (
     <SettingsSection name="Playback">
       <SettingsPlaybackVolume {...{ settings, updateSettings }} />
+      <Setting
+        label="Oscillator Type"
+        description="Change the kind of wave that your metronome uses."
+      >
+        <select
+          value={settings.wave}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            updateSettings({ wave: e.target.value as TWaves });
+          }}
+          className="bg-zinc-800"
+        >
+          {waveTypes.map((type) => (
+            <option key={type} value={type}>
+              {type.toLocaleUpperCase()}
+            </option>
+          ))}
+        </select>
+      </Setting>
       <Setting
         label="Play Extra Beat"
         description="Clicktrack will play the downbeat of an extra measure if this setting is enabled."
