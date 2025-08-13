@@ -18,7 +18,7 @@ export const ControlWindow = ({
 }: IControlWindow) => {
   return (
     <div
-      className={`flex flex-col rounded-md border-[1px] border-zinc-200 bg-white  dark:border-zinc-900 dark:bg-black ${className}`}
+      className={`flex max-h-full min-h-0 flex-1 flex-col rounded-md border-[1px] border-zinc-200 bg-white  dark:border-zinc-900 dark:bg-black ${className}`}
     >
       <nav className="space-evenly flex w-full gap-5 bg-zinc-200 px-3 dark:bg-zinc-900">
         {tabs ? (
@@ -35,7 +35,7 @@ export const ControlWindow = ({
           </div>
         )}
       </nav>
-      <div className="flex-grow">{children}</div>
+      <div className="flex min-h-0 flex-1">{children}</div>
     </div>
   );
 };

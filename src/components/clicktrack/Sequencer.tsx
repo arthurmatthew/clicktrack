@@ -13,6 +13,8 @@ import { SequencerListTransition } from './SequencerListTransition';
 
 export interface ISequencer {
   addSection: (child: Clicktrack['data']['sections'][number]) => void;
+  copySection: (id: string) => void;
+  deleteSection: (id: string) => void;
   selectedId: string;
   setSelectedId: (id: string) => void;
   sequence: Clicktrack['data']['sections'];
@@ -27,18 +29,20 @@ export const Sequencer = ({
   sequence,
   sequencerOnDragEnd,
   playingDisplay,
+  copySection,
+  deleteSection,
 }: ISequencer) => {
   const { notify } = useNotify();
 
   return (
-    <div className="flex h-full select-none flex-col">
+    <div className="flex min-h-0 w-full select-none flex-col justify-between">
       <DragDropContext onDragEnd={sequencerOnDragEnd}>
         <StrictModeDroppable droppableId="sequencer">
           {(provided) => (
             <ul
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className="flex h-full flex-col text-xl"
+              className="flex min-h-0 flex-1 flex-col overflow-auto text-xl"
             >
               {sequence.map((section, index) => (
                 <Draggable
@@ -79,6 +83,7 @@ export const Sequencer = ({
                                 selected={selected}
                                 setSelectedId={setSelectedId}
                                 metronome={section}
+                                {...{ copySection, deleteSection }}
                               />
                             );
                           if (section instanceof Repeat)
@@ -88,6 +93,7 @@ export const Sequencer = ({
                                 selected={selected}
                                 setSelectedId={setSelectedId}
                                 repeat={section}
+                                {...{ copySection, deleteSection }}
                               />
                             );
                           if (section instanceof Transition)
@@ -97,6 +103,7 @@ export const Sequencer = ({
                                 selected={selected}
                                 setSelectedId={setSelectedId}
                                 transition={section}
+                                {...{ copySection, deleteSection }}
                               />
                             );
                         })()}

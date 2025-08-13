@@ -43,7 +43,7 @@ export const EditSection = ({
   };
 
   return (
-    <div className="flex h-full flex-col justify-between gap-4 p-4">
+    <div className="flex h-full w-full flex-col justify-between gap-4 p-4">
       <div className="grid items-center gap-2">{getProperSectionEditor()}</div>
       <div>
         {selected && (

@@ -14,7 +14,7 @@ const AppLayout = ({ children }: { children?: React.ReactNode }) => {
       <ScrollToTop />
       <div className="flex min-h-screen flex-col bg-white bg-[length:40px_40px] dark:bg-black">
         <AppHeader dark={dark} toggleDark={toggleDark} />
-        <main className="relative flex flex-auto flex-col">
+        <main className="relative flex min-h-0 flex-auto flex-col">
           <Suspense fallback={<LoadingScreen />}>
             {children ?? <Outlet />}
           </Suspense>

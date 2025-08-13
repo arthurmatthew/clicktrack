@@ -19,7 +19,7 @@ export const Controls = ({
   playingDisplay,
 }: IControls) => {
   return (
-    <div className="grid grid-rows-2 gap-2 px-2 lg:grid-cols-2">
+    <div className="grid min-h-0 flex-grow grid-rows-2 gap-2 px-2 lg:grid-cols-2 lg:grid-rows-1">
       <ControlWindow
         className="order-last lg:order-first"
         tabs={[
@@ -28,12 +28,16 @@ export const Controls = ({
         ]}
       >
         <Sequencer
-          sequencerOnDragEnd={sequencerOnDragEnd}
-          selectedId={selectedId}
-          setSelectedId={setSelectedId}
-          addSection={addSection}
-          sequence={sequence}
-          playingDisplay={playingDisplay}
+          {...{
+            sequence,
+            selectedId,
+            setSelectedId,
+            addSection,
+            sequencerOnDragEnd,
+            playingDisplay,
+            copySection,
+            deleteSection,
+          }}
         />
       </ControlWindow>
       <ControlWindow
