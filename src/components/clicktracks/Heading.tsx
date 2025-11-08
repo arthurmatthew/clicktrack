@@ -52,7 +52,7 @@ export const Heading = ({
           disabled={limitSaves}
           {...{ handleImport, importRef, showImport }}
         />
-        <InteractableListItem
+        {/* <InteractableListItem
           icon="boxes"
           disabled={limitSaves}
           onClick={() =>
@@ -63,7 +63,7 @@ export const Heading = ({
           <p className=" ml-2 text-base font-normal opacity-50">
             <i className="bi-dot" /> Great for Beginners
           </p>
-        </InteractableListItem>
+        </InteractableListItem> */}
         {!limitSaves && (
           <Templates
             showTemplates={showTemplates}

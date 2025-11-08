@@ -3,13 +3,11 @@ import { AccountOverview } from '../../../components/account/AccountOverview';
 import { AccountTitle } from '../../../components/account/AccountTitle';
 import { EditProfile } from '../../../components/account/EditProfile';
 import { useUser } from '../../../hooks/useUser';
-import { useRedirectToLogin } from '../../../hooks/useRedirectToLogin';
 import { usePageTitle } from '../../../hooks/usePageTitle';
+import { Navigate } from 'react-router';
 
 export const AccountIndex = () => {
   usePageTitle('Account Settings');
-
-  useRedirectToLogin();
   const { user } = useUser();
 
   if (user) {
@@ -23,5 +21,7 @@ export const AccountIndex = () => {
         </div>
       </div>
     );
+  } else {
+    return <Navigate to={'/app/account/login'} />;
   }
 };

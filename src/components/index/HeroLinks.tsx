@@ -15,7 +15,8 @@ export const HeroLinks = () => {
               whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.05 }}
               transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-              className="border-gradient rounded-sm border-2 border-purple-500 bg-white px-12 py-3 text-xl dark:border-purple-700 dark:bg-zinc-800 "
+              disabled
+              className="border-gradient rounded-sm border-2 border-purple-500 bg-white px-12 py-3 text-xl disabled:cursor-not-allowed disabled:opacity-50 dark:border-purple-700 dark:bg-zinc-800 "
             >
               Mobile App
             </motion.button>

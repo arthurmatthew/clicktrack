@@ -35,7 +35,7 @@ export const SequencerListMetronome = ({
             <span className="font-semibold">{metronome.lengthInBars}</span> bars
             of{' '}
             <div
-              className={`lora flex flex-col px-1 font-black ${
+              className={`lora flex flex-col items-center px-1 font-black ${
                 !selected && 'text-sm'
               }`}
             >

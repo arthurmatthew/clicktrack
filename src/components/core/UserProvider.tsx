@@ -28,11 +28,11 @@ export const UserProvider = ({ children }: IComponent) => {
 
       setUser(authUser);
 
-      if (!previousUserRef.current && authUser) {
-        migrateLocalToCloud().catch((err) =>
-          console.error('Failed migration', err)
-        );
-      }
+      // !if (!previousUserRef.current && authUser) {
+      //  ! migrateLocalToCloud().catch((err) =>
+      //  !   console.error('Failed migration', err)
+      //  ! );
+      // !}
 
       previousUserRef.current = authUser;
       setInitialized(true);

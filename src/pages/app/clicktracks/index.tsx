@@ -6,7 +6,6 @@ import { WontSaveWarning } from '../../../components/clicktracks/WontSaveWarning
 import { DB_RULE_MAX_CLICKTRACKS } from '../../../config';
 import { useClicktracks } from '../../../hooks/useClicktracks';
 import { usePageTitle } from '../../../hooks/usePageTitle';
-// import { useRedirectToLogin } from '../../../hooks/useRedirectToLogin';
 import { useUser } from '../../../hooks/useUser';
 
 /**
@@ -15,7 +14,6 @@ import { useUser } from '../../../hooks/useUser';
 const ClicktracksIndex = () => {
   usePageTitle('Your Clicktracks');
 
-  // useRedirectToLogin();
   const { user } = useUser();
 
   const {

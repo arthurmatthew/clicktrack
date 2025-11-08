@@ -70,3 +70,7 @@ Layout Consistency
 Align text sizes (text-sm, text-md) and paddings (p-4, gap-2).
 
 Balance spacing across all panels for cleaner layout.
+
+!! WATCH OUT FOR onAuthState LISTENER REDUNDENCIES! OPT FOR CONTEXT ALWAYS
+
+migrate to react router protected routes

@@ -49,21 +49,33 @@ const EditAccent = ({
       className="flex-grow cursor-pointer"
     >
       {accent === 0 ? (
-        <div className="grid flex-grow grid-rows-3 gap-[1px] bg-zinc-800 p-[1px] opacity-30">
-          <div className="h-6 bg-black"></div>
-          <div className="h-6 bg-black"></div>
-          <div className="h-6 bg-black"></div>
+        <div className="grid flex-grow grid-rows-3 gap-[1px] bg-zinc-300 p-[1px] opacity-30 dark:bg-zinc-800">
+          <div className="h-6 bg-white dark:bg-black"></div>
+          <div className="h-6 bg-white dark:bg-black"></div>
+          <div className="h-6 bg-white dark:bg-black"></div>
         </div>
       ) : (
-        <div className="grid grid-rows-3 gap-[1px] bg-zinc-800 p-[1px]">
+        <div className="grid grid-rows-3 gap-[1px] bg-zinc-300 p-[1px] dark:bg-zinc-800">
           <div
-            className={`h-6 ${accent >= 3 ? 'bg-zinc-800' : 'bg-black'}`}
+            className={`h-6 ${
+              accent >= 3
+                ? 'bg-zinc-300 dark:bg-zinc-800'
+                : 'bg-white dark:bg-black'
+            }`}
           ></div>
           <div
-            className={`h-6 ${accent >= 2 ? 'bg-zinc-800' : 'bg-black'}`}
+            className={`h-6 ${
+              accent >= 2
+                ? 'bg-zinc-300 dark:bg-zinc-800'
+                : 'bg-white dark:bg-black'
+            }`}
           ></div>
           <div
-            className={`h-6 ${accent >= 1 ? 'bg-zinc-800' : 'bg-black'}`}
+            className={`h-6 ${
+              accent >= 1
+                ? 'bg-zinc-300 dark:bg-zinc-800'
+                : 'bg-white dark:bg-black'
+            }`}
           ></div>
         </div>
       )}
