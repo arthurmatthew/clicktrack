@@ -4,12 +4,14 @@ import { Metronome } from '../../models/Metronome';
 import { Repeat } from '../../models/Repeat';
 import { validateAddRepeat } from '../../utils/validators/validateAddRepeat';
 import { SequencerControls } from './SequencerControls';
-import { SequencerListMetronome } from './SequencerListMetronome';
-import { SequencerListRepeat } from './SequencerListRepeat';
 import { StrictModeDroppable } from '../core/StrictModeDroppable';
 import { useNotify } from '../../hooks/useNotify';
 import { Transition } from '../../models/Transition';
-import { SequencerListTransition } from './SequencerListTransition';
+import {
+  SequencerListMetronome,
+  SequencerListRepeat,
+  SequencerListTransition,
+} from './SequencerList';
 
 export interface ISequencer {
   addSection: (child: Clicktrack['data']['sections'][number]) => void;
