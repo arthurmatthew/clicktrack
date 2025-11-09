@@ -4,6 +4,14 @@ import { HeroLinks } from './HeroLinks';
 export const Hero = () => {
   return (
     <>
+      <button
+        onClick={() => {
+          throw new Error('sentry test error');
+        }}
+        className="bg-red-800 text-6xl text-white"
+      >
+        BIG ERROR TEST BUTTON
+      </button>
       <section className="flex justify-center bg-purple-100 px-6 py-20 dark:bg-zinc-950 lg:bg-white dark:lg:bg-zinc-900">
         <div className="flex w-full max-w-7xl justify-center lg:justify-between">
           <div className="flex flex-col gap-6">
