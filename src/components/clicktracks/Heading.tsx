@@ -21,7 +21,7 @@ export const Heading = ({
   importRef,
   user,
 }: IHeading) => {
-  const [showTemplates, setShowTemplates] = useState(false);
+  const [showTemplates, _setShowTemplates] = useState(false);
   const [showImport, setShowImport] = useState(false);
 
   return (

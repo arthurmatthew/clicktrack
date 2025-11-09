@@ -4,7 +4,6 @@ import { auth } from '../../firebase';
 import { IComponent } from '../IComponent';
 import { TUserContext } from '../../types';
 import { getUserPremium } from '../../lib/firebase/getUserPremium';
-import { migrateLocalToCloud } from '../../lib/firebase/migrateLocalToCloud';
 
 export const UserContext = createContext<TUserContext>({
   user: null,
