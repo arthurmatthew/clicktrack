@@ -19,10 +19,6 @@ export const AccountTitle = ({ name }: IAccountTitle) => {
           </h1>
           {/*premium ? <PremiumBadge /> : <FreeBadge /> */}
         </div>
-
-        <h2 className="text-2xl opacity-70">
-          Need help? Contact support: useclicktrack@gmail.com
-        </h2>
       </div>
 
       <AccountActions />

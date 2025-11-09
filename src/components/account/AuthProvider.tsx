@@ -13,8 +13,8 @@ export const AuthProvider = ({ name, children, onClick }: IAuthProvider) => {
           onClick(e);
         }
       }}
-      className="rounded-sm bg-zinc-800 px-6 py-3 text-lg text-white disabled:opacity-50 dark:bg-white dark:text-black"
-      disabled={!onClick}
+      className="rounded-sm bg-zinc-800 px-6 py-3 text-lg text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black"
+      disabled={!onClick || name === 'GitHub'}
     >
       <div className="flex items-center gap-5">
         <p className="text-xl opacity-80">{children}</p>
