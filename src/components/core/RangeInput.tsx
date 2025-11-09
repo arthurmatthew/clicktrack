@@ -14,7 +14,7 @@ export const RangeInput = ({
 }: IRangeInput) => {
   return (
     <div
-      className={`flex gap-3 rounded-sm bg-neutral-200 p-2 px-4 dark:bg-neutral-900 ${
+      className={`flex gap-3 rounded-sm bg-zinc-200 p-2 px-4 dark:bg-zinc-900 ${
         muted && 'opacity-50'
       } ${className}`}
     >

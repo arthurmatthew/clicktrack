@@ -1,44 +1,49 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Clicktrack } from '../models/Clicktrack';
-import { usePlayClicktrack } from './usePlayClicktrack';
+import { usePlayClicktrack } from './metronome/usePlayClicktrack';
 import { useSection } from './useSection';
-import { STORAGE_KEYS_CLICKTRACK } from '../config';
 import { useAnimationControls } from 'framer-motion';
 import { ClicktrackData } from '../models/ClicktrackData';
+import { useCloudClicktrack } from './useCloudClicktrack';
+
+// ! Check console logs, when pressing the play button it triggers these
 
 export const useClicktrack = (loadedClicktrack: Clicktrack) => {
-  const [clicktrack, setClicktrack] = useState<Clicktrack>(
-    Clicktrack.parseInternals(loadedClicktrack)
-  );
+  // console.log(
+  //   'useClicktrack initialized with loadedClicktrack:',
+  //   loadedClicktrack
+  // );
+
+  const { clicktrack, setClicktrack, saveChanges, saving, changesSaved } =
+    useCloudClicktrack(loadedClicktrack);
+
+  // console.log('useCloudClicktrack returned:', {
+  //   clicktrack,
+  //   saving,
+  //   changesSaved,
+  // });
 
   const updateClicktrackData = (update: Partial<Clicktrack['data']>): void => {
+    // console.log('updateClicktrackData called with update:', update);
     setClicktrack((previousClicktrack) => {
+      // console.log('previousClicktrack:', previousClicktrack);
       const updatedData = new ClicktrackData({
         ...previousClicktrack.data,
         ...update,
       });
-      return new Clicktrack({
+      // console.log('updatedData:', updatedData);
+      const newClicktrack = new Clicktrack({
         ...previousClicktrack,
         data: updatedData,
       });
+      // console.log('newClicktrack:', newClicktrack);
+      return newClicktrack;
     });
   };
 
-  useEffect(() => {
-    const storedClicktracks = JSON.parse(
-      localStorage.getItem(STORAGE_KEYS_CLICKTRACK) as string
-    ) as Clicktrack[];
-    const updatedClicktracks = JSON.stringify([
-      ...storedClicktracks.filter(
-        (storedClicktrack) => storedClicktrack.id !== clicktrack.id
-      ),
-      clicktrack,
-    ]);
-    localStorage.setItem(STORAGE_KEYS_CLICKTRACK, updatedClicktracks);
-  }, [clicktrack]);
-
   const pulseAnimationControls = useAnimationControls();
   const startPulseAnimation = () => {
+    // console.log('startPulseAnimation called');
     void pulseAnimationControls.start({
       filter: ['hue-rotate(45deg)', 'hue-rotate(0)'],
       transition: { duration: 1, ease: 'easeOut' },
@@ -47,7 +52,7 @@ export const useClicktrack = (loadedClicktrack: Clicktrack) => {
   const { play, playingDisplay, selectedId, setSelectedId } = usePlayClicktrack(
     clicktrack,
     () => {
-      startPulseAnimation();
+      if (clicktrack.data.flashPlayButton) startPulseAnimation();
     }
   );
   const [settingsShown, setSettingsShown] = useState(false);
@@ -75,5 +80,8 @@ export const useClicktrack = (loadedClicktrack: Clicktrack) => {
     settingsShown,
     setSettingsShown,
     sequencerOnDragEnd,
+    changesSaved,
+    saveChanges,
+    saving,
   };
 };

@@ -1,10 +1,13 @@
-import { Repeat } from '../models/Repeat';
 import { Clicktrack } from '../models/Clicktrack';
 import { ClicktrackData } from '../models/ClicktrackData';
-import { Metronome } from '../models/Metronome';
 import { validateDeleteSection } from '../utils/validators/validateDeleteSection';
 import { DropResult } from 'react-beautiful-dnd';
 import { useNotify } from './useNotify';
+import { constructSection } from '../utils/constructSection';
+import { TSection } from '../types';
+import { Transition } from '../models/Transition';
+import { Metronome } from '../models/Metronome';
+import { generateAccentMap } from '../utils/generateAccentMap';
 
 export const useSection = (
   setClicktrack: (value: React.SetStateAction<Clicktrack>) => void,
@@ -12,20 +15,23 @@ export const useSection = (
 ) => {
   const { notify } = useNotify();
 
-  const addSection = (newSection: Metronome | Repeat): void => {
-    setClicktrack(
-      (previousClicktrack) =>
-        new Clicktrack({
-          ...previousClicktrack,
-          data: {
-            ...previousClicktrack.data,
-            sections: [...previousClicktrack.data.sections, newSection],
-          },
-        })
-    );
+  const addSection = (newSection: TSection): void => {
+    setClicktrack((previousClicktrack) => {
+      const previousSections = [...previousClicktrack.data.sections];
+      const constructed = constructSection(newSection);
+      const updatedSections = [...previousSections, constructed];
+
+      return new Clicktrack({
+        ...previousClicktrack,
+        data: {
+          ...previousClicktrack.data,
+          sections: updateTransitions(updatedSections),
+        },
+      });
+    });
   };
 
-  const updateSection = <T extends Metronome | Repeat>(
+  const updateSection = <T extends TSection>(
     section: T,
     update: Partial<Omit<T, 'id' | 'type'>>
   ): void => {
@@ -37,27 +43,54 @@ export const useSection = (
         (thisSection) => thisSection.id !== section.id
       );
 
+      let finalUpdate: Partial<T> = { ...update } as Partial<T>;
+
+      // for updating accent map
       if (section instanceof Metronome) {
-        updatedSections.splice(
-          indexBefore,
-          0,
-          new Metronome({ ...section, ...update })
-        );
-      } else if (section instanceof Repeat) {
-        updatedSections.splice(
-          indexBefore,
-          0,
-          new Repeat({ ...section, ...update })
-        );
+        const metronomeUpdate = update as Partial<
+          Omit<Metronome, 'id' | 'type'>
+        >;
+        if (metronomeUpdate.timeSignature !== undefined) {
+          finalUpdate = {
+            ...finalUpdate,
+            accentMap: generateAccentMap(
+              metronomeUpdate.timeSignature[0],
+              metronomeUpdate.timeSignature[1]
+            ),
+          } as Partial<T>;
+        }
       }
+
+      const updatedSection = constructSection({
+        ...section,
+        ...finalUpdate,
+      } as Partial<TSection>);
+
+      updatedSections.splice(indexBefore, 0, updatedSection);
+
+      // HANDLE TRANSITION SECTIONS WHICH CHANGE BASED ON OTHER SECTIONS
+      const updatedSectionsAndTransitions = updateTransitions(updatedSections);
 
       return new Clicktrack({
         ...previousClicktrack,
         data: new ClicktrackData({
           ...previousClicktrack.data,
-          sections: updatedSections,
+          sections: updatedSectionsAndTransitions,
         }),
       });
+    });
+  };
+
+  const updateTransitions = (sections: TSection[]): TSection[] => {
+    return sections.map((section, index, array) => {
+      if (section instanceof Transition) {
+        const before = array[index - 1];
+        const after = array[index + 1];
+        section.fromMetronome =
+          before instanceof Metronome ? before : undefined;
+        section.toMetronome = after instanceof Metronome ? after : undefined;
+      }
+      return section;
     });
   };
 
@@ -70,29 +103,29 @@ export const useSection = (
         ...previousClicktrack,
         data: new ClicktrackData({
           ...previousClicktrack.data,
-          sections: [
-            ...previousClicktrack.data.sections.filter(
-              (section) => section.id !== id
-            ),
-          ].map((section) => {
-            switch (section.type) {
-              case 'metronome':
-                return new Metronome(section);
-              case 'repeat':
-                return new Repeat(section);
-            }
-          }),
+          sections: updateTransitions(
+            [
+              ...previousClicktrack.data.sections.filter(
+                (section) => section.id !== id
+              ),
+            ]
+              .map((section) => constructSection({ ...section }))
+              .filter((section) => section !== undefined)
+          ),
         }),
       });
+
       const indexOfId = previousClicktrack.data.sections.findIndex(
         (section) => section.id === id
       );
+
       setSelectedId(() => {
         const closestSection =
           updated.data.sections[indexOfId] ??
           updated.data.sections[indexOfId - 1];
         return closestSection?.id ?? '';
       });
+
       return updated;
     });
   };
@@ -104,18 +137,16 @@ export const useSection = (
       );
       if (!sectionToCopy) return previousClicktrack;
       const sectionCopy = () => {
-        switch (sectionToCopy.type) {
-          case 'metronome':
-            return new Metronome({ ...sectionToCopy, id: undefined });
-          case 'repeat':
-            return new Repeat({ ...sectionToCopy, id: undefined });
-        }
+        return constructSection({ ...sectionToCopy, id: undefined });
       };
       return new Clicktrack({
         ...previousClicktrack,
         data: {
           ...previousClicktrack.data,
-          sections: [...previousClicktrack.data.sections, sectionCopy()],
+          sections: updateTransitions([
+            ...previousClicktrack.data.sections,
+            sectionCopy(),
+          ]),
         },
       });
     });
@@ -123,16 +154,19 @@ export const useSection = (
 
   const sequencerOnDragEnd = (result: DropResult) => {
     if (!result.destination) return;
+
     const { source, destination } = result;
+
     setClicktrack((previousClicktrack) => {
       const result = [...previousClicktrack.data.sections];
       const [removed] = result.splice(source.index, 1);
       if (removed) result.splice(destination.index, 0, removed);
+
       return new Clicktrack({
         ...previousClicktrack,
         data: {
           ...previousClicktrack.data,
-          sections: result,
+          sections: updateTransitions(result),
         },
       });
     });

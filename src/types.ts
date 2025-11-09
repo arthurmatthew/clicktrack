@@ -1,3 +1,14 @@
+import { User } from 'firebase/auth';
+import { Metronome } from './models/Metronome';
+import { Transition } from './models/Transition';
+import { Repeat } from './models/Repeat';
+
+export type TCustomerPortalResult = {
+  url: string;
+};
+export type TUserDocument = {
+  clicktracks: string[];
+};
 export type TNotification =
   | {
       content: string;
@@ -11,16 +22,23 @@ export type TNotificationContext = {
   notify: TNotify;
   clearNotif: () => void;
 };
-
 export type TDarkModeContext = {
   dark: boolean;
   toggleDark: () => void;
 };
-
+export type TUserContext = {
+  user: User | null;
+  premium: boolean;
+  initialized: boolean;
+};
 export type ClicktrackRouteParams = {
   id: string;
 };
-
+export type TTemplate = {
+  code: string;
+  name: string;
+  description: string;
+};
 export type TTimeSignature = [beats: number, value: number];
 export type TNote = [note: string, octave: number];
 export type TSaveableData =
@@ -30,3 +48,19 @@ export type TSaveableData =
   | boolean
   | undefined
   | null;
+
+export const SectionTypeMap = {
+  metronome: Metronome,
+  repeat: Repeat,
+  transition: Transition,
+};
+
+export type TSection = Metronome | Repeat | Transition;
+export type TSectionTypes = 'metronome' | 'repeat' | 'transition';
+
+export type TCurveTypes = 'linear' | 'ease-in' | 'ease-out' | 'custom';
+
+export type TAccentLevels = 0 | 1 | 2 | 3;
+export type TAccentMap = TAccentLevels[];
+
+export type TWaves = Exclude<OscillatorType, 'custom'>;

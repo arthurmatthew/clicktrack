@@ -1,28 +1,14 @@
-import { ControlWindow } from './ControlWindow';
-import { EditSection } from './EditSection';
-import { Sequencer } from './Sequencer';
 import { Clicktrack } from '../../models/Clicktrack';
-import { Repeat } from '../../models/Repeat';
-import { Metronome } from '../../models/Metronome';
-import { DropResult } from 'react-beautiful-dnd';
-
-interface IControls {
+import { ControlWindow } from './ControlWindow';
+import { EditSection, IEditSection } from './EditSection';
+import { ISequencer, Sequencer } from './Sequencer';
+export interface IControls extends ISequencer, IEditSection {
   clicktrack: Clicktrack;
-  selectedId: string;
-  setSelectedId: React.Dispatch<React.SetStateAction<string>>;
-  addSection: (newSection: Metronome | Repeat) => void;
-  updateSection: <T extends Metronome | Repeat>(
-    section: T,
-    update: Partial<Omit<T, 'id' | 'type'>>
-  ) => void;
-  deleteSection: (id: string) => void;
-  copySection: (id: string) => void;
-  sequencerOnDragEnd: (result: DropResult) => void;
-  playingDisplay: boolean;
 }
 
 export const Controls = ({
-  clicktrack,
+  sequence,
+  selected,
   selectedId,
   setSelectedId,
   addSection,
@@ -33,44 +19,34 @@ export const Controls = ({
   playingDisplay,
 }: IControls) => {
   return (
-    <div className="grid gap-2 px-2 lg:grid-cols-2">
+    <div className="grid min-h-0 flex-grow grid-rows-2 gap-2 px-2 lg:grid-cols-2 lg:grid-rows-1">
       <ControlWindow
+        className="order-last lg:order-first"
         tabs={[
           { title: 'Sequencer' },
           // { title: 'Settings', to: 'settings' },
         ]}
       >
         <Sequencer
-          sequencerOnDragEnd={sequencerOnDragEnd}
-          selectedId={selectedId}
-          setSelectedId={setSelectedId}
-          add={addSection}
-          sequence={clicktrack.data.sections}
-          playingDisplay={playingDisplay}
+          {...{
+            sequence,
+            selectedId,
+            setSelectedId,
+            addSection,
+            sequencerOnDragEnd,
+            playingDisplay,
+            copySection,
+            deleteSection,
+          }}
         />
-        {/* <Routes>
-          <Route path="/" element={<Outlet />}>
-            <Route element={<h1>Settings</h1>} path="/settings" />
-            <Route
-              element={
-                <Sequencer
-                  selectedId={selectedId}
-                  setSelectedId={setSelectedId}
-                  add={addSection}
-                  sequence={clicktrack.data.sections}
-                />
-              }
-              path="/sequencer"
-            />
-          </Route>
-        </Routes> */}
       </ControlWindow>
-      <ControlWindow tabs={[{ title: 'Edit' }]}>
+      <ControlWindow
+        className="order-first lg:order-last"
+        tabs={[{ title: 'Edit' }]}
+      >
         <EditSection
           {...{ updateSection, copySection, deleteSection }}
-          selected={clicktrack.data.sections.find(
-            (section) => section.id === selectedId
-          )}
+          selected={selected}
         />
       </ControlWindow>
     </div>

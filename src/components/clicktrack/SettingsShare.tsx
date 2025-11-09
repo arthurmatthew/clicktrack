@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { SettingsButton } from './SettingsButton';
 import { SettingsSection } from './SettingsSection';
 import { useShareClicktrack } from '../../hooks/useShareClicktrack';

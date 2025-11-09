@@ -1,9 +1,14 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router';
 
-/**
- * Webpage which simply redirects you to the metronome list
- */
 const AppIndex = () => {
+  // usePageTitle('Metronome');
+
+  // return (
+  //   <ClicktrackApp
+  //     loadedClicktrack={new Clicktrack({ name: 'Demo Clicktrack', id: 'demo' })}
+  //   />
+  // );
+
   return <Navigate to="/app/clicktracks" />;
 };
 

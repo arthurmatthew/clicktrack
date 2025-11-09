@@ -4,9 +4,7 @@ import {
 } from '../config';
 import { ClicktrackData } from './ClicktrackData';
 import { v4 as uuidv4 } from 'uuid';
-import { Metronome } from './Metronome';
-import { Repeat } from './Repeat';
-import { getClicktrackFromLocalStorageByID } from '../utils/getClicktrackFromLocalStorageByID';
+import { constructSection } from '../utils/constructSection';
 
 export class Clicktrack {
   public name: string; // Display name
@@ -28,31 +26,17 @@ export class Clicktrack {
       ...clicktrack,
       data: new ClicktrackData({
         ...clicktrack.data,
-        sections: clicktrack.data.sections.map((section) => {
-          switch (section.type) {
-            case 'metronome':
-              return new Metronome(section);
-            case 'repeat':
-              return new Repeat(section);
-          }
-        }),
+        sections: clicktrack.data.sections
+          .map((section) => constructSection(section))
+          .filter((section) => section !== undefined),
       }),
     });
-  }
-
-  public static localFromID(id: string | undefined) {
-    return getClicktrackFromLocalStorageByID(id);
   }
 
   public static encode(clicktrack: Clicktrack) {
     return btoa(JSON.stringify(clicktrack));
   }
-  public static decode(string: string | undefined) {
-    try {
-      if (string === undefined) return;
-      return JSON.parse(atob(string)) as Clicktrack;
-    } catch (e) {
-      throw new Error(e as string);
-    }
+  public static decode(string: string) {
+    return JSON.parse(atob(string)) as Clicktrack;
   }
 }

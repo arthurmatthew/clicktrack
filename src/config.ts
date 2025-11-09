@@ -1,5 +1,8 @@
 import { TNote, TTimeSignature } from './types';
 
+export const DB_USERS_COLLECTION_KEY = 'users';
+export const DB_RULE_MAX_CLICKTRACKS = 20;
+
 export const STORAGE_KEYS_CLICKTRACK = 'clicktracks'; // The key to store clicktracks at in local storage
 export const STORAGE_KEYS_DARKMODE = 'dark-mode'; // The key to store the dark mode setting at in local storage
 export const CLICKTRACK_MAX_UNSUCCESSFUL_CHECKS = 1000; // The amount of times to attempt the generation of a unique name
@@ -42,6 +45,13 @@ export const METRONOME_TIME_SIGNATURES: TTimeSignature[] = [
 
 export const REPEAT_DEFAULT_TIMES = 1;
 export const REPEAT_DEFAULT_INFINITE = true;
+
+// Transition Defaults
+
+export const TRANSITION_DEFAULT_FROMBPM = METRONOME_DEFAULT_BPM;
+export const TRANSITION_DEFAULT_TOBPM = METRONOME_DEFAULT_BPM;
+export const TRANSITION_DEFAULT_LENGTH = 1;
+export const TRANSITION_DEFAULT_CURVE = 'linear';
 
 export const TEMPO_TAPPER_MAX_SAMPLE_SIZE = 2;
 export const TEMPO_TAPPER_COOLDOWN_TIME = 2; // seconds

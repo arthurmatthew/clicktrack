@@ -1,29 +1,35 @@
 import { useRef } from 'react';
 import { DropResult } from 'react-beautiful-dnd';
-import { STORAGE_KEYS_CLICKTRACK } from '../config';
 import { Clicktrack } from '../models/Clicktrack';
-import { useLocalStorage } from './useLocalStorage';
 import { useNotify } from './useNotify';
+import { useClicktrackStorage } from './useClicktrackStorage';
 
-export const useClicktracks = (localStorageKey: string) => {
+/**
+ * Built upon the `useClicktrackStorage` hook, this hook provides functions to interact with the
+ * stored Clicktracks. This is seperate from actual Clicktrack individual storage functionality,
+ * as inside of the app the only data passed into the Clicktrack page is the Clicktrack ID. Is
+ * this redundant?!
+ */
+export const useClicktracks = () => {
+  const { clicktracks, setClicktracks } = useClicktrackStorage();
   const { notify } = useNotify();
   const importRef = useRef<HTMLInputElement | null>(null);
-  const [clicktracks, setClicktracks] = useLocalStorage<Clicktrack[]>(
-    [new Clicktrack()],
-    localStorageKey
-  );
 
   const handleAdd = () => {
-    setClicktracks((previousClicktracks) => [
-      ...previousClicktracks,
-      new Clicktrack({
-        name: `New Metronome ${previousClicktracks.length + 1}`,
-      }),
-    ]);
+    setClicktracks((previousClicktracks) => {
+      if (previousClicktracks === undefined) return;
+      return [
+        ...previousClicktracks,
+        new Clicktrack({
+          name: `New Metronome ${previousClicktracks.length + 1}`,
+        }),
+      ];
+    });
   };
 
   const handleRemove = (id: string) => {
     setClicktracks((previousClicktracks) => {
+      if (previousClicktracks === undefined) return;
       if (
         !previousClicktracks.find((metronome) => metronome.id === id)?.permanant
       )
@@ -34,11 +40,16 @@ export const useClicktracks = (localStorageKey: string) => {
 
   const handleImport = () => {
     setClicktracks((previousClicktracks) => {
+      if (
+        previousClicktracks === undefined ||
+        importRef.current?.value === undefined
+      )
+        return;
       try {
-        const importedClicktrack = Clicktrack.decode(importRef.current?.value);
+        const importedClicktrack = Clicktrack.decode(importRef.current.value);
 
         if (importedClicktrack === undefined)
-          throw new Error('Clicktrack from code is undefined');
+          throw new Error('Clicktrack code returns undefined.');
         notify(`Import successful.`, 'info');
 
         return [
@@ -60,8 +71,38 @@ export const useClicktracks = (localStorageKey: string) => {
     });
   };
 
+  const handleTemplate = (code: string) => {
+    setClicktracks((previousClicktracks) => {
+      if (previousClicktracks === undefined) return;
+      try {
+        const template = Clicktrack.decode(code);
+
+        if (template === undefined)
+          throw new Error('Clicktrack from code is undefined');
+        notify(`Template added!`, 'info');
+
+        return [
+          ...previousClicktracks,
+          new Clicktrack({
+            ...template,
+            id: undefined,
+            name: template.name,
+          }),
+        ];
+      } catch (error) {
+        notify(
+          `We couldn't import this template. Check your browser console for more details.`,
+          'error'
+        );
+        console.error(error);
+        return previousClicktracks;
+      }
+    });
+  };
+
   const handleNameChange = (id: string, newName: string) => {
     setClicktracks((previousClicktracks) => {
+      if (previousClicktracks === undefined) return;
       const clicktracksWithoutToBeNamed = previousClicktracks.filter(
         (metronome) => metronome.id !== id
       );
@@ -88,6 +129,7 @@ export const useClicktracks = (localStorageKey: string) => {
     if (!result.destination) return;
     const { source, destination } = result;
     setClicktracks((previousClicktracks) => {
+      if (previousClicktracks === undefined) return;
       const result = [...previousClicktracks];
       const [removed] = result.splice(source.index, 1);
       if (removed) result.splice(destination.index, 0, removed);
@@ -95,13 +137,9 @@ export const useClicktracks = (localStorageKey: string) => {
     });
   };
 
-  const handleClear = () => {
-    localStorage.removeItem(STORAGE_KEYS_CLICKTRACK);
-    location.reload();
-  };
-
   const handleCopy = (id: string) => {
     setClicktracks((previousClicktracks) => {
+      if (previousClicktracks === undefined) return;
       const clicktrackToCopy = previousClicktracks.find(
         (clicktrack) => clicktrack.id === id
       );
@@ -122,7 +160,7 @@ export const useClicktracks = (localStorageKey: string) => {
     importRef,
     handleAdd,
     handleImport,
-    handleClear,
+    handleTemplate,
     handleRemove,
     handleNameChange,
     handleOnDragEnd,

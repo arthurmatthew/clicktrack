@@ -1,11 +1,12 @@
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { StrictModeDroppable } from '../core/StrictModeDroppable';
 import { Clicktrack } from '../../models/Clicktrack';
-import { IImport, Import } from './Import';
 import { DraggableItem } from './DraggableItem';
+import { NoClicktracksPlaceholder } from './NoClicktracksPlaceholder';
 
-interface IDragDropList extends IImport {
+interface IDragDropList {
   clicktracks: Clicktrack[];
+  limitSaves: boolean;
   handleOnDragEnd: (result: DropResult) => void;
   handleRemove: (id: string) => void;
   handleNameChange: (name: string, newName: string) => void;
@@ -14,11 +15,10 @@ interface IDragDropList extends IImport {
 
 export const DragDropList = ({
   clicktracks,
+  limitSaves,
   handleOnDragEnd,
-  handleImport,
   handleRemove,
   handleNameChange,
-  importRef,
   handleCopy,
 }: IDragDropList) => {
   return (
@@ -30,17 +30,14 @@ export const DragDropList = ({
             ref={provided.innerRef}
             className="flex flex-col"
           >
-            <Import {...{ handleImport, importRef }} />
             {clicktracks.length === 0 ? (
-              <h1 className="my-20 text-center text-3xl">
-                You don&apos;t have any clicktracks made. Make a new one,
-                it&apos;s super easy!
-              </h1>
+              <NoClicktracksPlaceholder />
             ) : (
               clicktracks.map((clicktrack, index) => (
                 <DraggableItem
                   key={clicktrack.id}
                   {...{
+                    limitSaves,
                     handleNameChange,
                     handleRemove,
                     clicktrack,

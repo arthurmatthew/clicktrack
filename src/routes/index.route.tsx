@@ -1,21 +1,20 @@
-import { Route } from 'react-router-dom';
-import React from 'react';
-
-const Layout = React.lazy(() => import('../components/index/Layout'));
-const NotFound = React.lazy(() => import('../pages/not-found'));
-
+import { Route } from 'react-router';
 import { Index } from '../pages/index';
+import Layout from '../components/index/Layout';
+import NotFound from '../pages/not-found';
+import { WriteupIndex } from '../pages/writeup';
 
 export const IndexRoute = (
   <Route
-    path="/"
     element={<Layout />}
     errorElement={
       <Layout>
         <NotFound />
       </Layout>
     }
+    path="/"
   >
-    <Route path="/" element={<Index />} />
+    <Route index element={<Index />} />
+    <Route path="/writeup" element={<WriteupIndex />} />
   </Route>
 );

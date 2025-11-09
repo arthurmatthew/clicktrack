@@ -1,12 +1,15 @@
 import { Metronome } from '../../models/Metronome';
 import { Repeat } from '../../models/Repeat';
 import { Section } from '../../models/Section';
+import { Transition } from '../../models/Transition';
+import { TSection } from '../../types';
 import { EditMetronome } from './EditMetronome';
 import { EditRepeat } from './EditRepeat';
+import { EditTransition } from './EditTransition';
 import { SectionControls } from './SectionControls';
 
-interface IEditSection {
-  updateSection: <T extends Metronome | Repeat>(
+export interface IEditSection {
+  updateSection: <T extends TSection>(
     section: T,
     update: Partial<Omit<T, 'id' | 'type'>>
   ) => void;
@@ -29,10 +32,18 @@ export const EditSection = ({
 
     if (selected instanceof Repeat)
       return <EditRepeat updateRepeat={updateSection} repeat={selected} />;
+
+    if (selected instanceof Transition)
+      return (
+        <EditTransition
+          updateTransition={updateSection}
+          transition={selected}
+        />
+      );
   };
 
   return (
-    <div className="flex h-full flex-col justify-between gap-4 p-4">
+    <div className="flex h-full w-full flex-col justify-between gap-4 p-4">
       <div className="grid items-center gap-2">{getProperSectionEditor()}</div>
       <div>
         {selected && (

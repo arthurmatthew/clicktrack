@@ -27,7 +27,7 @@ export const NumberInput = ({
     <div className="flex w-fit flex-col gap-1">
       {label && <h2 className="text-sm opacity-50">{label}</h2>}
       <div
-        className={`flex bg-neutral-200 dark:bg-neutral-900 sm:rounded-sm ${
+        className={`flex bg-zinc-200 dark:bg-zinc-900 sm:rounded-sm ${
           disabled && 'cursor-not-allowed opacity-50'
         }`}
       >
@@ -38,7 +38,7 @@ export const NumberInput = ({
         >
           <i className="bi-dash-lg duration-75 group-hover:text-purple-500" />
         </button>
-        <div className="flex aspect-square w-10 items-center justify-center overflow-hidden bg-neutral-300 dark:bg-neutral-800">
+        <div className="flex aspect-square w-10 items-center justify-center overflow-hidden bg-zinc-300 dark:bg-zinc-800">
           <input
             type="text"
             className="roboto w-full bg-transparent text-center text-2xl focus:outline-none"

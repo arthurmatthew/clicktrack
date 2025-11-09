@@ -28,7 +28,7 @@ export const EditRepeat = ({ updateRepeat, repeat }: IEditRepeat) => {
                 infinite: !repeat.infinite,
               });
             }}
-            className="w-16 bg-neutral-200 px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-neutral-900 sm:rounded-sm"
+            className="w-16 bg-zinc-200 px-1 py-2 font-semibold shadow-inner focus:outline-none dark:bg-zinc-900 sm:rounded-sm"
           >
             {repeat.infinite ? 'On' : 'Off'}
           </button>
