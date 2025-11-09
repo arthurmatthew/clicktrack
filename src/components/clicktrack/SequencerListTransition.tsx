@@ -39,25 +39,25 @@ export const SequencerListTransition = ({
 
         <div className="hidden h-fit gap-2 group-hover:flex">
           <button
-            className={`group/button z-10 flex items-center justify-center rounded-lg border-[2px] border-dashed border-zinc-300 border-opacity-20 hover:border-opacity-100 ${
+            className={`group/button z-10 flex items-center justify-center rounded-lg border-[2px] border-dashed border-zinc-900 border-opacity-20 hover:border-opacity-100 dark:border-zinc-300 ${
               selected ? 'h-12 w-12' : 'h-8 w-8'
             }`}
             onClick={() => copySection(transition.id)}
           >
             <i
-              className={`bi-copy text-zinc-300 opacity-20 group-hover/button:opacity-100 ${
+              className={`bi-copy text-zinc-900 opacity-20 group-hover/button:opacity-100 dark:text-zinc-300 ${
                 selected ? 'text-3xl' : 'text-lg'
               }`}
             />
           </button>
           <button
-            className={`group/button z-10 flex items-center justify-center rounded-lg border-2 border-dashed border-zinc-300 border-opacity-20 hover:border-opacity-100 ${
+            className={`group/button z-10 flex items-center justify-center rounded-lg border-2 border-dashed border-zinc-900 border-opacity-20 hover:border-opacity-100 dark:border-zinc-300 ${
               selected ? 'h-12 w-12' : 'h-8 w-8'
             }`}
             onClick={() => deleteSection(transition.id)}
           >
             <i
-              className={`bi-trash text-zinc-300 opacity-20 group-hover/button:opacity-100 ${
+              className={`bi-trash text-zinc-900 opacity-20 group-hover/button:opacity-100 dark:text-zinc-300 ${
                 selected ? 'text-3xl' : 'text-lg'
               }`}
             />

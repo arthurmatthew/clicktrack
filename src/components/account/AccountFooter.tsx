@@ -45,11 +45,11 @@ export const AccountFooter = () => {
             includes your saved clicktracks. This process is instant. Support
             cannot assist in data recovery.
           </p>
-          <p>
+          {/* <p>
             Your subscription is supposed to be canceled when your account is
             deleted. However, to avoid accidental charges, please cancel it
             manually.
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

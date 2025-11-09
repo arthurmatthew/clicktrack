@@ -23,7 +23,7 @@ export const SettingsPlayback = ({
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             updateSettings({ wave: e.target.value as TWaves });
           }}
-          className="bg-zinc-800"
+          className="bg-zinc-200 dark:bg-zinc-800"
         >
           {waveTypes.map((type) => (
             <option key={type} value={type}>

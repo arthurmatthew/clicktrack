@@ -11,7 +11,7 @@ export const TitleInfo = ({ clicktrack }: ITitleInfo) => {
   const nameRef = useRef<HTMLHeadingElement>(null);
   const [editing, setEditing] = useState<boolean>(false);
 
-  const { handleNameChange } = useClicktracks();
+  const { handleNameChange } = useClicktracks(); // ! this doesnt work
 
   return (
     <div className="flex flex-col items-center gap-2">

@@ -56,8 +56,8 @@ export const EditTransition = ({
           <div className="flex gap-2">
             <div className="flex flex-col gap-1">
               <h3 className="opacity-50">Inherit Time Signature</h3>
-              <div className="flex bg-zinc-900">
-                <div className="lora flex flex-col items-center justify-center bg-zinc-800 p-3 px-6 text-2xl font-black leading-none">
+              <div className="flex bg-zinc-200 dark:bg-zinc-900">
+                <div className="lora flex flex-col items-center justify-center bg-zinc-200 p-3 px-6 text-2xl font-black leading-none dark:bg-zinc-800">
                   <span>{transition.timeSignature[0]}</span>
                   <span>{transition.timeSignature[1]}</span>
                 </div>
@@ -70,8 +70,8 @@ export const EditTransition = ({
                     }
                     className={`p-2 px-4 ${
                       transition.inheritTimeSignature === 'previous'
-                        ? 'bg-zinc-900'
-                        : 'bg-black'
+                        ? 'bg-zinc-200 dark:bg-zinc-900'
+                        : 'bg-white dark:bg-black'
                     }`}
                   >
                     From Previous
@@ -84,8 +84,8 @@ export const EditTransition = ({
                     }
                     className={`p-2 px-4 ${
                       transition.inheritTimeSignature === 'next'
-                        ? 'bg-zinc-900'
-                        : 'bg-black'
+                        ? 'bg-zinc-200 dark:bg-zinc-900'
+                        : 'bg-white dark:bg-black'
                     }`}
                   >
                     From Next
@@ -95,7 +95,7 @@ export const EditTransition = ({
             </div>
             <div className="flex flex-col gap-1">
               <h3 className="opacity-50">Inherit Accents</h3>
-              <div className="flex bg-zinc-900">
+              <div className="flex bg-zinc-200 dark:bg-zinc-900">
                 <div className="grid grid-rows-2 gap-px p-px">
                   <button
                     onClick={() =>
@@ -105,8 +105,8 @@ export const EditTransition = ({
                     }
                     className={`p-2 px-4 ${
                       transition.inheritAccentMap === 'previous'
-                        ? 'bg-zinc-900'
-                        : 'bg-black'
+                        ? 'bg-zinc-200 dark:bg-zinc-900'
+                        : 'bg-white dark:bg-black'
                     }`}
                   >
                     From Previous
@@ -119,8 +119,8 @@ export const EditTransition = ({
                     }
                     className={`p-2 px-4 ${
                       transition.inheritAccentMap === 'next'
-                        ? 'bg-zinc-900'
-                        : 'bg-black'
+                        ? 'bg-zinc-200 dark:bg-zinc-900'
+                        : 'bg-white dark:bg-black'
                     }`}
                   >
                     From Next
@@ -130,11 +130,11 @@ export const EditTransition = ({
             </div>
             <p className=" max-w-lg">
               Transitioning from the previous{' '}
-              <span className="roboto mx-1 rounded-lg bg-zinc-900 p-1 px-3 text-sm">
+              <span className="roboto mx-1 rounded-lg bg-zinc-200 p-1 px-3 text-sm dark:bg-zinc-900">
                 {transition.fromMetronome.bpm} BPM
               </span>
               section into the next{' '}
-              <span className="roboto mx-1 rounded-lg bg-zinc-900 p-1 px-3 text-sm">
+              <span className="roboto mx-1 rounded-lg bg-zinc-200 p-1 px-3 text-sm dark:bg-zinc-900">
                 {transition.toMetronome.bpm} BPM
               </span>{' '}
               section. Drag to reorder.
@@ -148,15 +148,19 @@ export const EditTransition = ({
 
         <div className="flex flex-col gap-1">
           <h3 className="opacity-50">Transition Speed</h3>
-          <div className="grid grid-cols-4 gap-px rounded-sm bg-zinc-900 p-px">
+          <div className="grid grid-cols-4 gap-px rounded-sm bg-zinc-200 p-px dark:bg-zinc-900">
             {curves.map((curve) => (
               <button
-                className={`p-8 ${
-                  transition.curveType === curve[0] ? 'bg-zinc-900' : 'bg-black'
+                key={curve[0]}
+                className={`p-8 disabled:cursor-not-allowed disabled:opacity-50 ${
+                  transition.curveType === curve[0]
+                    ? 'bg-zinc-200 dark:bg-zinc-900'
+                    : 'bg-white dark:bg-black'
                 }`}
                 onClick={() =>
                   updateTransition(transition, { curveType: curve[0] })
                 }
+                disabled={curve[0] === 'custom'}
               >
                 {curve[1]}
               </button>

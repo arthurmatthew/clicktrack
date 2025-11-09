@@ -109,6 +109,8 @@ export const useCloudClicktrack = (loadedClicktrack: Clicktrack) => {
 
         saveLocalClicktracks(result);
 
+        console.log(result);
+
         lastSavedClicktrack.current = clicktrack;
         setChangesSaved(clicktracksSynced());
         return true;

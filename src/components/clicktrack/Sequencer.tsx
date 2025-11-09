@@ -35,88 +35,7 @@ export const Sequencer = ({
   const { notify } = useNotify();
 
   return (
-    <div className="flex min-h-0 w-full select-none flex-col justify-between">
-      <DragDropContext onDragEnd={sequencerOnDragEnd}>
-        <StrictModeDroppable droppableId="sequencer">
-          {(provided) => (
-            <ul
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              className="flex min-h-0 flex-1 flex-col overflow-auto text-xl"
-            >
-              {sequence.map((section, index) => (
-                <Draggable
-                  index={index}
-                  draggableId={section.id}
-                  key={section.id}
-                  isDragDisabled={playingDisplay}
-                >
-                  {(provided) => {
-                    const transform = provided.draggableProps.style?.transform;
-                    if (transform && provided.draggableProps.style) {
-                      const transformY = transform.split(',')[1];
-                      provided.draggableProps.style.transform =
-                        'translate(0px,' + transformY;
-                    }
-                    return (
-                      <li
-                        {...provided.dragHandleProps}
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        className={
-                          sequence
-                            .slice(0, sequence.indexOf(section))
-                            .find(
-                              (section) =>
-                                section instanceof Repeat && section.infinite
-                            ) !== undefined
-                            ? 'opacity-30'
-                            : ''
-                        }
-                      >
-                        {(() => {
-                          const selected = section.id === selectedId;
-                          if (section instanceof Metronome)
-                            return (
-                              <SequencerListMetronome
-                                key={section.id}
-                                selected={selected}
-                                setSelectedId={setSelectedId}
-                                metronome={section}
-                                {...{ copySection, deleteSection }}
-                              />
-                            );
-                          if (section instanceof Repeat)
-                            return (
-                              <SequencerListRepeat
-                                key={section.id}
-                                selected={selected}
-                                setSelectedId={setSelectedId}
-                                repeat={section}
-                                {...{ copySection, deleteSection }}
-                              />
-                            );
-                          if (section instanceof Transition)
-                            return (
-                              <SequencerListTransition
-                                key={section.id}
-                                selected={selected}
-                                setSelectedId={setSelectedId}
-                                transition={section}
-                                {...{ copySection, deleteSection }}
-                              />
-                            );
-                        })()}
-                      </li>
-                    );
-                  }}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </ul>
-          )}
-        </StrictModeDroppable>
-      </DragDropContext>
+    <div className="flex min-h-0 w-full select-none flex-col">
       <SequencerControls
         addMetronome={() => {
           addSection(new Metronome());
@@ -128,6 +47,94 @@ export const Sequencer = ({
           addSection(new Transition());
         }}
       />
+      <div className="flex flex-col">
+        <DragDropContext onDragEnd={sequencerOnDragEnd}>
+          <StrictModeDroppable droppableId="sequencer">
+            {(provided) => (
+              <ul
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className="flex min-h-0 flex-1 flex-col overflow-auto text-xl"
+              >
+                {sequence.map((section, index) => (
+                  <Draggable
+                    index={index}
+                    draggableId={section.id}
+                    key={section.id}
+                    isDragDisabled={playingDisplay}
+                  >
+                    {(provided) => {
+                      const transform =
+                        provided.draggableProps.style?.transform;
+                      if (transform && provided.draggableProps.style) {
+                        const transformY = transform.split(',')[1];
+                        provided.draggableProps.style.transform =
+                          'translate(0px,' + transformY;
+                      }
+                      return (
+                        <li
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          className={
+                            sequence
+                              .slice(0, sequence.indexOf(section))
+                              .find(
+                                (section) =>
+                                  section instanceof Repeat && section.infinite
+                              ) !== undefined
+                              ? 'opacity-30'
+                              : ''
+                          }
+                        >
+                          {(() => {
+                            const selected = section.id === selectedId;
+                            if (section instanceof Metronome)
+                              return (
+                                <SequencerListMetronome
+                                  key={section.id}
+                                  selected={selected}
+                                  setSelectedId={setSelectedId}
+                                  metronome={section}
+                                  {...{ copySection, deleteSection }}
+                                />
+                              );
+                            if (section instanceof Repeat)
+                              return (
+                                <SequencerListRepeat
+                                  key={section.id}
+                                  selected={selected}
+                                  setSelectedId={setSelectedId}
+                                  repeat={section}
+                                  {...{ copySection, deleteSection }}
+                                />
+                              );
+                            if (section instanceof Transition)
+                              return (
+                                <SequencerListTransition
+                                  key={section.id}
+                                  selected={selected}
+                                  setSelectedId={setSelectedId}
+                                  transition={section}
+                                  {...{ copySection, deleteSection }}
+                                />
+                              );
+                          })()}
+                        </li>
+                      );
+                    }}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </ul>
+            )}
+          </StrictModeDroppable>
+        </DragDropContext>
+        <span className="flex text-sm opacity-50">
+          <i className="bi-caret-right-fill" />
+          Sequence End
+        </span>
+      </div>
     </div>
   );
 };

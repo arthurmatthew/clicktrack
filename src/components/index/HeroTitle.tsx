@@ -8,7 +8,7 @@ export const HeroTitle = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, ease: 'easeInOut' }}
         id="title"
-        className="text-5xl font-black text-purple-700 dark:text-purple-600 sm:text-7xl"
+        className="text-center text-5xl font-black text-purple-700 dark:text-purple-600 sm:text-7xl lg:text-left"
       >
         A musician&apos;s
         <br /> best friend.
@@ -17,7 +17,7 @@ export const HeroTitle = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, ease: 'easeInOut', delay: 0.1 }}
-        className="max-w-lg text-lg sm:text-xl"
+        className="max-w-lg text-center text-lg sm:text-xl lg:text-left"
       >
         You shouldn't have to work hard to mold your metronome to your music.
         Use our robust features to flip the script, and let Clicktrack work for

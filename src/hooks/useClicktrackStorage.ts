@@ -4,6 +4,7 @@ import { setUserData } from '../lib/firebase/setUserData';
 import { getUserClicktracks } from '../lib/firebase/getUserClicktracks';
 import { STORAGE_KEYS_CLICKTRACK } from '../config';
 import { useUser } from './useUser';
+import { loadLocalClicktracks } from '../utils/loadLocalClicktracks';
 
 /**
  * This hook monitors the user auth and returns a state variable for
@@ -11,24 +12,23 @@ import { useUser } from './useUser';
  */
 export const useClicktrackStorage = () => {
   const [clicktracks, setClicktracks] = useState<Clicktrack[] | undefined>();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { user } = useUser();
+  const { user, initialized } = useUser();
 
   useEffect(() => {
-    setIsLoggedIn(!!user);
-    if (user) {
-      getUserClicktracks().then((userClicktracks) =>
-        setClicktracks(userClicktracks)
-      );
-    } else {
-      // Local storage loading
-      const localClicktracks = localStorage.getItem(STORAGE_KEYS_CLICKTRACK);
-      setClicktracks(localClicktracks ? JSON.parse(localClicktracks) : []);
+    if (initialized) {
+      if (user) {
+        getUserClicktracks().then((userClicktracks) =>
+          setClicktracks(userClicktracks)
+        );
+      } else {
+        // Local storage loading
+        setClicktracks(loadLocalClicktracks());
+      }
     }
-  }, [user]);
+  }, [user, initialized]);
 
   const updateClicktracks = async (updatedData: Clicktrack[]) => {
-    if (isLoggedIn) {
+    if (user) {
       const minifiedClicktracks = updatedData.map((clicktrack) =>
         Clicktrack.encode(clicktrack)
       );
