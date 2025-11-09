@@ -15,7 +15,9 @@ export interface IEditSection {
   ) => void;
   deleteSection: (id: string) => void;
   copySection: (id: string) => void;
+  setSelectedId: (id: string) => void;
   selected: Section | undefined;
+  sequence: TSection[];
 }
 
 export const EditSection = ({
@@ -23,6 +25,8 @@ export const EditSection = ({
   deleteSection,
   copySection,
   selected,
+  setSelectedId,
+  sequence,
 }: IEditSection) => {
   const getProperSectionEditor = () => {
     if (selected instanceof Metronome)
@@ -43,12 +47,12 @@ export const EditSection = ({
   };
 
   return (
-    <div className="flex h-full w-full flex-col justify-between gap-4 p-4">
+    <div className="flex h-full w-full flex-1 flex-col justify-between gap-4 p-4">
       <div className="grid items-center gap-2">{getProperSectionEditor()}</div>
       <div>
         {selected && (
           <SectionControls
-            {...{ copySection, deleteSection }}
+            {...{ copySection, deleteSection, setSelectedId, sequence }}
             id={selected.id}
           />
         )}
