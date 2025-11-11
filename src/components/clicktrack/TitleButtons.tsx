@@ -1,4 +1,4 @@
-import { motion, AnimatePresence, AnimationControls } from 'framer-motion';
+import { motion, AnimatePresence, LegacyAnimationControls } from 'framer-motion';
 import { SettingsWindow } from './SettingsWindow';
 import { Clicktrack } from '../../models/Clicktrack';
 
@@ -9,7 +9,7 @@ export interface ITitleButtons {
   changesSaved: boolean;
   saving: boolean;
   playingDisplay: boolean;
-  pulseAnimationControls: AnimationControls;
+  pulseAnimationControls: LegacyAnimationControls
   settingsShown: boolean;
   setSettingsShown: (value: React.SetStateAction<boolean>) => void;
   updateClicktrackData: (update: Partial<Clicktrack['data']>) => void;
