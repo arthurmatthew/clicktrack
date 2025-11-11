@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { usePageContext } from 'vike-react/usePageContext'
-import { ClicktrackApp } from '../../../../../components/clicktrack/ClicktrackApp';
-import { ClicktrackNotFound } from '../../../../../components/clicktrack/ClicktrackNotFound';
-import { STORAGE_KEYS_CLICKTRACK } from '../../../../../config';
-import { usePageTitle } from '../../../../../hooks/usePageTitle';
-import { useUser } from '../../../../../hooks/useUser';
-import { Clicktrack } from '../../../../../models/Clicktrack';
-import { loadAvailableClicktrack } from '../../../../../utils/loadAvailableClicktrack';
+import { ClicktrackApp } from '../../../../components/clicktrack/ClicktrackApp';
+import { ClicktrackNotFound } from '../../../../components/clicktrack/ClicktrackNotFound';
+import { STORAGE_KEYS_CLICKTRACK } from '../../../../config';
+import { usePageTitle } from '../../../../hooks/usePageTitle';
+import { useUser } from '../../../../hooks/useUser';
+import { Clicktrack } from '../../../../models/Clicktrack';
+import { loadAvailableClicktrack } from '../../../../utils/loadAvailableClicktrack';
 
 export const Page = () => {
   const pageContext = usePageContext();

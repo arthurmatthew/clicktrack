@@ -1,12 +1,12 @@
-import { DragDropList } from "../../../../components/clicktracks/DragDropList";
-import { Heading } from "../../../../components/clicktracks/Heading";
-import { SaveLimitAlert } from "../../../../components/clicktracks/SaveLimitAlert";
-import { SkeletonLoaderList } from "../../../../components/clicktracks/SkeletonLoaderList";
-import { WontSaveWarning } from "../../../../components/clicktracks/WontSaveWarning";
-import { DB_RULE_MAX_CLICKTRACKS } from "../../../../config";
-import { useClicktracks } from "../../../../hooks/useClicktracks";
-import { usePageTitle } from "../../../../hooks/usePageTitle";
-import { useUser } from "../../../../hooks/useUser";
+import { DragDropList } from "../../../components/clicktracks/DragDropList";
+import { Heading } from "../../../components/clicktracks/Heading";
+import { SaveLimitAlert } from "../../../components/clicktracks/SaveLimitAlert";
+import { SkeletonLoaderList } from "../../../components/clicktracks/SkeletonLoaderList";
+import { WontSaveWarning } from "../../../components/clicktracks/WontSaveWarning";
+import { DB_RULE_MAX_CLICKTRACKS } from "../../../config";
+import { useClicktracks } from "../../../hooks/useClicktracks";
+import { usePageTitle } from "../../../hooks/usePageTitle";
+import { useUser } from "../../../hooks/useUser";
 
 /**
  * Webpage that lists metronomes from storage.

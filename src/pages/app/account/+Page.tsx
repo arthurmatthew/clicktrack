@@ -1,9 +1,9 @@
-import { AccountFooter } from '../../../../components/account/AccountFooter';
-import { AccountOverview } from '../../../../components/account/AccountOverview';
-import { AccountTitle } from '../../../../components/account/AccountTitle';
-import { EditProfile } from '../../../../components/account/EditProfile';
-import { useUser } from '../../../../hooks/useUser';
-import { usePageTitle } from '../../../../hooks/usePageTitle';
+import { AccountFooter } from '../../../components/account/AccountFooter';
+import { AccountOverview } from '../../../components/account/AccountOverview';
+import { AccountTitle } from '../../../components/account/AccountTitle';
+import { EditProfile } from '../../../components/account/EditProfile';
+import { useUser } from '../../../hooks/useUser';
+import { usePageTitle } from '../../../hooks/usePageTitle';
 import { navigate } from "vike/client/router"
 
 export const Page = () => {
