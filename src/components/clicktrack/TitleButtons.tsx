@@ -63,7 +63,7 @@ export const TitleButtons = ({
         }}
         className="group rounded-sm bg-black px-4 py-2 text-white dark:bg-white dark:text-black"
       >
-        <i className="bi-gear-fill block duration-150 group-hover:rotate-[40deg]" />
+        <i className="bi-gear-fill block duration-150 group-hover:rotate-40" />
       </button>
       <AnimatePresence>
         {settingsShown && (

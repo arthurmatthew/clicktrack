@@ -128,16 +128,16 @@ const EditAccent = ({
         updatedAccentMap[index] = newAccent as TAccentLevels; // ! find safer way later
         updateMetronome(metronome, { accentMap: updatedAccentMap });
       }}
-      className="flex-grow cursor-pointer"
+      className="grow cursor-pointer"
     >
       {accent === 0 ? (
-        <div className="grid flex-grow grid-rows-3 gap-[1px] bg-zinc-300 p-[1px] opacity-30 dark:bg-zinc-800">
+        <div className="grid grow grid-rows-3 gap-px bg-zinc-300 p-px opacity-30 dark:bg-zinc-800">
           <div className="h-6 bg-white dark:bg-black"></div>
           <div className="h-6 bg-white dark:bg-black"></div>
           <div className="h-6 bg-white dark:bg-black"></div>
         </div>
       ) : (
-        <div className="grid grid-rows-3 gap-[1px] bg-zinc-300 p-[1px] dark:bg-zinc-800">
+        <div className="grid grid-rows-3 gap-px bg-zinc-300 p-px dark:bg-zinc-800">
           <div
             className={`h-6 ${
               accent >= 3

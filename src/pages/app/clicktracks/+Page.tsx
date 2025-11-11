@@ -34,7 +34,7 @@ export const Page = () => {
     (clicktracks?.length ?? 99999999) >= DB_RULE_MAX_CLICKTRACKS; // premium functionality is currently removed, all saves limited at 20
 
   return (
-    <div className="mx-4 my-10 flex flex-grow flex-col">
+    <div className="mx-4 my-10 flex grow flex-col">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-4">
         <Heading
           {...{

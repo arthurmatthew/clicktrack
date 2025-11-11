@@ -1,6 +1,5 @@
 import { Footer } from '../../components/index/Footer';
 import { Header } from '../../components/index/Header';
-import './Layout.css';
 import { Suspense } from 'react';
 import { useTheme } from '../../hooks/useTheme';
 import { LoadingScreen } from '../../components/core/LoadingScreen';
@@ -11,7 +10,7 @@ export const Layout = ({ children }: { children?: React.ReactNode }) => {
   return (
     <>
       <div
-        className="flex min-h-screen flex-col bg-white bg-[length:40px_40px] dark:bg-zinc-900"
+        className="flex min-h-screen flex-col bg-white bg-size-[40px_40px] dark:bg-zinc-900"
         id={dark ? 'background' : 'background-light'}
       >
         <Header dark={dark} toggleDark={toggleDark} />

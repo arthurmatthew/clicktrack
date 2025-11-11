@@ -7,7 +7,7 @@ export const SettingsPlaybackVolume = ({
 }: ISettingsUpdater) => {
   return (
     <div className="flex items-center gap-4 text-xl">
-      <div className="flex flex-grow flex-col gap-1 sm:flex-grow-0 sm:flex-row">
+      <div className="flex grow flex-col gap-1 sm:grow-0 sm:flex-row">
         <div className="flex items-center gap-4">
           <SettingsButton
             onClick={() => {
@@ -28,7 +28,7 @@ export const SettingsPlaybackVolume = ({
         </div>
 
         <div
-          className={`flex flex-grow gap-3 rounded-md bg-zinc-200 p-2 px-4 dark:bg-zinc-900 sm:flex-grow-0 ${
+          className={`flex grow gap-3 rounded-md bg-zinc-200 p-2 px-4 dark:bg-zinc-900 sm:grow-0 ${
             settings.muted && 'opacity-50'
           }`}
         >

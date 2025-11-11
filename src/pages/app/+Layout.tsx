@@ -9,7 +9,7 @@ export const Layout = ({ children }: {children: ReactNode}) => {
   
     return (
       <>
-        <div className="flex min-h-screen flex-col bg-white bg-[length:40px_40px] dark:bg-black">
+        <div className="flex min-h-screen flex-col bg-white bg-size-[40px_40px] dark:bg-black">
           <AppHeader dark={dark} toggleDark={toggleDark} />
           <main className="relative flex min-h-0 flex-auto flex-col">
             <Suspense fallback={<LoadingScreen />}>

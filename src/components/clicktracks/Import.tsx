@@ -29,7 +29,7 @@ export const Import = ({
             ref={importRef}
           />
         </div>
-        <div className="my-2 block h-px w-full bg-gradient-to-r from-zinc-300 to-transparent dark:from-zinc-700 sm:hidden" />
+        <div className="my-2 block h-px w-full bg-linear-to-r from-zinc-300 to-transparent dark:from-zinc-700 sm:hidden" />
         <Button
           disabled={disabled}
           onClick={handleImport}

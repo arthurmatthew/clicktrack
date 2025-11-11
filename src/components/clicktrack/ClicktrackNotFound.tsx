@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 export const ClicktrackNotFound = () => {
   return (
-    <div className="min-w-full flex-grow">
+    <div className="min-w-full grow">
       <div className="mx-auto my-20 max-w-5xl">
         <motion.div
           initial={{ opacity: 0 }}

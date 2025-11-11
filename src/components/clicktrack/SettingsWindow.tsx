@@ -19,11 +19,11 @@ export const SettingsWindow = ({
 
   return (
     <div
-      className="fixed left-0 top-0 z-[999999999] flex h-full max-h-screen w-screen items-center justify-center sm:px-2 sm:pb-2 sm:pt-14 "
+      className="fixed left-0 top-0 z-999999999 flex h-full max-h-screen w-screen items-center justify-center sm:px-2 sm:pb-2 sm:pt-14 "
       onClick={hideSettings}
     >
       <motion.div
-        className="relative z-50 h-full w-full max-w-5xl overflow-y-scroll rounded-sm border-[1px] border-zinc-200 bg-white/70 p-8 shadow-2xl backdrop-blur-md dark:border-zinc-900 dark:bg-black/70"
+        className="relative z-50 h-full w-full max-w-5xl overflow-y-scroll rounded-sm border border-zinc-200 bg-white/70 p-8 shadow-2xl backdrop-blur-md dark:border-zinc-900 dark:bg-black/70"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 20, opacity: 0 }}

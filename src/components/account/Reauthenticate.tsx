@@ -25,7 +25,7 @@ export const Reauthenticate = () => {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 100, y: 0 }}
       transition={{ ease: 'easeInOut', duration: 0.5 }}
-      className="flex flex-grow items-center justify-center"
+      className="flex grow items-center justify-center"
     >
       <form className="flex flex-col gap-2 rounded-md p-8 sm:bg-zinc-200 dark:sm:bg-zinc-900">
         <h1 className="mb-3 px-5 text-center text-3xl font-semibold">
@@ -38,7 +38,7 @@ export const Reauthenticate = () => {
         <label htmlFor="email" className="flex flex-col">
           <p className="opacity-70">Password</p>
           <input
-            className="rounded-sm border-[1px] border-zinc-300 bg-white p-3 text-lg focus:bg-zinc-100 focus:outline-none dark:border-zinc-700 dark:bg-black dark:focus:bg-zinc-900"
+            className="rounded-sm border border-zinc-300 bg-white p-3 text-lg focus:bg-zinc-100 focus:outline-none dark:border-zinc-700 dark:bg-black dark:focus:bg-zinc-900"
             name="password"
             type="password"
             value={password}
@@ -47,7 +47,7 @@ export const Reauthenticate = () => {
           />
         </label>
         <button
-          className="rounded-sm border-[1px] border-zinc-300 bg-zinc-100 p-3 text-lg dark:border-zinc-700 dark:bg-zinc-900"
+          className="rounded-sm border border-zinc-300 bg-zinc-100 p-3 text-lg dark:border-zinc-700 dark:bg-zinc-900"
           type="submit"
           onClick={handleVerify}
         >

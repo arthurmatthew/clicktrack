@@ -17,8 +17,8 @@ export const HighlightedLink = ({ to, children }: IHighlightedLink) => {
     </a>
   ) : (
     <h1
-      className="block flex-grow py-2 font-semibold lowercase
-    lg:flex-grow-0"
+      className="block grow py-2 font-semibold lowercase
+    lg:grow-0"
     >
       {children ?? to}
     </h1>

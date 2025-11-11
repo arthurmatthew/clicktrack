@@ -29,7 +29,7 @@ const SequencerList = ({
         <div className="flex gap-3 py-3 text-2xl">{children}</div>
         <div className="hidden h-fit gap-2 group-hover:flex">
           <button
-            className={`group/button z-10 flex h-8 w-8 items-center justify-center rounded-lg border-[2px] border-dashed border-zinc-900 border-opacity-20 hover:border-opacity-100 dark:border-zinc-300`}
+            className={`group/button z-10 flex h-8 w-8 items-center justify-center rounded-lg border-2 border-dashed border-zinc-900 border-opacity-20 hover:border-opacity-100 dark:border-zinc-300`}
             onClick={() => copySection(section.id)}
           >
             <i className="bi-copy text-zinc-900 opacity-20 group-hover/button:opacity-100 dark:text-zinc-300" />

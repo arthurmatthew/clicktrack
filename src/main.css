@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Inter+Tight:400,600,900');
-@import url('https://fonts.googleapis.com/css?family=Lora:400,700');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,700');
-@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+@import url('https://fonts.googleapis.com/css?family=Inter+Tight:400,600,900')
+layer(base);
+@import url('https://fonts.googleapis.com/css?family=Lora:400,700') layer(base);
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,700')
+layer(base);
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css')
+layer(base);
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
 ::selection {
   background-color: black;

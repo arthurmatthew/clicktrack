@@ -75,7 +75,7 @@ export const Controls = ({
   }
 
   return (
-    <div className="grid min-h-0 flex-grow grid-rows-2 gap-2 px-2 pb-2 lg:grid-cols-2 lg:grid-rows-1">
+    <div className="grid min-h-0 grow grid-rows-2 gap-2 px-2 pb-2 lg:grid-cols-2 lg:grid-rows-1">
       <ControlWindow
         className="order-first"
         tabs={[

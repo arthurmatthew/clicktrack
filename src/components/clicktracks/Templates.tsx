@@ -43,7 +43,7 @@ export const Templates = ({ handleTemplate, showTemplates }: ITemplates) => {
       ))}
       <a
         href="/app/library"
-        className="relative flex h-full w-full select-none items-center justify-center gap-3 overflow-hidden rounded-md border-[1px] border-zinc-300 bg-white p-8 duration-75 hover:-translate-y-1 hover:bg-zinc-100 dark:border-zinc-700 dark:bg-black dark:hover:bg-zinc-900"
+        className="relative flex h-full w-full select-none items-center justify-center gap-3 overflow-hidden rounded-md border border-zinc-300 bg-white p-8 duration-75 hover:-translate-y-1 hover:bg-zinc-100 dark:border-zinc-700 dark:bg-black dark:hover:bg-zinc-900"
       >
         <i className="bi-collection-fill absolute text-9xl opacity-10" />
         <h1 className="text-3xl">Clicktrack Library</h1>

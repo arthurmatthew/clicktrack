@@ -27,7 +27,7 @@ export const ClicktrackListItem = ({
   const nameRef = useRef<HTMLHeadingElement>(null);
 
   return (
-    <div className="w-full select-none rounded-sm border-[1px] border-zinc-200 bg-white p-4 dark:border-zinc-900 dark:bg-black">
+    <div className="w-full select-none rounded-sm border border-zinc-200 bg-white p-4 dark:border-zinc-900 dark:bg-black">
       <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
         <div className="flex items-center gap-3">
           <i
@@ -65,7 +65,7 @@ export const ClicktrackListItem = ({
             } mx-2 cursor-pointer text-sm opacity-50`}
           />
         </div>
-        <div className="my-2 block h-px w-full bg-gradient-to-r from-zinc-300 to-transparent dark:from-zinc-700 sm:hidden" />
+        <div className="my-2 block h-px w-full bg-linear-to-r from-zinc-300 to-transparent dark:from-zinc-700 sm:hidden" />
         <div className="flex gap-4">
           <a href={`/app/clicktracks/${encodeURIComponent(clicktrack.id)}`}>
             <Button className="bg-zinc-200 dark:bg-zinc-900">Open</Button>

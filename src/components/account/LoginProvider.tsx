@@ -61,7 +61,7 @@ export const LoginProvider = () => {
   return (
     <>
       {creatingUser ? (
-        <div className="flex h-full flex-grow items-center justify-center">
+        <div className="flex h-full grow items-center justify-center">
           <i className="bi-arrow-clockwise block animate-spin text-6xl" />
         </div>
       ) : (

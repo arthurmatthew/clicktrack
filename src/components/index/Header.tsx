@@ -15,7 +15,7 @@ export const Header = ({ toggleDark, dark }: IHeader) => {
         <div className="flex items-center gap-4">
           <a
             href="/app/"
-            className="rounded-md border-[1px] border-zinc-200 bg-white px-6 py-2 text-sm dark:border-zinc-700 dark:bg-black"
+            className="rounded-md border border-zinc-200 bg-white px-6 py-2 text-sm dark:border-zinc-700 dark:bg-black"
           >
             Open App
           </a>

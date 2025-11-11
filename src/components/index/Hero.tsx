@@ -37,13 +37,13 @@ export const Hero = () => {
             Enjoyed by musicians & directors from top programs
           </h3>
           <ul className="flex flex-wrap items-center justify-center gap-1">
-            <li className="rounded-md border-[1px] border-zinc-300 px-4 py-2 text-sm dark:border-zinc-700">
+            <li className="rounded-md border border-zinc-300 px-4 py-2 text-sm dark:border-zinc-700">
               United States Navy Band
             </li>
-            <li className="rounded-md border-[1px] border-zinc-300 px-4 py-2 text-sm dark:border-zinc-700">
+            <li className="rounded-md border border-zinc-300 px-4 py-2 text-sm dark:border-zinc-700">
               WMEA Honor Group
             </li>
-            <li className="rounded-md border-[1px] border-zinc-300 px-4 py-2 text-sm dark:border-zinc-700">
+            <li className="rounded-md border border-zinc-300 px-4 py-2 text-sm dark:border-zinc-700">
               Seattle Public Schools District
             </li>
           </ul>
