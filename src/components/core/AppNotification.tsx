@@ -5,7 +5,7 @@ import { NOTIFICATION_FADE_AFTER } from '../../config';
 
 export const AppNotification = () => {
   const { notif, clearNotif } = useNotify();
-  const notificationTimeout = useRef<number>();
+  const notificationTimeout = useRef<number>(0);
 
   useEffect(() => {
     clearTimeout(notificationTimeout.current);

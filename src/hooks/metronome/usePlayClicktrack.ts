@@ -16,7 +16,7 @@ export const usePlayClicktrack = (
   const audioCtx = useRef<AudioContext | null>(null);
   const { notify } = useNotify();
 
-  const interval = useRef<number | null>();
+  const interval = useRef<number | null>(null);
 
   const [playingDisplay, setPlayingDisplay] = useState(false);
 
@@ -34,7 +34,7 @@ export const usePlayClicktrack = (
   const schedulingFrequency = 25; // In milliseconds
   const scheduleAheadTime = 0.1; // In seconds
 
-  const selectedIdBeforePlaying = useRef<string | undefined>();
+  const selectedIdBeforePlaying = useRef<string | undefined>(undefined);
 
   useEffect(() => {
     clicktrack.current = _clicktrack;
