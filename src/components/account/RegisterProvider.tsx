@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { navigate } from "vike/client/router"
 import { useNotify } from '../../hooks/useNotify';
 import { RegisterForm } from './RegisterForm';
 import { createUser } from '../../lib/firebase/createUser';
@@ -8,7 +8,6 @@ export const RegisterProvider = () => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const navigate = useNavigate();
   const { notify } = useNotify();
 
   const handleSubmit = async (e: React.MouseEvent) => {

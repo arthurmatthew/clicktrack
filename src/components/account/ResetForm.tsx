@@ -1,4 +1,3 @@
-import { Link } from 'react-router';
 import { IAuthForm } from './IAuthForm';
 import { AuthInput } from './AuthInput';
 
@@ -41,9 +40,9 @@ export const ResetForm = ({
           </button>
         </div>
       </form>
-      <Link to="/app/account/login" className="mt-10 text-center text-xl">
+      <a href="/app/account/login" className="mt-10 text-center text-xl">
         <span className="underline">Back to login</span>
-      </Link>
+      </a>
     </div>
   );
 };

@@ -1,4 +1,3 @@
-import { Link } from 'react-router';
 import { IAuthForm } from './IAuthForm';
 import { AuthInput } from './AuthInput';
 import { AuthProvider } from './AuthProvider';
@@ -66,9 +65,9 @@ export const LoginForm = ({
           </button>
         </div>
       </form>
-      <Link to="/app/account/register" className="mt-10 text-center text-xl">
+      <a href="/app/account/register" className="mt-10 text-center text-xl">
         Don't have an account? <span className="underline">Sign up</span>
-      </Link>
+      </a>
     </div>
   );
 };

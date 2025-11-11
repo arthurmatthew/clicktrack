@@ -1,9 +1,8 @@
 import { useRef, useState } from 'react';
-import { Link } from 'react-router';
-import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 import { Clicktrack } from '../../models/Clicktrack';
 import { IComponent } from '../IComponent';
 import { Button } from '../core/Button';
+import { DraggableProvidedDragHandleProps } from '@hello-pangea/dnd';
 
 interface IClicktrackListItem extends IComponent {
   clicktrack: Clicktrack;
@@ -68,9 +67,9 @@ export const ClicktrackListItem = ({
         </div>
         <div className="my-2 block h-px w-full bg-gradient-to-r from-zinc-300 to-transparent dark:from-zinc-700 sm:hidden" />
         <div className="flex gap-4">
-          <Link to={`/app/clicktracks/${encodeURIComponent(clicktrack.id)}`}>
+          <a href={`/app/clicktracks/${encodeURIComponent(clicktrack.id)}`}>
             <Button className="bg-zinc-200 dark:bg-zinc-900">Open</Button>
-          </Link>
+          </a>
 
           <p
             onClick={() => {

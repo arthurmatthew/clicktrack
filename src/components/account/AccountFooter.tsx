@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { useUser } from '../../hooks/useUser';
 import { useNotify } from '../../hooks/useNotify';
-import { useNavigate } from 'react-router';
+import { navigate } from "vike/client/router"
 
 export const AccountFooter = () => {
-  const navigate = useNavigate();
   const { user } = useUser();
   const { notify } = useNotify();
   const [loading, setLoading] = useState(false);

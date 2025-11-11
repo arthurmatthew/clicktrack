@@ -1,13 +1,11 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { reauthenticateUser } from '../../lib/firebase/reauthenticateUser';
-import { useNavigate } from 'react-router';
+import { navigate } from "vike/client/router"
 
 export const Reauthenticate = () => {
   const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState(false);
-
-  const navigate = useNavigate();
 
   const handleVerify = async (e: React.MouseEvent) => {
     e.preventDefault();

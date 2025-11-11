@@ -1,4 +1,3 @@
-import { Link } from 'react-router';
 import { DarkModeButton } from '../core/DarkModeButton';
 
 export interface IHeader {
@@ -10,16 +9,16 @@ export const Header = ({ toggleDark, dark }: IHeader) => {
   return (
     <header className="sticky top-0 z-10 shrink grow-0 basis-auto bg-zinc-100 p-4 backdrop-blur-sm dark:bg-zinc-800 sm:p-5">
       <div className="mx-auto flex w-full items-center justify-between px-2 xl:px-32">
-        <Link to="/" className="text-4xl">
+        <a href="/" className="text-4xl">
           clicktrack
-        </Link>
+        </a>
         <div className="flex items-center gap-4">
-          <Link
-            to="/app/"
+          <a
+            href="/app/"
             className="rounded-md border-[1px] border-zinc-200 bg-white px-6 py-2 text-sm dark:border-zinc-700 dark:bg-black"
           >
             Open App
-          </Link>
+          </a>
           <DarkModeButton
             onClick={toggleDark}
             dark={dark}

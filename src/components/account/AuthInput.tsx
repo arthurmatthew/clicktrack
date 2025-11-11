@@ -1,5 +1,3 @@
-import { Link } from 'react-router';
-
 interface IAuthInput {
   label: string;
   value: string;
@@ -24,9 +22,9 @@ export const AuthInput = ({
       <div className="flex justify-between">
         <p className="opacity-70">{label}</p>
         {type === 'current-password' && (
-          <Link to="/app/account/reset" className="underline opacity-70">
+          <a href="/app/account/reset" className="underline opacity-70">
             Forgot Password?
-          </Link>
+          </a>
         )}
       </div>
       <input

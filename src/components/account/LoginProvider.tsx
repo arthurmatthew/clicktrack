@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { navigate } from "vike/client/router"
 import { useNotify } from '../../hooks/useNotify';
 import { LoginForm } from './LoginForm';
 import { authenticateUser } from '../../lib/firebase/authenticateUser';
@@ -14,7 +14,6 @@ export const LoginProvider = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [creatingUser, setCreatingUser] = useState<boolean>(false);
 
-  const navigate = useNavigate();
   const { notify } = useNotify();
 
   // Check for auth by redirect
