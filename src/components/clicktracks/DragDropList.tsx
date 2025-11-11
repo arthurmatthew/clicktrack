@@ -1,8 +1,8 @@
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { StrictModeDroppable } from '../core/StrictModeDroppable';
 import { Clicktrack } from '../../models/Clicktrack';
 import { DraggableItem } from './DraggableItem';
 import { NoClicktracksPlaceholder } from './NoClicktracksPlaceholder';
+import { DropResult, DragDropContext, DroppableProvided } from '@hello-pangea/dnd';
 
 interface IDragDropList {
   clicktracks: Clicktrack[];
@@ -24,7 +24,7 @@ export const DragDropList = ({
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <StrictModeDroppable droppableId="metronomes">
-        {(provided) => (
+        {(provided: DroppableProvided) => (
           <ul
             {...provided.droppableProps}
             ref={provided.innerRef}

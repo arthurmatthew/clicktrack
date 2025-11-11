@@ -1,4 +1,3 @@
-import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import { Clicktrack } from '../../models/Clicktrack';
 import { Metronome } from '../../models/Metronome';
 import { Repeat } from '../../models/Repeat';
@@ -12,6 +11,7 @@ import {
   SequencerListRepeat,
   SequencerListTransition,
 } from './SequencerList';
+import { DropResult, DragDropContext, Draggable, DroppableProvided } from '@hello-pangea/dnd';
 
 export interface ISequencer {
   addSection: (child: Clicktrack['data']['sections'][number]) => void;
@@ -52,7 +52,7 @@ export const Sequencer = ({
       <div className="flex flex-col">
         <DragDropContext onDragEnd={sequencerOnDragEnd}>
           <StrictModeDroppable droppableId="sequencer">
-            {(provided) => (
+            {(provided: DroppableProvided) => (
               <ul
                 {...provided.droppableProps}
                 ref={provided.innerRef}

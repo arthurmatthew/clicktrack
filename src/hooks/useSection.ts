@@ -1,13 +1,13 @@
 import { Clicktrack } from '../models/Clicktrack';
 import { ClicktrackData } from '../models/ClicktrackData';
 import { validateDeleteSection } from '../utils/validators/validateDeleteSection';
-import { DropResult } from 'react-beautiful-dnd';
 import { useNotify } from './useNotify';
 import { constructSection } from '../utils/constructSection';
 import { TSection } from '../types';
 import { Transition } from '../models/Transition';
 import { Metronome } from '../models/Metronome';
 import { generateAccentMap } from '../utils/generateAccentMap';
+import { DropResult } from '@hello-pangea/dnd';
 
 export const useSection = (
   setClicktrack: (value: React.SetStateAction<Clicktrack>) => void,
