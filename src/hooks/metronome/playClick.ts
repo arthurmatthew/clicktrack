@@ -9,9 +9,8 @@ export const playClick = (
   accent: number,
   section: Metronome | Transition,
   time: number,
-  callback: () => void
+  callback: () => void,
 ) => {
-  console.log(beat, accent);
   const metronomeSoundLength = 0.3;
 
   if (audioContext === null) return;
@@ -63,7 +62,7 @@ export const playClick = (
   if (clicktrack.data.fadeOutSound) {
     localGain.gain.exponentialRampToValueAtTime(
       0.00001,
-      time + metronomeSoundLength
+      time + metronomeSoundLength,
     );
   }
 

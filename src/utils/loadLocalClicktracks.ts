@@ -10,12 +10,11 @@ export const loadLocalClicktracks = (): Clicktrack[] => {
     return arr.map((item) => {
       if (typeof item === 'string') {
         try {
-          console.log(Clicktrack.decode(item));
           return Clicktrack.decode(item);
         } catch (e) {
           console.warn(
             'Failed to decode clicktrack string from localStorage',
-            e
+            e,
           );
           return Clicktrack.parseInternals(item as any);
         }

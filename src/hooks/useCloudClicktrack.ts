@@ -17,11 +17,11 @@ import { saveLocalClicktracks } from '../utils/saveLocalClicktracks';
  */
 export const useCloudClicktrack = (loadedClicktrack: Clicktrack) => {
   const [clicktrack, setClicktrack] = useState<Clicktrack>(
-    Clicktrack.parseInternals(loadedClicktrack)
+    Clicktrack.parseInternals(loadedClicktrack),
   );
   const [saving, setSaving] = useState(false);
   const lastSavedClicktrack = useRef<Clicktrack>(
-    Clicktrack.parseInternals(loadedClicktrack)
+    Clicktrack.parseInternals(loadedClicktrack),
   );
   const clicktracksSynced = (): boolean => {
     return isEqual(clicktrack, lastSavedClicktrack.current);
@@ -60,20 +60,20 @@ export const useCloudClicktrack = (loadedClicktrack: Clicktrack) => {
 
         const indexOfEdited = currentSavedClicktracks.findIndex(
           (currentClicktrack) =>
-            currentClicktrack.id === lastSavedClicktrack.current.id
+            currentClicktrack.id === lastSavedClicktrack.current.id,
         );
         const currentSavedWithoutEdited = currentSavedClicktracks.filter(
-          (currentClicktrack) => currentClicktrack.id !== clicktrack.id
+          (currentClicktrack) => currentClicktrack.id !== clicktrack.id,
         );
 
         const result = [...currentSavedWithoutEdited];
         result.splice(
           indexOfEdited === -1 ? result.length : indexOfEdited, // add to end if didnt exist yet
           0,
-          clicktrack
+          clicktrack,
         );
         const minifiedClicktracks = result.map((clicktrack) =>
-          Clicktrack.encode(clicktrack)
+          Clicktrack.encode(clicktrack),
         );
 
         await setUserData({
@@ -94,22 +94,20 @@ export const useCloudClicktrack = (loadedClicktrack: Clicktrack) => {
 
         const indexOfEdited = currentSavedClicktracks.findIndex(
           (currentClicktrack) =>
-            currentClicktrack.id === lastSavedClicktrack.current.id
+            currentClicktrack.id === lastSavedClicktrack.current.id,
         );
         const currentSavedWithoutEdited = currentSavedClicktracks.filter(
-          (currentClicktrack) => currentClicktrack.id !== clicktrack.id
+          (currentClicktrack) => currentClicktrack.id !== clicktrack.id,
         );
 
         const result = [...currentSavedWithoutEdited];
         result.splice(
           indexOfEdited === -1 ? result.length : indexOfEdited, // add to end if didnt exist yet
           0,
-          clicktrack // ! not saving encoded version?
+          clicktrack, // ! not saving encoded version?
         );
 
         saveLocalClicktracks(result);
-
-        console.log(result);
 
         lastSavedClicktrack.current = clicktrack;
         setChangesSaved(clicktracksSynced());
