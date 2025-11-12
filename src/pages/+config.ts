@@ -1,6 +1,7 @@
-import vikeReact from 'vike-react/config'
+import vikeReact from 'vike-react/config';
 
 export default {
   extends: [vikeReact],
-  prerender: true
-}
+  prerender: true,
+  ssr: false,
+};
