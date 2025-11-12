@@ -5,7 +5,7 @@ import { Transition } from '../../models/Transition';
 export const playClick = (
   audioContext: AudioContext | null,
   clicktrack: Clicktrack,
-  beat: number,
+  _beat: number,
   accent: number,
   section: Metronome | Transition,
   time: number,
