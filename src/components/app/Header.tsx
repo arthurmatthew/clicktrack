@@ -1,7 +1,6 @@
-import { IHeader } from '../index/Header';
 import { DarkModeButton } from '../core/DarkModeButton';
 
-export const AppHeader = ({ toggleDark, dark }: IHeader) => {
+export const AppHeader = () => {
   return (
     <header className="backdrop- sticky top-0 z-9999999 shrink grow-0 basis-auto border-b border-zinc-200 bg-white/90 px-3 py-2 backdrop-blur-md dark:border-zinc-900 dark:bg-black/90">
       <div className="mx-auto flex w-full items-center justify-between">
@@ -24,11 +23,7 @@ export const AppHeader = ({ toggleDark, dark }: IHeader) => {
           <a href="/app/account">
             <i className="bi-person-circle text-xl" />
           </a>
-          <DarkModeButton
-            onClick={toggleDark}
-            dark={dark}
-            className="text-xl"
-          />
+          <DarkModeButton dark={true} className="text-xl" />
         </div>
       </div>
     </header>

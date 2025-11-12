@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { getGlobalContext } from 'vike/server';
 import { TUserContext } from '../types';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../firebase';
 
 export const useUser = () => {
   const [userContext, setUserContext] = useState<TUserContext>({
@@ -10,23 +11,14 @@ export const useUser = () => {
   });
 
   useEffect(() => {
-    let isMounted = true;
-
-    const loadContext = async () => {
-      const globalContext = await getGlobalContext();
-      if (isMounted) {
-        setUserContext(previousContext => {
-          return{
-          user: globalContext.user ?? previousContext.user,
-          premium: globalContext.premium ?? previousContext.premium,
-          initialized: globalContext.initialized ?? previousContext.initialized,
-        }});
-      }
-    };
-
-    loadContext();
-
-    return () => { isMounted = false; };
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      setUserContext({
+        user: firebaseUser,
+        premium: false,
+        initialized: true,
+      });
+    });
+    return () => unsubscribe();
   }, []);
 
   return userContext;

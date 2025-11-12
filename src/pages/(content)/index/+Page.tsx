@@ -1,9 +1,6 @@
-import { Hero } from "../../../components/index/Hero";
-import { usePageTitle } from "../../../hooks/usePageTitle";
+import { Hero } from '../../../components/index/Hero';
 
 export const Page = () => {
-  usePageTitle('Home');
-
   return (
     <>
       <Hero />

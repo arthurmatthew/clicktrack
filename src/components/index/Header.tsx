@@ -1,13 +1,8 @@
 import { DarkModeButton } from '../core/DarkModeButton';
 
-export interface IHeader {
-  toggleDark: () => void;
-  dark: boolean;
-}
-
-export const Header = ({ toggleDark, dark }: IHeader) => {
+export const Header = () => {
   return (
-    <header className="sticky top-0 z-10 shrink grow-0 basis-auto bg-zinc-100 p-4 backdrop-blur-sm dark:bg-zinc-800 sm:p-5">
+    <header className="sticky top-0 z-10 shrink grow-0 basis-auto bg-zinc-100 p-4 backdrop-blur-sm sm:p-5 dark:bg-zinc-800">
       <div className="mx-auto flex w-full items-center justify-between px-2 xl:px-32">
         <a href="/" className="text-4xl">
           clicktrack
@@ -19,11 +14,7 @@ export const Header = ({ toggleDark, dark }: IHeader) => {
           >
             Open App
           </a>
-          <DarkModeButton
-            onClick={toggleDark}
-            dark={dark}
-            className="text-2xl"
-          />
+          <DarkModeButton dark={true} className="text-2xl" />
         </div>
       </div>
     </header>

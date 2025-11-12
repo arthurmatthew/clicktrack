@@ -1,21 +1,21 @@
-import { onAuthStateChanged, User } from "firebase/auth";
-import { GlobalContext } from "vike/types"
-import { auth } from "../firebase";
-import { getUserPremium } from "../lib/firebase/getUserPremium";
+import { GlobalContext } from 'vike/types';
+import { STORAGE_KEYS_DARKMODE } from '../config';
 
 export const onCreateGlobalContext = async (globalContext: GlobalContext) => {
-  globalContext.user = null
-  globalContext.premium = false
-  globalContext.initialized = false;
+  // const authUser = await new Promise<User | null>((resolve) => {
+  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //     unsubscribe();
+  //     resolve(user);
+  //   });
+  // });
 
-  onAuthStateChanged(auth, async (authUser: User | null) => {
-    globalContext.user = authUser
-    if (authUser) {
-      globalContext.premium = await getUserPremium()
-    }
+  globalContext.user = null;
+  globalContext.premium = false; // ! not implemented anymore
+  globalContext.initialized = false; // should always be true because we await the user
 
-    globalContext.initialized = true
-  })
+  //theme
+  const stored = localStorage.getItem(STORAGE_KEYS_DARKMODE);
+  globalContext.darkMode = stored === 'true';
 
-  return globalContext
-}
+  return globalContext;
+};

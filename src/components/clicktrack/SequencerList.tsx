@@ -29,13 +29,13 @@ const SequencerList = ({
         <div className="flex gap-3 py-3 text-2xl">{children}</div>
         <div className="hidden h-fit gap-2 group-hover:flex">
           <button
-            className={`group/button z-10 flex h-8 w-8 items-center justify-center rounded-lg border-2 border-dashed border-zinc-900 border-opacity-20 hover:border-opacity-100 dark:border-zinc-300`}
+            className={`group/button border-opacity-20 hover:border-opacity-100 z-10 flex h-8 w-8 items-center justify-center rounded-lg border-2 border-dashed border-zinc-900 dark:border-zinc-300`}
             onClick={() => copySection(section.id)}
           >
             <i className="bi-copy text-zinc-900 opacity-20 group-hover/button:opacity-100 dark:text-zinc-300" />
           </button>
           <button
-            className={`group/button z-10 flex h-8 w-8 items-center justify-center rounded-lg border-2 border-dashed border-zinc-900 border-opacity-20 hover:border-opacity-100 dark:border-zinc-300`}
+            className={`group/button border-opacity-20 hover:border-opacity-100 z-10 flex h-8 w-8 items-center justify-center rounded-lg border-2 border-dashed border-zinc-900 dark:border-zinc-300`}
             onClick={() => deleteSection(section.id)}
           >
             <i className="bi-trash text-zinc-900 opacity-20 group-hover/button:opacity-100 dark:text-zinc-300" />
@@ -43,7 +43,7 @@ const SequencerList = ({
         </div>
 
         <div
-          className={`absolute left-0 top-0 h-full w-full bg-zinc-100 duration-75 dark:bg-zinc-800 ${
+          className={`absolute top-0 left-0 h-full w-full bg-zinc-100 duration-75 dark:bg-zinc-800 ${
             !selected && 'hidden'
           }`}
         />
@@ -75,16 +75,16 @@ export const SequencerListMetronome = ({
           selected && 'text-purple-500'
         } duration-150`}
       />{' '}
-      <p className="relative z-10 flex items-center gap-2">
+      <div className="relative z-10 flex items-center gap-2">
         <span className="font-semibold">{metronome.lengthInBars}</span> bars of{' '}
-        <div
+        <p
           className={`lora flex flex-col items-center px-1 text-sm font-black`}
         >
           <span className="leading-none">{metronome.timeSignature[0]}</span>
           <span className="leading-none">{metronome.timeSignature[1]}</span>
-        </div>{' '}
+        </p>{' '}
         at <span className="font-semibold">{metronome.bpm}</span> BPM
-      </p>
+      </div>
     </SequencerList>
   );
 };

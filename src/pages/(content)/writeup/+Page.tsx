@@ -1,8 +1,4 @@
-import { usePageTitle } from "../../../hooks/usePageTitle";
-
 export const Page = () => {
-  usePageTitle('Home');
-
   return (
     <div className="my-32 flex flex-col items-center justify-center gap-2">
       <a href="/" className="w-full max-w-7xl text-lg">

@@ -1,8 +1,5 @@
-import { TermsOfService } from "../../../../components/legal/TermsOfService";
-import { usePageTitle } from "../../../../hooks/usePageTitle";
+import { TermsOfService } from '../../../../components/legal/TermsOfService';
 
 export const Page = () => {
-  usePageTitle('Terms of Service');
-
   return <TermsOfService />;
 };

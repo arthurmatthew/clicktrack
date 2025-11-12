@@ -1,8 +1,4 @@
-import { usePageTitle } from "../../hooks/usePageTitle";
-
 export const Page = () => {
-  usePageTitle('Error');
-
   return (
     <section className="flex grow flex-col items-center justify-center gap-5 px-2">
       <h1 className="text-center text-4xl font-semibold sm:text-5xl">

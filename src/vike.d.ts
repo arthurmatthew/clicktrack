@@ -7,7 +7,8 @@ declare global {
     interface GlobalContext {
       user?: User | null;
       premium?: boolean;
-      initialized?: boolean
+      initialized?: boolean;
+      darkMode?: boolean;
     }
   }
 }
