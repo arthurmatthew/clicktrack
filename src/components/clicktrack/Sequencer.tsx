@@ -11,7 +11,12 @@ import {
   SequencerListRepeat,
   SequencerListTransition,
 } from './SequencerList';
-import { DropResult, DragDropContext, Draggable, DroppableProvided } from '@hello-pangea/dnd';
+import {
+  DropResult,
+  DragDropContext,
+  Draggable,
+  DroppableProvided,
+} from '@hello-pangea/dnd';
 
 export interface ISequencer {
   addSection: (child: Clicktrack['data']['sections'][number]) => void;
@@ -21,7 +26,7 @@ export interface ISequencer {
   setSelectedId: (id: string) => void;
   sequence: Clicktrack['data']['sections'];
   sequencerOnDragEnd: (result: DropResult) => void;
-  playingDisplay: boolean;
+  isPlaying: boolean;
 }
 
 export const Sequencer = ({
@@ -30,14 +35,14 @@ export const Sequencer = ({
   setSelectedId,
   sequence,
   sequencerOnDragEnd,
-  playingDisplay,
+  isPlaying,
   copySection,
   deleteSection,
 }: ISequencer) => {
   const { notify } = useNotify();
 
   return (
-    <div className="flex min-h-0 w-full select-none flex-col">
+    <div className="flex min-h-0 w-full flex-col select-none">
       <SequencerControls
         addMetronome={() => {
           addSection(new Metronome());
@@ -63,7 +68,7 @@ export const Sequencer = ({
                     index={index}
                     draggableId={section.id}
                     key={section.id}
-                    isDragDisabled={playingDisplay}
+                    isDragDisabled={isPlaying}
                   >
                     {(provided) => {
                       const transform =
@@ -83,7 +88,7 @@ export const Sequencer = ({
                               .slice(0, sequence.indexOf(section))
                               .find(
                                 (section) =>
-                                  section instanceof Repeat && section.infinite
+                                  section instanceof Repeat && section.infinite,
                               ) !== undefined
                               ? 'opacity-30'
                               : ''

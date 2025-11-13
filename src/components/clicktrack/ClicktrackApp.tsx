@@ -12,7 +12,7 @@ export const ClicktrackApp = ({ loadedClicktrack }: IClicktrackApp) => {
   const {
     clicktrack,
     play,
-    playingDisplay,
+    isPlaying,
     selectedId,
     setSelectedId,
     pulseAnimationControls,
@@ -34,7 +34,7 @@ export const ClicktrackApp = ({ loadedClicktrack }: IClicktrackApp) => {
       <Title
         {...{
           clicktrack,
-          playingDisplay,
+          isPlaying,
           pulseAnimationControls,
           settingsShown,
           setSettingsShown,
@@ -50,7 +50,7 @@ export const ClicktrackApp = ({ loadedClicktrack }: IClicktrackApp) => {
       <Controls
         sequence={clicktrack.data.sections}
         selected={clicktrack.data.sections.find(
-          (section) => section.id === selectedId
+          (section) => section.id === selectedId,
         )}
         {...{
           clicktrack,
@@ -61,7 +61,7 @@ export const ClicktrackApp = ({ loadedClicktrack }: IClicktrackApp) => {
           copySection,
           deleteSection,
           sequencerOnDragEnd,
-          playingDisplay,
+          isPlaying,
         }}
       />
     </motion.div>

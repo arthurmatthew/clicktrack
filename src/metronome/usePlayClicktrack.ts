@@ -1,30 +1,31 @@
 import { useRef, useState, useEffect } from 'react';
-import { Repeat } from '../../models/Repeat';
-import { Clicktrack } from '../../models/Clicktrack';
-import { validatePlay } from '../../utils/validators/validatePlay';
-import { useNotify } from '../useNotify';
-import { Metronome } from '../../models/Metronome';
+import { useNotify } from '../hooks/useNotify';
+import { Clicktrack } from '../models/Clicktrack';
+import { Metronome } from '../models/Metronome';
+import { Repeat } from '../models/Repeat';
+import { Transition } from '../models/Transition';
+import { TPlaybackState, TSection } from '../types';
+import { getEffectiveBpm } from '../utils/getEffectiveBpm';
+import { validatePlay } from '../utils/validators/validatePlay';
 import { playClick } from './playClick';
-import { TSection } from '../../types';
-import { Transition } from '../../models/Transition';
-import { getEffectiveBpm } from '../../utils/getEffectiveBpm';
 
 export const usePlayClicktrack = (
   _clicktrack: Clicktrack,
-  callback: () => void
+  callback: () => void,
 ) => {
   const audioCtx = useRef<AudioContext | null>(null);
   const { notify } = useNotify();
 
   const interval = useRef<number | null>(null);
 
-  const [playingDisplay, setPlayingDisplay] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   const clicktrack = useRef<Clicktrack>(_clicktrack);
   const repeatsTaken = useRef<Map<string, number>>(new Map());
 
   const [selectedId, setSelectedId] = useState<string>(
-    clicktrack.current.data.sections[0]?.id ?? ''
+    clicktrack.current.data.sections[0]?.id ?? '',
   );
 
   const nextNoteDueIn = useRef(0);
@@ -35,6 +36,7 @@ export const usePlayClicktrack = (
   const scheduleAheadTime = 0.1; // In seconds
 
   const selectedIdBeforePlaying = useRef<string | undefined>(undefined);
+  const pausedState = useRef<TPlaybackState | null>(null);
 
   useEffect(() => {
     clicktrack.current = _clicktrack;
@@ -50,7 +52,7 @@ export const usePlayClicktrack = (
     const current = sections[totalSectionsPlayed.current];
     const previous = sections[totalSectionsPlayed.current - 1];
     const lastMetronome = clicktrack.current.data.sections.findLast(
-      (section) => section instanceof Metronome
+      (section) => section instanceof Metronome,
     ) as Metronome | undefined;
 
     return current || (previous instanceof Repeat ? lastMetronome : previous);
@@ -84,7 +86,7 @@ export const usePlayClicktrack = (
         section.timeSignature,
         section.curveType,
         totalBarsPlayed.current,
-        current16thBeat.current
+        current16thBeat.current,
       );
 
       if (!section.accentMap) return;
@@ -99,7 +101,7 @@ export const usePlayClicktrack = (
         accent,
         new Metronome({ ...section, bpm: currentBpm }),
         time,
-        callback
+        callback,
       );
 
       return;
@@ -115,7 +117,7 @@ export const usePlayClicktrack = (
       accent,
       section,
       time,
-      callback
+      callback,
     );
   };
 
@@ -124,7 +126,7 @@ export const usePlayClicktrack = (
       repeatsTaken.current.set(section.id, 0);
 
     const individualRepeatsTaken = repeatsTaken.current.get(
-      section.id
+      section.id,
     ) as number;
 
     if (section.infinite) {
@@ -141,14 +143,14 @@ export const usePlayClicktrack = (
 
       const sectionsBeforeThisRepeat = clicktrack.current.data.sections.slice(
         0,
-        index
+        index,
       );
       const repeatsBeforeThisRepeat = sectionsBeforeThisRepeat.filter(
-        (section) => section instanceof Repeat
+        (section) => section instanceof Repeat,
       );
 
       repeatsBeforeThisRepeat.forEach((repeat) =>
-        repeatsTaken.current.set(repeat.id, 0)
+        repeatsTaken.current.set(repeat.id, 0),
       ); // reset all repeats before the current one so it truly repeats
     }
 
@@ -190,7 +192,7 @@ export const usePlayClicktrack = (
         section.timeSignature,
         section.curveType,
         totalBarsPlayed.current,
-        current16thBeat.current
+        current16thBeat.current,
       );
     } else {
       return;
@@ -241,27 +243,84 @@ export const usePlayClicktrack = (
     }
   };
 
+  const savePlaybackState = (): TPlaybackState => {
+    return {
+      current16thBeat: current16thBeat.current,
+      totalSectionsPlayed: totalSectionsPlayed.current,
+      totalBarsPlayed: totalBarsPlayed.current,
+      repeatsTaken: new Map(repeatsTaken.current),
+      selectedId: selectedId,
+    };
+  };
+
+  const restorePlaybackState = (state: TPlaybackState) => {
+    current16thBeat.current = state.current16thBeat;
+    totalSectionsPlayed.current = state.totalSectionsPlayed;
+    totalBarsPlayed.current = state.totalBarsPlayed;
+    repeatsTaken.current = new Map(state.repeatsTaken);
+    setSelectedId(state.selectedId);
+  };
+
+  const initializeFromSection = (sectionIndex: number) => {
+    const sections = clicktrack.current.data.sections;
+
+    if (sectionIndex < 0 || sectionIndex >= sections.length) {
+      notify('Invalid section index', 'error');
+      return false;
+    }
+
+    let barsToSkip = 0;
+    for (let i = 0; i < sectionIndex; i++) {
+      const section = sections[i];
+      if (section instanceof Metronome || section instanceof Transition) {
+        barsToSkip += section.lengthInBars;
+      }
+    }
+
+    current16thBeat.current = 0;
+    totalSectionsPlayed.current = sectionIndex;
+    totalBarsPlayed.current = 0;
+    repeatsTaken.current.clear();
+
+    const targetSection = sections[sectionIndex];
+    if (targetSection) {
+      setSelectedId(targetSection.id);
+    }
+
+    return true;
+  };
+
   /**
    * The play function toggles the metronome on or off. More specifically,
    * it sets and clears the interval which runs the scheduler function.
    */
-  const play = async () => {
+  const play = async (startFromSectionIndex?: number) => {
     const shouldPlay = !interval.current;
 
     if (shouldPlay && !validatePlay(clicktrack.current.data.sections, notify))
       return;
 
-    setPlayingDisplay(shouldPlay);
+    setIsPlaying(shouldPlay);
 
     if (shouldPlay) {
       if (!audioCtx.current) audioCtx.current = new AudioContext();
 
-      selectedIdBeforePlaying.current = selectedId;
+      if (isPaused && pausedState.current) {
+        restorePlaybackState(pausedState.current);
+        pausedState.current = null;
+        setIsPaused(false);
+      } else if (startFromSectionIndex !== undefined) {
+        selectedIdBeforePlaying.current = selectedId;
+        if (!initializeFromSection(startFromSectionIndex)) return;
+      } else {
+        selectedIdBeforePlaying.current = selectedId;
+        current16thBeat.current = 0;
+        totalSectionsPlayed.current = 0;
+        totalBarsPlayed.current = 0;
+        repeatsTaken.current.clear();
+      }
 
-      current16thBeat.current = 0;
       nextNoteDueIn.current = audioCtx.current.currentTime;
-      totalSectionsPlayed.current = 0; // check here for future resume feature
-      totalBarsPlayed.current = 0;
 
       interval.current = window.setInterval(() => {
         scheduler();
@@ -273,12 +332,32 @@ export const usePlayClicktrack = (
     stop();
   };
 
+  const pause = () => {
+    if (interval.current !== null) {
+      clearInterval(interval.current);
+      interval.current = null;
+    }
+
+    pausedState.current = savePlaybackState();
+
+    setIsPlaying(false);
+    setIsPaused(true);
+  };
+
+  const resume = () => {
+    if (isPaused && pausedState.current) {
+      play();
+    }
+  };
+
   const stop = () => {
     if (interval.current !== null) clearInterval(interval.current);
     interval.current = null;
 
     setSelectedId(selectedIdBeforePlaying.current ?? '');
-    setPlayingDisplay(false);
+    setIsPlaying(false);
+    setIsPaused(false);
+    pausedState.current = null;
     repeatsTaken.current.clear();
 
     current16thBeat.current = 0;
@@ -287,13 +366,40 @@ export const usePlayClicktrack = (
     totalBarsPlayed.current = 0;
   };
 
+  const playFromSection = (sectionId: string) => {
+    const sectionIndex = clicktrack.current.data.sections.findIndex(
+      (section) => section.id === sectionId,
+    );
+
+    if (sectionIndex === -1) {
+      notify('Section not found', 'error');
+      return;
+    }
+
+    if (interval.current !== null) {
+      stop();
+    }
+
+    play(sectionIndex);
+  };
+
   useEffect(
     () => () => {
       audioCtx.current = null;
       if (interval.current) clearInterval(interval.current);
     },
-    []
+    [],
   );
 
-  return { play, playingDisplay, selectedId, setSelectedId };
+  return {
+    play,
+    pause,
+    resume,
+    stop,
+    playFromSection,
+    isPlaying,
+    isPaused,
+    selectedId,
+    setSelectedId,
+  };
 };

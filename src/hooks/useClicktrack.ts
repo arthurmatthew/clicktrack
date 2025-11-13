@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Clicktrack } from '../models/Clicktrack';
-import { usePlayClicktrack } from './metronome/usePlayClicktrack';
+import { usePlayClicktrack } from '../metronome/usePlayClicktrack';
 import { useSection } from './useSection';
 import { useAnimationControls } from 'framer-motion';
 import { ClicktrackData } from '../models/ClicktrackData';
@@ -49,11 +49,11 @@ export const useClicktrack = (loadedClicktrack: Clicktrack) => {
       transition: { duration: 1, ease: 'easeOut' },
     });
   };
-  const { play, playingDisplay, selectedId, setSelectedId } = usePlayClicktrack(
+  const { play, isPlaying, selectedId, setSelectedId } = usePlayClicktrack(
     clicktrack,
     () => {
       if (clicktrack.data.flashPlayButton) startPulseAnimation();
-    }
+    },
   );
   const [settingsShown, setSettingsShown] = useState(false);
   const {
@@ -67,7 +67,7 @@ export const useClicktrack = (loadedClicktrack: Clicktrack) => {
   return {
     clicktrack,
     play,
-    playingDisplay,
+    isPlaying,
     selectedId,
     setSelectedId,
     pulseAnimationControls,

@@ -1,6 +1,6 @@
-import { Clicktrack } from '../../models/Clicktrack';
-import { Metronome } from '../../models/Metronome';
-import { Transition } from '../../models/Transition';
+import { Clicktrack } from '../models/Clicktrack';
+import { Metronome } from '../models/Metronome';
+import { Transition } from '../models/Transition';
 
 export const playClick = (
   audioContext: AudioContext | null,

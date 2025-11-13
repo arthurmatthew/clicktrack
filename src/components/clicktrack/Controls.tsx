@@ -17,7 +17,7 @@ export const Controls = ({
   deleteSection,
   copySection,
   sequencerOnDragEnd,
-  playingDisplay,
+  isPlaying,
 }: IControls) => {
   const isMobile = window.innerWidth < 1024; // 1024px is lg tailwind
   const [tab, setTab] = useState<'sequencer' | 'edit'>('sequencer');
@@ -44,7 +44,7 @@ export const Controls = ({
               setSelectedId,
               addSection,
               sequencerOnDragEnd,
-              playingDisplay,
+              isPlaying,
               copySection,
               deleteSection,
             }}
@@ -90,7 +90,7 @@ export const Controls = ({
             setSelectedId,
             addSection,
             sequencerOnDragEnd,
-            playingDisplay,
+            isPlaying,
             copySection,
             deleteSection,
           }}
