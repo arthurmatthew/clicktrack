@@ -16,6 +16,11 @@ export const Page = () => {
   const { user } = useUser();
 
   useEffect(() => {
+    if (savedClicktrack !== undefined)
+      document.title = savedClicktrack?.name + ' - clicktrack';
+  }, [savedClicktrack]);
+
+  useEffect(() => {
     if (!!user) {
       if (savedClicktrack === undefined && params.clicktrack !== undefined) {
         loadAvailableClicktrack(params.clicktrack).then(

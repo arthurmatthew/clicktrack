@@ -1,4 +1,4 @@
 export default {
-  title: 'IMPLEMENT THIS',
+  title: 'Loading...',
   prerender: false,
 };

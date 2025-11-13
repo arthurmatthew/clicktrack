@@ -8,7 +8,7 @@ import '../main.css';
 export const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <React.StrictMode>
-      <div className="text-white">
+      <div className="text-black dark:text-white">
         <NotificationProvider>
           <AppNotification />
           {children}
