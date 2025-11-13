@@ -42,7 +42,7 @@ export const Sequencer = ({
   const { notify } = useNotify();
 
   return (
-    <div className="flex min-h-0 w-full flex-col select-none">
+    <div className="relative flex min-h-0 w-full flex-col select-none">
       <SequencerControls
         addMetronome={() => {
           addSection(new Metronome());
@@ -54,14 +54,14 @@ export const Sequencer = ({
           addSection(new Transition());
         }}
       />
-      <div className="flex flex-col">
+      <div className="no-scrollbar flex min-h-0 flex-1 flex-col overflow-auto">
         <DragDropContext onDragEnd={sequencerOnDragEnd}>
           <StrictModeDroppable droppableId="sequencer">
             {(provided: DroppableProvided) => (
               <ul
                 {...provided.droppableProps}
                 ref={provided.innerRef}
-                className="flex min-h-0 flex-1 flex-col overflow-auto text-xl"
+                className="flex flex-col text-xl"
               >
                 {sequence.map((section, index) => (
                   <Draggable
@@ -137,11 +137,10 @@ export const Sequencer = ({
             )}
           </StrictModeDroppable>
         </DragDropContext>
-        <span className="flex text-sm opacity-50">
-          <i className="bi-caret-right-fill" />
-          Sequence End
-        </span>
+        <p className="mb-20 py-4 text-center opacity-50">End of sequence</p>
       </div>
+
+      <div className="absolute inset-x-0 bottom-0 z-10 h-32 w-full rounded-b-sm bg-linear-to-t from-black to-transparent"></div>
     </div>
   );
 };
