@@ -49,12 +49,19 @@ export const useClicktrack = (loadedClicktrack: Clicktrack) => {
       transition: { duration: 1, ease: 'easeOut' },
     });
   };
-  const { play, isPlaying, selectedId, setSelectedId } = usePlayClicktrack(
-    clicktrack,
-    () => {
-      if (clicktrack.data.flashPlayButton) startPulseAnimation();
-    },
-  );
+  const {
+    play,
+    pause,
+    resume,
+    stop,
+    isPlaying,
+    isPaused,
+    selectedId,
+    setSelectedId,
+    playFromSection,
+  } = usePlayClicktrack(clicktrack, () => {
+    if (clicktrack.data.flashPlayButton) startPulseAnimation();
+  });
   const [settingsShown, setSettingsShown] = useState(false);
   const {
     addSection,
@@ -67,7 +74,11 @@ export const useClicktrack = (loadedClicktrack: Clicktrack) => {
   return {
     clicktrack,
     play,
+    pause,
+    resume,
+    stop,
     isPlaying,
+    isPaused,
     selectedId,
     setSelectedId,
     pulseAnimationControls,
@@ -83,5 +94,6 @@ export const useClicktrack = (loadedClicktrack: Clicktrack) => {
     changesSaved,
     saveChanges,
     saving,
+    playFromSection,
   };
 };

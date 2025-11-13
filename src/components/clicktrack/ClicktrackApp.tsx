@@ -11,7 +11,10 @@ interface IClicktrackApp {
 export const ClicktrackApp = ({ loadedClicktrack }: IClicktrackApp) => {
   const {
     clicktrack,
-    play,
+    playFromSection,
+    pause,
+    resume,
+    stop,
     isPlaying,
     selectedId,
     setSelectedId,
@@ -26,6 +29,7 @@ export const ClicktrackApp = ({ loadedClicktrack }: IClicktrackApp) => {
     sequencerOnDragEnd,
     saveChanges,
     changesSaved,
+    isPaused,
     saving,
   } = useClicktrack(loadedClicktrack);
 
@@ -42,9 +46,13 @@ export const ClicktrackApp = ({ loadedClicktrack }: IClicktrackApp) => {
           saveChanges,
           changesSaved,
           saving,
+          pause,
+          resume,
+          stop,
+          isPaused,
         }}
         play={() => {
-          void play();
+          void playFromSection(selectedId);
         }}
       />
       <Controls

@@ -329,7 +329,7 @@ export const usePlayClicktrack = (
       return;
     }
 
-    stop();
+    pause();
   };
 
   const pause = () => {
@@ -377,7 +377,8 @@ export const usePlayClicktrack = (
     }
 
     if (interval.current !== null) {
-      stop();
+      pause();
+      return;
     }
 
     play(sectionIndex);

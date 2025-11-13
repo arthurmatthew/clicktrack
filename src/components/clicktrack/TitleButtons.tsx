@@ -9,10 +9,14 @@ import { Clicktrack } from '../../models/Clicktrack';
 export interface ITitleButtons {
   clicktrack: Clicktrack;
   play: () => void;
+  pause: () => void;
+  resume: () => void;
+  stop: () => void;
   saveChanges: () => Promise<boolean>;
   changesSaved: boolean;
   saving: boolean;
   isPlaying: boolean;
+  isPaused: boolean;
   pulseAnimationControls: LegacyAnimationControls;
   settingsShown: boolean;
   setSettingsShown: (value: React.SetStateAction<boolean>) => void;
@@ -22,6 +26,8 @@ export interface ITitleButtons {
 export const TitleButtons = ({
   clicktrack,
   play,
+  stop,
+  isPaused,
   saveChanges,
   changesSaved,
   saving,
@@ -33,13 +39,23 @@ export const TitleButtons = ({
 }: ITitleButtons) => {
   return (
     <div className="flex items-center gap-2">
-      <motion.button
-        onClick={play}
-        animate={pulseAnimationControls}
-        className="rounded-sm bg-purple-700 px-4 py-2 text-white"
-      >
-        <i className={isPlaying ? 'bi-pause-fill' : 'bi-play-fill'} />
-      </motion.button>
+      <div className="flex">
+        <motion.button
+          onClick={play}
+          animate={pulseAnimationControls}
+          className="rounded-l-sm bg-purple-700 px-4 py-2 text-white"
+        >
+          <i className={isPlaying ? 'bi-pause-fill' : 'bi-play-fill'} />
+        </motion.button>
+        <button
+          onClick={stop}
+          disabled={!isPaused && !isPlaying}
+          className="rounded-r-sm bg-zinc-700 px-4 py-2 text-white disabled:opacity-50"
+        >
+          <i className="bi-stop-fill" />
+        </button>
+      </div>
+
       <button
         onClick={saveChanges}
         disabled={changesSaved}
