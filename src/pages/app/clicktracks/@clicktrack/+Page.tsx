@@ -16,7 +16,7 @@ export const Page = () => {
   const { user } = useUser();
 
   useEffect(() => {
-    if (savedClicktrack !== undefined)
+    if (savedClicktrack)
       document.title = savedClicktrack?.name + ' - clicktrack';
   }, [savedClicktrack]);
 
