@@ -8,10 +8,11 @@ import { Transition } from '../models/Transition';
 import { Metronome } from '../models/Metronome';
 import { generateAccentMap } from '../utils/generateAccentMap';
 import { DropResult } from '@hello-pangea/dnd';
+import { Repeat } from '../models/Repeat';
 
 export const useSection = (
   setClicktrack: (value: React.SetStateAction<Clicktrack>) => void,
-  setSelectedId: (value: React.SetStateAction<string>) => void
+  setSelectedId: (value: React.SetStateAction<string>) => void,
 ) => {
   const { notify } = useNotify();
 
@@ -19,7 +20,21 @@ export const useSection = (
     setClicktrack((previousClicktrack) => {
       const previousSections = [...previousClicktrack.data.sections];
       const constructed = constructSection(newSection);
-      const updatedSections = [...previousSections, constructed];
+
+      const infiniteIndex = previousSections.findIndex(
+        (section) => section instanceof Repeat && section.infinite,
+      );
+
+      let updatedSections;
+      if (infiniteIndex !== -1) {
+        updatedSections = [
+          ...previousSections.slice(0, infiniteIndex),
+          constructed,
+          ...previousSections.slice(infiniteIndex),
+        ];
+      } else {
+        updatedSections = [...previousSections, constructed];
+      }
 
       return new Clicktrack({
         ...previousClicktrack,
@@ -33,14 +48,14 @@ export const useSection = (
 
   const updateSection = <T extends TSection>(
     section: T,
-    update: Partial<Omit<T, 'id' | 'type'>>
+    update: Partial<Omit<T, 'id' | 'type'>>,
   ): void => {
     setClicktrack((previousClicktrack) => {
       const indexBefore = previousClicktrack.data.sections.findIndex(
-        (thisSection) => thisSection.id === section.id
+        (thisSection) => thisSection.id === section.id,
       );
       const updatedSections = previousClicktrack.data.sections.filter(
-        (thisSection) => thisSection.id !== section.id
+        (thisSection) => thisSection.id !== section.id,
       );
 
       let finalUpdate: Partial<T> = { ...update } as Partial<T>;
@@ -55,7 +70,7 @@ export const useSection = (
             ...finalUpdate,
             accentMap: generateAccentMap(
               metronomeUpdate.timeSignature[0],
-              metronomeUpdate.timeSignature[1]
+              metronomeUpdate.timeSignature[1],
             ),
           } as Partial<T>;
         }
@@ -106,17 +121,17 @@ export const useSection = (
           sections: updateTransitions(
             [
               ...previousClicktrack.data.sections.filter(
-                (section) => section.id !== id
+                (section) => section.id !== id,
               ),
             ]
               .map((section) => constructSection({ ...section }))
-              .filter((section) => section !== undefined)
+              .filter((section) => section !== undefined),
           ),
         }),
       });
 
       const indexOfId = previousClicktrack.data.sections.findIndex(
-        (section) => section.id === id
+        (section) => section.id === id,
       );
 
       setSelectedId(() => {
@@ -133,7 +148,7 @@ export const useSection = (
   const copySection = (id: string) => {
     setClicktrack((previousClicktrack) => {
       const sectionToCopy = previousClicktrack.data.sections.find(
-        (section) => section.id === id
+        (section) => section.id === id,
       );
       if (!sectionToCopy) return previousClicktrack;
       const sectionCopy = () => {
