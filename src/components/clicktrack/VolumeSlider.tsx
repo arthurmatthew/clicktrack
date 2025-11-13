@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { IComponent } from '../IComponent';
 
 interface IVolumeSlider extends IComponent {
@@ -13,38 +13,59 @@ export const VolumeSlider = ({
   updateVolume,
 }: IVolumeSlider) => {
   const updating = useRef<boolean>(false);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
-  const dragSlider = (e: React.MouseEvent) => {
-    if (muted) return;
-    if (updating.current === false) return;
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!updating.current || !sliderRef.current || muted) return;
 
-    const boundingClientRect = e.currentTarget.getBoundingClientRect();
-    const range = boundingClientRect.right - boundingClientRect.left;
-    const clientXRelativeToRange = boundingClientRect.right - e.clientX - 0.5;
-    // for some reason its off by 0.5
+      const boundingClientRect = sliderRef.current.getBoundingClientRect();
+      const range = boundingClientRect.right - boundingClientRect.left;
+      const clientXRelativeToRange = boundingClientRect.right - e.clientX - 0.5;
 
-    const clientXPercentage = 150 - (clientXRelativeToRange / range) * 150;
-    // 150 - reverses it so that leftmost is 0%
+      const clientXPercentage = 150 - (clientXRelativeToRange / range) * 150;
 
-    updateVolume(Math.ceil(clientXPercentage));
-  };
+      // Clamp between 0 and 150
+      const clampedValue = Math.max(
+        0,
+        Math.min(150, Math.ceil(clientXPercentage)),
+      );
+      updateVolume(clampedValue);
+    };
+
+    const handleMouseUp = () => {
+      updating.current = false;
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [muted, updateVolume]);
 
   return (
     <div
+      ref={sliderRef}
       onMouseDown={(e) => {
         if (muted) return;
         updating.current = true;
-        dragSlider(e);
+
+        // Initial position set
+        const boundingClientRect = e.currentTarget.getBoundingClientRect();
+        const range = boundingClientRect.right - boundingClientRect.left;
+        const clientXRelativeToRange =
+          boundingClientRect.right - e.clientX - 0.5;
+        const clientXPercentage = 150 - (clientXRelativeToRange / range) * 150;
+        updateVolume(Math.max(0, Math.min(150, Math.ceil(clientXPercentage))));
       }}
-      onMouseUp={() => {
-        updating.current = false;
-      }}
-      onMouseMove={dragSlider}
       className={`relative h-full w-40 overflow-hidden rounded-sm rounded-l-none bg-zinc-200 dark:bg-zinc-800 ${
         muted ? 'opacity-50' : ''
       }`}
     >
-      <span className="roboto pointer-events-none absolute flex h-full select-none items-center justify-center px-4">
+      <span className="roboto pointer-events-none absolute flex h-full items-center justify-center px-4 select-none">
         {muted ? <span className="inter">Muted</span> : `${volume}%`}
       </span>
       <div
