@@ -14,7 +14,7 @@ export const Header = () => {
           >
             Open App
           </a>
-          <DarkModeButton dark={true} className="text-2xl" />
+          <DarkModeButton className="text-2xl" />
         </div>
       </div>
     </header>

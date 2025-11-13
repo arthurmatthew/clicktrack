@@ -23,7 +23,7 @@ export const AppHeader = () => {
           <a href="/app/account">
             <i className="bi-person-circle text-xl" />
           </a>
-          <DarkModeButton dark={true} className="text-xl" />
+          <DarkModeButton className="text-xl" />
         </div>
       </div>
     </header>

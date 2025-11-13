@@ -1,17 +1,14 @@
 import { IButton } from './Button';
+import { useTheme } from './ThemeContext';
 
-interface IDarkModeButton extends IButton {
-  dark: boolean;
-}
+export const DarkModeButton = ({ className }: IButton) => {
+  const { theme, toggleTheme } = useTheme();
 
-export const DarkModeButton = ({
-  dark,
-  onClick,
-  className,
-}: IDarkModeButton) => {
   return (
-    <button onClick={onClick}>
-      <i className={`${dark ? 'bi-moon' : 'bi-sun'} ${className}`} />
+    <button onClick={toggleTheme}>
+      <i
+        className={`${theme === 'dark' ? 'bi-moon' : 'bi-sun'} ${className}`}
+      />
     </button>
   );
 };

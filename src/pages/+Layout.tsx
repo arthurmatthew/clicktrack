@@ -4,16 +4,19 @@ import { NotificationProvider } from '../components/core/NotificationProvider';
 import React from 'react';
 
 import '../main.css';
+import { ThemeProvider } from '../components/core/ThemeContext';
 
 export const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <React.StrictMode>
-      <div className="text-black dark:text-white">
-        <NotificationProvider>
-          <AppNotification />
-          {children}
-        </NotificationProvider>
-      </div>
+      <ThemeProvider>
+        <div className="text-black dark:text-white">
+          <NotificationProvider>
+            <AppNotification />
+            {children}
+          </NotificationProvider>
+        </div>
+      </ThemeProvider>
     </React.StrictMode>
   );
 };

@@ -1,25 +1,11 @@
-import { STORAGE_KEYS_DARKMODE } from '../config';
+import { themeScript } from '../components/core/ThemeContext';
 
 export default function Head() {
   return (
     <>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            (function() {
-              try {
-                const stored = localStorage.getItem('${STORAGE_KEYS_DARKMODE}');
-                const isDark = stored ? JSON.parse(stored) : true;
-                if (isDark) {
-                  document.documentElement.classList.add('dark');
-                } else {
-                  document.documentElement.classList.remove('dark');
-                }
-              } catch (e) {}
-            })();
-          `,
-        }}
-      />
+      <meta charSet="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <script dangerouslySetInnerHTML={{ __html: themeScript }} />
     </>
   );
 }
