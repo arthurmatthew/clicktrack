@@ -101,7 +101,8 @@ export const SequencerListMetronome = ({
         } duration-150`}
       />{' '}
       <div className="relative z-10 flex items-center gap-2">
-        <span className="font-semibold">{metronome.lengthInBars}</span> bars of{' '}
+        <span className="font-semibold">{metronome.lengthInBars}</span> bar
+        {metronome.lengthInBars === 1 ? '' : 's'} of{' '}
         <p
           className={`lora flex flex-col items-center px-1 text-sm font-black`}
         >
