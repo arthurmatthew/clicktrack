@@ -7,6 +7,7 @@ const SequencerList = ({
   children,
   disableControls,
   section,
+  hidden,
   setSelectedId,
   selected,
   copySection,
@@ -15,11 +16,14 @@ const SequencerList = ({
   disableControls: boolean;
   section: TSection;
   selected: boolean;
+  hidden: boolean;
   setSelectedId: (id: string) => void;
   copySection: (id: string) => void;
   deleteSection: (id: string) => void;
   children: React.ReactNode;
 }) => {
+  const { isMobile } = useIsMobile();
+
   return (
     <div
       className={`group flex cursor-pointer items-center gap-2`}
@@ -28,29 +32,33 @@ const SequencerList = ({
       }}
     >
       <div className="relative flex w-full items-center justify-between px-4 duration-150 hover:bg-zinc-100 dark:hover:bg-zinc-800">
-        <div className="flex gap-3 py-3 text-2xl">{children}</div>
         <div
-          className={`hidden h-fit gap-2 ${!disableControls && 'group-hover:flex'}`}
+          className={`flex gap-3 py-3 text-xl md:text-2xl ${hidden && 'opacity-50'}`}
+        >
+          {children}
+        </div>
+        <div
+          className={`h-fit gap-2 ${!disableControls && 'group-hover:flex'} ${isMobile && selected ? 'flex' : 'hidden'}`}
         >
           <button
-            className={`group/button border-opacity-20 hover:border-opacity-100 z-10 flex h-8 w-8 items-center justify-center rounded-lg border-2 border-dashed border-zinc-900 dark:border-zinc-300`}
+            className={`group/button z-10 flex h-8 w-8 items-center justify-center rounded-lg border-2 border-dashed border-zinc-900 hover:bg-zinc-500/50 dark:border-zinc-300`}
             onClick={() => copySection(section.id)}
             disabled={disableControls}
           >
-            <i className="bi-copy text-zinc-900 opacity-20 group-hover/button:opacity-100 dark:text-zinc-300" />
+            <i className="bi-copy text-zinc-900 group-hover/button:opacity-100 dark:text-zinc-300" />
           </button>
           <button
-            className={`group/button border-opacity-20 hover:border-opacity-100 z-10 flex h-8 w-8 items-center justify-center rounded-lg border-2 border-dashed border-zinc-900 dark:border-zinc-300`}
+            className={`group/button z-10 flex h-8 w-8 items-center justify-center rounded-lg border-2 border-dashed border-zinc-900 hover:bg-zinc-500/50 dark:border-zinc-300`}
             onClick={() => deleteSection(section.id)}
             disabled={disableControls}
           >
-            <i className="bi-trash text-zinc-900 opacity-20 group-hover/button:opacity-100 dark:text-zinc-300" />
+            <i className="bi-trash text-zinc-900 group-hover/button:opacity-100 dark:text-zinc-300" />
           </button>
         </div>
 
         <div
           className={`absolute top-0 left-0 h-full w-full bg-zinc-100 duration-75 dark:bg-zinc-800 ${
-            !selected && 'hidden'
+            (!selected || hidden) && 'hidden'
           }`}
         />
       </div>
@@ -62,6 +70,7 @@ export const SequencerListMetronome = ({
   metronome,
   setSelectedId,
   selected,
+  hidden,
   disableControls,
   copySection,
   deleteSection,
@@ -69,6 +78,7 @@ export const SequencerListMetronome = ({
   disableControls: boolean;
   metronome: Metronome;
   selected: boolean;
+  hidden: boolean;
   setSelectedId: (id: string) => void;
   copySection: (id: string) => void;
   deleteSection: (id: string) => void;
@@ -80,6 +90,7 @@ export const SequencerListMetronome = ({
         setSelectedId,
         copySection,
         deleteSection,
+        hidden,
         selected,
         disableControls,
       }}
@@ -107,6 +118,7 @@ export const SequencerListRepeat = ({
   repeat,
   setSelectedId,
   selected,
+  hidden,
   copySection,
   disableControls,
   deleteSection,
@@ -114,6 +126,7 @@ export const SequencerListRepeat = ({
   repeat: Repeat;
   selected: boolean;
   setSelectedId: (id: string) => void;
+  hidden: boolean;
   copySection: (id: string) => void;
   deleteSection: (id: string) => void;
   disableControls: boolean;
@@ -124,6 +137,7 @@ export const SequencerListRepeat = ({
       {...{
         setSelectedId,
         copySection,
+        hidden,
         deleteSection,
         selected,
         disableControls,
@@ -145,18 +159,21 @@ export const SequencerListRepeat = ({
 };
 
 import { Transition } from '../../models/Transition';
+import { useIsMobile } from '../../hooks/useIsMobile';
 
 export const SequencerListTransition = ({
   transition,
   setSelectedId,
   disableControls,
   selected,
+  hidden,
   copySection,
   deleteSection,
 }: {
   transition: Transition;
   disableControls: boolean;
   selected: boolean;
+  hidden: boolean;
   setSelectedId: (id: string) => void;
   copySection: (id: string) => void;
   deleteSection: (id: string) => void;
@@ -168,6 +185,7 @@ export const SequencerListTransition = ({
         setSelectedId,
         copySection,
         deleteSection,
+        hidden,
         selected,
         disableControls,
       }}

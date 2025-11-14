@@ -83,26 +83,23 @@ export const Sequencer = ({
                           {...provided.dragHandleProps}
                           ref={provided.innerRef}
                           {...provided.draggableProps}
-                          className={
-                            sequence
-                              .slice(0, sequence.indexOf(section))
-                              .find(
-                                (section) =>
-                                  section instanceof Repeat && section.infinite,
-                              ) !== undefined
-                              ? 'opacity-30'
-                              : ''
-                          }
                         >
                           {(() => {
                             const selected = section.id === selectedId;
+                            const hidden =
+                              sequence
+                                .slice(0, sequence.indexOf(section))
+                                .find(
+                                  (section) =>
+                                    section instanceof Repeat &&
+                                    section.infinite,
+                                ) !== undefined;
                             if (section instanceof Metronome)
                               return (
                                 <SequencerListMetronome
                                   disableControls={isPlaying}
                                   key={section.id}
-                                  selected={selected}
-                                  setSelectedId={setSelectedId}
+                                  {...{ hidden, selected, setSelectedId }}
                                   metronome={section}
                                   {...{ copySection, deleteSection }}
                                 />
@@ -112,8 +109,7 @@ export const Sequencer = ({
                                 <SequencerListRepeat
                                   disableControls={isPlaying}
                                   key={section.id}
-                                  selected={selected}
-                                  setSelectedId={setSelectedId}
+                                  {...{ hidden, selected, setSelectedId }}
                                   repeat={section}
                                   {...{ copySection, deleteSection }}
                                 />
@@ -123,8 +119,7 @@ export const Sequencer = ({
                                 <SequencerListTransition
                                   disableControls={isPlaying}
                                   key={section.id}
-                                  selected={selected}
-                                  setSelectedId={setSelectedId}
+                                  {...{ hidden, selected, setSelectedId }}
                                   transition={section}
                                   {...{ copySection, deleteSection }}
                                 />
