@@ -11,7 +11,7 @@ import { SectionControls } from './SectionControls';
 export interface IEditSection {
   updateSection: <T extends TSection>(
     section: T,
-    update: Partial<Omit<T, 'id' | 'type'>>
+    update: Partial<Omit<T, 'id' | 'type'>>,
   ) => void;
   deleteSection: (id: string) => void;
   copySection: (id: string) => void;
@@ -47,8 +47,13 @@ export const EditSection = ({
   };
 
   return (
-    <div className="flex h-full w-full flex-1 flex-col justify-between gap-4 p-4">
-      <div className="grid items-center gap-2">{getProperSectionEditor()}</div>
+    <div className="flex h-full min-h-0 w-full flex-1 flex-col justify-between gap-4 p-4">
+      <div className="no-scrollbar min-h-0 flex-1 overflow-auto">
+        <div className="grid items-center gap-2">
+          {getProperSectionEditor()}
+        </div>
+      </div>
+
       <div>
         {selected && (
           <SectionControls
