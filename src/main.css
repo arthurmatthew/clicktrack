@@ -89,3 +89,8 @@ layer(base);
 .no-scrollbar {
   scrollbar-width: none;
 }
+
+.h-screen {
+  height: 100dvh;
+  height: 100vh;
+}
