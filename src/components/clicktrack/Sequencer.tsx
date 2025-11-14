@@ -99,6 +99,7 @@ export const Sequencer = ({
                             if (section instanceof Metronome)
                               return (
                                 <SequencerListMetronome
+                                  disableControls={isPlaying}
                                   key={section.id}
                                   selected={selected}
                                   setSelectedId={setSelectedId}
@@ -109,6 +110,7 @@ export const Sequencer = ({
                             if (section instanceof Repeat)
                               return (
                                 <SequencerListRepeat
+                                  disableControls={isPlaying}
                                   key={section.id}
                                   selected={selected}
                                   setSelectedId={setSelectedId}
@@ -119,6 +121,7 @@ export const Sequencer = ({
                             if (section instanceof Transition)
                               return (
                                 <SequencerListTransition
+                                  disableControls={isPlaying}
                                   key={section.id}
                                   selected={selected}
                                   setSelectedId={setSelectedId}
