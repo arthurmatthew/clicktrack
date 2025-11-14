@@ -147,21 +147,26 @@ export const useSection = (
 
   const copySection = (id: string) => {
     setClicktrack((previousClicktrack) => {
-      const sectionToCopy = previousClicktrack.data.sections.find(
+      const sectionIndex = previousClicktrack.data.sections.findIndex(
         (section) => section.id === id,
       );
-      if (!sectionToCopy) return previousClicktrack;
-      const sectionCopy = () => {
-        return constructSection({ ...sectionToCopy, id: undefined });
-      };
+
+      if (sectionIndex === -1) return previousClicktrack;
+
+      const sectionToCopy = previousClicktrack.data.sections[sectionIndex];
+      const sectionCopy = constructSection({ ...sectionToCopy, id: undefined });
+
+      const newSections = [
+        ...previousClicktrack.data.sections.slice(0, sectionIndex + 1),
+        sectionCopy,
+        ...previousClicktrack.data.sections.slice(sectionIndex + 1),
+      ];
+
       return new Clicktrack({
         ...previousClicktrack,
         data: {
           ...previousClicktrack.data,
-          sections: updateTransitions([
-            ...previousClicktrack.data.sections,
-            sectionCopy(),
-          ]),
+          sections: updateTransitions(newSections),
         },
       });
     });
