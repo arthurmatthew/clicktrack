@@ -25,7 +25,7 @@ export const Controls = ({
 
   if (isMobile) {
     return (
-      <div className="flex h-full flex-1 flex-col justify-between">
+      <div className="flex min-h-0 flex-1 flex-col justify-between">
         {tab === 'edit' ? (
           <EditSection
             {...{
