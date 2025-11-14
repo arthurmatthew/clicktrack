@@ -1,4 +1,3 @@
-import { Link } from 'react-router';
 import { IAuthForm } from './IAuthForm';
 import { AuthInput } from './AuthInput';
 import { authenticateUserWithGitHub } from '../../lib/firebase/authenticateUserWithGitHub';
@@ -14,7 +13,7 @@ export const RegisterForm = ({
   loading,
 }: IAuthForm) => {
   return (
-    <div className="flex flex-grow flex-col items-center justify-center">
+    <div className="flex grow flex-col items-center justify-center">
       <form className="relative flex flex-col gap-6 rounded-2xl p-8 sm:bg-zinc-200 dark:sm:bg-zinc-900">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-3">
@@ -58,7 +57,7 @@ export const RegisterForm = ({
             onChange={(e) => setPassword(e.target.value)}
           />
           <button
-            className="rounded-sm border-[1px] border-zinc-300 bg-zinc-100 p-3 text-lg dark:border-zinc-700 dark:bg-zinc-900"
+            className="rounded-sm border border-zinc-300 bg-zinc-100 p-3 text-lg dark:border-zinc-700 dark:bg-zinc-900"
             type="submit"
             onClick={handleSubmit}
           >
@@ -66,9 +65,9 @@ export const RegisterForm = ({
           </button>
         </div>
       </form>
-      <Link to="/app/account/login" className="mt-10 text-center text-xl">
+      <a href="/app/account/login" className="mt-10 text-center text-xl">
         Already have an account? <span className="underline">Log in</span>
-      </Link>
+      </a>
     </div>
   );
 };

@@ -1,11 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Inter+Tight:400,600,900');
-@import url('https://fonts.googleapis.com/css?family=Lora:400,700');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,700');
-@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+@import url('https://fonts.googleapis.com/css?family=Inter+Tight:400,600,900')
+layer(base);
+@import url('https://fonts.googleapis.com/css?family=Lora:400,700') layer(base);
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,700')
+layer(base);
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css')
+layer(base);
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 ::selection {
   background-color: black;
@@ -13,8 +16,18 @@
 }
 
 :root {
-  font-family: 'Inter Tight', system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+  font-family:
+    'Inter Tight',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
     sans-serif;
   font-display: swap;
   overflow-y: scroll;
@@ -22,19 +35,50 @@
 }
 
 .roboto {
-  font-family: 'Roboto Mono', system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+  font-family:
+    'Roboto Mono',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
     sans-serif;
 }
 
 .lora {
-  font-family: 'Lora', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family:
+    'Lora',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
 }
 
 .inter {
-  font-family: 'Inter Tight', system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+  font-family:
+    'Inter Tight',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
     sans-serif;
 }
 

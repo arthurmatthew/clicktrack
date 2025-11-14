@@ -1,8 +1,8 @@
 import { useRef } from 'react';
-import { DropResult } from 'react-beautiful-dnd';
 import { Clicktrack } from '../models/Clicktrack';
 import { useNotify } from './useNotify';
 import { useClicktrackStorage } from './useClicktrackStorage';
+import { DropResult } from '@hello-pangea/dnd';
 
 /**
  * Built upon the `useClicktrackStorage` hook, this hook provides functions to interact with the

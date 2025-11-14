@@ -3,13 +3,14 @@ import { TNotify } from '../../types';
 import { sectionAdjacentRepeats } from './sectionAdjacentRepeats';
 import { sectionEmpty } from './sectionEmpty';
 import { sectionHasNoMetronomes } from './sectionHasNoMetronomes';
+import { sectionIncorrectTransition } from './sectionIncorrectTransition';
 import { sectionMetronomesAfterRepeatForever } from './sectionMetronomesAfterRepeatForever';
 import { sectionMultipleRepeatForevers } from './sectionMultipleRepeatForevers';
 import { sectionStartsWithRepeat } from './sectionStartsWithRepeat';
 
 export const validatePlay = (
   sections: ClicktrackData['sections'],
-  notify: TNotify
+  notify: TNotify,
 ) => {
   // Warnings
   sectionMetronomesAfterRepeatForever(sections, notify);
@@ -20,6 +21,7 @@ export const validatePlay = (
   if (sectionHasNoMetronomes(sections, notify)) return false;
   if (sectionStartsWithRepeat(sections, notify)) return false;
   if (sectionAdjacentRepeats(sections, notify)) return false;
+  if (!sectionIncorrectTransition(sections, notify)) return false;
 
   return true;
 };

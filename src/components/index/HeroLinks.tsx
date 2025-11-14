@@ -1,11 +1,10 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router';
 
 export const HeroLinks = () => {
   return (
     <div className="flex flex-col items-center lg:items-start">
       <div className="grid w-full grid-cols-12 gap-2">
-        <Link to="/writeup" className="col-span-5">
+        <a href="/writeup" className="col-span-5">
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -21,8 +20,8 @@ export const HeroLinks = () => {
               Mobile App
             </motion.button>
           </motion.span>
-        </Link>
-        <Link to="/app/clicktracks" className="col-span-7">
+        </a>
+        <a href="/app/clicktracks" className="col-span-7">
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -37,7 +36,7 @@ export const HeroLinks = () => {
               Use in browser <i className="bi-arrow-right pl-2" />
             </motion.button>
           </motion.span>
-        </Link>
+        </a>
       </div>
       <motion.p
         initial={{ opacity: 0 }}

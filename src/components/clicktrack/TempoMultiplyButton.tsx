@@ -24,7 +24,7 @@ export const TempoMultiplyButton = ({
           bpm: validateTempo(selected.bpm * degree, notify),
         });
       }}
-      className="over:bg-zinc-900 flex flex-grow cursor-pointer items-center justify-center border-x-[1px] border-white bg-zinc-200 py-2 text-lg duration-75 hover:bg-zinc-900 hover:text-white dark:border-black dark:bg-zinc-900 dark:hover:bg-zinc-200 dark:hover:text-black"
+      className="over:bg-zinc-900 flex grow cursor-pointer items-center justify-center border-x border-white bg-zinc-200 py-2 text-lg duration-75 hover:bg-zinc-900 hover:text-white dark:border-black dark:bg-zinc-900 dark:hover:bg-zinc-200 dark:hover:text-black"
     >
       {label}
     </p>

@@ -64,3 +64,11 @@ export type TAccentLevels = 0 | 1 | 2 | 3;
 export type TAccentMap = TAccentLevels[];
 
 export type TWaves = Exclude<OscillatorType, 'custom'>;
+
+export type TPlaybackState = {
+  current16thBeat: number;
+  totalSectionsPlayed: number;
+  totalBarsPlayed: number;
+  repeatsTaken: Map<string, number>;
+  selectedId: string;
+};

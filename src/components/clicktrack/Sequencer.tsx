@@ -1,15 +1,22 @@
-import { DragDropContext, Draggable, DropResult } from 'react-beautiful-dnd';
 import { Clicktrack } from '../../models/Clicktrack';
 import { Metronome } from '../../models/Metronome';
 import { Repeat } from '../../models/Repeat';
 import { validateAddRepeat } from '../../utils/validators/validateAddRepeat';
 import { SequencerControls } from './SequencerControls';
-import { SequencerListMetronome } from './SequencerListMetronome';
-import { SequencerListRepeat } from './SequencerListRepeat';
 import { StrictModeDroppable } from '../core/StrictModeDroppable';
 import { useNotify } from '../../hooks/useNotify';
 import { Transition } from '../../models/Transition';
-import { SequencerListTransition } from './SequencerListTransition';
+import {
+  SequencerListMetronome,
+  SequencerListRepeat,
+  SequencerListTransition,
+} from './SequencerList';
+import {
+  DropResult,
+  DragDropContext,
+  Draggable,
+  DroppableProvided,
+} from '@hello-pangea/dnd';
 
 export interface ISequencer {
   addSection: (child: Clicktrack['data']['sections'][number]) => void;
@@ -19,7 +26,7 @@ export interface ISequencer {
   setSelectedId: (id: string) => void;
   sequence: Clicktrack['data']['sections'];
   sequencerOnDragEnd: (result: DropResult) => void;
-  playingDisplay: boolean;
+  isPlaying: boolean;
 }
 
 export const Sequencer = ({
@@ -28,14 +35,14 @@ export const Sequencer = ({
   setSelectedId,
   sequence,
   sequencerOnDragEnd,
-  playingDisplay,
+  isPlaying,
   copySection,
   deleteSection,
 }: ISequencer) => {
   const { notify } = useNotify();
 
   return (
-    <div className="flex min-h-0 w-full select-none flex-col">
+    <div className="relative flex min-h-0 w-full flex-col select-none">
       <SequencerControls
         addMetronome={() => {
           addSection(new Metronome());
@@ -47,21 +54,21 @@ export const Sequencer = ({
           addSection(new Transition());
         }}
       />
-      <div className="flex flex-col">
+      <div className="no-scrollbar flex min-h-0 flex-1 flex-col overflow-auto">
         <DragDropContext onDragEnd={sequencerOnDragEnd}>
           <StrictModeDroppable droppableId="sequencer">
-            {(provided) => (
+            {(provided: DroppableProvided) => (
               <ul
                 {...provided.droppableProps}
                 ref={provided.innerRef}
-                className="flex min-h-0 flex-1 flex-col overflow-auto text-xl"
+                className="flex flex-col text-xl"
               >
                 {sequence.map((section, index) => (
                   <Draggable
                     index={index}
                     draggableId={section.id}
                     key={section.id}
-                    isDragDisabled={playingDisplay}
+                    isDragDisabled={isPlaying}
                   >
                     {(provided) => {
                       const transform =
@@ -76,25 +83,23 @@ export const Sequencer = ({
                           {...provided.dragHandleProps}
                           ref={provided.innerRef}
                           {...provided.draggableProps}
-                          className={
-                            sequence
-                              .slice(0, sequence.indexOf(section))
-                              .find(
-                                (section) =>
-                                  section instanceof Repeat && section.infinite
-                              ) !== undefined
-                              ? 'opacity-30'
-                              : ''
-                          }
                         >
                           {(() => {
                             const selected = section.id === selectedId;
+                            const hidden =
+                              sequence
+                                .slice(0, sequence.indexOf(section))
+                                .find(
+                                  (section) =>
+                                    section instanceof Repeat &&
+                                    section.infinite,
+                                ) !== undefined;
                             if (section instanceof Metronome)
                               return (
                                 <SequencerListMetronome
+                                  disableControls={isPlaying}
                                   key={section.id}
-                                  selected={selected}
-                                  setSelectedId={setSelectedId}
+                                  {...{ hidden, selected, setSelectedId }}
                                   metronome={section}
                                   {...{ copySection, deleteSection }}
                                 />
@@ -102,9 +107,9 @@ export const Sequencer = ({
                             if (section instanceof Repeat)
                               return (
                                 <SequencerListRepeat
+                                  disableControls={isPlaying}
                                   key={section.id}
-                                  selected={selected}
-                                  setSelectedId={setSelectedId}
+                                  {...{ hidden, selected, setSelectedId }}
                                   repeat={section}
                                   {...{ copySection, deleteSection }}
                                 />
@@ -112,9 +117,9 @@ export const Sequencer = ({
                             if (section instanceof Transition)
                               return (
                                 <SequencerListTransition
+                                  disableControls={isPlaying}
                                   key={section.id}
-                                  selected={selected}
-                                  setSelectedId={setSelectedId}
+                                  {...{ hidden, selected, setSelectedId }}
                                   transition={section}
                                   {...{ copySection, deleteSection }}
                                 />
@@ -130,11 +135,10 @@ export const Sequencer = ({
             )}
           </StrictModeDroppable>
         </DragDropContext>
-        <span className="flex text-sm opacity-50">
-          <i className="bi-caret-right-fill" />
-          Sequence End
-        </span>
+        <p className="mb-20 py-4 text-center opacity-50">End of sequence</p>
       </div>
+
+      <div className="absolute inset-x-0 bottom-0 z-10 h-32 w-full rounded-b-sm bg-linear-to-t from-white to-transparent dark:from-black"></div>
     </div>
   );
 };

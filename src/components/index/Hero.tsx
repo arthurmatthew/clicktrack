@@ -4,7 +4,7 @@ import { HeroLinks } from './HeroLinks';
 export const Hero = () => {
   return (
     <>
-      <section className="flex justify-center bg-purple-100 px-6 py-20 dark:bg-zinc-950 lg:bg-white dark:lg:bg-zinc-900">
+      <section className="flex justify-center bg-purple-100 px-6 py-20 lg:bg-white dark:bg-zinc-950 dark:lg:bg-zinc-900">
         <div className="flex w-full max-w-7xl justify-center lg:justify-between">
           <div className="flex flex-col gap-6">
             <HeroTitle />
@@ -21,8 +21,8 @@ export const Hero = () => {
               'hourglass-top',
               'music-note-list',
               'file-earmark-music',
-            ].map((label) => (
-              <div className="flex items-center justify-center">
+            ].map((label, i) => (
+              <div key={i} className="flex items-center justify-center">
                 <i
                   className={`bi-${label} text-9xl text-zinc-200 duration-100 hover:-translate-y-2 hover:text-violet-500 dark:text-zinc-800 dark:hover:text-violet-500`}
                 />
@@ -37,13 +37,13 @@ export const Hero = () => {
             Enjoyed by musicians & directors from top programs
           </h3>
           <ul className="flex flex-wrap items-center justify-center gap-1">
-            <li className="rounded-md border-[1px] border-zinc-300 px-4 py-2 text-sm dark:border-zinc-700">
+            <li className="rounded-md border border-zinc-300 px-4 py-2 text-sm dark:border-zinc-700">
               United States Navy Band
             </li>
-            <li className="rounded-md border-[1px] border-zinc-300 px-4 py-2 text-sm dark:border-zinc-700">
+            <li className="rounded-md border border-zinc-300 px-4 py-2 text-sm dark:border-zinc-700">
               WMEA Honor Group
             </li>
-            <li className="rounded-md border-[1px] border-zinc-300 px-4 py-2 text-sm dark:border-zinc-700">
+            <li className="rounded-md border border-zinc-300 px-4 py-2 text-sm dark:border-zinc-700">
               Seattle Public Schools District
             </li>
           </ul>

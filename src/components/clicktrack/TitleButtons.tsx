@@ -1,15 +1,23 @@
-import { motion, AnimatePresence, AnimationControls } from 'framer-motion';
+import {
+  motion,
+  AnimatePresence,
+  LegacyAnimationControls,
+} from 'framer-motion';
 import { SettingsWindow } from './SettingsWindow';
 import { Clicktrack } from '../../models/Clicktrack';
 
 export interface ITitleButtons {
   clicktrack: Clicktrack;
   play: () => void;
+  pause: () => void;
+  resume: () => void;
+  stop: () => void;
   saveChanges: () => Promise<boolean>;
   changesSaved: boolean;
   saving: boolean;
-  playingDisplay: boolean;
-  pulseAnimationControls: AnimationControls;
+  isPlaying: boolean;
+  isPaused: boolean;
+  pulseAnimationControls: LegacyAnimationControls;
   settingsShown: boolean;
   setSettingsShown: (value: React.SetStateAction<boolean>) => void;
   updateClicktrackData: (update: Partial<Clicktrack['data']>) => void;
@@ -18,10 +26,12 @@ export interface ITitleButtons {
 export const TitleButtons = ({
   clicktrack,
   play,
+  stop,
+  isPaused,
   saveChanges,
   changesSaved,
   saving,
-  playingDisplay,
+  isPlaying,
   pulseAnimationControls,
   settingsShown,
   setSettingsShown,
@@ -29,13 +39,23 @@ export const TitleButtons = ({
 }: ITitleButtons) => {
   return (
     <div className="flex items-center gap-2">
-      <motion.button
-        onClick={play}
-        animate={pulseAnimationControls}
-        className="rounded-sm bg-purple-700 px-4 py-2 text-white"
-      >
-        <i className={playingDisplay ? 'bi-pause-fill' : 'bi-play-fill'} />
-      </motion.button>
+      <div className="flex">
+        <motion.button
+          onClick={play}
+          animate={pulseAnimationControls}
+          className="rounded-l-sm bg-purple-700 px-4 py-2 text-white"
+        >
+          <i className={isPlaying ? 'bi-pause-fill' : 'bi-play-fill'} />
+        </motion.button>
+        <button
+          onClick={stop}
+          disabled={!isPaused && !isPlaying}
+          className="rounded-r-sm bg-zinc-700 px-4 py-2 text-white disabled:opacity-50"
+        >
+          <i className="bi-stop-fill" />
+        </button>
+      </div>
+
       <button
         onClick={saveChanges}
         disabled={changesSaved}
@@ -44,11 +64,11 @@ export const TitleButtons = ({
         {changesSaved === false && (
           <div className={clicktrack.data.showSaveIndicator ? '' : 'hidden'}>
             <div
-              className={`absolute right-0 top-0 -m-1 h-3 w-3 animate-ping rounded-full bg-purple-500 ${
+              className={`absolute top-0 right-0 -m-1 h-3 w-3 animate-ping rounded-full bg-purple-500 ${
                 clicktrack.data.animateSaveIndicator ? '' : 'hidden'
               }`}
             />
-            <div className="absolute right-0 top-0 -m-1 h-3 w-3 rounded-full bg-purple-500" />
+            <div className="absolute top-0 right-0 -m-1 h-3 w-3 rounded-full bg-purple-500" />
           </div>
         )}
         {saving ? (
@@ -63,7 +83,7 @@ export const TitleButtons = ({
         }}
         className="group rounded-sm bg-black px-4 py-2 text-white dark:bg-white dark:text-black"
       >
-        <i className="bi-gear-fill block duration-150 group-hover:rotate-[40deg]" />
+        <i className="bi-gear-fill block duration-150 group-hover:rotate-40" />
       </button>
       <AnimatePresence>
         {settingsShown && (

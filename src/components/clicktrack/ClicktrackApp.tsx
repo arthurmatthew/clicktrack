@@ -11,8 +11,11 @@ interface IClicktrackApp {
 export const ClicktrackApp = ({ loadedClicktrack }: IClicktrackApp) => {
   const {
     clicktrack,
-    play,
-    playingDisplay,
+    playFromSection,
+    pause,
+    resume,
+    stop,
+    isPlaying,
     selectedId,
     setSelectedId,
     pulseAnimationControls,
@@ -26,15 +29,16 @@ export const ClicktrackApp = ({ loadedClicktrack }: IClicktrackApp) => {
     sequencerOnDragEnd,
     saveChanges,
     changesSaved,
+    isPaused,
     saving,
   } = useClicktrack(loadedClicktrack);
 
   return (
-    <motion.div className="flex min-h-0 min-w-full flex-1 flex-col py-2">
+    <motion.div className="flex min-h-0 min-w-full flex-1 flex-col overflow-hidden">
       <Title
         {...{
           clicktrack,
-          playingDisplay,
+          isPlaying,
           pulseAnimationControls,
           settingsShown,
           setSettingsShown,
@@ -42,15 +46,19 @@ export const ClicktrackApp = ({ loadedClicktrack }: IClicktrackApp) => {
           saveChanges,
           changesSaved,
           saving,
+          pause,
+          resume,
+          stop,
+          isPaused,
         }}
         play={() => {
-          void play();
+          void playFromSection(selectedId);
         }}
       />
       <Controls
         sequence={clicktrack.data.sections}
         selected={clicktrack.data.sections.find(
-          (section) => section.id === selectedId
+          (section) => section.id === selectedId,
         )}
         {...{
           clicktrack,
@@ -61,7 +69,7 @@ export const ClicktrackApp = ({ loadedClicktrack }: IClicktrackApp) => {
           copySection,
           deleteSection,
           sequencerOnDragEnd,
-          playingDisplay,
+          isPlaying,
         }}
       />
     </motion.div>

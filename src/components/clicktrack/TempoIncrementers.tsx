@@ -7,7 +7,7 @@ export const TempoIncrementers = ({
   updateMetronome,
 }: IMetronomeUpdater) => {
   return (
-    <div className="flex flex-grow items-center justify-between">
+    <div className="flex grow items-center justify-between">
       <div className="flex w-full flex-col gap-[2px]">
         <div className="flex w-full overflow-hidden rounded-sm">
           <TempoIncrementButton

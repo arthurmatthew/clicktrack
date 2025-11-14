@@ -15,9 +15,9 @@ export const TitleInfo = ({ clicktrack }: ITitleInfo) => {
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-1 md:gap-3">
         <h1
-          className={`flex cursor-default items-center break-all text-center text-3xl focus:outline-0 ${
+          className={`flex cursor-default items-center text-center break-all focus:outline-0 md:text-3xl ${
             editing && 'cursor-text underline'
           }`}
           suppressContentEditableWarning

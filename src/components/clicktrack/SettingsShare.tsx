@@ -1,4 +1,3 @@
-import { Link } from 'react-router';
 import { SettingsButton } from './SettingsButton';
 import { SettingsSection } from './SettingsSection';
 import { useShareClicktrack } from '../../hooks/useShareClicktrack';
@@ -16,9 +15,9 @@ export const SettingsShare = ({ clicktrack }: ISettingsShare) => {
       <p>
         You can paste the given code into the <b>Import</b> box in the{' '}
         <span className="underline">
-          <Link target="blank" to="/app/clicktracks">
+          <a target="blank" href="/app/clicktracks">
             Clicktrack list
-          </Link>
+          </a>
         </span>
         . Copy your code below. It&apos;s specific to each of your Clicktracks.
       </p>

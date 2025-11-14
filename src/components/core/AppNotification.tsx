@@ -5,7 +5,7 @@ import { NOTIFICATION_FADE_AFTER } from '../../config';
 
 export const AppNotification = () => {
   const { notif, clearNotif } = useNotify();
-  const notificationTimeout = useRef<number>();
+  const notificationTimeout = useRef<number>(0);
 
   useEffect(() => {
     clearTimeout(notificationTimeout.current);
@@ -22,7 +22,7 @@ export const AppNotification = () => {
           animate={{ opacity: 100, y: 0 }}
           transition={{ ease: 'easeOut' }}
           exit={{ opacity: 0, y: 20 }}
-          className="fixed bottom-0 z-[99999999999] m-1 max-w-xl rounded-sm border-[1px] border-zinc-200 bg-white p-3 text-lg shadow-2xl dark:border-zinc-800 dark:bg-black sm:m-6 sm:p-6 sm:text-2xl"
+          className="fixed bottom-0 z-99999999999 m-1 max-w-xl rounded-sm border border-zinc-200 bg-white p-3 text-lg shadow-2xl dark:border-zinc-800 dark:bg-black sm:m-6 sm:p-6 sm:text-2xl"
         >
           <div className="flex items-center justify-between">
             <div className="flex gap-3">
@@ -43,7 +43,7 @@ export const AppNotification = () => {
               <i className="bi-x-lg" />
             </button>
           </div>
-          <div className="my-2 h-px w-36 bg-gradient-to-r from-zinc-300 to-transparent dark:from-zinc-800" />
+          <div className="my-2 h-px w-36 bg-linear-to-r from-zinc-300 to-transparent dark:from-zinc-800" />
           <p className="text-base">{notif.content}</p>
         </motion.div>
       )}

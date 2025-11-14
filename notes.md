@@ -74,3 +74,9 @@ Balance spacing across all panels for cleaner layout.
 !! WATCH OUT FOR onAuthState LISTENER REDUNDENCIES! OPT FOR CONTEXT ALWAYS
 
 migrate to react router protected routes
+
+NOTES FROM EVANS BUG/FEATURE TESTING:
+
+firefox volume slider is unbounded
+implement starting from section/beginning
+transition volume

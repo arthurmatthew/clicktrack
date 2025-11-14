@@ -1,9 +1,8 @@
 import { useRef, useState } from 'react';
-import { Link } from 'react-router';
-import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 import { Clicktrack } from '../../models/Clicktrack';
 import { IComponent } from '../IComponent';
 import { Button } from '../core/Button';
+import { DraggableProvidedDragHandleProps } from '@hello-pangea/dnd';
 
 interface IClicktrackListItem extends IComponent {
   clicktrack: Clicktrack;
@@ -28,7 +27,7 @@ export const ClicktrackListItem = ({
   const nameRef = useRef<HTMLHeadingElement>(null);
 
   return (
-    <div className="w-full select-none rounded-sm border-[1px] border-zinc-200 bg-white p-4 dark:border-zinc-900 dark:bg-black">
+    <div className="w-full rounded-sm border border-zinc-200 bg-white p-4 select-none dark:border-zinc-900 dark:bg-black">
       <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
         <div className="flex items-center gap-3">
           <i
@@ -36,7 +35,7 @@ export const ClicktrackListItem = ({
             {...dragHandle}
           />
           <h1
-            className={`flex cursor-default items-center break-all text-3xl focus:outline-0 ${
+            className={`flex cursor-default items-center text-3xl break-all focus:outline-0 ${
               editing && 'cursor-text underline'
             }`}
             suppressContentEditableWarning
@@ -66,11 +65,11 @@ export const ClicktrackListItem = ({
             } mx-2 cursor-pointer text-sm opacity-50`}
           />
         </div>
-        <div className="my-2 block h-px w-full bg-gradient-to-r from-zinc-300 to-transparent dark:from-zinc-700 sm:hidden" />
+        <div className="my-2 block h-px w-full bg-linear-to-r from-zinc-300 to-transparent sm:hidden dark:from-zinc-700" />
         <div className="flex gap-4">
-          <Link to={`/app/clicktracks/${encodeURIComponent(clicktrack.id)}`}>
+          <a href={`/app/clicktracks/${encodeURIComponent(clicktrack.id)}`}>
             <Button className="bg-zinc-200 dark:bg-zinc-900">Open</Button>
-          </Link>
+          </a>
 
           <p
             onClick={() => {
@@ -89,24 +88,27 @@ export const ClicktrackListItem = ({
       </div>
 
       {shown && (
-        <div className="mt-2 flex items-center gap-4">
-          <Button
-            className="bg-zinc-200 dark:bg-zinc-900"
-            disabled={limitSaves}
-            onClick={() => {
-              handleCopy(clicktrack.id);
-            }}
-          >
-            Copy
-          </Button>
-          <Button
-            onClick={handleRemove}
-            className="bg-red-600 text-white"
-            disabled={clicktrack.permanant}
-          >
-            {clicktrack.permanant ? "Can't Delete" : 'Delete'}
-          </Button>
-          <p className="text-sm opacity-50 ">id: {clicktrack.id}</p>
+        <div className="mt-2 flex flex-col gap-1 md:flex-row md:items-center md:gap-4">
+          <div className="flex gap-2 md:gap-4">
+            <Button
+              className="bg-zinc-200 dark:bg-zinc-900"
+              disabled={limitSaves}
+              onClick={() => {
+                handleCopy(clicktrack.id);
+              }}
+            >
+              Copy
+            </Button>
+            <Button
+              onClick={handleRemove}
+              className="bg-red-600 text-white"
+              disabled={clicktrack.permanant}
+            >
+              {clicktrack.permanant ? "Can't Delete" : 'Delete'}
+            </Button>
+          </div>
+
+          <p className="text-sm opacity-50">id: {clicktrack.id}</p>
         </div>
       )}
     </div>

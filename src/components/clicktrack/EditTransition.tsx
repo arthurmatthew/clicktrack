@@ -8,7 +8,7 @@ import { validateLength } from '../../utils/validators/validateLength';
 interface IEditTransition {
   updateTransition: (
     metronome: Transition,
-    update: Partial<Transition>
+    update: Partial<Transition>,
   ) => void;
   transition: Transition | undefined;
 }
@@ -53,82 +53,85 @@ export const EditTransition = ({
         transition.toMetronome &&
         transition.timeSignature &&
         transition.accentMap ? (
-          <div className="flex gap-2">
-            <div className="flex flex-col gap-1">
-              <h3 className="opacity-50">Inherit Time Signature</h3>
-              <div className="flex bg-zinc-200 dark:bg-zinc-900">
-                <div className="lora flex flex-col items-center justify-center bg-zinc-200 p-3 px-6 text-2xl font-black leading-none dark:bg-zinc-800">
-                  <span>{transition.timeSignature[0]}</span>
-                  <span>{transition.timeSignature[1]}</span>
+          <div className="flex flex-col-reverse gap-2 md:flex-row">
+            <div className="flex gap-2">
+              <div className="flex flex-col gap-1">
+                <h3 className="opacity-50">Inherit Time Signature</h3>
+                <div className="flex bg-zinc-200 dark:bg-zinc-900">
+                  <div className="lora flex flex-col items-center justify-center bg-zinc-200 p-3 px-6 text-2xl leading-none font-black dark:bg-zinc-800">
+                    <span>{transition.timeSignature[0]}</span>
+                    <span>{transition.timeSignature[1]}</span>
+                  </div>
+                  <div className="grid grid-rows-2 gap-px p-px pl-0">
+                    <button
+                      onClick={() =>
+                        updateTransition(transition, {
+                          inheritTimeSignature: 'previous',
+                        })
+                      }
+                      className={`p-2 px-4 ${
+                        transition.inheritTimeSignature === 'previous'
+                          ? 'bg-zinc-200 dark:bg-zinc-900'
+                          : 'bg-white dark:bg-black'
+                      }`}
+                    >
+                      From Previous
+                    </button>
+                    <button
+                      onClick={() =>
+                        updateTransition(transition, {
+                          inheritTimeSignature: 'next',
+                        })
+                      }
+                      className={`p-2 px-4 ${
+                        transition.inheritTimeSignature === 'next'
+                          ? 'bg-zinc-200 dark:bg-zinc-900'
+                          : 'bg-white dark:bg-black'
+                      }`}
+                    >
+                      From Next
+                    </button>
+                  </div>
                 </div>
-                <div className="grid grid-rows-2 gap-px p-px pl-0">
-                  <button
-                    onClick={() =>
-                      updateTransition(transition, {
-                        inheritTimeSignature: 'previous',
-                      })
-                    }
-                    className={`p-2 px-4 ${
-                      transition.inheritTimeSignature === 'previous'
-                        ? 'bg-zinc-200 dark:bg-zinc-900'
-                        : 'bg-white dark:bg-black'
-                    }`}
-                  >
-                    From Previous
-                  </button>
-                  <button
-                    onClick={() =>
-                      updateTransition(transition, {
-                        inheritTimeSignature: 'next',
-                      })
-                    }
-                    className={`p-2 px-4 ${
-                      transition.inheritTimeSignature === 'next'
-                        ? 'bg-zinc-200 dark:bg-zinc-900'
-                        : 'bg-white dark:bg-black'
-                    }`}
-                  >
-                    From Next
-                  </button>
+              </div>
+              <div className="flex flex-col gap-1">
+                <h3 className="opacity-50">Inherit Accents</h3>
+                <div className="flex bg-zinc-200 dark:bg-zinc-900">
+                  <div className="grid grid-rows-2 gap-px p-px">
+                    <button
+                      onClick={() =>
+                        updateTransition(transition, {
+                          inheritAccentMap: 'previous',
+                        })
+                      }
+                      className={`p-2 px-4 ${
+                        transition.inheritAccentMap === 'previous'
+                          ? 'bg-zinc-200 dark:bg-zinc-900'
+                          : 'bg-white dark:bg-black'
+                      }`}
+                    >
+                      From Previous
+                    </button>
+                    <button
+                      onClick={() =>
+                        updateTransition(transition, {
+                          inheritAccentMap: 'next',
+                        })
+                      }
+                      className={`p-2 px-4 ${
+                        transition.inheritAccentMap === 'next'
+                          ? 'bg-zinc-200 dark:bg-zinc-900'
+                          : 'bg-white dark:bg-black'
+                      }`}
+                    >
+                      From Next
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-1">
-              <h3 className="opacity-50">Inherit Accents</h3>
-              <div className="flex bg-zinc-200 dark:bg-zinc-900">
-                <div className="grid grid-rows-2 gap-px p-px">
-                  <button
-                    onClick={() =>
-                      updateTransition(transition, {
-                        inheritAccentMap: 'previous',
-                      })
-                    }
-                    className={`p-2 px-4 ${
-                      transition.inheritAccentMap === 'previous'
-                        ? 'bg-zinc-200 dark:bg-zinc-900'
-                        : 'bg-white dark:bg-black'
-                    }`}
-                  >
-                    From Previous
-                  </button>
-                  <button
-                    onClick={() =>
-                      updateTransition(transition, {
-                        inheritAccentMap: 'next',
-                      })
-                    }
-                    className={`p-2 px-4 ${
-                      transition.inheritAccentMap === 'next'
-                        ? 'bg-zinc-200 dark:bg-zinc-900'
-                        : 'bg-white dark:bg-black'
-                    }`}
-                  >
-                    From Next
-                  </button>
-                </div>
-              </div>
-            </div>
-            <p className=" max-w-lg">
+
+            <p className="max-w-lg">
               Transitioning from the previous{' '}
               <span className="roboto mx-1 rounded-lg bg-zinc-200 p-1 px-3 text-sm dark:bg-zinc-900">
                 {transition.fromMetronome.bpm} BPM
