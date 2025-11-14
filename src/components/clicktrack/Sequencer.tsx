@@ -138,7 +138,7 @@ export const Sequencer = ({
         <p className="mb-20 py-4 text-center opacity-50">End of sequence</p>
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 z-10 h-32 w-full rounded-b-sm bg-linear-to-t from-black to-transparent"></div>
+      <div className="absolute inset-x-0 bottom-0 z-10 h-32 w-full rounded-b-sm bg-linear-to-t from-white to-transparent dark:from-black"></div>
     </div>
   );
 };
