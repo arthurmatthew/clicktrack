@@ -31,7 +31,7 @@ export const Page = () => {
     (clicktracks?.length ?? 99999999) >= DB_RULE_MAX_CLICKTRACKS; // premium functionality is currently removed, all saves limited at 20
 
   return (
-    <div className="mx-4 my-10 flex grow flex-col">
+    <div className="no-scrollbar mx-4 mt-10 flex grow flex-col overflow-y-auto">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-4">
         <Heading
           {...{
@@ -65,6 +65,7 @@ export const Page = () => {
         ) : (
           <SkeletonLoaderList />
         )}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-32 w-full rounded-b-sm bg-linear-to-t from-white to-transparent dark:from-black"></div>
       </div>
     </div>
   );
