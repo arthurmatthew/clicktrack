@@ -3,6 +3,7 @@ import { Clicktrack } from '../../models/Clicktrack';
 import { ControlWindow } from './ControlWindow';
 import { EditSection, IEditSection } from './EditSection';
 import { ISequencer, Sequencer } from './Sequencer';
+import { useIsMobile } from '../../hooks/useIsMobile';
 export interface IControls extends ISequencer, IEditSection {
   clicktrack: Clicktrack;
 }
@@ -19,7 +20,7 @@ export const Controls = ({
   sequencerOnDragEnd,
   isPlaying,
 }: IControls) => {
-  const isMobile = window.innerWidth < 1024; // 1024px is lg tailwind
+  const { isMobile } = useIsMobile();
   const [tab, setTab] = useState<'sequencer' | 'edit'>('sequencer');
 
   if (isMobile) {
