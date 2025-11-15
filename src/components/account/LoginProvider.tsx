@@ -3,7 +3,7 @@ import { navigate } from 'vike/client/router';
 import { useNotify } from '../../hooks/useNotify';
 import { LoginForm } from './LoginForm';
 import { authenticateUser } from '../../lib/firebase/authenticateUser';
-import { getRedirectResult } from 'firebase/auth';
+import { getRedirectResult, onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from '../../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import {
@@ -56,6 +56,30 @@ export const LoginProvider = () => {
     };
 
     checkRedirectAuth();
+
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user && !redirectLoading) {
+        // User is signed in (via popup or other means)
+        setCreatingUser(true);
+        try {
+          const userDocRef = doc(db, DB_USERS_COLLECTION_KEY, user.uid);
+          const userDoc = await getDoc(userDocRef);
+
+          if (!userDoc.exists()) {
+            await setDoc(userDocRef, {
+              clicktracks: [],
+            });
+          }
+
+          navigate('/app/clicktracks');
+        } catch (error) {
+          notify('Authentication failed. Please try again.', 'error');
+          setCreatingUser(false);
+        }
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const handleSubmit = async (e: React.MouseEvent) => {

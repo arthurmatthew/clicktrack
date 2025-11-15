@@ -3,7 +3,7 @@ import { navigate } from 'vike/client/router';
 import { useNotify } from '../../hooks/useNotify';
 import { RegisterForm } from './RegisterForm';
 import { createUser } from '../../lib/firebase/createUser';
-import { getRedirectResult } from 'firebase/auth';
+import { getRedirectResult, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import {
   STORAGE_KEYS_GOOGLE_AUTH,
@@ -55,6 +55,30 @@ export const RegisterProvider = () => {
     };
 
     checkRedirectAuth();
+
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user && !redirectLoading) {
+        // User is signed in (via popup or other means)
+        setCreatingUser(true);
+        try {
+          const userDocRef = doc(db, DB_USERS_COLLECTION_KEY, user.uid);
+          const userDoc = await getDoc(userDocRef);
+
+          if (!userDoc.exists()) {
+            await setDoc(userDocRef, {
+              clicktracks: [],
+            });
+          }
+
+          navigate('/app/clicktracks');
+        } catch (error) {
+          notify('Registration failed. Please try again.', 'error');
+          setCreatingUser(false);
+        }
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const handleSubmit = async (e: React.MouseEvent) => {
