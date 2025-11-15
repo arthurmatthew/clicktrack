@@ -43,18 +43,18 @@ export const useClicktracks = () => {
   };
 
   const handleImport = () => {
-    setClicktracks((previousClicktracks) => {
-      if (
-        previousClicktracks === undefined ||
-        importRef.current?.value === undefined
-      )
-        return;
-      try {
-        const importedClicktrack = Clicktrack.decode(importRef.current.value);
+    if (importRef.current?.value === undefined) return;
 
-        if (importedClicktrack === undefined)
-          throw new Error('Clicktrack code returns undefined.');
-        notify(`Import successful.`, 'info');
+    const inputValue = importRef.current.value;
+
+    try {
+      const importedClicktrack = Clicktrack.decode(inputValue);
+
+      if (importedClicktrack === undefined)
+        throw new Error('Clicktrack code returns undefined.');
+
+      setClicktracks((previousClicktracks) => {
+        if (previousClicktracks === undefined) return;
 
         return [
           ...previousClicktracks,
@@ -64,15 +64,20 @@ export const useClicktracks = () => {
             name: importedClicktrack.name,
           }),
         ];
-      } catch (error) {
-        notify(
-          `We couldn't parse your code. Check your browser console for more details.`,
-          'error',
-        );
-        console.error(error);
-        return previousClicktracks;
+      });
+
+      notify(`Import successful.`, 'info');
+
+      if (importRef.current) {
+        importRef.current.value = '';
       }
-    });
+    } catch (error) {
+      notify(
+        `We couldn't parse your code. Check your browser console for more details.`,
+        'error',
+      );
+      console.error(error);
+    }
   };
 
   const handleTemplate = (code: string) => {
