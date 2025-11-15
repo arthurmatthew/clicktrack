@@ -4,6 +4,7 @@ export const DB_USERS_COLLECTION_KEY = 'users';
 export const DB_RULE_MAX_CLICKTRACKS = 20;
 export const CLICKTRACK_NAME_MAX_LENGTH = 100;
 export const CLICKTRACK_NAME_MIN_LENGTH = 1;
+export const DISPLAY_NAME_MAX_LENGTH = 30;
 
 export const STORAGE_KEYS_CLICKTRACK = 'clicktracks'; // The key to store clicktracks at in local storage
 export const STORAGE_KEYS_DARKMODE = 'dark-mode'; // The key to store the dark mode setting at in local storage

@@ -16,7 +16,7 @@ export const AccountOverview = ({ user }: IAccountOverview) => {
         <AccountDataValue>{user.email}</AccountDataValue>
         <h4 className="w-max">Phone Number</h4>
         <AccountDataValue>{user.phoneNumber}</AccountDataValue>
-        <h4 className="w-max">Account Creation Time</h4>
+        <h4 className="w-fit">Account Creation Time</h4>
         <AccountDataValue>{user.metadata.creationTime}</AccountDataValue>
       </div>
     </div>
