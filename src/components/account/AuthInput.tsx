@@ -32,6 +32,7 @@ export const AuthInput = ({
       <input
         className="rounded-sm border border-zinc-300 bg-white p-3 text-lg shadow-2xl outline-purple-500 duration-150 focus:shadow-purple-900/50 focus:outline-dashed dark:border-zinc-700 dark:bg-black"
         name={name}
+        id={name}
         type={
           type === 'current-password' || type === 'new-password'
             ? 'password'

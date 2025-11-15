@@ -47,6 +47,7 @@ export const EditProfile = ({ user }: IAccountOverview) => {
             value={localDisplayName}
             onChange={(e) => setLocalDisplayName(e.currentTarget.value)}
             maxLength={DISPLAY_NAME_MAX_LENGTH}
+            name="display-name"
             placeholder="Enter a display name here."
             className="rounded-sm border border-zinc-300 bg-white p-3 text-lg focus:bg-zinc-100 focus:outline-none dark:border-zinc-700 dark:bg-black dark:focus:bg-zinc-900"
             required

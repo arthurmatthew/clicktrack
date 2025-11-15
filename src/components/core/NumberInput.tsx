@@ -27,7 +27,7 @@ export const NumberInput = ({
     <div className="flex w-fit flex-col gap-1">
       {label && <h2 className="text-sm opacity-50">{label}</h2>}
       <div
-        className={`flex bg-zinc-200 dark:bg-zinc-900 sm:rounded-sm ${
+        className={`flex bg-zinc-200 sm:rounded-sm dark:bg-zinc-900 ${
           disabled && 'cursor-not-allowed opacity-50'
         }`}
       >
@@ -42,6 +42,7 @@ export const NumberInput = ({
           <input
             type="text"
             className="roboto w-full bg-transparent text-center text-2xl focus:outline-none"
+            name={label}
             value={value}
             onChange={(e) => {
               validateAndSet(e.currentTarget.value);
