@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Clicktrack } from '../models/Clicktrack';
 import { setUserData } from '../lib/firebase/setUserData';
 import { getUserClicktracks } from '../lib/firebase/getUserClicktracks';
@@ -13,12 +13,13 @@ import { loadLocalClicktracks } from '../utils/loadLocalClicktracks';
 export const useClicktrackStorage = () => {
   const [clicktracks, setClicktracks] = useState<Clicktrack[] | undefined>();
   const { user, initialized } = useUser();
+  const debounceTimerRef = useRef<number>(0);
 
   useEffect(() => {
     if (initialized) {
       if (user) {
         getUserClicktracks().then((userClicktracks) =>
-          setClicktracks(userClicktracks)
+          setClicktracks(userClicktracks),
         );
       } else {
         // Local storage loading
@@ -30,7 +31,7 @@ export const useClicktrackStorage = () => {
   const updateClicktracks = async (updatedData: Clicktrack[]) => {
     if (user) {
       const minifiedClicktracks = updatedData.map((clicktrack) =>
-        Clicktrack.encode(clicktrack)
+        Clicktrack.encode(clicktrack),
       );
 
       await setUserData({
@@ -39,13 +40,27 @@ export const useClicktrackStorage = () => {
     } else {
       localStorage.setItem(
         STORAGE_KEYS_CLICKTRACK,
-        JSON.stringify(updatedData)
+        JSON.stringify(updatedData),
       );
     }
   };
 
   useEffect(() => {
-    if (clicktracks) updateClicktracks(clicktracks);
+    if (clicktracks) {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+
+      debounceTimerRef.current = window.setTimeout(() => {
+        updateClicktracks(clicktracks);
+      }, 500);
+    }
+
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
   }, [clicktracks]);
 
   return { clicktracks, setClicktracks };
