@@ -6,6 +6,7 @@ interface IAuthInput {
   name: string;
   autocomplete: string;
   placeholder?: string;
+  disabled?: boolean;
 }
 
 export const AuthInput = ({
@@ -16,6 +17,7 @@ export const AuthInput = ({
   name,
   placeholder,
   autocomplete,
+  disabled,
 }: IAuthInput) => {
   return (
     <label htmlFor={name} className="flex flex-col gap-1">
@@ -40,6 +42,7 @@ export const AuthInput = ({
         required
         placeholder={placeholder}
         autoComplete={autocomplete}
+        disabled={disabled}
       />
     </label>
   );
