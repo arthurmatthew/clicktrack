@@ -2,6 +2,10 @@ import { SettingsButton } from './SettingsButton';
 import { SettingsSection } from './SettingsSection';
 import { useShareClicktrack } from '../../hooks/useShareClicktrack';
 import { Clicktrack } from '../../models/Clicktrack';
+import { Setting } from './Setting';
+import { downloadClicktrack } from '../../metronome/renderClicktrack';
+import { validatePlay } from '../../utils/validators/validatePlay';
+import { useNotify } from '../../hooks/useNotify';
 
 interface ISettingsShare {
   clicktrack: Clicktrack;
@@ -9,6 +13,7 @@ interface ISettingsShare {
 
 export const SettingsShare = ({ clicktrack }: ISettingsShare) => {
   const { sharingCode, copyToClipboard } = useShareClicktrack(clicktrack);
+  const { notify } = useNotify();
 
   return (
     <SettingsSection name="share">
@@ -29,10 +34,23 @@ export const SettingsShare = ({ clicktrack }: ISettingsShare) => {
         >
           Copy
         </SettingsButton>
-        <p className="h-full max-w-sm overflow-hidden text-ellipsis rounded-sm rounded-b-none p-2 text-sm text-black/50 dark:text-white/20">
+        <p className="h-full max-w-sm overflow-hidden rounded-sm rounded-b-none p-2 text-sm text-ellipsis text-black/50 dark:text-white/20">
           {sharingCode}
         </p>
       </div>
+      <Setting
+        label="Render - Experimental"
+        description="Download a rendered version of your Clicktrack."
+      >
+        <SettingsButton
+          onClick={() => {
+            if (validatePlay(clicktrack.data.sections, notify))
+              downloadClicktrack(clicktrack, clicktrack.name);
+          }}
+        >
+          Download
+        </SettingsButton>
+      </Setting>
     </SettingsSection>
   );
 };

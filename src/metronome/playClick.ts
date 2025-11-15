@@ -3,7 +3,7 @@ import { Metronome } from '../models/Metronome';
 import { Transition } from '../models/Transition';
 
 export const playClick = (
-  audioContext: AudioContext | null,
+  audioContext: AudioContext | OfflineAudioContext | null,
   clicktrack: Clicktrack,
   _beat: number,
   accent: number,
