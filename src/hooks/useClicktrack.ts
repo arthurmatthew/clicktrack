@@ -41,6 +41,15 @@ export const useClicktrack = (loadedClicktrack: Clicktrack) => {
     });
   };
 
+  const updateClicktrackName = (newName: string): void => {
+    setClicktrack((previousClicktrack) => {
+      return new Clicktrack({
+        ...previousClicktrack,
+        name: newName,
+      });
+    });
+  };
+
   const pulseAnimationControls = useAnimationControls();
   const startPulseAnimation = () => {
     // console.log('startPulseAnimation called');
@@ -95,5 +104,6 @@ export const useClicktrack = (loadedClicktrack: Clicktrack) => {
     saveChanges,
     saving,
     playFromSection,
+    updateClicktrackName,
   };
 };
