@@ -64,11 +64,17 @@ export const useCloudClicktrack = (loadedClicktrack: Clicktrack) => {
       const withoutEdited = currentSavedClicktracks.filter(
         (ct) => ct.id !== clicktrack.id,
       );
+
+      const clicktrackWithTimestamp = new Clicktrack({
+        ...clicktrack,
+        lastModified: Date.now(),
+      });
+
       const result = [...withoutEdited];
       result.splice(
         indexOfEdited === -1 ? result.length : indexOfEdited,
         0,
-        clicktrack,
+        clicktrackWithTimestamp,
       );
 
       if (!!user) {
@@ -79,7 +85,8 @@ export const useCloudClicktrack = (loadedClicktrack: Clicktrack) => {
         saveLocalClicktracks(result);
       }
 
-      setLastSavedClicktrack(clicktrack);
+      setClicktrack(clicktrackWithTimestamp);
+      setLastSavedClicktrack(clicktrackWithTimestamp);
       return true;
     } catch (error) {
       console.error('Failed to save changes', error);

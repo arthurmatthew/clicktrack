@@ -4,6 +4,7 @@ import { IComponent } from '../IComponent';
 import { Button } from '../core/Button';
 import { DraggableProvidedDragHandleProps } from '@hello-pangea/dnd';
 import { ClicktrackListItemName } from './ClicktrackListItemName';
+import { formatTimestamp } from '../../utils/formatTimestamp';
 
 interface IClicktrackListItem extends IComponent {
   clicktrack: Clicktrack;
@@ -77,8 +78,12 @@ export const ClicktrackListItem = ({
               {clicktrack.permanant ? "Can't Delete" : 'Delete'}
             </Button>
           </div>
-
-          <p className="text-sm opacity-50">id: {clicktrack.id}</p>
+          <div className="flex flex-col gap-1">
+            <p className="text-sm opacity-50">id: {clicktrack.id}</p>
+            <p className="text-sm opacity-50">
+              last modified: {formatTimestamp(clicktrack.lastModified)}
+            </p>
+          </div>
         </div>
       )}
     </div>
