@@ -16,31 +16,32 @@ export const Page = () => {
   const { user } = useUser();
 
   useEffect(() => {
-    if (!!user) {
-      if (savedClicktrack === undefined && params.clicktrack !== undefined) {
-        loadAvailableClicktrack(params.clicktrack).then(
-          (availableClicktrack) => {
-            if (availableClicktrack)
-              setSavedClicktrack(
-                Clicktrack.parseInternals(availableClicktrack),
-              );
-          },
+    const loadClicktrack = async () => {
+      if (params.clicktrack === undefined) return;
+
+      if (user) {
+        const availableClicktrack = await loadAvailableClicktrack(
+          params.clicktrack,
         );
+        if (availableClicktrack) {
+          setSavedClicktrack(Clicktrack.parseInternals(availableClicktrack));
+        }
+      } else {
+        const localClicktracks = localStorage.getItem(STORAGE_KEYS_CLICKTRACK);
+        const localParsedClicktracks = localClicktracks
+          ? (JSON.parse(localClicktracks) as Clicktrack[])
+          : undefined;
+        const availableClicktrack = (localParsedClicktracks || []).find(
+          (clicktrack) => clicktrack.id === params.clicktrack,
+        );
+        if (availableClicktrack) {
+          setSavedClicktrack(Clicktrack.parseInternals(availableClicktrack));
+        }
       }
-    } else {
-      const localClicktracks = localStorage.getItem(STORAGE_KEYS_CLICKTRACK);
-      const localParsedClicktracks = localClicktracks
-        ? (JSON.parse(localClicktracks) as Clicktrack[])
-        : undefined;
-      const availableClicktrack = (localParsedClicktracks || []).find(
-        (clicktrack) => clicktrack.id === params.clicktrack,
-      );
-      if (availableClicktrack)
-        setSavedClicktrack(
-          Clicktrack.parseInternals(availableClicktrack || []),
-        );
-    }
-  }, [params.clicktrack, user]);
+    };
+
+    loadClicktrack();
+  }, [params.clicktrack, user?.uid]);
 
   return savedClicktrack ? (
     <ClicktrackApp loadedClicktrack={savedClicktrack} />
