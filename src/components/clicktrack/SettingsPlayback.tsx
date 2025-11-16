@@ -1,3 +1,4 @@
+import { SOUND_LIBRARY, SOUND_LIST } from '../../metronome/sounds';
 import { TWaves } from '../../types';
 import { ISettingsUpdater } from './ISettingsUpdater';
 import { Setting } from './Setting';
@@ -15,8 +16,42 @@ export const SettingsPlayback = ({
     <SettingsSection name="Playback">
       <SettingsPlaybackVolume {...{ settings, updateSettings }} />
       <Setting
+        label="Sound"
+        description="Choose a sound from our library or use an oscillator."
+      >
+        <select
+          value={
+            settings.soundType === 'oscillator'
+              ? 'oscillator'
+              : settings.customSound?.id
+          }
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            const value = e.target.value;
+            if (value === 'oscillator') {
+              updateSettings({ soundType: 'oscillator' });
+            } else {
+              const soundId = value as keyof typeof SOUND_LIBRARY;
+              updateSettings({
+                soundType: 'sample',
+                customSound: SOUND_LIBRARY[soundId],
+              });
+            }
+          }}
+          name="sound"
+          className="bg-zinc-200 dark:bg-zinc-800"
+        >
+          <option value="oscillator">OSCILLATOR</option>
+          {SOUND_LIST.map((sound) => (
+            <option key={sound.id} value={sound.id}>
+              {sound.name.toLocaleUpperCase()}
+            </option>
+          ))}
+        </select>
+      </Setting>
+      <Setting
         label="Oscillator Type"
         description="Change the kind of wave that your metronome uses."
+        disabled={settings.soundType !== 'oscillator'}
       >
         <select
           value={settings.wave}

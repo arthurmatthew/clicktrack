@@ -72,3 +72,12 @@ export type TPlaybackState = {
   repeatsTaken: Map<string, number>;
   selectedId: string;
 };
+
+export type TSoundType = 'oscillator' | 'sample';
+
+export interface ICustomSound {
+  id: string;
+  name: string;
+  url: string;
+  buffer?: AudioBuffer;
+}

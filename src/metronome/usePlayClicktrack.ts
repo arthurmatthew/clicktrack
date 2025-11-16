@@ -8,6 +8,7 @@ import { TPlaybackState, TSection } from '../types';
 import { getEffectiveBpm } from '../utils/getEffectiveBpm';
 import { validatePlay } from '../utils/validators/validatePlay';
 import { playClick } from './playClick';
+import { audioBufferCache } from './audioBufferCache';
 
 export const usePlayClicktrack = (
   _clicktrack: Clicktrack,
@@ -391,6 +392,23 @@ export const usePlayClicktrack = (
     },
     [],
   );
+
+  useEffect(() => {
+    clicktrack.current = _clicktrack;
+
+    if (
+      audioCtx.current &&
+      _clicktrack.data.soundType === 'sample' &&
+      _clicktrack.data.customSound?.url
+    ) {
+      audioBufferCache
+        .getBuffer(audioCtx.current, _clicktrack.data.customSound.url)
+        .catch((error) => {
+          console.error(error);
+          notify('Failed to load custom sound', 'error');
+        });
+    }
+  });
 
   return {
     play,

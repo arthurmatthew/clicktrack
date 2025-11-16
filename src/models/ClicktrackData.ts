@@ -6,7 +6,7 @@ import {
   CLICKTRACK_DEFAULT_PLAY_EXTRA_BEAT,
   CLICKTRACK_DEFAULT_FADE_OUT,
 } from '../config';
-import { TSection, TWaves } from '../types';
+import { ICustomSound, TSection, TSoundType, TWaves } from '../types';
 import { Metronome } from './Metronome';
 import { Repeat } from './Repeat';
 
@@ -22,6 +22,8 @@ export class ClicktrackData {
   public animateSaveIndicator: boolean;
   public flashPlayButton: boolean;
   public wave: TWaves;
+  public soundType: TSoundType;
+  public customSound?: ICustomSound;
 
   constructor(options?: Partial<ClicktrackData>) {
     this.sections =
@@ -38,5 +40,7 @@ export class ClicktrackData {
     this.animateSaveIndicator = options?.animateSaveIndicator ?? true;
     this.flashPlayButton = options?.flashPlayButton ?? true;
     this.wave = options?.wave ?? 'sine';
+    this.soundType = options?.soundType ?? 'oscillator';
+    this.customSound = options?.customSound;
   }
 }
