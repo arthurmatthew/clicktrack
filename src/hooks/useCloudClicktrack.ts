@@ -96,5 +96,15 @@ export const useCloudClicktrack = (loadedClicktrack: Clicktrack) => {
     }
   };
 
+  useEffect(() => {
+    if (changesSaved) return;
+
+    const timeoutId = window.setTimeout(() => {
+      void saveChanges();
+    }, 2000);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [clicktrack, changesSaved]);
+
   return { clicktrack, setClicktrack, saveChanges, saving, changesSaved };
 };
