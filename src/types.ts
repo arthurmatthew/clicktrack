@@ -3,76 +3,71 @@ import { Metronome } from './models/Metronome';
 import { Transition } from './models/Transition';
 import { Repeat } from './models/Repeat';
 
-export type TCustomerPortalResult = {
-  url: string;
+// User & Auth Types
+export type TUserContext = {
+  user: User | null;
+  premium: boolean;
+  initialized: boolean;
 };
+
 export type TUserDocument = {
   clicktracks: string[];
 };
+
+export type TCustomerPortalResult = {
+  url: string;
+};
+
+// Notification Types
+export type TNotificationTypes = 'warning' | 'error' | 'info' | undefined;
+
 export type TNotification =
   | {
       content: string;
       type: TNotificationTypes;
     }
   | undefined;
-export type TNotificationTypes = 'warning' | 'error' | 'info' | undefined;
+
 export type TNotify = (content: string, type: TNotificationTypes) => void;
+
 export type TNotificationContext = {
   notif: TNotification;
   notify: TNotify;
   clearNotif: () => void;
 };
+
+// UI/Theme Types
 export type TDarkModeContext = {
   dark: boolean;
   toggleDark: () => void;
 };
-export type TUserContext = {
-  user: User | null;
-  premium: boolean;
-  initialized: boolean;
-};
+
+// Route Types
 export type ClicktrackRouteParams = {
   id: string;
 };
+
+// Template Types
 export type TTemplate = {
   code: string;
   name: string;
   description: string;
 };
+
+// Music/Audio Types
 export type TTimeSignature = [beats: number, value: number];
+
 export type TNote = [note: string, octave: number];
-export type TSaveableData =
-  | string
-  | number
-  | object
-  | boolean
-  | undefined
-  | null;
 
-export const SectionTypeMap = {
-  metronome: Metronome,
-  repeat: Repeat,
-  transition: Transition,
-};
+export type TAccentLevels = 0 | 1 | 2 | 3;
 
-export type TSection = Metronome | Repeat | Transition;
-export type TSectionTypes = 'metronome' | 'repeat' | 'transition';
+export type TAccentMap = TAccentLevels[];
 
 export type TCurveTypes = 'linear' | 'ease-in' | 'ease-out' | 'custom';
 
-export type TAccentLevels = 0 | 1 | 2 | 3;
-export type TAccentMap = TAccentLevels[];
-
 export type TWaves = Exclude<OscillatorType, 'custom'>;
 
-export type TPlaybackState = {
-  current16thBeat: number;
-  totalSectionsPlayed: number;
-  totalBarsPlayed: number;
-  repeatsTaken: Map<string, number>;
-  selectedId: string;
-};
-
+// Sound Types
 export type TSoundType = 'oscillator' | 'sample';
 
 export interface ICustomSound {
@@ -81,3 +76,32 @@ export interface ICustomSound {
   url: string;
   buffer?: AudioBuffer;
 }
+
+// Section Types
+export const SectionTypeMap = {
+  metronome: Metronome,
+  repeat: Repeat,
+  transition: Transition,
+};
+
+export type TSection = Metronome | Repeat | Transition;
+
+export type TSectionTypes = 'metronome' | 'repeat' | 'transition';
+
+// Playback Types
+export type TPlaybackState = {
+  current16thBeat: number;
+  totalSectionsPlayed: number;
+  totalBarsPlayed: number;
+  repeatsTaken: Map<string, number>;
+  selectedId: string;
+};
+
+// Utility Types
+export type TSaveableData =
+  | string
+  | number
+  | object
+  | boolean
+  | undefined
+  | null;
