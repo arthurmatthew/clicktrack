@@ -7,8 +7,7 @@
     "dev": "vike dev",
     "build": "vike build",
     "preview": "vike preview",
-    "lint": "eslint src",
-    "plint": "npx prettier . --check",
+    "pretty": "npx prettier . --check",
     "format": "npx prettier . --write"
   },
   "dependencies": {
@@ -18,27 +17,22 @@
     "@vercel/analytics": "^1.0.1",
     "firebase": "^12.5.0",
     "framer-motion": "^12.23.24",
-    "lodash": "^4.17.21",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.17",
-    "@types/lodash": "^4.14.197",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
-    "@typescript-eslint/eslint-plugin": "^8.46.4",
-    "@typescript-eslint/parser": "^8.46.4",
     "@vitejs/plugin-react": "^5.1.0",
     "autoprefixer": "^10.4.22",
-    "eslint": "^9.39.1",
-    "eslint-plugin-react": "^7.33.2",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.7.1",
     "tailwindcss": "^4.1.17",
     "typescript": "^5.1.6",
+    "typescript-eslint": "^8.46.4",
     "vike": "^0.4.246",
     "vike-react": "^0.6.12",
     "vite": "^7.2.2"

@@ -3,6 +3,12 @@ import { Clicktrack } from '../../models/Clicktrack';
 import { SettingsGeneral } from './SettingsGeneral';
 import { SettingsPlayback } from './SettingsPlayback';
 import { SettingsShare } from './SettingsShare';
+import { SettingsSection } from './SettingsSection';
+import { downloadClicktrack } from '../../metronome/renderClicktrack';
+import { validatePlay } from '../../utils/validators/validatePlay';
+import { Setting } from './Setting';
+import { SettingsButton } from './SettingsButton';
+import { useNotify } from '../../hooks/useNotify';
 
 interface ISettingsWindow {
   clicktrack: Clicktrack;
@@ -16,10 +22,11 @@ export const SettingsWindow = ({
   updateSettings,
 }: ISettingsWindow) => {
   const settings = clicktrack.data;
+  const { notify } = useNotify();
 
   return (
     <div
-      className="fixed left-0 top-0 z-999999999 flex h-full max-h-screen w-screen items-center justify-center sm:px-2 sm:pb-2 sm:pt-14 "
+      className="fixed top-0 left-0 z-999999999 flex h-full max-h-screen w-screen items-center justify-center sm:px-2 sm:pt-14 sm:pb-2"
       onClick={hideSettings}
     >
       <motion.div
@@ -42,6 +49,21 @@ export const SettingsWindow = ({
         </h1>
         <div className="flex flex-col gap-4">
           <SettingsShare {...{ clicktrack }} />
+          <SettingsSection name="Export">
+            <Setting
+              label="(experimental)"
+              description="Download a rendered (.wav) version of your Clicktrack."
+            >
+              <SettingsButton
+                onClick={() => {
+                  if (validatePlay(clicktrack.data.sections, notify))
+                    downloadClicktrack(clicktrack, clicktrack.name);
+                }}
+              >
+                Export
+              </SettingsButton>
+            </Setting>
+          </SettingsSection>
           <SettingsPlayback {...{ settings, updateSettings }} />
           <SettingsGeneral {...{ settings, updateSettings }} />
         </div>

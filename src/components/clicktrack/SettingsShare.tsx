@@ -29,7 +29,7 @@ export const SettingsShare = ({ clicktrack }: ISettingsShare) => {
         >
           Copy
         </SettingsButton>
-        <p className="h-full max-w-sm overflow-hidden text-ellipsis rounded-sm rounded-b-none p-2 text-sm text-black/50 dark:text-white/20">
+        <p className="h-full max-w-sm overflow-hidden rounded-sm rounded-b-none p-2 text-sm text-ellipsis text-black/50 dark:text-white/20">
           {sharingCode}
         </p>
       </div>

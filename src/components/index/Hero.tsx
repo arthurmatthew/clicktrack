@@ -31,6 +31,15 @@ export const Hero = () => {
           </div>
         </div>
       </section>
+      <section className="bg-purple-800 py-2 text-white">
+        <p className="text-center text-2xl">
+          Clicktrack is in early access. Expect issues and bugs, and please{' '}
+          <a href="#feedback" className="underline">
+            report them
+          </a>
+          , too!
+        </p>
+      </section>
       <section className="mx-2 my-6 flex justify-center">
         <div className="flex w-full max-w-7xl flex-col items-center justify-between gap-1 md:gap-0 lg:flex-row">
           <h3 className="opacity-70">
@@ -106,7 +115,7 @@ export const Hero = () => {
           <i className="bi-three-dots text-2xl opacity-20" />
         </div>
       </section>
-      <section className="mx-6 flex justify-center">
+      <section className="mx-6 flex justify-center" id="feedback">
         <div className="flex w-full max-w-7xl flex-col justify-between gap-6">
           <h1 className="text-4xl font-semibold">Feedback and Contribution</h1>
           <p className="text-2xl">

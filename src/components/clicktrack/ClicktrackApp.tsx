@@ -3,6 +3,7 @@ import { Controls } from './Controls';
 import { Title } from './Title';
 import { useClicktrack } from '../../hooks/useClicktrack';
 import { Clicktrack } from '../../models/Clicktrack';
+import { useEffect } from 'react';
 
 interface IClicktrackApp {
   loadedClicktrack: Clicktrack;
@@ -31,7 +32,40 @@ export const ClicktrackApp = ({ loadedClicktrack }: IClicktrackApp) => {
     changesSaved,
     isPaused,
     saving,
+    updateClicktrackName,
   } = useClicktrack(loadedClicktrack);
+
+  useEffect(() => {
+    document.title = clicktrack.name + ' - clicktrack';
+  }, [clicktrack.name]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement ||
+        (e.target as HTMLElement).isContentEditable
+      )
+        return;
+
+      if (e.code === 'Space') {
+        e.preventDefault();
+
+        if (isPlaying) {
+          if (isPaused) {
+            resume();
+          } else {
+            pause();
+          }
+        } else {
+          void playFromSection(selectedId);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isPlaying, isPaused, pause, resume, playFromSection, selectedId]);
 
   return (
     <motion.div className="flex min-h-0 min-w-full flex-1 flex-col overflow-hidden">
@@ -50,6 +84,7 @@ export const ClicktrackApp = ({ loadedClicktrack }: IClicktrackApp) => {
           resume,
           stop,
           isPaused,
+          updateClicktrackName,
         }}
         play={() => {
           void playFromSection(selectedId);

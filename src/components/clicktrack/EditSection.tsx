@@ -54,14 +54,12 @@ export const EditSection = ({
         </div>
       </div>
 
-      <div>
-        {selected && (
-          <SectionControls
-            {...{ copySection, deleteSection, setSelectedId, sequence }}
-            id={selected.id}
-          />
-        )}
-      </div>
+      {selected && (
+        <SectionControls
+          {...{ copySection, deleteSection, setSelectedId, sequence }}
+          id={selected.id}
+        />
+      )}
     </div>
   );
 };

@@ -2,7 +2,11 @@ import { StrictModeDroppable } from '../core/StrictModeDroppable';
 import { Clicktrack } from '../../models/Clicktrack';
 import { DraggableItem } from './DraggableItem';
 import { NoClicktracksPlaceholder } from './NoClicktracksPlaceholder';
-import { DropResult, DragDropContext, DroppableProvided } from '@hello-pangea/dnd';
+import {
+  DropResult,
+  DragDropContext,
+  DroppableProvided,
+} from '@hello-pangea/dnd';
 
 interface IDragDropList {
   clicktracks: Clicktrack[];
@@ -28,7 +32,7 @@ export const DragDropList = ({
           <ul
             {...provided.droppableProps}
             ref={provided.innerRef}
-            className="flex flex-col"
+            className="mb-20 flex flex-col"
           >
             {clicktracks.length === 0 ? (
               <NoClicktracksPlaceholder />

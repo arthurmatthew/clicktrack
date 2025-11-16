@@ -3,6 +3,10 @@ import { Clicktrack } from '../models/Clicktrack';
 import { useNotify } from './useNotify';
 import { useClicktrackStorage } from './useClicktrackStorage';
 import { DropResult } from '@hello-pangea/dnd';
+import {
+  CLICKTRACK_NAME_MAX_LENGTH,
+  CLICKTRACK_NAME_MIN_LENGTH,
+} from '../config';
 
 /**
  * Built upon the `useClicktrackStorage` hook, this hook provides functions to interact with the
@@ -39,18 +43,18 @@ export const useClicktracks = () => {
   };
 
   const handleImport = () => {
-    setClicktracks((previousClicktracks) => {
-      if (
-        previousClicktracks === undefined ||
-        importRef.current?.value === undefined
-      )
-        return;
-      try {
-        const importedClicktrack = Clicktrack.decode(importRef.current.value);
+    if (importRef.current?.value === undefined) return;
 
-        if (importedClicktrack === undefined)
-          throw new Error('Clicktrack code returns undefined.');
-        notify(`Import successful.`, 'info');
+    const inputValue = importRef.current.value;
+
+    try {
+      const importedClicktrack = Clicktrack.decode(inputValue);
+
+      if (importedClicktrack === undefined)
+        throw new Error('Clicktrack code returns undefined.');
+
+      setClicktracks((previousClicktracks) => {
+        if (previousClicktracks === undefined) return;
 
         return [
           ...previousClicktracks,
@@ -60,15 +64,20 @@ export const useClicktracks = () => {
             name: importedClicktrack.name,
           }),
         ];
-      } catch (error) {
-        notify(
-          `We couldn't parse your code. Check your browser console for more details.`,
-          'error'
-        );
-        console.error(error);
-        return previousClicktracks;
+      });
+
+      notify(`Import successful.`, 'info');
+
+      if (importRef.current) {
+        importRef.current.value = '';
       }
-    });
+    } catch (error) {
+      notify(
+        `We couldn't parse your code. Check your browser console for more details.`,
+        'error',
+      );
+      console.error(error);
+    }
   };
 
   const handleTemplate = (code: string) => {
@@ -92,7 +101,7 @@ export const useClicktracks = () => {
       } catch (error) {
         notify(
           `We couldn't import this template. Check your browser console for more details.`,
-          'error'
+          'error',
         );
         console.error(error);
         return previousClicktracks;
@@ -101,27 +110,26 @@ export const useClicktracks = () => {
   };
 
   const handleNameChange = (id: string, newName: string) => {
+    const trimmedName = newName.trim();
+
+    if (trimmedName.length > CLICKTRACK_NAME_MAX_LENGTH) {
+      notify('Name is too long', 'error');
+      return;
+    }
+
+    if (trimmedName.length < CLICKTRACK_NAME_MIN_LENGTH) {
+      notify('Name is too short', 'error');
+      return;
+    }
+
     setClicktracks((previousClicktracks) => {
       if (previousClicktracks === undefined) return;
-      const clicktracksWithoutToBeNamed = previousClicktracks.filter(
-        (metronome) => metronome.id !== id
+
+      return previousClicktracks.map((clicktrack) =>
+        clicktrack.id === id
+          ? new Clicktrack({ ...clicktrack, name: newName })
+          : clicktrack,
       );
-      const clicktrackToBeNamed = previousClicktracks.find(
-        (metronome) => metronome.id === id
-      );
-
-      if (!clicktrackToBeNamed) return previousClicktracks;
-
-      const clicktrackToBeNamedIndex =
-        previousClicktracks.indexOf(clicktrackToBeNamed);
-
-      clicktracksWithoutToBeNamed.splice(
-        clicktrackToBeNamedIndex,
-        0,
-        new Clicktrack({ ...clicktrackToBeNamed, name: newName })
-      );
-
-      return clicktracksWithoutToBeNamed;
     });
   };
 
@@ -141,7 +149,7 @@ export const useClicktracks = () => {
     setClicktracks((previousClicktracks) => {
       if (previousClicktracks === undefined) return;
       const clicktrackToCopy = previousClicktracks.find(
-        (clicktrack) => clicktrack.id === id
+        (clicktrack) => clicktrack.id === id,
       );
       if (!clicktrackToCopy) return previousClicktracks;
 

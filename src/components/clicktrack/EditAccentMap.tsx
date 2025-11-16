@@ -2,49 +2,18 @@ import { useState } from 'react';
 import { Metronome } from '../../models/Metronome';
 import { TAccentLevels } from '../../types';
 import { IMetronomeUpdater } from './IMetronomeUpdater';
+import { useDragGrid } from '../../hooks/useDragGrid';
+import { getSubdivisionLabel } from '../../utils/getSubdivisonLabel';
 
 type Resolution = 4 | 8 | 16;
 
 const isSubdivisionVisible = (
   index: number,
-  resolution: Resolution
+  resolution: Resolution,
 ): boolean => {
   const sixteenthsPerResolutionNote = 16 / resolution;
 
   return index % sixteenthsPerResolutionNote === 0;
-};
-
-const getSubdivisionLabel = (
-  index: number,
-  beatsPerBar: number,
-  beatValue: number
-): string => {
-  const subdivisionsPerBeat = 16 / beatValue;
-  const totalVisibleSubdivisions = beatsPerBar * subdivisionsPerBeat;
-
-  if (index >= totalVisibleSubdivisions) return '';
-
-  const beatNumber = Math.floor(index / subdivisionsPerBeat) + 1;
-  const positionInBeat = index % subdivisionsPerBeat;
-
-  if (positionInBeat === 0) return beatNumber.toString();
-
-  if (beatValue === 8) {
-    return ['', '+'][positionInBeat] || '';
-  }
-
-  if (beatValue === 4) {
-    return ['', 'e', '&', 'a'][positionInBeat] || '';
-  }
-
-  if (beatValue === 2) {
-    return ['', 'e', '&', 'a', '2', '2e', '2&', '2a'][positionInBeat] || '';
-  }
-
-  if (beatValue === 16) {
-    return '';
-  }
-  return '';
 };
 
 export const EditAccentMap = ({
@@ -52,9 +21,25 @@ export const EditAccentMap = ({
   updateMetronome,
 }: IMetronomeUpdater & { resolution?: Resolution }) => {
   const [resolution, setResolution] = useState<Resolution>(4);
+  const incrementAtIndex = (i: number) => {
+    if (metronome.accentMap[i] === undefined) return;
+    const newAccent = ((metronome.accentMap[i] + 1) % 4) as TAccentLevels;
+    const updated = [...metronome.accentMap];
+    updated[i] = newAccent;
+    updateMetronome(metronome, { accentMap: updated });
+  };
+
+  const { startDrag, moveDrag, endDrag } = useDragGrid({
+    onCellActivate: incrementAtIndex,
+  });
 
   return (
-    <div className="flex flex-col gap-1">
+    <div
+      className="flex flex-col gap-1"
+      onPointerMove={(e) => moveDrag(e.clientX, e.clientY)}
+      onPointerUp={endDrag}
+      onPointerCancel={endDrag}
+    >
       <h2 className="text-sm opacity-50">Accent Editor</h2>
       <div className="grid grid-cols-3">
         <button
@@ -93,7 +78,12 @@ export const EditAccentMap = ({
           if (!isSubdivisionVisible(index, resolution)) return null;
           return (
             <EditAccent
-              {...{ accent, index, metronome, updateMetronome }}
+              {...{
+                accent,
+                index,
+                metronome,
+                startDrag,
+              }}
               key={index}
             />
           );
@@ -107,28 +97,27 @@ const EditAccent = ({
   accent,
   index,
   metronome,
-  updateMetronome,
+  startDrag,
 }: {
   accent: number;
   index: number;
   metronome: Metronome;
-  updateMetronome: (metronome: Metronome, update: Partial<Metronome>) => void;
+  startDrag: (index: number) => void;
 }) => {
   const label = getSubdivisionLabel(
     index,
     metronome.timeSignature[0],
-    metronome.timeSignature[1]
+    metronome.timeSignature[1],
   );
 
   return (
     <div
-      onClick={() => {
-        const newAccent = (accent + 1) % 4; // cycle back after 3 to 0
-        const updatedAccentMap = [...metronome.accentMap];
-        updatedAccentMap[index] = newAccent as TAccentLevels; // ! find safer way later
-        updateMetronome(metronome, { accentMap: updatedAccentMap });
+      data-accent-index={index}
+      onPointerDown={(e) => {
+        e.preventDefault();
+        startDrag(index);
       }}
-      className="grow cursor-pointer"
+      className="grow cursor-pointer touch-none select-none"
     >
       {accent === 0 ? (
         <div className="grid grow grid-rows-3 gap-px bg-zinc-300 p-px opacity-30 dark:bg-zinc-800">

@@ -1,51 +1,17 @@
-import { useRef, useState } from 'react';
-import { useClicktracks } from '../../hooks/useClicktracks';
 import { DataViewItem } from './DataViewItem';
 import { Clicktrack } from '../../models/Clicktrack';
+import { TitleInfoEdit } from './TitleInfoEdit';
 
 export interface ITitleInfo {
   clicktrack: Clicktrack;
+  updateClicktrackName: (newName: string) => void;
 }
 
-export const TitleInfo = ({ clicktrack }: ITitleInfo) => {
-  const nameRef = useRef<HTMLHeadingElement>(null);
-  const [editing, setEditing] = useState<boolean>(false);
-
-  const { handleNameChange } = useClicktracks(); // ! this doesnt work
-
+export const TitleInfo = ({ clicktrack, updateClicktrackName }: ITitleInfo) => {
   return (
     <div className="flex flex-col items-center gap-2">
       <div className="flex items-center gap-1 md:gap-3">
-        <h1
-          className={`flex cursor-default items-center text-center break-all focus:outline-0 md:text-3xl ${
-            editing && 'cursor-text underline'
-          }`}
-          suppressContentEditableWarning
-          contentEditable={editing}
-          spellCheck={false}
-          ref={nameRef}
-        >
-          {clicktrack.name}
-        </h1>
-        <i
-          onClick={() => {
-            if (editing) {
-              const nameCheck = /(.|\s)*\S(.|\s)*/gm;
-              const newName = (nameRef.current?.innerText as string).trim();
-              if (!nameCheck.test(newName)) {
-                (nameRef.current as HTMLHeadingElement).innerText =
-                  clicktrack.name;
-                setEditing((previouslyEditing) => !previouslyEditing);
-                return;
-              }
-              handleNameChange(clicktrack.id, newName);
-            }
-            setEditing((previouslyEditing) => !previouslyEditing);
-          }}
-          className={`bi-${
-            editing ? 'check-lg' : 'pencil-fill'
-          } mx-2 cursor-pointer text-sm opacity-50`}
-        />
+        <TitleInfoEdit {...{ clicktrack, updateClicktrackName }} />
       </div>
 
       <ul className="hidden text-sm md:flex">

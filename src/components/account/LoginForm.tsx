@@ -2,7 +2,8 @@ import { IAuthForm } from './IAuthForm';
 import { AuthInput } from './AuthInput';
 import { AuthProvider } from './AuthProvider';
 import { authenticateUserWithGoogle } from '../../lib/firebase/authenticateUserWithGoogle';
-import { authenticateUserWithGitHub } from '../../lib/firebase/authenticateUserWithGitHub';
+import { useState } from 'react';
+import { useNotify } from '../../hooks/useNotify';
 
 export const LoginForm = ({
   email,
@@ -12,6 +13,24 @@ export const LoginForm = ({
   handleSubmit,
   loading,
 }: IAuthForm) => {
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [githubLoading, _setGithubLoading] = useState(false);
+  const { notify } = useNotify();
+
+  const handleGoogleAuth = async () => {
+    setGoogleLoading(true);
+    try {
+      await authenticateUserWithGoogle();
+    } catch (error: any) {
+      if (error.code !== 'auth/popup-closed-by-user') {
+        notify('Sign-in failed. Please try again.', 'error');
+      }
+      setGoogleLoading(false);
+    }
+  };
+
+  const isAuthLoading = googleLoading || githubLoading || loading;
+
   return (
     <div className="flex grow flex-col items-center justify-center p-2">
       <form className="relative flex flex-col gap-6 rounded-2xl p-8 sm:bg-zinc-200 dark:sm:bg-zinc-900">
@@ -25,16 +44,22 @@ export const LoginForm = ({
         </div>
         <div className="flex flex-col gap-2">
           <AuthProvider
-            onClick={() => authenticateUserWithGoogle()}
+            onClick={handleGoogleAuth}
             name="Google"
+            disabled={isAuthLoading}
           >
-            <i className="bi-google" />
+            {googleLoading ? (
+              <i className="bi-arrow-clockwise relative animate-spin" />
+            ) : (
+              <i className="bi-google" />
+            )}
           </AuthProvider>
-          <AuthProvider
-            onClick={() => authenticateUserWithGitHub()}
-            name="GitHub"
-          >
-            <i className="bi-github" />
+          <AuthProvider name="GitHub" disabled={true}>
+            {githubLoading ? (
+              <i className="bi-arrow-clockwise animate-spin" />
+            ) : (
+              <i className="bi-github" />
+            )}
           </AuthProvider>
         </div>
         <div className="h-px w-full bg-black opacity-20 dark:bg-white" />
@@ -47,6 +72,7 @@ export const LoginForm = ({
             onChange={(e) => setEmail(e.target.value)}
             placeholder="johndoe@gmail.com"
             autocomplete="username"
+            disabled={isAuthLoading}
           />
           <AuthInput
             label="Password"
@@ -55,11 +81,13 @@ export const LoginForm = ({
             value={password}
             autocomplete="current-password"
             onChange={(e) => setPassword(e.target.value)}
+            disabled={isAuthLoading}
           />
           <button
-            className="rounded-sm border border-zinc-300 bg-zinc-100 p-3 text-lg dark:border-zinc-700 dark:bg-zinc-900"
+            className="rounded-sm border border-zinc-300 bg-zinc-100 p-3 text-lg disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-700 dark:bg-zinc-900"
             type="submit"
             onClick={handleSubmit}
+            disabled={isAuthLoading}
           >
             {loading ? 'Logging in...' : 'Log in'}
           </button>
