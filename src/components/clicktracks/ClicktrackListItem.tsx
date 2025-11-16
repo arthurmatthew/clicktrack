@@ -38,7 +38,9 @@ export const ClicktrackListItem = ({
         </div>
         <div className="my-2 block h-px w-full bg-linear-to-r from-zinc-300 to-transparent sm:hidden dark:from-zinc-700" />
         <div className="flex gap-4">
-          <a href={`/app/clicktracks/${encodeURIComponent(clicktrack.id)}`}>
+          <a
+            href={`/app/clicktracks/c?id=${encodeURIComponent(clicktrack.id)}`}
+          >
             <Button className="bg-zinc-200 dark:bg-zinc-900">Open</Button>
           </a>
 

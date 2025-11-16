@@ -9,7 +9,6 @@ export const useIsMobile = () => {
     const mediaQuery = window.matchMedia('(max-width: 1024px)'); // 1024 is lg tailwind
 
     const handleChange = (e: MediaQueryListEvent) => {
-      console.count('useIsMobile fired'); // Count how many times it fires
       setIsMobile(e.matches);
     };
 
