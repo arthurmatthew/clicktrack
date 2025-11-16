@@ -28,17 +28,21 @@ export const SectionControls = ({
         disabled={previousId === undefined}
         className="flex-1 rounded-sm bg-zinc-300 p-4 py-3 disabled:opacity-50 dark:bg-zinc-900"
       >
-        Previous Section
+        Previous
       </button>
-      <p className="roboto flex items-center text-2xl">
-        <span className="rounded-md bg-zinc-200 px-1 dark:bg-zinc-900">
-          {sectionIndex + 1}
-        </span>
-        <span className="mx-1 text-sm">/</span>
-        <span className="rounded-md bg-zinc-200 px-1 dark:bg-zinc-900">
-          {total}
-        </span>
-      </p>
+      <div className="flex flex-col items-center">
+        <p className="text-sm">Section</p>
+        <p className="roboto flex items-center text-2xl">
+          <span className="rounded-md bg-zinc-200 px-1 dark:bg-zinc-900">
+            {sectionIndex + 1}
+          </span>
+          <span className="mx-1 text-sm">/</span>
+          <span className="rounded-md bg-zinc-200 px-1 dark:bg-zinc-900">
+            {total}
+          </span>
+        </p>
+      </div>
+
       <button
         onClick={() => {
           if (nextId) setSelectedId(nextId);
@@ -46,7 +50,7 @@ export const SectionControls = ({
         disabled={nextId === undefined}
         className="flex-1 rounded-sm bg-zinc-300 p-4 py-3 disabled:opacity-50 dark:bg-zinc-900"
       >
-        Next Section
+        Next
       </button>
     </div>
   );
