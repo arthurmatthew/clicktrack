@@ -4,7 +4,11 @@ export const HeroLinks = () => {
   return (
     <div className="flex flex-col items-center lg:items-start">
       <div className="grid w-full grid-cols-12 gap-2">
-        <a href="/writeup" className="col-span-5">
+        <a
+          href="https://youtu.be/iYuje8ptE2s?si=g3wCBaISr1mACj38"
+          target="_blank"
+          className="col-span-5"
+        >
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -14,10 +18,9 @@ export const HeroLinks = () => {
               whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.05 }}
               transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-              disabled
-              className="border-gradient w-full rounded-sm border-2 border-purple-500 bg-white py-3 text-xl disabled:cursor-not-allowed disabled:opacity-50 dark:border-purple-700 dark:bg-zinc-800 "
+              className="border-gradient w-full rounded-sm border-2 border-purple-500 bg-white py-3 text-xl disabled:cursor-not-allowed disabled:opacity-50 dark:border-purple-700 dark:bg-zinc-800"
             >
-              Mobile App
+              Watch Demo
             </motion.button>
           </motion.span>
         </a>
