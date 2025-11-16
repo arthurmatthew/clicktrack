@@ -9,7 +9,7 @@ import { loadLocalClicktracks } from '../../../../utils/loadLocalClicktracks';
 
 export const Page = () => {
   const pageContext = usePageContext();
-  const params = pageContext.routeParams;
+  const clicktrackId = pageContext.urlParsed.search.id;
   const [savedClicktrack, setSavedClicktrack] = useState<
     Clicktrack | undefined
   >(undefined);
@@ -19,19 +19,17 @@ export const Page = () => {
     if (!initialized) return;
 
     const loadClicktrack = async () => {
-      if (params.clicktrack === undefined) return;
-
       if (user) {
-        const availableClicktrack = await loadAvailableClicktrack(
-          params.clicktrack,
-        );
+        const availableClicktrack = await loadAvailableClicktrack(clicktrackId);
         if (availableClicktrack) {
           setSavedClicktrack(Clicktrack.parseInternals(availableClicktrack));
+        } else {
+          setSavedClicktrack(undefined);
         }
       } else {
         const localParsedClicktracks = loadLocalClicktracks();
         const availableClicktrack = (localParsedClicktracks || []).find(
-          (clicktrack) => clicktrack.id === params.clicktrack,
+          (clicktrack) => clicktrack.id === clicktrackId,
         );
         if (availableClicktrack) {
           setSavedClicktrack(Clicktrack.parseInternals(availableClicktrack));
@@ -42,7 +40,7 @@ export const Page = () => {
     };
 
     loadClicktrack();
-  }, [params.clicktrack, user, initialized]);
+  }, [clicktrackId, user, initialized]);
 
   if (!initialized) {
     return <ClicktrackNotFound />;
