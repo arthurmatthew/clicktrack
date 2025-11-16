@@ -124,25 +124,12 @@ export const useClicktracks = () => {
 
     setClicktracks((previousClicktracks) => {
       if (previousClicktracks === undefined) return;
-      const clicktracksWithoutToBeNamed = previousClicktracks.filter(
-        (metronome) => metronome.id !== id,
+
+      return previousClicktracks.map((clicktrack) =>
+        clicktrack.id === id
+          ? new Clicktrack({ ...clicktrack, name: newName })
+          : clicktrack,
       );
-      const clicktrackToBeNamed = previousClicktracks.find(
-        (metronome) => metronome.id === id,
-      );
-
-      if (!clicktrackToBeNamed) return previousClicktracks;
-
-      const clicktrackToBeNamedIndex =
-        previousClicktracks.indexOf(clicktrackToBeNamed);
-
-      clicktracksWithoutToBeNamed.splice(
-        clicktrackToBeNamedIndex,
-        0,
-        new Clicktrack({ ...clicktrackToBeNamed, name: newName }),
-      );
-
-      return clicktracksWithoutToBeNamed;
     });
   };
 
