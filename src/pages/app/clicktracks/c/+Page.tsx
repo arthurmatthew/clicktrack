@@ -17,6 +17,7 @@ export const Page = () => {
 
   useEffect(() => {
     if (!initialized) return;
+    if (!clicktrackId) return;
 
     const loadClicktrack = async () => {
       if (user) {
