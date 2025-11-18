@@ -2,18 +2,68 @@ import { SettingsButton } from './SettingsButton';
 import { SettingsSection } from './SettingsSection';
 import { useShareClicktrack } from '../../hooks/useShareClicktrack';
 import { Clicktrack } from '../../models/Clicktrack';
+import { useClicktracks } from '../../hooks/useClicktracks';
+import { Dispatch, SetStateAction, useState } from 'react';
+import { useUser } from '../../hooks/useUser';
+import { useNotify } from '../../hooks/useNotify';
 
 interface ISettingsShare {
   clicktrack: Clicktrack;
+  link: string | undefined;
+  setLink: Dispatch<SetStateAction<string | undefined>>;
 }
 
-export const SettingsShare = ({ clicktrack }: ISettingsShare) => {
+export const SettingsShare = ({
+  clicktrack,
+  link,
+  setLink,
+}: ISettingsShare) => {
   const { sharingCode, copyToClipboard } = useShareClicktrack(clicktrack);
+  const { handleShare } = useClicktracks();
+  const [loading, setLoading] = useState(false);
+  const { user, initialized } = useUser();
+  const { notify } = useNotify();
+
+  const handleGenerateLink = async () => {
+    setLoading(true);
+    const generated = await handleShare(clicktrack.id);
+    setLink(generated);
+    setLoading(false);
+  };
+
+  const handleCopyLink = async () => {
+    if (link === undefined) return;
+    await navigator.clipboard.writeText(link);
+    notify('Share link copied to clipboard!', 'info');
+  };
 
   return (
     <SettingsSection name="share">
+      <div
+        className={`items-center gap-4 ${!initialized || !user ? 'hidden' : 'flex'}`}
+      >
+        {link ? (
+          <SettingsButton
+            disabled={!initialized || !user}
+            onClick={handleCopyLink}
+            className="disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Copy
+          </SettingsButton>
+        ) : (
+          <SettingsButton
+            disabled={!initialized || !user}
+            onClick={handleGenerateLink}
+            className="disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {loading ? 'Generating...' : 'Get Link'}
+          </SettingsButton>
+        )}
+        <p className="opacity-75">{link ?? 'Link not yet generated'}</p>
+      </div>
+
       <p>
-        You can paste the given code into the <b>Import</b> box in the{' '}
+        Paste the given code into the <b>Import</b> box in the{' '}
         <span className="underline">
           <a target="blank" href="/app/clicktracks">
             Clicktrack list

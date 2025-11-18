@@ -9,17 +9,22 @@ import { validatePlay } from '../../utils/validators/validatePlay';
 import { Setting } from './Setting';
 import { SettingsButton } from './SettingsButton';
 import { useNotify } from '../../hooks/useNotify';
+import { Dispatch, SetStateAction } from 'react';
 
 interface ISettingsWindow {
   clicktrack: Clicktrack;
   hideSettings: () => void;
   updateSettings: (update: Partial<Clicktrack['data']>) => void;
+  link: string | undefined;
+  setLink: Dispatch<SetStateAction<string | undefined>>;
 }
 
 export const SettingsWindow = ({
   clicktrack,
   hideSettings,
   updateSettings,
+  link,
+  setLink,
 }: ISettingsWindow) => {
   const settings = clicktrack.data;
   const { notify } = useNotify();
@@ -48,7 +53,7 @@ export const SettingsWindow = ({
           Settings
         </h1>
         <div className="flex flex-col gap-4">
-          <SettingsShare {...{ clicktrack }} />
+          <SettingsShare {...{ clicktrack, link, setLink }} />
           <SettingsSection name="Export">
             <Setting
               label="(experimental)"

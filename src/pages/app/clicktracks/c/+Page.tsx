@@ -6,14 +6,28 @@ import { useUser } from '../../../../hooks/useUser';
 import { Clicktrack } from '../../../../models/Clicktrack';
 import { loadAvailableClicktrack } from '../../../../utils/loadAvailableClicktrack';
 import { loadLocalClicktracks } from '../../../../utils/loadLocalClicktracks';
+import { loadSharedClicktrack } from '../../../../utils/loadSharedClicktrack';
 
 export const Page = () => {
   const pageContext = usePageContext();
   const clicktrackId = pageContext.urlParsed.search.id;
+  const shareId = pageContext.urlParsed.search.share;
   const [savedClicktrack, setSavedClicktrack] = useState<
     Clicktrack | undefined
   >(undefined);
   const { user, initialized } = useUser();
+
+  useEffect(() => {
+    if (!initialized) return;
+    if (shareId === undefined) return;
+
+    const loadShared = async () => {
+      const sharedClicktrack = await loadSharedClicktrack(shareId);
+      if (sharedClicktrack) setSavedClicktrack(sharedClicktrack);
+    };
+
+    loadShared();
+  }, [shareId, initialized]);
 
   useEffect(() => {
     if (!initialized) return;

@@ -105,3 +105,17 @@ export type TSaveableData =
   | boolean
   | undefined
   | null;
+
+export type TSharedClicktrackDocument = {
+  data: string;
+  name: string;
+  createdAt: string;
+  isPublic: boolean; // false = shared link, true = public library
+  description: string; // for lib
+  createdBy: string; // for lib
+};
+
+export type TSharedClicktrackDictionaryDocument = {
+  shareId: string;
+  createdBy: string;
+};

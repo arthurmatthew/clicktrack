@@ -7,6 +7,8 @@ import {
   CLICKTRACK_NAME_MAX_LENGTH,
   CLICKTRACK_NAME_MIN_LENGTH,
 } from '../config';
+import { shareClicktrack } from '../lib/firebase/shareClicktrack';
+import { useUser } from './useUser';
 
 /**
  * Built upon the `useClicktrackStorage` hook, this hook provides functions to interact with the
@@ -18,6 +20,7 @@ export const useClicktracks = () => {
   const { clicktracks, setClicktracks } = useClicktrackStorage();
   const { notify } = useNotify();
   const importRef = useRef<HTMLInputElement | null>(null);
+  const { user, initialized } = useUser();
 
   const handleAdd = () => {
     setClicktracks((previousClicktracks) => {
@@ -163,6 +166,32 @@ export const useClicktracks = () => {
     });
   };
 
+  const handleShare = async (id: string): Promise<string | undefined> => {
+    const clicktrack = clicktracks?.find((ct) => ct.id === id);
+    if (!clicktrack) return;
+    if (!initialized || user === null) return;
+
+    try {
+      const shareableLink = await shareClicktrack(clicktrack.id, user.uid, {
+        name: clicktrack.name,
+        data: Clicktrack.encode(clicktrack),
+        isPublic: false,
+        description: '',
+        createdBy: user.uid,
+      });
+
+      if (shareableLink === null) return;
+
+      await navigator.clipboard.writeText(shareableLink);
+      notify('Share link copied to clipboard!', 'info');
+
+      return shareableLink;
+    } catch (error) {
+      notify('Failed to create share link', 'error');
+      return;
+    }
+  };
+
   return {
     clicktracks,
     importRef,
@@ -173,5 +202,6 @@ export const useClicktracks = () => {
     handleNameChange,
     handleOnDragEnd,
     handleCopy,
+    handleShare,
   };
 };

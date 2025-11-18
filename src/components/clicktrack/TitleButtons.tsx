@@ -5,6 +5,7 @@ import {
 } from 'framer-motion';
 import { SettingsWindow } from './SettingsWindow';
 import { Clicktrack } from '../../models/Clicktrack';
+import { useState } from 'react';
 
 export interface ITitleButtons {
   clicktrack: Clicktrack;
@@ -37,6 +38,8 @@ export const TitleButtons = ({
   setSettingsShown,
   updateClicktrackData,
 }: ITitleButtons) => {
+  const [link, setLink] = useState<string | undefined>(undefined);
+
   return (
     <div className="flex items-center gap-2">
       <div className="flex">
@@ -88,6 +91,7 @@ export const TitleButtons = ({
       <AnimatePresence>
         {settingsShown && (
           <SettingsWindow
+            {...{ link, setLink }}
             clicktrack={clicktrack}
             updateSettings={updateClicktrackData}
             hideSettings={() => {

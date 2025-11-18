@@ -2,6 +2,9 @@ import { TNote, TTimeSignature } from './types';
 
 export const DB_USERS_COLLECTION_KEY = 'users';
 export const DB_RULE_MAX_CLICKTRACKS = 20;
+export const DB_SHARED_CLICKTRACKS_COLLECTION_KEY = 'shared-clicktracks';
+export const DB_SHARED_CLICKTRACKS_DICTIONARY_COLLECTION_KEY =
+  'shared-clicktracks-dictionary';
 export const CLICKTRACK_NAME_MAX_LENGTH = 100;
 export const CLICKTRACK_NAME_MIN_LENGTH = 1;
 export const DISPLAY_NAME_MAX_LENGTH = 30;
